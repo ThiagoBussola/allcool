@@ -1,7 +1,6 @@
-package br.com.allcool.partner.domain;
+package br.com.allcool.product.domain;
 
-import br.com.allcool.address.domain.Address;
-import br.com.allcool.file.domain.File;
+import br.com.allcool.producttype.domain.ProductType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,9 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "partner")
+@Table(name = "product")
 @EqualsAndHashCode(of = "id")
-public class Partner {
+public class Product {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -35,29 +35,34 @@ public class Partner {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @JoinColumn(name = "producttype_id")
+    private ProductType type;
 
-    @ManyToOne
-    @JoinColumn(name = "file_id")
-    private File file;
+    @NotNull
+    private Long code;
 
     @NotBlank
     @Length(max = 100)
-    @Column(name = "partnername")
+    @Column(name = "productname")
     private String name;
 
     @NotBlank
-    @Length(max = 200)
+    @Length(max = 2000)
     private String description;
 
-    @Length(max = 20)
-    @Column(name = "phonenumber")
-    private String phoneNumber;
+    @NotNull
+    @Length(max = 400)
+    private String harmonization;
 
     @NotNull
-    private Long rating;
+    private Boolean active = Boolean.TRUE;
 
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkingPeriod> workingPeriods = new ArrayList<>();
+    @NotEmpty
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductContainer> containers = new ArrayList<>();
+
+    @NotEmpty
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductFlavor> flavors = new ArrayList<>();
+
 }

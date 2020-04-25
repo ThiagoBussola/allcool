@@ -1,7 +1,6 @@
 package br.com.allcool.review;
 
 import br.com.allcool.enums.FlavorTypeEnum;
-import br.com.allcool.user.domain.UserClient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +22,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "reviewproductflavor")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"id", "review"})
 public class ReviewProductFlavor {
 
     @Id

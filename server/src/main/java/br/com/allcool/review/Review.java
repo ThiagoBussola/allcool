@@ -1,6 +1,7 @@
 package br.com.allcool.review;
 
 import br.com.allcool.file.domain.File;
+import br.com.allcool.product.domain.Product;
 import br.com.allcool.user.domain.UserClient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "review")
-@EqualsAndHashCode(of = {"id", "userClient"})
+@EqualsAndHashCode(of = {"id", "user"})
 public class Review {
 
     @Id
@@ -37,9 +39,12 @@ public class Review {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userclient_id")
-    private UserClient userClient;
+    private UserClient user;
 
-    //TODO - PRODUTO
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @NotNull
     @OneToOne
@@ -53,6 +58,7 @@ public class Review {
     @NotNull
     private BigDecimal rating;
 
+    @NotEmpty
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewProductFlavor> flavors = new ArrayList<>();
 }

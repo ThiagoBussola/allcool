@@ -37,7 +37,7 @@ public class File {
     @NotBlank
     @Length(max = 60)
     @Column(name = "filename")
-    private String fileName;
+    private String name;
 
     @NotNull
     private LocalDateTime date;

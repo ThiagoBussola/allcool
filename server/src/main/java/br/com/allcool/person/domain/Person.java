@@ -29,7 +29,7 @@ public class Person {
     @NotBlank
     @Length(max = 150)
     @Column(name = "username")
-    private String userName;
+    private String name;
 
     @NotBlank
     @Length(max = 60)

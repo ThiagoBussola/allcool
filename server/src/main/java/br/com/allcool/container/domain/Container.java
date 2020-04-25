@@ -1,19 +1,15 @@
-package br.com.allcool.coupon.domain;
+package br.com.allcool.container.domain;
 
-import br.com.allcool.achievement.domain.Achievement;
-import br.com.allcool.enums.CouponTypeEnum;
+import br.com.allcool.enums.ContainerTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,31 +18,19 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "coupon")
+@Table(name = "container")
 @EqualsAndHashCode(of = "id")
-public class Coupon {
+public class Container {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID id;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "achievement_id")
-    private Achievement achievement;
-
-    @NotNull
-    private BigDecimal value = BigDecimal.ZERO;
-
-    @NotBlank
-    @Length(max = 200)
-    private String description;
-
-    @NotNull
-    private Long level;
-
     @NotBlank
     @Enumerated(EnumType.STRING)
-    private CouponTypeEnum type;
+    private ContainerTypeEnum type;
+
+    @NotNull
+    private BigDecimal capacity = BigDecimal.ZERO;
 }

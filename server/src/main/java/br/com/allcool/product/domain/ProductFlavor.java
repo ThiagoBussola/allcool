@@ -1,27 +1,31 @@
-package br.com.allcool.user.domain;
+package br.com.allcool.product.domain;
 
-import br.com.allcool.achievement.domain.Achievement;
-import br.com.allcool.user.domain.UserClient;
+import br.com.allcool.enums.FlavorTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "userclientachievement")
-@EqualsAndHashCode(of = {"id", "user", "achievement"})
-public class UserClientAchievement {
+@Table(name = "productflavor")
+@ToString(exclude = "product")
+@EqualsAndHashCode(of = {"id", "product"})
+public class ProductFlavor {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -29,18 +33,11 @@ public class UserClientAchievement {
     private UUID id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "achievement_id")
-    private Achievement achievement;
-
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userclient_id")
-    private UserClient user;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @NotNull
-    private Long level;
-
-    @NotNull
-    private BigDecimal progress = BigDecimal.ZERO;
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private FlavorTypeEnum type;
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "adress")
+@Table(name = "address")
 @EqualsAndHashCode(of = "id")
 public class Address {
 
@@ -44,5 +44,6 @@ public class Address {
 
     @NotBlank
     @Length(max = 2)
+    @Column(name = "federatedunit")
     private String federatedUnit;
 }

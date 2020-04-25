@@ -18,7 +18,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "userclientnews")
-@EqualsAndHashCode(of = {"id", "userClient", "news"})
+@EqualsAndHashCode(of = {"id", "user", "news"})
 public class UserClientNews {
 
     @Id

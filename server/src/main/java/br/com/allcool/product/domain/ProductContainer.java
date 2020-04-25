@@ -1,9 +1,9 @@
-package br.com.allcool.user.domain;
+package br.com.allcool.product.domain;
 
-import br.com.allcool.achievement.domain.Achievement;
-import br.com.allcool.user.domain.UserClient;
+import br.com.allcool.container.domain.Container;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -14,14 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "userclientachievement")
-@EqualsAndHashCode(of = {"id", "user", "achievement"})
-public class UserClientAchievement {
+@Table(name = "productcontainer")
+@ToString(exclude = "product")
+@EqualsAndHashCode(of = {"id", "product", "container"})
+public class ProductContainer {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -29,18 +29,12 @@ public class UserClientAchievement {
     private UUID id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "achievement_id")
-    private Achievement achievement;
-
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userclient_id")
-    private UserClient user;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @NotNull
-    private Long level;
-
-    @NotNull
-    private BigDecimal progress = BigDecimal.ZERO;
+    @ManyToOne
+    @JoinColumn(name = "container_id")
+    private Container container;
 }

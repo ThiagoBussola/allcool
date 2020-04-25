@@ -20,7 +20,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "achievementproducttype")
 @ToString(exclude = "achievement")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"id", "achievement", "productType"})
 public class AchievementProductType {
 
     @Id

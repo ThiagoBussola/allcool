@@ -2,6 +2,7 @@ package br.com.allcool.achievement.domain;
 
 import br.com.allcool.enums.AchievementTypeEnum;
 import br.com.allcool.file.domain.File;
+import br.com.allcool.product.domain.Product;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,6 +15,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,6 +36,10 @@ public class Achievement {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "file_id")
@@ -47,7 +53,7 @@ public class Achievement {
     @Length(max = 200)
     private String description;
 
-    @NotNull
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private AchievementTypeEnum type;
 
