@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,5 +40,6 @@ public class ProductFlavor {
 
     @NotBlank
     @Enumerated(EnumType.STRING)
+    @Column(name = "flavortype")
     private FlavorTypeEnum type;
 }

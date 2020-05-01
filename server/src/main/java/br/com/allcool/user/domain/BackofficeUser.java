@@ -31,5 +31,5 @@ public class BackofficeUser {
     private Person person;
 
     @NotNull
-    private Boolean admin = Boolean.FALSE;
+    private Boolean moderator = Boolean.FALSE;
 }
