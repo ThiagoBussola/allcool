@@ -1,4 +1,4 @@
-package br.com.allcool.review;
+package br.com.allcool.review.domain;
 
 import br.com.allcool.enums.FlavorTypeEnum;
 import lombok.Data;

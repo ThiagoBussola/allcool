@@ -1,4 +1,4 @@
-package br.com.allcool.review;
+package br.com.allcool.review.domain;
 
 import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
@@ -29,7 +29,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "review")
-@EqualsAndHashCode(of = {"id", "user"})
+@EqualsAndHashCode(of = {"id", "user", "product"})
 public class Review {
 
     @Id
