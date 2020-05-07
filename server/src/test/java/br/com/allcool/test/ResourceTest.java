@@ -1,11 +1,10 @@
 package br.com.allcool.test;
 
-import br.com.allcool.resource.user.UserResource;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
+
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -21,7 +20,7 @@ import java.lang.annotation.Target;
 @Rollback
 @WebMvcTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = UserResource.class)
+
 public @interface ResourceTest {
 
     @AliasFor(value = "controllers", annotation = WebMvcTest.class)
