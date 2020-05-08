@@ -64,5 +64,4 @@ public class Product {
     @NotEmpty
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductFlavor> flavors = new ArrayList<>();
-
 }
