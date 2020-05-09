@@ -36,6 +36,7 @@ public class WorkingPeriod {
 
     @NotBlank
     @Length(max = 30)
+    @Column(name = "weekday")
     private String day;
 
     @NotNull

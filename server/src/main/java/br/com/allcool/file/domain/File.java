@@ -32,6 +32,7 @@ public class File {
 
     @NotBlank
     @Length(max = 45)
+    @Column(name = "filetype")
     private String type;
 
     @NotBlank
@@ -40,5 +41,6 @@ public class File {
     private String name;
 
     @NotNull
+    @Column(name = "filedate")
     private LocalDateTime date;
 }

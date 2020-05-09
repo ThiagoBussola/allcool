@@ -60,4 +60,7 @@ public class Partner {
 
     @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkingPeriod> workingPeriods = new ArrayList<>();
+
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PartnerProduct> products = new ArrayList<>();
 }

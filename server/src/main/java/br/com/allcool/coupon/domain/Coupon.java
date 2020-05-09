@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -44,9 +45,11 @@ public class Coupon {
     private String description;
 
     @NotNull
+    @Column(name = "couponlevel")
     private Long level;
 
     @NotBlank
     @Enumerated(EnumType.STRING)
+    @Column(name = "coupontype")
     private CouponTypeEnum type;
 }
