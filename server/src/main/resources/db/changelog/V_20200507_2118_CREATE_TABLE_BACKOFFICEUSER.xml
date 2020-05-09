@@ -18,7 +18,7 @@
             <column name="person_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="admin" type="varchar(1)" defaultValueBoolean="false">
+            <column name="moderator" type="varchar(1)" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
         </createTable>
