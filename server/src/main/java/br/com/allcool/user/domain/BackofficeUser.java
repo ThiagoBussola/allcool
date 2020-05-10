@@ -1,10 +1,12 @@
 package br.com.allcool.user.domain;
 
+import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.person.domain.Person;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,5 +33,6 @@ public class BackofficeUser {
     private Person person;
 
     @NotNull
+    @Convert(converter = BooleanToYesOrNo.class)
     private Boolean moderator = Boolean.FALSE;
 }

@@ -35,5 +35,4 @@ public class UserClientCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userclient_id")
     private UserClient user;
-
 }

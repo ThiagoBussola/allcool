@@ -7,5 +7,5 @@
     <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql" />
     <property name="uuid_function" value="RANDOM_UUID()" dbms="h2" />
 
-    <includeAll path="db/changelog/" />
+    <includeAll path="db/changelog" />
 </databaseChangeLog>

@@ -1,11 +1,12 @@
 package br.com.allcool.test;
 
-import br.com.allcool.resource.user.UserResource;
+import br.com.allcool.config.AllcoolProfilesUtils;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -21,7 +22,8 @@ import java.lang.annotation.Target;
 @Rollback
 @WebMvcTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = UserResource.class)
+@EnableSpringDataWebSupport
+@ActiveProfiles(value = AllcoolProfilesUtils.TEST)
 public @interface ResourceTest {
 
     @AliasFor(value = "controllers", annotation = WebMvcTest.class)
