@@ -1,5 +1,6 @@
 package br.com.allcool.product.domain;
 
+import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.producttype.domain.ProductType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -55,6 +57,7 @@ public class Product {
     private String harmonization;
 
     @NotNull
+    @Convert(converter = BooleanToYesOrNo.class)
     private Boolean active = Boolean.TRUE;
 
     @NotEmpty
@@ -64,5 +67,4 @@ public class Product {
     @NotEmpty
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductFlavor> flavors = new ArrayList<>();
-
 }
