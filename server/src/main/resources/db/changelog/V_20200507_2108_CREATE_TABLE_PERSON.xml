@@ -24,6 +24,9 @@
             <column name="birthdate" type="date">
                 <constraints nullable="false"/>
             </column>
+            <column name="userpassword" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addPrimaryKey tableName="person" columnNames="id" constraintName="person_pk"/>

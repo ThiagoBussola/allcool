@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import br.com.allcool.config.security.service.AuthenticationService;
 import br.com.allcool.config.security.service.AuthenticationTokenFilter;
 import br.com.allcool.config.security.service.TokenService;
-import br.com.allcool.person.domain.PersonRepository;
+import br.com.allcool.person.repository.PersonRepository;
 
 @EnableWebSecurity
 @Configuration
@@ -63,4 +63,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public void configure(WebSecurity web) throws Exception {
 		super.configure(web);
 	}
+
 }

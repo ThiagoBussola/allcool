@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.allcool.person.domain.Person;
-import br.com.allcool.person.domain.PersonRepository;
+import br.com.allcool.person.repository.PersonRepository;
 
 @Service
 public class AuthenticationService implements UserDetailsService {

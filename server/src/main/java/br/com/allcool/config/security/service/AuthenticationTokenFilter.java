@@ -14,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.allcool.person.domain.Person;
-import br.com.allcool.person.domain.PersonRepository;
+import br.com.allcool.person.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -2,7 +2,6 @@ package br.com.allcool.person.domain;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,9 +17,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "ptofile")
+@Table(name = "authority")
 @EqualsAndHashCode(of = "id")
-public class Profile implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
 
 	/**
 	 * 
@@ -32,15 +31,13 @@ public class Profile implements GrantedAuthority {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID id;
 
-	// liquibase
     @NotBlank
     @Length(max = 150)
-    @Column(name = "profilename")
-    private String name;
+    private String authorityname;
 
 	@Override
 	public String getAuthority() {
-		return name;
+		return authorityname;
 	}
     
 }

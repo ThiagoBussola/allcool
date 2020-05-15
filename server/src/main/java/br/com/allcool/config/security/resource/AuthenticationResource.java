@@ -26,14 +26,17 @@ public class AuthenticationResource {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginForm login){
+	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginForm login){ //
 		
 		UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());	
 		
 		try {
 			
+			System.out.println(login.getEmail());
+			System.out.println(login.getPassword());
 			Authentication auth = authManager.authenticate(dadosLogin); // spring sabe que tem que chamar o auth service
 			String token = tokenService.gerarToken(auth);
+			
 			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
 			
 		} catch (AuthenticationException e) {

@@ -55,6 +55,7 @@ public class PersonRepositoryTest {
         person.setName("FooBar");
         person.setBirthDate(LocalDate.of(2020, 1, 1));
         person.setEmail("foobar@gmail.com");
+        person.setPassword("senhateste");
 
         Person savedPerson = this.repository.saveAndFlush(person);
 

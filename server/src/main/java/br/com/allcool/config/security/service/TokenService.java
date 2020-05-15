@@ -25,11 +25,11 @@ public class TokenService {
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(EXPIRATION));
 		
 		return Jwts.builder()
-				.setIssuer("API - AllCool") // quem fez a geracao do token
-				.setSubject(logado.getId().toString()) // USUARIO logado
-				.setIssuedAt(hoje) // data geracao token
-				.setExpiration(dataExpiracao) // tempo expiracao do token
-				.signWith(SignatureAlgorithm.HS256, SECRET) // alg cript and senha aplicacao
+				.setIssuer("API - AllCool")
+				.setSubject(logado.getId().toString())
+				.setIssuedAt(hoje)
+				.setExpiration(dataExpiracao)
+				.signWith(SignatureAlgorithm.HS256, SECRET)
 				.compact();
 	}
 	
