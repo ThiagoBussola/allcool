@@ -1,6 +1,6 @@
-package br.com.allcool.person.repository;
+package br.com.allcool.address.repository;
 
-import br.com.allcool.person.domain.Person;
+import br.com.allcool.address.domain.Address;
 import br.com.allcool.test.RepositoryTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,73 +15,83 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/person/person.sql"})
+@Sql(scripts = {"/sql/address/address.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
-public class PersonRepositoryTest {
+public class AddressRepositoryTest {
 
     @Autowired
-    private PersonRepository repository;
+    private AddressRepository repository;
 
-    private final UUID PERSON_ID = UUID.fromString("affb9869-61b3-4100-bafd-df7cf46ef341");
+    private final UUID ADDRESS_ID = UUID.fromString("28fd5d3c-97b2-11ea-bb37-0242ac130002");
 
     @Test
     public void findAll() {
 
-        List<Person> personList = this.repository.findAll();
+        List<Address> addressList = this.repository.findAll();
 
-        assertThat(personList).hasSize(3);
-        assertThat(personList).extracting(Person::getName).containsExactly("Teste da Silva", "Mike", "Will");
+        assertThat(addressList).hasSize(2);
+        assertThat(addressList).extracting(Address::getZipCode).containsExactly("87060-026" , "87060-023");
     }
 
     @Test
     public void delete() {
 
-        List<Person> personListBeforeDelete = this.repository.findAll();
+        List<Address> addressListBeforeDelete = this.repository.findAll();
 
-        assertThat(personListBeforeDelete).hasSize(3);
+        assertThat(addressListBeforeDelete).hasSize(2);
 
-        this.repository.deleteById(PERSON_ID);
+        this.repository.deleteById(ADDRESS_ID);
 
-        List<Person> personListAfterDelete = this.repository.findAll();
+        List<Address> addressListAfterDelete = this.repository.findAll();
 
-        assertThat(personListAfterDelete).hasSize(2);
+        assertThat(addressListAfterDelete).hasSize(1);
     }
 
     @Test
     public void save() {
 
-        Person person = new Person();
-        person.setName("FooBar");
-        person.setBirthDate(LocalDate.of(2020, 1, 1));
-        person.setEmail("foobar@gmail.com");
+        Address address = new Address();
+        address.setZipCode("87060-096");
+        address.setPublicPlace("Rua do Teste, 28");
+        address.setDistrict("Jardim Teste");
+        address.setLocality("Maringa");
+        address.setFederatedUnit("PR");
 
-        Person savedPerson = this.repository.saveAndFlush(person);
+        Address savedAddress = this.repository.saveAndFlush(address);
 
-        assertThat(savedPerson.getId()).isNotNull();
-        assertThat(savedPerson.getBirthDate()).isEqualTo(person.getBirthDate());
-        assertThat(savedPerson.getName()).isEqualTo(person.getName());
-        assertThat(savedPerson.getEmail()).isEqualTo(person.getEmail());
+        assertThat(savedAddress.getId()).isNotNull();
+        assertThat(savedAddress.getZipCode()).isEqualTo(address.getZipCode());
+        assertThat(savedAddress.getPublicPlace()).isEqualTo(address.getPublicPlace());
+        assertThat(savedAddress.getDistrict()).isEqualTo(address.getDistrict());
+        assertThat(savedAddress.getLocality()).isEqualTo(address.getLocality());
+        assertThat(savedAddress.getFederatedUnit()).isEqualTo(address.getFederatedUnit());
     }
 
     @Test
     public void update() {
 
-        Person personBeforeUpdate = this.repository.findById(PERSON_ID).get();
+        Address addressBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
 
-        assertThat(personBeforeUpdate.getId()).isEqualTo(PERSON_ID);
-        assertThat(personBeforeUpdate.getName()).isEqualTo("Teste da Silva");
-        assertThat(personBeforeUpdate.getEmail()).isEqualTo("teste@hotmail.com");
-        assertThat(personBeforeUpdate.getBirthDate()).isEqualTo(LocalDate.of(2000, 1, 1));
+        assertThat(addressBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(addressBeforeUpdate.getZipCode()).isEqualTo("87060-023");
+        assertThat(addressBeforeUpdate.getPublicPlace()).isEqualTo("Rua Teste Updade");
+        assertThat(addressBeforeUpdate.getDistrict()).isEqualTo("Bairro Teste");
+        assertThat(addressBeforeUpdate.getLocality()).isEqualTo("Cidade Teste");
+        assertThat(addressBeforeUpdate.getFederatedUnit()).isEqualTo("RR");
 
-        personBeforeUpdate.setName("Silva");
-        personBeforeUpdate.setBirthDate(LocalDate.of(2000, 2, 1));
-        personBeforeUpdate.setEmail("silva@hotmail.com");
+        addressBeforeUpdate.setZipCode("87060-024");
+        addressBeforeUpdate.setPublicPlace("Rua Teste Atualizada");
+        addressBeforeUpdate.setDistrict("Bairo Teste Atualizado");
+        addressBeforeUpdate.setLocality("Cidade Teste Atualizada");
+        addressBeforeUpdate.setFederatedUnit("BA");
 
-        Person personAfterUpdate = this.repository.saveAndFlush(personBeforeUpdate);
+        Address addressAfterUpdate = this.repository.saveAndFlush(addressBeforeUpdate);
 
-        assertThat(personAfterUpdate.getId()).isEqualTo(PERSON_ID);
-        assertThat(personAfterUpdate.getName()).isEqualTo("Silva");
-        assertThat(personAfterUpdate.getEmail()).isEqualTo("silva@hotmail.com");
-        assertThat(personAfterUpdate.getBirthDate()).isEqualTo(LocalDate.of(2000, 2, 1));
+        assertThat(addressAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(addressAfterUpdate.getZipCode()).isEqualTo("87060-024");
+        assertThat(addressAfterUpdate.getPublicPlace()).isEqualTo("Rua Teste Atualizada");
+        assertThat(addressAfterUpdate.getDistrict()).isEqualTo("Bairo Teste Atualizado");
+        assertThat(addressAfterUpdate.getLocality()).isEqualTo("Cidade Teste Atualizada");
+        assertThat(addressAfterUpdate.getFederatedUnit()).isEqualTo("BA");
     }
 }

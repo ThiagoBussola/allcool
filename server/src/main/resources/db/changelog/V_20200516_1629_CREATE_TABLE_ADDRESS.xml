@@ -7,28 +7,32 @@
     <changeSet id="create-table-file" author="thiago.bussola">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="file"/>
+                <tableExists tableName="address"/>
             </not>
         </preConditions>
 
-        <createTable tableName="file">
+        <createTable tableName="address">
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="url" type="varchar(200)">
+        <column name="zipcode" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="filetype" type="varchar(45)">
+            <column name="publicplace" type="varchar(150)">
                 <constraints nullable="false"/>
             </column>
-            <column name="filename" type="varchar(60)">
+            <column name="district" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
-            <column name="filedate" type="timestamp">
+            <column name="locality" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
+            <column name="federatedunit" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
-        <addPrimaryKey tableName="file" columnNames="id" constraintName="file_pk"/>
+        <addPrimaryKey tableName="address" columnNames="id" constraintName="address_pk"/>
     </changeSet>
 </databaseChangeLog>
