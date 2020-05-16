@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.allcool.config.security.service.TokenService;
+import br.com.allcool.person.domain.Person;
+import br.com.allcool.person.service.PersonService;
 
 @RestController
 @RequestMapping("/login")
@@ -24,25 +26,30 @@ public class AuthenticationResource {
 	
 	@Autowired
 	private TokenService tokenService;
+	
+	@Autowired
+	private PersonService personService;
 
 	@PostMapping
-	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginForm login){ //
+	public ResponseEntity<TokenDTO> login(@RequestBody @Valid LoginRequest login){
 		
 		UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());	
 		
 		try {
 			
-			System.out.println(login.getEmail());
-			System.out.println(login.getPassword());
-			Authentication auth = authManager.authenticate(dadosLogin); // spring sabe que tem que chamar o auth service
-			String token = tokenService.gerarToken(auth);
-			
+			Authentication auth = authManager.authenticate(dadosLogin);
+			String token = tokenService.createToken(auth);
 			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
 			
 		} catch (AuthenticationException e) {
-			
 			return ResponseEntity.badRequest().build();
 		}
 		
 	}
+	
+//	@PostMapping("/register")
+//	public ResponseEntity<Person> register(@RequestBody @Valid Person register){
+//		
+//		return ResponseEntity.ok(personService.register(register));
+//	}
 }

@@ -8,58 +8,59 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.util.StringUtils;
 
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AuthenticationTokenFilter extends OncePerRequestFilter { // chamado unica vez a cada requisicao
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
+	
+	private static final String AUTHORIZATION_HEADER = "Authorization";
+	private static final String BEARER = "Bearer ";
+    private static final Integer START_TOKEN = 7;
+	
+	private final TokenService tokenService;
+	private final PersonRepository personRepository;
 
-	private TokenService tokenService;
-	private PersonRepository personRepository;
-
-	// pegar token do cabecalho e verificar se esta ok
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest requestDate, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		String token = recuperarToken(request);
-		
-		Boolean validToken = tokenService.isTokenValid(token);
-		
-		if(Boolean.TRUE.equals(validToken)) { // verifica se o token eh valido para continuar com a req
-			authenticatePerson(token);
+		String token = resolveToken(requestDate);
+	
+		if(tokenService.validateToken(token)) {			
+			Authentication authentication = getAuthentication(token);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
-		filterChain.doFilter(request, response); // seguir fluxo da requisicao
+		
+		filterChain.doFilter(requestDate , response);
 		
 	}
 	
-	private String recuperarToken(HttpServletRequest request) {
+	private String resolveToken(HttpServletRequest requestDate ) {
 		
-		String token = request.getHeader("Authorization");
-		
-		if(Strings.isBlank(token) || token.startsWith("Bearer ")) {
-			
-			return null;
+		String bearerToken = requestDate.getHeader(AUTHORIZATION_HEADER);	
+		if(StringUtils.hasText(bearerToken) || bearerToken.startsWith(BEARER)) {		
+			return bearerToken.substring(START_TOKEN, bearerToken.length());
 		}
 		
-		return token.substring(7, token.length());
+		return null;
 	}
 	
-	private void authenticatePerson(String token) {
+	private Authentication getAuthentication(String token) {
 		
-		UUID idPerson = UUID.fromString(tokenService.getIdPerson(token));
-		
+		Claims claims = tokenService.parseClaims(token);
+		UUID idPerson = UUID.fromString(claims.getSubject());
 		Person person = personRepository.findById(idPerson).get();
 		
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(person, null, person.getAuthorities());
-		
-		SecurityContextHolder.getContext().setAuthentication(auth);
+		return new UsernamePasswordAuthenticationToken(person, null, person.getAuthorities());			
 	}
 
 }

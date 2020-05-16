@@ -19,8 +19,8 @@ import br.com.allcool.config.security.service.AuthenticationTokenFilter;
 import br.com.allcool.config.security.service.TokenService;
 import br.com.allcool.person.repository.PersonRepository;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -52,9 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and()
 			.csrf().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.addFilterBefore(new AuthenticationTokenFilter(tokenService, personRepository), UsernamePasswordAuthenticationFilter.class);
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//			.and()
+//			.addFilterBefore(new AuthenticationTokenFilter(tokenService, personRepository), UsernamePasswordAuthenticationFilter.class);
 
 	}
 	

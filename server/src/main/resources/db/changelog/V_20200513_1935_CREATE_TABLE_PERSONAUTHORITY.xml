@@ -12,10 +12,10 @@
         </preConditions>
 
         <createTable tableName="personauthority">
-            <column name="person_id" type="varchar(150)">
+            <column name="person_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="authority_id" type="varchar(150)">
+            <column name="authority_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
         </createTable>
