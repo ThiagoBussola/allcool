@@ -57,16 +57,16 @@ public class NewsRepositoryTest {
     public void save() {
 
         Address address = new Address();
-        address.setId(UUID.fromString("b787d2d1-4c7a-47ae-b0e3-7a0bf243b1da"));
+        address.setId(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
 
         File file = new File();
-        file.setId(UUID.fromString("3b180312-986d-11ea-bb37-0242ac130002"));
+        file.setId(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
 
         News news = new News();
         news.setAddress(address);
         news.setFile(file);
         news.setDescription("Uma notícia Teste");
-        news.setRating(512L);
+        news.setRating(5L);
         news.setCreationDate(LocalDate.of(2020,1,1));
         news.setEventDate(LocalDateTime.of(2020,2,5,20,30));
         news.setType(NewsTypeEnum.EVENT);
@@ -95,31 +95,29 @@ public class NewsRepositoryTest {
         News newsBeforeUpdate = this.repository.findById(NEWS_ID).get();
 
         assertThat(newsBeforeUpdate.getId()).isEqualTo(NEWS_ID);
-        assertThat(newsBeforeUpdate.getAddress().getId()).isEqualTo("c610a5c3-9746-43be-a1e4-5435411b0328");
-        assertThat(newsBeforeUpdate.getFile().getId()).isEqualTo("ce396aea-963e-11ea-bb37-0242ac130002");
+        assertThat(newsBeforeUpdate.getAddress().getId()).isEqualTo(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
+        assertThat(newsBeforeUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(newsBeforeUpdate.getDescription()).isEqualTo("Noticia Teste 1");
-        assertThat(newsBeforeUpdate.getRating()).isEqualTo(123L);
-        assertThat(newsBeforeUpdate.getCreationDate()).isEqualTo(LocalDate.of(2020,05, 14));
-        assertThat(newsBeforeUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2020, 06, 15, 01,00,00));
+        assertThat(newsBeforeUpdate.getRating()).isEqualTo(5L);
+        assertThat(newsBeforeUpdate.getCreationDate()).isEqualTo(LocalDate.of(2020,5, 14));
+        assertThat(newsBeforeUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2020, 6, 15, 1,00,00));
         assertThat(newsBeforeUpdate.getType()).isEqualTo(NewsTypeEnum.PRODUCT_LAUNCH);
 
-        newsBeforeUpdate.getAddress().setId(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0329"));
-        newsBeforeUpdate.getFile().setId(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130003"));
         newsBeforeUpdate.setDescription("Noticia Teste 1 Atualizada");
-        newsBeforeUpdate.setRating(1234L);
-        newsBeforeUpdate.setCreationDate(LocalDate.of(2021,05,14));
-        newsBeforeUpdate.setEventDate(LocalDateTime.of(2022,06,15,01,00,00));
+        newsBeforeUpdate.setRating(1L);
+        newsBeforeUpdate.setCreationDate(LocalDate.of(2021,5,14));
+        newsBeforeUpdate.setEventDate(LocalDateTime.of(2022,6,15,1,1,2));
         newsBeforeUpdate.setType(NewsTypeEnum.FEATURE);
 
         News newsAfterUpdate = this.repository.saveAndFlush(newsBeforeUpdate);
 
         assertThat(newsAfterUpdate.getId()).isEqualTo(NEWS_ID);
-        assertThat(newsAfterUpdate.getAddress().getId()).isEqualTo("c610a5c3-9746-43be-a1e4-5435411b0329");
-        assertThat(newsAfterUpdate.getFile().getId()).isEqualTo("ce396aea-963e-11ea-bb37-0242ac130003");
+        assertThat(newsAfterUpdate.getAddress().getId()).isEqualTo(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
+        assertThat(newsAfterUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(newsAfterUpdate.getDescription()).isEqualTo("Noticia Teste 1 Atualizada");
-        assertThat(newsAfterUpdate.getRating()).isEqualTo(1234L);
-        assertThat(newsAfterUpdate.getCreationDate()).isEqualTo(LocalDate.of(2021,05,14));
-        assertThat(newsAfterUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2022,06,15,01,00,00));
+        assertThat(newsAfterUpdate.getRating()).isEqualTo(1L);
+        assertThat(newsAfterUpdate.getCreationDate()).isEqualTo(LocalDate.of(2021,5,14));
+        assertThat(newsAfterUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2022,6,15,1,1,2));
         assertThat(newsAfterUpdate.getType()).isEqualTo(NewsTypeEnum.FEATURE);
 
 
