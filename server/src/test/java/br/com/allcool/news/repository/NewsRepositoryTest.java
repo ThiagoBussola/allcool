@@ -1,10 +1,9 @@
-package br.com.allcool.news;
+package br.com.allcool.news.repository;
 
 import br.com.allcool.address.domain.Address;
 import br.com.allcool.enums.NewsTypeEnum;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.news.domain.News;
-import br.com.allcool.news.repository.NewsRepository;
 import br.com.allcool.test.RepositoryTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +35,13 @@ public class NewsRepositoryTest {
         List<News> newsList = this.repository.findAll();
 
         assertThat(newsList).hasSize(2);
+        assertThat(newsList).extracting(news -> news.getAddress().getId()).containsExactly(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"), UUID.fromString("28fd5d3c-97b2-11ea-bb37-0242ac130002"));
+        assertThat(newsList).extracting(news -> news.getFile().getId()).containsExactly(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"), UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
         assertThat(newsList).extracting(News::getDescription).containsExactly("Noticia Teste 1", "Noticia Teste 2");
+        assertThat(newsList).extracting(News::getRating).containsExactly(5L, 1L);
+        assertThat(newsList).extracting(News::getCreationDate).containsExactly(LocalDate.of(2020,5,14), LocalDate.of(2020,5,18));
+        assertThat(newsList).extracting(News::getEventDate).containsExactly(LocalDateTime.of(2020,6,15,1,0,0), LocalDateTime.of(2020,7,12,2,0,0));
+        assertThat(newsList).extracting(News::getType).containsExactly(NewsTypeEnum.PRODUCT_LAUNCH, NewsTypeEnum.PRODUCT_LAUNCH);
     }
 
     @Test
