@@ -30,7 +30,11 @@ public class AddressRepositoryTest {
         List<Address> addressList = this.repository.findAll();
 
         assertThat(addressList).hasSize(2);
-        assertThat(addressList).extracting(Address::getZipCode).containsExactly("87060-026" , "87060-023");
+        assertThat(addressList).extracting(Address::getZipCode).containsExactly("87060-026", "87060-023");
+        assertThat(addressList).extracting(Address::getPublicPlace).containsExactly("Rua Luiza Zequim", "Rua Teste Update");
+        assertThat(addressList).extracting(Address::getDistrict).containsExactly("Jardim Santa Rosa", "Bairro Teste");
+        assertThat(addressList).extracting(Address::getLocality).containsExactly("Maringa", "Cidade Teste");
+        assertThat(addressList).extracting(Address::getFederatedUnit).containsExactly("PR", "RR");
     }
 
     @Test
@@ -74,7 +78,7 @@ public class AddressRepositoryTest {
 
         assertThat(addressBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
         assertThat(addressBeforeUpdate.getZipCode()).isEqualTo("87060-023");
-        assertThat(addressBeforeUpdate.getPublicPlace()).isEqualTo("Rua Teste Updade");
+        assertThat(addressBeforeUpdate.getPublicPlace()).isEqualTo("Rua Teste Update");
         assertThat(addressBeforeUpdate.getDistrict()).isEqualTo("Bairro Teste");
         assertThat(addressBeforeUpdate.getLocality()).isEqualTo("Cidade Teste");
         assertThat(addressBeforeUpdate.getFederatedUnit()).isEqualTo("RR");

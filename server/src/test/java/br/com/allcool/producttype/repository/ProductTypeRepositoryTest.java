@@ -31,6 +31,7 @@ public class ProductTypeRepositoryTest {
 
         assertThat(addressList).hasSize(2);
         assertThat(addressList).extracting(ProductType::getCode).containsExactly(9565428L, 8784245L);
+        assertThat(addressList).extracting(ProductType::getDescription).containsExactly("Cerveja", "Água");
     }
 
     @Test

@@ -32,6 +32,9 @@ public class FileRepositoryTest {
 
         assertThat(fileList).hasSize(2);
         assertThat(fileList).extracting(File::getUrl).containsExactly("www.thiago.com.br", "www.teste.com.br");
+        assertThat(fileList).extracting(File::getType).containsExactly("TipoTeste", "tipoOutroTeste");
+        assertThat(fileList).extracting(File::getName).containsExactly("ArquivoTeste", "OutroArquivoTeste");
+        assertThat(fileList).extracting(File::getDate).containsExactly(LocalDateTime.of(2020, 5,14,1,0,0), LocalDateTime.of(2020,6,12,0,0,1));
     }
 
     @Test
