@@ -1,7 +1,5 @@
 package br.com.allcool.producttype.repository;
 
-import br.com.allcool.address.domain.Address;
-import br.com.allcool.product.domain.Product;
 import br.com.allcool.producttype.domain.ProductType;
 import br.com.allcool.test.RepositoryTest;
 import org.junit.Test;
