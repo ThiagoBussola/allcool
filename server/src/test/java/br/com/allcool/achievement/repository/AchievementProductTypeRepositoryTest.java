@@ -69,34 +69,4 @@ public class AchievementProductTypeRepositoryTest {
         assertThat(savedAchievementProductType.getAchievement()).isEqualTo(achievementProductType.getAchievement());
         assertThat(savedAchievementProductType.getProductType()).isEqualTo(achievementProductType.getProductType());
     }
-
-    @Test
-    public void update() {
-
-        Achievement achievement = new Achievement();
-        achievement.setId(UUID.fromString("ce583254-d732-4fe7-85fb-a11585399766"));
-
-        ProductType productType = new ProductType();
-        productType.setId(UUID.fromString("d6a0ed3a-82b7-4c10-9190-27a737faf454"));
-
-
-        AchievementProductType achievementProductTypeBeforeUpdate = this.repository.findById(ACHIEVEMENTPRODUCTTYPE_ID).get();
-
-        assertThat(achievementProductTypeBeforeUpdate.getId()).isEqualTo(ACHIEVEMENTPRODUCTTYPE_ID);
-        assertThat(achievementProductTypeBeforeUpdate.getAchievement().getId()).isEqualTo(UUID.fromString("ce583254-d732-4fe7-85fb-a11585399766"));
-        assertThat(achievementProductTypeBeforeUpdate.getProductType().getId()).isEqualTo(UUID.fromString("d6a0ed3a-82b7-4c10-9190-27a737faf454"));
-
-
-        //como Fazer esse Teste?????
-
-        //achievementProductTypeBeforeUpdate.setDescription("");
-        //achievementProductTypeBeforeUpdate.setRating(1L);
-
-        AchievementProductType achievementProductTypeAfterUpdate = this.repository.saveAndFlush(achievementProductTypeBeforeUpdate);
-
-        assertThat(achievementProductTypeAfterUpdate.getId()).isEqualTo(ACHIEVEMENTPRODUCTTYPE_ID);
-        assertThat(achievementProductTypeAfterUpdate.getAchievement().getId()).isEqualTo(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
-        assertThat(achievementProductTypeAfterUpdate.getProductType().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
-
-    }
 }
