@@ -5,20 +5,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { HomeScreen, ProductList } from './src/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 
-declare const global: { HermesInternal: null | {} };
+//Type para se botar a rota e suas props
+export type RootStackParamList = {
+  HomeScreen: undefined;
+  Products: undefined;
+};
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home">
-            {() => <HomeScreen global={global} />}
-          </Stack.Screen>
-          <Stack.Screen name="Products">{() => <ProductList />}</Stack.Screen>
-        </Stack.Navigator>
+        <RootStack.Navigator initialRouteName="HomeScreen">
+          <RootStack.Screen name="HomeScreen" component={HomeScreen} />
+          <RootStack.Screen name="Products" component={ProductList} />
+        </RootStack.Navigator>
       </NavigationContainer>
     </>
   );

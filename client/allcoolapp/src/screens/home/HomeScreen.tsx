@@ -1,69 +1,29 @@
 import React from 'react';
-import { View, Text, StatusBar } from 'react-native';
-import {
-  Header,
-  ReloadInstructions,
-  DebugInstructions,
-  LearnMoreLinks,
-} from 'react-native/Libraries/NewAppScreen';
-import { styles } from '../../styles';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, Button } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../App';
+
+type HomeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'HomeScreen'
+>;
 
 type Props = {
-  global: any;
+  navigation: HomeScreenNavigationProp;
 };
 
-const HomeScreen: React.FC<Props> = ({ global }) => {
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <>
-      <Header />
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
-          <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-          >
-            <Text>Home Screen</Text>
-          </View>
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <View style={{ marginTop: 10 }}>
+          <Button
+            title="Go to Products"
+            onPress={() => navigation.navigate('Products')}
+          />
+        </View>
+      </View>
     </>
   );
 };
