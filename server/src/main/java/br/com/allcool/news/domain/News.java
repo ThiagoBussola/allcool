@@ -58,6 +58,7 @@ public class News {
     @Column(name = "eventdate")
     private LocalDateTime eventDate;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private NewsTypeEnum type;
 }
