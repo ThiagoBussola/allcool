@@ -1,4 +1,4 @@
-package br.com.allcool.config.security.service;
+package br.com.allcool.config.security;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -26,28 +26,28 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	private static final String BEARER = "Bearer ";
     private static final Integer START_TOKEN = 7;
 	
-	private final TokenService tokenService;
-	private final PersonRepository personRepository;
+	private TokenService tokenService;
+	private PersonRepository personRepository;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest requestDate, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		String token = resolveToken(requestDate);
+		String token = resolveToken(request);
 	
 		if(tokenService.validateToken(token)) {			
 			Authentication authentication = getAuthentication(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 		
-		filterChain.doFilter(requestDate , response);
+		filterChain.doFilter(request, response);
 		
 	}
 	
-	private String resolveToken(HttpServletRequest requestDate ) {
+	private String resolveToken(HttpServletRequest request ) {
 		
-		String bearerToken = requestDate.getHeader(AUTHORIZATION_HEADER);	
-		if(StringUtils.hasText(bearerToken) || bearerToken.startsWith(BEARER)) {		
+		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);	
+		if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {		
 			return bearerToken.substring(START_TOKEN, bearerToken.length());
 		}
 		
