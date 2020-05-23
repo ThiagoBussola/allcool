@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../App';
 import { RouteProp } from '@react-navigation/native';
 
+export type HomeScreenStackParamList = {
+  HomeScreen: { userId: string | undefined };
+  Products: { userId: string } | undefined;
+};
+
 type HomeScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  HomeScreenStackParamList,
   'HomeScreen'
 >;
 
-type HomeScreenRouteProp = RouteProp<RootStackParamList, 'HomeScreen'>;
+type HomeScreenRouteProp = RouteProp<HomeScreenStackParamList, 'HomeScreen'>;
 
 type Props = {
   navigation: HomeScreenNavigationProp;

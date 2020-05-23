@@ -1,15 +1,23 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'App';
 import { RouteProp } from '@react-navigation/native';
+import { Product } from 'App';
+
+export type ProductReviewStackParamList = {
+  Products: { userId: string } | undefined;
+  ProductReview: { product: Product; userId: string | undefined };
+};
 
 type ProductReviewNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  ProductReviewStackParamList,
   'Products'
 >;
 
-type ProductReviewRouteProp = RouteProp<RootStackParamList, 'ProductReview'>;
+type ProductReviewRouteProp = RouteProp<
+  ProductReviewStackParamList,
+  'ProductReview'
+>;
 
 type Props = {
   navigation: ProductReviewNavigationProp;

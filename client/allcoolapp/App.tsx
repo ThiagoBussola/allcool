@@ -2,8 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { HomeScreen, ProductList, ProductReview } from './src/screens';
-import { createStackNavigator } from '@react-navigation/stack';
+import { ProductStack, HomeStack } from './src/screens';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,54 +13,24 @@ export type Product = {
 
 //Type para se botar a rota e suas props
 export type RootStackParamList = {
-  HomeScreen: { userId: string | undefined };
+  HomeStack: undefined;
   Products: { userId: string } | undefined;
-  ProductReview: { product: Product; userId: string | undefined };
 };
-
-const RootStack = createStackNavigator<RootStackParamList>();
 
 const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
-  const user = {
-    id: '123',
-  };
-
   return (
     <>
       <NavigationContainer>
-        {/* <RootStack.Navigator
-          initialRouteName="HomeScreen"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#ba0c2f',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        >
-          <RootStack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            initialParams={{ userId: user.id }}
-            options={({ route }) => ({
-              title: `Home ${route.params && route.params.userId}`,
-            })}
-          />
-          <RootStack.Screen name="Products" component={ProductList} />
-          <RootStack.Screen name="ProductReview" component={ProductReview} />
-        </RootStack.Navigator> */}
         <Tab.Navigator
-          initialRouteName="Home"
+          initialRouteName="HomeStack"
           activeColor="#ffffff"
-          style={{ backgroundColor: '#ba0c2f' }}
+          barStyle={{ backgroundColor: '#ba0c2f' }}
         >
           <Tab.Screen
-            name="HomeScreen"
-            component={HomeScreen}
+            name="HomeStack"
+            component={HomeStack}
             options={{
               tabBarLabel: 'Home',
               tabBarColor: 'green',
@@ -72,7 +41,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Products"
-            component={ProductList}
+            component={ProductStack}
             options={{
               tabBarLabel: 'Products',
               tabBarIcon: ({ color }) => (

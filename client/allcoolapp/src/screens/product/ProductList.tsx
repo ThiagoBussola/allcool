@@ -1,15 +1,21 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'App';
 import { RouteProp } from '@react-navigation/native';
+import { Product } from 'App';
+
+type ProductListStackParamList = {
+  HomeScreen: { userId: string | undefined };
+  Products: { userId: string } | undefined;
+  ProductReview: { product: Product; userId: string | undefined };
+};
 
 type ProductsListNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  ProductListStackParamList,
   'Products'
 >;
 
-type ProductsListRouteProp = RouteProp<RootStackParamList, 'Products'>;
+type ProductsListRouteProp = RouteProp<ProductListStackParamList, 'Products'>;
 
 type Props = {
   route: ProductsListRouteProp;
