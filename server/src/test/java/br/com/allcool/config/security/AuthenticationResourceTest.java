@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,10 +25,10 @@ import br.com.allcool.config.security.resource.TokenDTO;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
 import br.com.allcool.person.service.PersonService;
-import lombok.SneakyThrows;
+import br.com.allcool.test.ResourceTest;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = AuthenticationResource.class)
+@ResourceTest(AuthenticationResource.class)
 public class AuthenticationResourceTest {
 
 	@Autowired
@@ -54,8 +53,7 @@ public class AuthenticationResourceTest {
 	private PersonRepository personRepository;
 	
 	@Test
-	@SneakyThrows
-	public void login() {
+	public void login() throws Exception {
 		
 		LoginRequest login = new LoginRequest();
 		login.setEmail("teste@hotmail.com");
@@ -72,12 +70,10 @@ public class AuthenticationResourceTest {
 		
 		assertThat(token.getToken()).isNotNull();
 		assertThat(token.getTipoAuth()).isEqualTo("Bearer");
-	}
-	
+	}	
 	
 	@Test
-	@SneakyThrows
-	public void register() {
+	public void register() throws Exception {
 		
 		mockMvc.perform(post("/auth/register")
 				.accept(MediaType.APPLICATION_JSON)
