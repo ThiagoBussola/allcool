@@ -16,7 +16,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="product_id" type="uuid">
-                <constraints nullable="false"/>
             </column>
             <column name="file_id" type="uuid">
                 <constraints nullable="false"/>
