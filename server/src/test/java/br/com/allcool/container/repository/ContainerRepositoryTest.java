@@ -32,6 +32,7 @@ public class ContainerRepositoryTest {
 
         assertThat(containerList).hasSize(3);
         assertThat(containerList).extracting(Container::getType).containsExactlyInAnyOrder(ContainerTypeEnum.CAN,ContainerTypeEnum.GLASSBOTTLE,ContainerTypeEnum.LONGNECK);
+        assertThat(containerList).extracting(Container::getCapacity).containsExactlyInAnyOrder(BigDecimal.valueOf(355L),BigDecimal.valueOf(200L),BigDecimal.valueOf(350L));
     }
 
     @Test

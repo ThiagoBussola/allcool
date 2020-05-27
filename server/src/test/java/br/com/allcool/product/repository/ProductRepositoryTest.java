@@ -1,8 +1,10 @@
 package br.com.allcool.product.repository;
 
+import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.container.domain.Container;
 import br.com.allcool.enums.ContainerTypeEnum;
 import br.com.allcool.enums.FlavorTypeEnum;
+import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.domain.ProductContainer;
 import br.com.allcool.product.domain.ProductFlavor;
@@ -15,14 +17,17 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.filter;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/container/container.sql", "/sql/producttype/producttype.sql", "/sql/product/product.sql",
+@Sql(scripts = {"/sql/file/file.sql","/sql/brand/brand.sql","/sql/container/container.sql",
+        "/sql/producttype/producttype.sql", "/sql/product/product.sql",
         "/sql/product/productflavor.sql", "/sql/product/productcontainer.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class ProductRepositoryTest {
@@ -47,10 +52,11 @@ public class ProductRepositoryTest {
     @Test
     public void save() {
 
+        Brand brand = new Brand();
+        brand.setId(UUID.fromString("c86c2e22-c34b-4c0c-aded-055d0c0e696a"));
+
         Container container = new Container();
         container.setId(UUID.fromString("f5014a75-c3db-40b8-a49b-2076e1b19801"));
-        container.setType(ContainerTypeEnum.LONGNECK);
-        container.setCapacity(BigDecimal.valueOf(350L));
 
         ProductContainer productContainer = new ProductContainer();
         productContainer.setId(UUID.fromString("6a8fee85-514a-4436-95a9-dd4961deb859"));
@@ -58,8 +64,6 @@ public class ProductRepositoryTest {
 
         ProductType producttype = new ProductType();
         producttype.setId(UUID.fromString("d6a0ed3a-82b7-4c10-9190-27a737faf454"));
-        producttype.setDescription("Type Test");
-        producttype.setCode(9L);
 
         ProductFlavor productFlavor = new ProductFlavor();
         productFlavor.setId(UUID.fromString("f329cccf-c105-48f6-95c2-78a4ce11cf7f"));
@@ -76,6 +80,7 @@ public class ProductRepositoryTest {
         product.setHarmonization("Lula frita e peixes de sabor forte.");
         product.setCode(3L);
         product.setDescription("Tradicional cerveja do tipo Pilsen. Ela é produzida com o lúpulo tcheco Saaz que proporciona um aroma fresco e frutado bem característico, além de uma coloração dourada profunda.");
+        product.setBrand(brand);
 
         productContainer.setProduct(product);
         productFlavor.setProduct(product);
@@ -91,6 +96,7 @@ public class ProductRepositoryTest {
         assertThat(savedProduct.getType()).isEqualTo(product.getType());
         assertThat(savedProduct.getContainers()).extracting(ProductContainer::getId).isNotNull();
         assertThat(savedProduct.getFlavors()).extracting(ProductFlavor::getId).isNotNull();
+        assertThat(savedProduct.getBrand()).isEqualTo(brand);
 
     }
 

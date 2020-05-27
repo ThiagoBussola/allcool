@@ -30,7 +30,7 @@
     <changeSet id="add-ptfv_productid_fk" author="eduardo.bonam">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="ptfv_productid_fk"/>
+                <foreignKeyConstraintExists foreignKeyName="ptfv_productid_fk" foreignKeyTableName="productflavor"/>
             </not>
         </preConditions>
         <addForeignKeyConstraint baseTableName="productflavor" baseColumnNames="product_id" constraintName="ptfv_productid_fk" referencedTableName="product"
