@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/file/file.sql", "/sql/achievement/achievement.sql"})
+@Sql(scripts = {"/sql/producttype/producttype.sql", "/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/product/product.sql",  "/sql/achievement/achievement.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class AchievementRepositoryTest {
 
