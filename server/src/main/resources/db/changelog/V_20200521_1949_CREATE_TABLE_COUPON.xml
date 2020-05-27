@@ -27,7 +27,7 @@
             <column name="couponlevel" type="numeric(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="varchar(30)">
+            <column name="coupontype" type="varchar(30)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -48,7 +48,7 @@ public class Coupon {
     @Column(name = "couponlevel")
     private Long level;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "coupontype")
     private CouponTypeEnum type;
