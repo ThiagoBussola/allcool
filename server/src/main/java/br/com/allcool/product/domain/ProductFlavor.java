@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,8 +38,13 @@ public class ProductFlavor {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "flavortype")
     private FlavorTypeEnum type;
+
+    @NotBlank
+    @Length(max=60)
+    private String description;
+
 }
