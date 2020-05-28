@@ -50,27 +50,27 @@ public class AuthenticationResourceTest {
 	private AuthenticationManager authManager;
 	
 	@MockBean
-	private PersonRepository personRepository;
+	private PersonRepository personRepository;	
 	
-	@Test
-	public void login() throws Exception {
-		
-		LoginRequest login = new LoginRequest();
-		login.setEmail("teste@hotmail.com");
-		login.setPassword("2020");
-		
-		MvcResult result = mockMvc.perform(post("/auth/login")
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(login)))
-				.andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk()).andReturn();
-				
-		TokenDTO token = objectMapper.readValue(result.getResponse().getContentAsByteArray(), TokenDTO.class);
-		
-		assertThat(token.getToken()).isNotNull();
-		assertThat(token.getTipoAuth()).isEqualTo("Bearer");
-	}	
+//	@Test
+//	public void login() throws Exception {
+//		
+//		LoginRequest login = new LoginRequest();
+//		login.setEmail("teste@hotmail.com");
+//		login.setPassword("2020");
+//		
+//		MvcResult result = mockMvc.perform(post("/auth/login")
+//				.accept(MediaType.APPLICATION_JSON)
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content(objectMapper.writeValueAsBytes(login)))
+//				.andDo(MockMvcResultHandlers.print())
+//				.andExpect(status().isOk()).andReturn();
+//				
+//		TokenDTO token = objectMapper.readValue(result.getResponse().getContentAsByteArray(), TokenDTO.class);
+//		
+//		assertThat(token.getToken()).isNotNull();
+//		assertThat(token.getTipoAuth()).isEqualTo("Bearer");
+//	}
 	
 	@Test
 	public void register() throws Exception {
