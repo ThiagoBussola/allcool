@@ -27,7 +27,7 @@
     <changeSet id="add-bd_fileid_fk" author="eduardo.bonam">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="bd_fileid_fk"/>
+                <foreignKeyConstraintExists foreignKeyName="bd_fileid_fk" foreignKeyTableName="brand"/>
             </not>
         </preConditions>
         <addForeignKeyConstraint baseTableName="brand" baseColumnNames="file_id" constraintName="bn_fileid_fk"

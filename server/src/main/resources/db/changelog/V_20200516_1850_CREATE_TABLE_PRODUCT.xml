@@ -39,13 +39,13 @@
         </createTable>
 
         <addPrimaryKey tableName="product" columnNames="id" constraintName="product_pk"/>
-        <addUniqueConstraint tableName="product" columnNames="code"/>
+        <addUniqueConstraint constraintName="pt_code_uk" tableName="product" columnNames="code"/>
 
     </changeSet>
     <changeSet id="add-pt_producttypeid_fk" author="eduardo.bonam">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="pt_producttypeid_fk"/>
+                <foreignKeyConstraintExists foreignKeyName="pt_producttypeid_fk" foreignKeyTableName="product"/>
             </not>
         </preConditions>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="producttype_id" constraintName="pt_producttypeid_fk" referencedTableName="producttype"
@@ -54,7 +54,7 @@
     <changeSet id="add-pt_brandid_fk" author="eduardo.bonam">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="pt_brandid_fk"/>
+                <foreignKeyConstraintExists foreignKeyName="pt_brandid_fk" foreignKeyTableName="product"/>
             </not>
         </preConditions>
         <addForeignKeyConstraint baseTableName="product" baseColumnNames="brand_id" constraintName="pt_brandid_fk" referencedTableName="brand"
