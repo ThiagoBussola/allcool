@@ -1,7 +1,6 @@
 package br.com.allcool.user.domain;
 
 import br.com.allcool.achievement.domain.Achievement;
-import br.com.allcool.user.domain.UserClient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
