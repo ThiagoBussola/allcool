@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/container/container.sql","/sql/producttype/producttype.sql","/sql/product/product.sql","/sql/product/productcontainer.sql"})
+@Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/container/container.sql","/sql/producttype/producttype.sql","/sql/product/product.sql","/sql/product/productcontainer.sql"})
 public class ProductContainerRepositoryTest {
 
     @Autowired
