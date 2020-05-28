@@ -1,5 +1,6 @@
 package br.com.allcool.product.domain;
 
+import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.producttype.domain.ProductType;
 import lombok.Data;
@@ -67,4 +68,10 @@ public class Product {
     @NotEmpty
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductFlavor> flavors = new ArrayList<>();
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
 }

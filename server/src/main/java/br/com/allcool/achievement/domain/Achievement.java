@@ -54,7 +54,7 @@ public class Achievement {
     @Length(max = 200)
     private String description;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "achievementtype")
     private AchievementTypeEnum type;
