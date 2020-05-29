@@ -1,0 +1,1 @@
+insert into reviewproductflavor (id, review_id, description)
