@@ -55,7 +55,7 @@ public class AuthenticationServiceTest {
 	@Test
 	public void loadUserByUsernameNotFound() throws Exception {
 		
-		expectedException.expectMessage("Dados inv·lidos");
+		expectedException.expectMessage("Dados inv√°lidos");
 		
 		authenticationService.loadUserByUsername("exception@hotmail.com");
 
