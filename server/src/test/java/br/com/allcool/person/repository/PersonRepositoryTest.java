@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
@@ -55,6 +57,7 @@ public class PersonRepositoryTest {
         person.setName("FooBar");
         person.setBirthDate(LocalDate.of(2020, 1, 1));
         person.setEmail("foobar@gmail.com");
+        person.setPassword("senhateste");
 
         Person savedPerson = this.repository.saveAndFlush(person);
 
@@ -84,5 +87,22 @@ public class PersonRepositoryTest {
         assertThat(personAfterUpdate.getName()).isEqualTo("Silva");
         assertThat(personAfterUpdate.getEmail()).isEqualTo("silva@hotmail.com");
         assertThat(personAfterUpdate.getBirthDate()).isEqualTo(LocalDate.of(2000, 2, 1));
+    }
+    
+    @Test
+    public void findByEmail() {
+
+        Person person = repository.findByEmail("teste@hotmail.com").get();
+
+        assertThat(person.getId()).isEqualTo(PERSON_ID);
+        assertThat(person.getName()).isEqualTo("Teste da Silva");
+        assertThat(person.getEmail()).isEqualTo("teste@hotmail.com");
+        assertThat(person.getBirthDate()).isEqualTo(LocalDate.of(2000, 1, 1));
+    }
+    
+    @Test
+    public void existsByEmail() {
+    	assertTrue(repository.existsByEmail("teste@hotmail.com"));
+    	assertFalse(repository.existsByEmail("nao@existe.com"));
     }
 }
