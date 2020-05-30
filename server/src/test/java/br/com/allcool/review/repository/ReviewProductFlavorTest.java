@@ -1,4 +1,67 @@
 package br.com.allcool.review.repository;
 
+import br.com.allcool.enums.FlavorTypeEnum;
+import br.com.allcool.review.domain.Review;
+import br.com.allcool.review.domain.ReviewProductFlavor;
+import br.com.allcool.test.RepositoryTest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RepositoryTest
+@RunWith(SpringRunner.class)
+@Sql(scripts = {"/sql/review/review.sql", "/sql/review/reviewproductflavor.sql"})
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 public class ReviewProductFlavorTest {
+
+    @Autowired
+    private ReviewProductFlavorRepository repository;
+
+    private final UUID REVIEWPRODUCTFLAVOR_ID = UUID.fromString("c45db5f6-a6ee-4b8e-b470-048f1c7becd1");
+
+    @Test
+    public void findAll() {
+        List<ReviewProductFlavor> reviewProductFlavorList = this.repository.findAll();
+
+        assertThat(reviewProductFlavorList).hasSize(2);
+        assertThat(reviewProductFlavorList).extracting(reviewProductFlavor -> reviewProductFlavor.getReview().getId()).containsExactly(UUID.fromString("d6353fa6-796e-4fca-aa11-d731633782dd"), UUID.fromString("d8942a4c-183a-4261-83ff-6c466e5ced8f"));
+        assertThat(reviewProductFlavorList).extracting(ReviewProductFlavor::getDescription).containsExactly("Sabor adocicado", "Sabor gostoso e suave");
+        assertThat(reviewProductFlavorList).extracting(ReviewProductFlavor::getType).containsExactly(FlavorTypeEnum.SWEET, FlavorTypeEnum.UMAMI);
+    }
+
+    @Test
+    public void delete() {
+
+        List<ReviewProductFlavor> reviewProductFlavorListBeforeDelete = this.repository.findAll();
+
+        assertThat(reviewProductFlavorListBeforeDelete).hasSize(2);
+
+        this.repository.deleteById(REVIEWPRODUCTFLAVOR_ID);
+
+        List<ReviewProductFlavor> reviewProductFlavorListAfterDelete = this.repository.findAll();
+
+        assertThat(reviewProductFlavorListAfterDelete).hasSize(1);
+    }
+
+    @Test
+    public void save() {
+
+        Review review = new Review();
+        review.setId(UUID.fromString("d6353fa6-796e-4fca-aa11-d731633782dd"));
+
+        ReviewProductFlavor reviewProductFlavor = new ReviewProductFlavor();
+        reviewProductFlavor.setReview(review);
+
+        ReviewProductFlavor savedReviewProductFlavor = this.repository.saveAndFlush(reviewProductFlavor);
+
+        assertThat(savedReviewProductFlavor.getId()).isNotNull();
+        assertThat(savedReviewProductFlavor.getReview()).isEqualTo(reviewProductFlavor.getReview());
+    }
 }
