@@ -51,7 +51,7 @@ public class PersonService {
 	public void register(Person person) {
 
 		if(personRepository.existsByEmail(person.getEmail())) {			
-			throw new IllegalArgumentException("J· existe um usu·rio cadastrado com esse email!");
+			throw new IllegalArgumentException("J√° existe um usu√°rio cadastrado com esse email!");
 		}
 		
 		String password = person.getPassword();

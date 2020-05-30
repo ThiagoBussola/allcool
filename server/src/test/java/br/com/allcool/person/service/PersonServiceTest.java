@@ -60,7 +60,7 @@ public class PersonServiceTest {
 	@Test
 	public void registerWhenEmailExits() {
 		
-		expectedException.expectMessage("J· existe um usu·rio cadastrado com esse email!");
+		expectedException.expectMessage("J√° existe um usu√°rio cadastrado com esse email!");
 		
 		when(personRepository.existsByEmail(ArgumentMatchers.any())).thenReturn(Boolean.TRUE);
 		service.register(new Person());
