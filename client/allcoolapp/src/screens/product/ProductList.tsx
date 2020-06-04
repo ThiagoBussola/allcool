@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product } from 'App';
+import { Product } from 'src/types';
 
 type ProductListStackParamList = {
-  HomeScreen: { userId: string | undefined };
   Products: { userId: string } | undefined;
-  ProductReview: { product: Product; userId: string | undefined };
+  ProductView: { product: Product; userId: string | undefined };
 };
 
 type ProductsListNavigationProp = StackNavigationProp<
@@ -26,22 +25,17 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
   return (
     <>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Products Screen</Text>
+        <Text>Listagem de Produtos</Text>
         <View style={{ marginTop: 10 }}>
           <Button
-            title="Review Product"
+            color="#ffbf00"
+            title="Visualizar Produto"
             onPress={() =>
-              navigation.navigate('ProductReview', {
+              navigation.navigate('ProductView', {
                 product: { id: '1', name: 'Goose Island' },
                 userId: params && params.userId,
               })
             }
-          />
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Button
-            title="Go to Home"
-            onPress={() => navigation.navigate('HomeScreen')}
           />
         </View>
       </View>
