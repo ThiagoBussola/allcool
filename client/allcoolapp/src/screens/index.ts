@@ -1,7 +1,4 @@
-import { HomeScreen } from './home/HomeScreen';
-import { HomeStack } from './home/HomeStack';
-import { ProductList } from './product/ProductList';
-import { ProductStack } from './product/ProductStack';
-import { ProductReview } from './product/product-review/ProductReview';
+import { PartnerStack } from './partner';
+import { ProductStack } from './product';
 
-export { HomeScreen, HomeStack, ProductList, ProductReview, ProductStack };
+export { PartnerStack, ProductStack };

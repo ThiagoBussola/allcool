@@ -1,23 +1,20 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProductView, ProductList } from './';
-import { Product } from 'src/types';
+import { PartnerContainer } from './PartnerContainer';
 
-//Type para se botar a rota e suas props
 export type RootStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { product: Product; userId: string | undefined };
+  PartnerContainer: { userId: string } | undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
-const ProductStack: React.FC = () => {
+const PartnerStack: React.FC = () => {
   return (
     <>
       <RootStack.Navigator
-        initialRouteName="Products"
+        initialRouteName="PartnerContainer"
         screenOptions={{
-          headerTitle: 'Produtos',
+          headerTitle: 'Parceiros',
           headerStyle: {
             backgroundColor: '#ffbf00',
           },
@@ -28,18 +25,13 @@ const ProductStack: React.FC = () => {
         }}
       >
         <RootStack.Screen
-          name="Products"
-          component={ProductList}
+          name="PartnerContainer"
+          component={PartnerContainer}
           initialParams={{ userId: '1' }}
-        />
-        <RootStack.Screen
-          name="ProductView"
-          options={{ headerTitle: 'Produto' }}
-          component={ProductView}
         />
       </RootStack.Navigator>
     </>
   );
 };
 
-export { ProductStack };
+export { PartnerStack };
