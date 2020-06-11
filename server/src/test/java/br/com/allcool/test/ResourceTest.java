@@ -1,6 +1,7 @@
 package br.com.allcool.test;
 
 import br.com.allcool.config.AllcoolProfilesUtils;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.annotation.AliasFor;
@@ -11,7 +12,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@WebMvcTest
+@Target(ElementType.TYPE)
+@Inherited
+@Rollback
+@WebMvcTest( excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 @AutoConfigureMockMvc
 @EnableSpringDataWebSupport
 @ActiveProfiles(value = AllcoolProfilesUtils.TEST)
