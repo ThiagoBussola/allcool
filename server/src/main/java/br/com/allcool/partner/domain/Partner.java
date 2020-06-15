@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class Partner {
     @JoinColumn(name = "file_id")
     private File file;
 
-    @NotBlank
+    @NotNull
     @Length(max = 100)
     @Column(name = "partnername")
     private String name;
@@ -56,7 +57,7 @@ public class Partner {
     private String phoneNumber;
 
     @NotNull
-    private Long rating;
+    private BigDecimal rating = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkingPeriod> workingPeriods = new ArrayList<>();
