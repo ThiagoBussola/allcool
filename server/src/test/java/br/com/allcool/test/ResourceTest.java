@@ -1,6 +1,7 @@
 package br.com.allcool.test;
 
 import br.com.allcool.config.AllcoolProfilesUtils;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.annotation.AliasFor;
@@ -21,7 +22,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Inherited
 @Rollback
-@WebMvcTest
+@WebMvcTest( excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 @AutoConfigureMockMvc
 @EnableSpringDataWebSupport
 @ActiveProfiles(value = AllcoolProfilesUtils.TEST)
