@@ -81,7 +81,6 @@ public class ReviewProductFlavorRepositoryTest {
         ReviewProductFlavor reviewProductFlavorBeforeUpdate = this.repository.findById(REVIEWPRODUCTFLAVOR_ID).get();
 
         assertThat(reviewProductFlavorBeforeUpdate.getId()).isEqualTo(REVIEWPRODUCTFLAVOR_ID);
-        //assertThat(reviewProductFlavorBeforeUpdate.getReview()).isEqualTo("");
         assertThat(reviewProductFlavorBeforeUpdate.getDescription()).isEqualTo("Sabor adocicado");
         assertThat(reviewProductFlavorBeforeUpdate.getType()).isEqualByComparingTo(FlavorTypeEnum.SWEET);
 
@@ -93,10 +92,5 @@ public class ReviewProductFlavorRepositoryTest {
         assertThat(reviewProductFlavorAfterUpdate.getId()).isEqualTo(REVIEWPRODUCTFLAVOR_ID);
         assertThat(reviewProductFlavorAfterUpdate.getDescription()).isEqualTo("Sabor Update");
         assertThat(reviewProductFlavorAfterUpdate.getType()).isEqualByComparingTo(FlavorTypeEnum.UMAMI);
-
-//        Review review = new Review();
-//        review.setId(UUID.fromString("d8942a4c-183a-4261-83ff-6c466e5ced8f"));
-
-
     }
 }

@@ -43,7 +43,7 @@ public class Partner {
     @JoinColumn(name = "file_id")
     private File file;
 
-    @NotNull
+    @NotBlank
     @Length(max = 100)
     @Column(name = "partnername")
     private String name;
