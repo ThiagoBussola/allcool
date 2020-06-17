@@ -40,7 +40,7 @@ public class ReviewProductFlavor {
     @Length(max = 60)
     private String description;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "flavortype")
     private FlavorTypeEnum type;
