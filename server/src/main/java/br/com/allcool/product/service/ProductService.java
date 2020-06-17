@@ -5,6 +5,7 @@ import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +21,11 @@ public class ProductService {
 
         return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
 
+    }
+
+    public List<Product> findAll() {
+
+        return this.repository.findAll();
     }
 
 }

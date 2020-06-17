@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,4 +40,15 @@ public class ProductServiceTest {
 
     }
 
+    @Test
+    public void findAll() {
+
+        when(this.repository.findAll()).thenReturn(Collections.singletonList(new Product()));
+
+        List<Product> products = this.service.findAll();
+
+
+        verify(this.repository).findAll();
+        verifyNoMoreInteractions(this.repository);
+    }
 }
