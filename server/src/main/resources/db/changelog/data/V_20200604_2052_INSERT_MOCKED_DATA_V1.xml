@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <!-- Changesets feitos para rodar em uma base sem registros -->
-    <changeSet id="insert-data-file-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-file-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="file"/>
         </preConditions>
@@ -49,10 +49,28 @@
             'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-userclientavatar.PNG', 'png',
             'userclientavatar',
             '2020-06-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic1.PNG', 'png',
+            'partnerpic1', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic2.PNG', 'png',
+            'partnerpic2', '2020-08-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('50853f04-4d88-4a31-9883-448fe0aebbd0',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic1.PNG', 'png',
+            'reviewpic1', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('682842f8-4001-41a3-82b7-217f7c245375',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic2.PNG', 'png',
+            'reviewpic2', '2020-08-02 01:00:00');
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-producttype-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-producttype-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="producttype"/>
         </preConditions>
@@ -65,7 +83,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-brand-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-brand-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="brand"/>
         </preConditions>
@@ -78,7 +96,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-product-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-product-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="product"/>
         </preConditions>
@@ -99,7 +117,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-productfile-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-productfile-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="productfile"/>
         </preConditions>
@@ -114,7 +132,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-productflavor-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-productflavor-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="productflavor"/>
         </preConditions>
@@ -129,7 +147,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-container-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-container-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="container"/>
         </preConditions>
@@ -144,7 +162,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-productcontainer-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-productcontainer-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="productcontainer"/>
         </preConditions>
@@ -159,7 +177,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-achievement-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-achievement-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="achievement"/>
         </preConditions>
@@ -176,7 +194,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-achievementproducttype-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-achievementproducttype-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="achievementproducttype"/>
         </preConditions>
@@ -188,47 +206,69 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-adress-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-address-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
-            <rowCount expectedRows="0" tableName="adress"/>
+            <rowCount expectedRows="0" tableName="address"/>
         </preConditions>
 
         <sql>
-
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87060-026', 'Rua Luiza Zequim', 'Jardim Santa Rosa',
+            'Maringa', 'PR');
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87060-023', 'Rua Teste Update','Bairro Teste', 'Cidade
+            Teste', 'RR');
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-partner-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-partner-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="partner"/>
         </preConditions>
 
         <sql>
-
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'c610a5c3-9746-43be-a1e4-5435411b0328',
+            '6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80', 'Azeitona', 'Lugar com ambiente agradavel', '992448023',
+            4.00);
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('d0c4238f-a9c9-452b-9c09-315e19d46506',
+            '28fd5d3c-97b2-11ea-bb37-0242ac130002','ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Cachaçaria', 'Local
+            agradavel teste', '995448027', 5.00);
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-partnerproduct-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-partnerproduct-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="partnerproduct"/>
         </preConditions>
 
         <sql>
-
+            insert into partnerproduct(id, partner_id, product_id)
+            values('b552b192-5282-46dd-8afb-f5181464c044', '68a0e950-37b8-4f01-9f40-f33fdfbc8720',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73');
+            insert into partnerproduct(id, partner_id, product_id)
+            values('cb2e121a-b9fb-4bae-bd17-33c12ab89b2f', 'd0c4238f-a9c9-452b-9c09-315e19d46506',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e');
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-workingperiod-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-workingperiod-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="workingperiod"/>
         </preConditions>
 
         <sql>
-
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('2436a578-a5da-4557-b9e7-0adf4ac687a4', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Segunda-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('a1bba17e-234f-4d0a-9051-86bd498b064a', 'd0c4238f-a9c9-452b-9c09-315e19d46506', 'Sábado', '17:30:00',
+            '00:30:00');
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-person-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-person-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="person"/>
         </preConditions>
@@ -242,7 +282,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-userclient-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-userclient-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="userclient"/>
         </preConditions>
@@ -257,23 +297,35 @@
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-review-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-review-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="review"/>
         </preConditions>
 
         <sql>
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('d6353fa6-796e-4fca-aa11-d731633782dd', '3793d49a-01fa-47cc-b762-da24738b750c',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Review teste', 3.00);
 
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Review teste allcool',
+            5.00);
         </sql>
     </changeSet>
 
-    <changeSet id="insert-data-reviewproductflavor-v1" author="marcelo.filho" dbms="postgres">
+    <changeSet id="insert-data-reviewproductflavor-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="reviewproductflavor"/>
         </preConditions>
 
         <sql>
-
+            insert into reviewproductflavor (id, review_id, description, flavortype)
+            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Sabor adocicado',
+            'SWEET');
+            insert into reviewproductflavor (id, review_id, description, flavortype)
+            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Sabor gostoso e
+            suave', 'UMAMI');
         </sql>
     </changeSet>
 </databaseChangeLog>
