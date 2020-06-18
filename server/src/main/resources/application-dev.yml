@@ -20,4 +20,14 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+s3:
+  credentials:
+    accessKey: SCWFQ105Z1KRPBWD8NGQ
+    secretKey: 930ee515-d107-45f9-b8ab-6cfcc957f245
+  endpoint: https://s3.fr-par.scw.cloud/
+  region: fr-par
+  baseUrl: https://allcool.s3.fr-par.scw.cloud/
