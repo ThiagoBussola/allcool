@@ -9,3 +9,6 @@ spring:
     contexts: test
     parameters:
       schema: allcool
+  security:
+    basic:
+      enabled: false
