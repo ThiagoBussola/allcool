@@ -1,8 +1,10 @@
 import axios from 'axios';
 import StorageService from './StorageService';
 
+//Genymotion - 10.0.3.2
+//Android Studio - 10.0.2.2
 const requestExecutor = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://10.0.2.2:8080',
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': '*',

@@ -42,7 +42,6 @@
     "react-test-renderer": "16.11.0",
     "typescript": "^3.9.2"
   },
-  "proxy": "http://localhost:8080",
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [
