@@ -38,4 +38,7 @@ export const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
+  mainColor: {
+    color: '#ffbf00',
+  },
 });
