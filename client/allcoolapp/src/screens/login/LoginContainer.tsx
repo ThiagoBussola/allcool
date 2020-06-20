@@ -76,13 +76,11 @@ const LoginContainer: React.FC<Props> = ({ navigation, route: { params } }) => {
       password: loginState.password,
     })
       .then((response) => {
-        console.log(response);
         StorageService.storeKey('JWT-Token', response.data.token).then(() =>
           navigation.dispatch(StackActions.replace('Products'))
         );
       })
       .catch((error) => {
-        console.log(error);
         if (error.response != undefined && error.response.status === 400) {
           wrongUsernameOrPasssord();
         } else {
