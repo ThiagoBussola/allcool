@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Image, ScrollView, StyleSheet, FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product } from 'src/types';
+import { Product } from '../../types';
+import requestExecutor from '../../service/AxiosService';
 
 type ProductListStackParamList = {
   Products: { userId: string } | undefined;

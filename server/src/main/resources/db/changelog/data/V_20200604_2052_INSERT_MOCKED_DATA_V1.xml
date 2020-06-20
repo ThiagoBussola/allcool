@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!-- Changesets feitos para rodar em uma base sem registros -->
+    <changeSet id="insert-data-file-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="file"/>
+        </preConditions>
+
+        <sql>
+            insert into file (id, url, filetype, filename, filedate)
+            values ('715c87bc-abfb-4efc-8979-a4fae19c5234',
+            'https://allcoolapp-files.s3.amazonaws.com/fg0198a12345f6550134f51cf9bf5de1-product1.PNG', 'png',
+            'product1',
+            '2020-06-01 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('c676d398-e1ec-4a91-a866-8f8098620df9',
+            'https://allcoolapp-files.s3.amazonaws.com/yg0198a233645d210134f51cf9bf5de1-product2.PNG', 'jpg',
+            'product2',
+            '2020-06-02 00:00:01');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('8fd70d05-11e1-473d-9d0b-025e5e60a9ed',
+            'https://allcoolapp-files.s3.amazonaws.com/tj0432s12433ds210134f51cf9bf5d6e-producttype1.PNG', 'png',
+            'producttype1',
+            '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('5d70836e-babd-4914-b6e8-64254779cfed',
+            'https://allcoolapp-files.s3.amazonaws.com/43215s12433ds210134f51cf9bf5d6e-producttype2.PNG', 'png',
+            'producttype2',
+            '2020-06-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('bf431a6f-bbf2-4932-85c4-ea0cd1a81b74',
+            'https://allcoolapp-files.s3.amazonaws.com/a22432s12433ds210134f51cf9bf5d6e-achievement1.PNG', 'png',
+            'achievement1',
+            '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('98c8e4da-b444-44bb-90f8-f074b8162758',
+            'https://allcoolapp-files.s3.amazonaws.com/54315s12433ds210134f51cf9bf5d6e-achievement2.PNG', 'png',
+            'achievement2',
+            '2020-06-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('ce396aea-963e-11ea-bb37-0242ac130002',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-userclientavatar.PNG', 'png',
+            'userclientavatar',
+            '2020-06-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic1.PNG', 'png',
+            'partnerpic1', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic2.PNG', 'png',
+            'partnerpic2', '2020-08-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('50853f04-4d88-4a31-9883-448fe0aebbd0',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic1.PNG', 'png',
+            'reviewpic1', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('682842f8-4001-41a3-82b7-217f7c245375',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic2.PNG', 'png',
+            'reviewpic2', '2020-08-02 01:00:00');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-producttype-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="producttype"/>
+        </preConditions>
+
+        <sql>
+            insert into producttype (id, code, description)
+            values ('d6a0ed3a-82b7-4c10-9190-27a737faf454', 1, 'Extra Red Lager');
+            insert into producttype (id, code, description)
+            values ('256b6606-97b6-11ea-bb37-0242ac130002', 2, 'Amber Lager');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-brand-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="brand"/>
+        </preConditions>
+
+        <sql>
+            insert into brand (id, brandname, file_id)
+            values('c86c2e22-c34b-4c0c-aded-055d0c0e696a', 'Brahma', '5d70836e-babd-4914-b6e8-64254779cfed');
+            insert into brand (id, brandname, file_id)
+            values('d61fef57-50bf-4949-a296-2f09b3523504', 'Patagonia', '8fd70d05-11e1-473d-9d0b-025e5e60a9ed');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-product-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="product"/>
+        </preConditions>
+
+        <sql>
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('f0e11a71-8ff7-4e61-80b4-de0082665b73', 1, 'Brahma Extra Red Lager', 'Sabor marcante que combina com
+            massas e queijos é com a Brahma Red Lager. A cerveja tem um leve aroma de caramelo, malte torrado e suaves
+            notas de frutas e doces.', 'Massas a Bolonhesa e Queijo Parmesão.', 'Y',
+            'd6a0ed3a-82b7-4c10-9190-27a737faf454','c86c2e22-c34b-4c0c-aded-055d0c0e696a');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('8f50022f-4058-4f8e-8062-fc0ef9bc327e', 2, 'Patagonia Amber Lager', 'Nossa primogênita, uma Amber
+            Lager clássica, feita com lúpulos cultivados e colhidos por nós. Tem cor marrom acobreada e o sabor
+            equilibrado de malte e lúpulo. Os maltes caramelo Melanoidin, Carared e Carapils usados em sua produção lhe
+            conferem um aroma sutil e boa formação de espuma.', 'Carnes e vegetais grelhados.', 'Y',
+            '256b6606-97b6-11ea-bb37-0242ac130002','d61fef57-50bf-4949-a296-2f09b3523504');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-productfile-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="productfile"/>
+        </preConditions>
+
+        <sql>
+            insert into productfile (id, product_id, file_id)
+            values('646cca9f-e90a-416a-a692-ae112968449e', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
+            '715c87bc-abfb-4efc-8979-a4fae19c5234');
+            insert into productfile (id, product_id, file_id)
+            values('e9e2dfa3-7496-48a5-a64c-42eb3c52c237', '8f50022f-4058-4f8e-8062-fc0ef9bc327e',
+            'c676d398-e1ec-4a91-a866-8f8098620df9');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-productflavor-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="productflavor"/>
+        </preConditions>
+
+        <sql>
+            insert into productflavor (id, description, flavortype, product_id)
+            values('f329cccf-c105-48f6-95c2-78a4ce11cf7f', 'Apresenta notasntensas que remetem à um sabor adocicado.',
+            'SWEET', 'f0e11a71-8ff7-4e61-80b4-de0082665b73');
+            insert into productflavor (id, description, flavortype, product_id)
+            values('fbfef2e6-e26d-4839-8c12-cc6849d195a8', 'Tem uma variação em cor de ouro a âmbar escuro.', 'BITTER',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-container-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="container"/>
+        </preConditions>
+
+        <sql>
+            insert into container (id, containertype, capacity)
+            values('f5014a75-c3db-40b8-a49b-2076e1b19801', 'LONGNECK', 355);
+            insert into container (id, containertype, capacity)
+            values('6e64b574-d43c-4278-96c6-ca772da91fbe', 'GLASSBOTTLE', 200);
+            insert into container (id, containertype, capacity)
+            values('e57aac5f-9fe7-4c22-9971-683dddf3aa5c', 'CAN', 350);
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-productcontainer-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="productcontainer"/>
+        </preConditions>
+
+        <sql>
+            insert into productcontainer (id, product_id, container_id)
+            values('6a8fee85-514a-4436-95a9-dd4961deb859', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
+            'f5014a75-c3db-40b8-a49b-2076e1b19801');
+            insert into productcontainer (id, product_id, container_id)
+            values('36eff1ee-a2b4-4496-b126-60f40067ec24', '8f50022f-4058-4f8e-8062-fc0ef9bc327e',
+            '6e64b574-d43c-4278-96c6-ca772da91fbe');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-achievement-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="achievement"/>
+        </preConditions>
+
+        <sql>
+            insert into achievement (id, product_id, file_id, title, description, achievementtype)
+            values ('ce583254-d732-4fe7-85fb-a11585399766', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
+            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores
+            cervejeiros do Allcool!', 'PRODUCT');
+
+            insert into achievement (id, file_id, title, description, achievementtype)
+            values ('fdb671cc-9b08-11ea-bb37-0242ac130002', '98c8e4da-b444-44bb-90f8-f074b8162758', 'Lord of the Lager',
+            'Você realmente aprecia uma boa Lager!', 'PRODUCT_TYPE');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-achievementproducttype-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="achievementproducttype"/>
+        </preConditions>
+
+        <sql>
+            insert into achievementproducttype (id, achievement_id, producttype_id)
+            values ('81fe3846-9b10-11ea-bb37-0242ac130002', 'fdb671cc-9b08-11ea-bb37-0242ac130002',
+            '256b6606-97b6-11ea-bb37-0242ac130002');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-address-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="address"/>
+        </preConditions>
+
+        <sql>
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87060-026', 'Rua Luiza Zequim', 'Jardim Santa Rosa',
+            'Maringa', 'PR');
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87060-023', 'Rua Teste Update','Bairro Teste', 'Cidade
+            Teste', 'RR');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-partner-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="partner"/>
+        </preConditions>
+
+        <sql>
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'c610a5c3-9746-43be-a1e4-5435411b0328',
+            '6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80', 'Azeitona', 'Lugar com ambiente agradavel', '992448023',
+            4.00);
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('d0c4238f-a9c9-452b-9c09-315e19d46506',
+            '28fd5d3c-97b2-11ea-bb37-0242ac130002','ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Cachaçaria', 'Local
+            agradavel teste', '995448027', 5.00);
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-partnerproduct-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="partnerproduct"/>
+        </preConditions>
+
+        <sql>
+            insert into partnerproduct(id, partner_id, product_id)
+            values('b552b192-5282-46dd-8afb-f5181464c044', '68a0e950-37b8-4f01-9f40-f33fdfbc8720',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73');
+            insert into partnerproduct(id, partner_id, product_id)
+            values('cb2e121a-b9fb-4bae-bd17-33c12ab89b2f', 'd0c4238f-a9c9-452b-9c09-315e19d46506',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-workingperiod-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="workingperiod"/>
+        </preConditions>
+
+        <sql>
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('2436a578-a5da-4557-b9e7-0adf4ac687a4', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Segunda-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('a1bba17e-234f-4d0a-9051-86bd498b064a', 'd0c4238f-a9c9-452b-9c09-315e19d46506', 'Sábado', '17:30:00',
+            '00:30:00');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-person-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="person"/>
+        </preConditions>
+
+        <sql>
+            insert into person (id, username, email, birthdate, userpassword)
+            values ('d74f3772-5097-44d0-995b-86330adac63c', 'Master Allcool', 'master@allcool.com', '2020-06-20',
+            '$2a$10$QQIsEfEhaaeUa7.FWpeddeLPvAox7rCpznoL4SkiiGSwHTSCrkOL6');
+            insert into person (id, username, email, birthdate, userpassword)
+            values ('affb9869-61b3-4100-bafd-df7cf46ef341', 'Teste da Silva', 'teste@hotmail.com', '2000-01-01',
+            '$2a$10$JW6eD13HWde0f3ApkqEGRuCkpRlX9I3FkVpxH1thUS6Bt5/FJ.FdS');
+            insert into person (id, username, email, birthdate, userpassword)
+            values ('e3889817-9be4-4d45-960e-e537bfd01fab', 'Mike', 'mike@hotmail.com', '1965-01-01', 'teste2');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-userclient-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="userclient"/>
+        </preConditions>
+
+        <sql>
+            insert into userclient (id, person_id, bio)
+            values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
+            'Usuário criado para ambiente de Homologação');
+            insert into userclient (id, person_id, bio, file_id)
+            values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
+            'Biografia de Teste da Silva', 'ce396aea-963e-11ea-bb37-0242ac130002');
+            insert into userclient (id, person_id, bio)
+            values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
+            'Biografia de Mike');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-review-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="review"/>
+        </preConditions>
+
+        <sql>
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('d6353fa6-796e-4fca-aa11-d731633782dd', '3793d49a-01fa-47cc-b762-da24738b750c',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Review teste', 3.00);
+
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Review teste allcool',
+            5.00);
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-reviewproductflavor-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="reviewproductflavor"/>
+        </preConditions>
+
+        <sql>
+            insert into reviewproductflavor (id, review_id, description, flavortype)
+            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Sabor adocicado',
+            'SWEET');
+            insert into reviewproductflavor (id, review_id, description, flavortype)
+            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Sabor gostoso e
+            suave', 'UMAMI');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
