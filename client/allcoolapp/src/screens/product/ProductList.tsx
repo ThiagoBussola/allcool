@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product } from 'src/types';
+import { Product } from '../../types';
+import requestExecutor from '../../service/AxiosService';
 
 type ProductListStackParamList = {
   Products: { userId: string } | undefined;

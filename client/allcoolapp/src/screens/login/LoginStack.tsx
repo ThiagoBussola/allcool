@@ -14,14 +14,7 @@ const LoginStack: React.FC = () => {
       <RootStack.Navigator
         initialRouteName="LoginContainer"
         screenOptions={{
-          headerTitle: 'Login',
-          headerStyle: {
-            backgroundColor: '#ffbf00',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
       >
         <RootStack.Screen
