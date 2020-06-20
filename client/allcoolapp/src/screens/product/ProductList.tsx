@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, ScrollView, StyleSheet, FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Product } from 'src/types';
@@ -21,24 +21,34 @@ type Props = {
   navigation: ProductsListNavigationProp;
 };
 
+type ProductDTO = {
+  id: string;
+  productType: string;
+  name: string;
+};
+
 const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
+  const [products, setProducts] = useState<ProductDTO[]>([]);
   return (
     <>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Listagem de Produtos</Text>
-        <View style={{ marginTop: 10 }}>
-          <Button
-            color="#ffbf00"
-            title="Visualizar Produto"
-            onPress={() =>
-              navigation.navigate('ProductView', {
-                product: { id: '1', name: 'Goose Island' },
-                userId: params && params.userId,
-              })
-            }
-          />
-        </View>
-      </View>
+      <ScrollView>
+        <FlatList
+          data={products}
+          keyExtractor={(product) => product.id}
+          renderItem={({ item }) => (
+            <View style={{ alignItems: 'center', height: 50 }}>
+              <Image
+                style={{ width: 200, height: 215 }}
+                source={{
+                  uri:
+                    'https://i.pinimg.com/originals/53/9d/ca/539dca03d85f4e100f91a338bce0d246.png',
+                }}
+                resizeMode="cover"
+              />
+            </View>
+          )}
+        />
+      </ScrollView>
     </>
   );
 };
