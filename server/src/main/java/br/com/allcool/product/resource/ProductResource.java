@@ -1,5 +1,6 @@
 package br.com.allcool.product.resource;
 
+import br.com.allcool.dto.ProductDTO;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ProductResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll() {
+    public ResponseEntity<List<ProductDTO>> findAll() {
         return ResponseEntity.ok(this.service.findAll());
     }
 }

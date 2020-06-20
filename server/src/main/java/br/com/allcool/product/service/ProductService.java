@@ -1,5 +1,7 @@
 package br.com.allcool.product.service;
 
+import br.com.allcool.converter.ProductDTOConverter;
+import br.com.allcool.dto.ProductDTO;
 import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.repository.ProductRepository;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -23,9 +26,14 @@ public class ProductService {
 
     }
 
-    public List<Product> findAll() {
+    public List<ProductDTO> findAll() {
 
-        return this.repository.findAll();
+        List<Product> products = this.repository.findAll();
+
+        ProductDTOConverter converter = new ProductDTOConverter();
+        List<ProductDTO> dtos = products.stream().map(converter::to).collect(Collectors.toList());
+
+        return dtos;
     }
 
 }

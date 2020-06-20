@@ -1,8 +1,10 @@
 package br.com.allcool.product.resource;
 
+import br.com.allcool.dto.ProductDTO;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.domain.ProductFlavor;
 import br.com.allcool.product.service.ProductService;
+import br.com.allcool.producttype.domain.ProductType;
 import br.com.allcool.test.ResourceTest;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
@@ -77,29 +79,28 @@ public class ProductResourceTest {
 
     @Test
     public void findAll() throws Exception {
-        ProductFlavor flavor1 = new ProductFlavor();
-        flavor1.setId(UUID.randomUUID());
 
-        ProductFlavor flavor2 = new ProductFlavor();
-        flavor2.setId(UUID.randomUUID());
+        ProductType tipoCervejaTeste = new ProductType();
+        tipoCervejaTeste.setId(UUID.randomUUID());
+        tipoCervejaTeste.setCode(123L);
+        tipoCervejaTeste.setDescription("Tipo Cerveja Teste");
 
-        Product productBeerTest = new Product();
+        ProductType tipoSodaTeste = new ProductType();
+        tipoSodaTeste.setId(UUID.randomUUID());
+        tipoSodaTeste.setCode(321L);
+        tipoSodaTeste.setDescription("Tipo Soda Teste");
+
+        ProductDTO productBeerTest = new ProductDTO();
         productBeerTest.setId(UUID.randomUUID());
         productBeerTest.setName("Product Beer Test");
-        productBeerTest.setDescription("Product Description Beer Test");
-        productBeerTest.setCode(1L);
-        productBeerTest.setActive(Boolean.TRUE);
-        productBeerTest.getFlavors().add(flavor1);
+        productBeerTest.setType(tipoCervejaTeste);
 
-        Product productSodaTest = new Product();
+        ProductDTO productSodaTest = new ProductDTO();
         productSodaTest.setId(UUID.randomUUID());
         productSodaTest.setName("Product Soda Test");
-        productSodaTest.setDescription("Product Description Soda Test");
-        productSodaTest.setCode(2L);
-        productSodaTest.setActive(Boolean.TRUE);
-        productSodaTest.getFlavors().add(flavor2);
+        productSodaTest.setType(tipoSodaTeste);
 
-        List<Product> productList = new ArrayList<>();
+        List<ProductDTO> productList = new ArrayList<>();
         productList.add(productBeerTest);
         productList.add(productSodaTest);
 
@@ -109,7 +110,10 @@ public class ProductResourceTest {
         this.mockMvc.perform(get("/api/products"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[*].id", hasItems(productBeerTest.getId().toString(), productSodaTest.getId().toString())));
+                .andExpect(jsonPath("$.[*].id", hasItems(productBeerTest.getId().toString(), productSodaTest.getId().toString())))
+                .andExpect(jsonPath("$.[*].type.id", hasItems(productBeerTest.getType().getId().toString(), productSodaTest.getType().getId().toString())))
+                .andExpect(jsonPath("$.[*].name", hasItems(productBeerTest.getName(), productSodaTest.getName())));
+
 
         verify(this.service).findAll();
         verifyNoMoreInteractions(this.service);

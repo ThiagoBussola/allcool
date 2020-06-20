@@ -1,5 +1,6 @@
 package br.com.allcool.product.service;
 
+import br.com.allcool.dto.ProductDTO;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.repository.ProductRepository;
 import org.junit.Test;
@@ -45,8 +46,7 @@ public class ProductServiceTest {
 
         when(this.repository.findAll()).thenReturn(Collections.singletonList(new Product()));
 
-        List<Product> products = this.service.findAll();
-
+        this.service.findAll();
 
         verify(this.repository).findAll();
         verifyNoMoreInteractions(this.repository);
