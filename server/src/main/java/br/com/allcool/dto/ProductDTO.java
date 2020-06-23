@@ -1,6 +1,6 @@
 package br.com.allcool.dto;
 
-import br.com.allcool.producttype.domain.ProductType;
+import br.com.allcool.product.domain.ProductFile;
 import lombok.Data;
 
 import java.util.UUID;
@@ -9,7 +9,8 @@ import java.util.UUID;
 public class ProductDTO {
 
     private UUID id;
-    private ProductType type;
+    private String type;
+    private String brand;
     private String name;
-
+    private ProductFile image;
 }

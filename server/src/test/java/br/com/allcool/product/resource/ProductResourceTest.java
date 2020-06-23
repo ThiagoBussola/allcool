@@ -93,12 +93,12 @@ public class ProductResourceTest {
         ProductDTO productBeerTest = new ProductDTO();
         productBeerTest.setId(UUID.randomUUID());
         productBeerTest.setName("Product Beer Test");
-        productBeerTest.setType(tipoCervejaTeste);
+        productBeerTest.setType(tipoCervejaTeste.getDescription());
 
         ProductDTO productSodaTest = new ProductDTO();
         productSodaTest.setId(UUID.randomUUID());
         productSodaTest.setName("Product Soda Test");
-        productSodaTest.setType(tipoSodaTeste);
+        productSodaTest.setType(tipoSodaTeste.getDescription());
 
         List<ProductDTO> productList = new ArrayList<>();
         productList.add(productBeerTest);
@@ -111,8 +111,8 @@ public class ProductResourceTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[*].id", hasItems(productBeerTest.getId().toString(), productSodaTest.getId().toString())))
-                .andExpect(jsonPath("$.[*].type.id", hasItems(productBeerTest.getType().getId().toString(), productSodaTest.getType().getId().toString())))
-                .andExpect(jsonPath("$.[*].name", hasItems(productBeerTest.getName(), productSodaTest.getName())));
+                .andExpect(jsonPath("$.[*].type", hasItems(productBeerTest.getType(), productSodaTest.getType())))
+                        .andExpect(jsonPath("$.[*].name", hasItems(productBeerTest.getName(), productSodaTest.getName())));
 
 
         verify(this.service).findAll();

@@ -13,8 +13,9 @@ public class ProductDTOConverter {
         }
 
         dto.setId(product.getId());
-        dto.setType(product.getType());
+        dto.setType(product.getType().getDescription());
         dto.setName(product.getName());
+        dto.setBrand(product.getBrand().getName());
 
         return dto;
     }

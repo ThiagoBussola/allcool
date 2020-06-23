@@ -18,7 +18,6 @@ public class ProductResource {
 
     private final ProductService service;
 
-
     public ProductResource(ProductService service) {
         this.service = service;
     }

@@ -123,12 +123,15 @@
         </preConditions>
 
         <sql>
-            insert into productfile (id, product_id, file_id)
+            insert into productfile (id, product_id, file_id, listed)
             values('646cca9f-e90a-416a-a692-ae112968449e', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
-            '715c87bc-abfb-4efc-8979-a4fae19c5234');
-            insert into productfile (id, product_id, file_id)
+            '715c87bc-abfb-4efc-8979-a4fae19c5234', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('366a7436-87dd-4c94-8f3f-9b4579bc5f9b', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
+            'c676d398-e1ec-4a91-a866-8f8098620df9', 'N');
+            insert into productfile (id, product_id, file_id, listed)
             values('e9e2dfa3-7496-48a5-a64c-42eb3c52c237', '8f50022f-4058-4f8e-8062-fc0ef9bc327e',
-            'c676d398-e1ec-4a91-a866-8f8098620df9');
+            'c676d398-e1ec-4a91-a866-8f8098620df9', 'Y');
         </sql>
     </changeSet>
 

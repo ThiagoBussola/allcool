@@ -1,10 +1,12 @@
 package br.com.allcool.product.domain;
 
+import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.file.domain.File;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,4 +38,9 @@ public class ProductFile {
     @OneToOne
     @JoinColumn(name = "file_id")
     private File file;
+
+    //TO-DO Ajustar diagramas (der - classes)
+    @NotNull
+    @Convert(converter = BooleanToYesOrNo.class)
+    private Boolean listed = Boolean.FALSE;
 }
