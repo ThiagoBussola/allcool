@@ -24,11 +24,13 @@ public class ProductResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable("id") UUID id) {
+
         return ResponseEntity.ok(this.service.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> findAll() {
+
         return ResponseEntity.ok(this.service.findAll());
     }
 }

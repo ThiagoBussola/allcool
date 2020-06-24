@@ -4,7 +4,6 @@ import br.com.allcool.dto.ProductDTO;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.domain.ProductFlavor;
 import br.com.allcool.product.service.ProductService;
-import br.com.allcool.producttype.domain.ProductType;
 import br.com.allcool.test.ResourceTest;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
@@ -71,7 +70,8 @@ public class ProductResourceTest {
                 .andExpect(jsonPath("$.code", equalTo(product.getCode().intValue())))
                 .andExpect(jsonPath("$.active", equalTo(product.getActive())))
                 .andExpect(jsonPath("$.flavors[*].id",
-                        CoreMatchers.hasItems(flavor1.getId().toString(), flavor2.getId().toString(), flavor3.getId().toString())));
+                        CoreMatchers.hasItems(flavor1.getId().toString(),
+                                flavor2.getId().toString(), flavor3.getId().toString())));
 
         verify(this.service).findById(product.getId());
         verifyNoMoreInteractions(this.service);
@@ -80,44 +80,42 @@ public class ProductResourceTest {
     @Test
     public void findAll() throws Exception {
 
-        ProductType tipoCervejaTeste = new ProductType();
-        tipoCervejaTeste.setId(UUID.randomUUID());
-        tipoCervejaTeste.setCode(123L);
-        tipoCervejaTeste.setDescription("Tipo Cerveja Teste");
-
-        ProductType tipoSodaTeste = new ProductType();
-        tipoSodaTeste.setId(UUID.randomUUID());
-        tipoSodaTeste.setCode(321L);
-        tipoSodaTeste.setDescription("Tipo Soda Teste");
-
         ProductDTO productBeerTest = new ProductDTO();
         productBeerTest.setId(UUID.randomUUID());
         productBeerTest.setName("Product Beer Test");
-        productBeerTest.setType(tipoCervejaTeste.getDescription());
+        productBeerTest.setType("Beer test");
+        productBeerTest.setImageUrl("ABC.jpg");
+        productBeerTest.setBrand("Brand A");
 
         ProductDTO productSodaTest = new ProductDTO();
         productSodaTest.setId(UUID.randomUUID());
         productSodaTest.setName("Product Soda Test");
-        productSodaTest.setType(tipoSodaTeste.getDescription());
+        productSodaTest.setType("Soda Test");
+        productSodaTest.setImageUrl("DFG.png");
+        productSodaTest.setBrand("Brand B");
 
         List<ProductDTO> productList = new ArrayList<>();
         productList.add(productBeerTest);
         productList.add(productSodaTest);
-
 
         when(this.service.findAll()).thenReturn(productList);
 
         this.mockMvc.perform(get("/api/products"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[*].id", hasItems(productBeerTest.getId().toString(), productSodaTest.getId().toString())))
-                .andExpect(jsonPath("$.[*].type", hasItems(productBeerTest.getType(), productSodaTest.getType())))
-                        .andExpect(jsonPath("$.[*].name", hasItems(productBeerTest.getName(), productSodaTest.getName())));
-
+                .andExpect(jsonPath("$.[*].id", hasItems(productBeerTest.getId().toString(),
+                        productSodaTest.getId().toString())))
+                .andExpect(jsonPath("$.[*].type", hasItems(productBeerTest.getType(),
+                        productSodaTest.getType())))
+                .andExpect(jsonPath("$.[*].imageUrl", hasItems(productBeerTest.getImageUrl(),
+                        productSodaTest.getImageUrl())))
+                .andExpect(jsonPath("$.[*].brand", hasItems(productBeerTest.getBrand(),
+                        productSodaTest.getBrand())))
+                .andExpect(jsonPath("$.[*].name", hasItems(productBeerTest.getName(),
+                        productSodaTest.getName())));
 
         verify(this.service).findAll();
         verifyNoMoreInteractions(this.service);
-
     }
 
 }

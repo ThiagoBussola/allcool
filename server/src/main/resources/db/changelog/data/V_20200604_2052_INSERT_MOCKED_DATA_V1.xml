@@ -17,8 +17,8 @@
             'png', 'brahma_extra_red-lager_355ml', '2020-06-23 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('e324e577-c90c-40c1-a7dc-fb8f72917e28',
-            'https://allcool.s3.fr-par.scw.cloud/brands/logo_patagonia.jpg',
-            'jpg', 'logo_patagonia', '2020-06-23 01:00:00');
+            'https://allcool.s3.fr-par.scw.cloud/beers/patagonia_amber-lager_355ml.png',
+            'png', 'patagonia_amber-lager_355ml', '2020-06-23 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('dbfcf08e-13b6-49d4-8382-b33c66704f4c',
             'https://allcool.s3.fr-par.scw.cloud/beers/skol_275ml.png',
@@ -205,7 +205,7 @@
             camarões fritos.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149', '57f21e89-e0bf-4231-a863-986538e47053');
 
             insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('e9506774-2343-4a06-8566-801b21e5d6e2', 7, 'Stella Artois', 'A experiência e a tradição cervejeira
+            values('d30fe433-97c1-4b95-a6ce-9d9907608f79', 7, 'Stella Artois', 'A experiência e a tradição cervejeira
             de mais de 600 anos resultam em uma lager muito bem equilibradas. Uma cerveja de sabor intenso e
             com final suave. Stella Artois foi criada para ser saboreada.', 'Carnes vermelhas e frutos do mar.',
             'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e', '334ea6f5-0ff3-4b23-84c6-dd4015cfbbaf');
@@ -246,7 +246,7 @@
             values('bdcc6abb-795f-43e0-a70d-c6e76cf41320', 'e9506774-2343-4a06-8566-801b21e5d6e2',
             'b409dc72-7a47-4a53-8217-e8567fdbff6d', 'Y');
             insert into productfile (id, product_id, file_id, listed)
-            values('09d29655-1aea-42a1-8ac6-d3229fa390b7', 'e9506774-2343-4a06-8566-801b21e5d6e2',
+            values('09d29655-1aea-42a1-8ac6-d3229fa390b7', 'd30fe433-97c1-4b95-a6ce-9d9907608f79',
             '8fca5416-9ff4-488d-b19e-2f8f0f9917af', 'Y');
             insert into productfile (id, product_id, file_id, listed)
             values('fd6e6d24-32b1-4ba6-99cc-f3eb7663c38b', 'c179f011-c4a2-4486-b9a7-bdf39456132d',

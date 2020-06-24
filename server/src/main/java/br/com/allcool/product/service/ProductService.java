@@ -9,6 +9,7 @@ import br.com.allcool.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -31,15 +32,16 @@ public class ProductService {
 
     }
 
-    //TO-DO Ajustar teste
     public List<ProductDTO> findAll() {
 
         ProductDTOConverter converter = new ProductDTOConverter();
 
-        List<ProductDTO> productDTOList = this.repository.findAll().stream().map(converter::to).collect(Collectors.toList());
+        List<ProductDTO> productDTOList = this.repository.findAll()
+                .stream().map(converter::to).collect(Collectors.toList());
 
-        productDTOList.forEach(p -> p.setImageUrl(this.productFileRepository.findOneByProductIdAndListedTrue(p.getId()).getFile().getUrl()));
+        productDTOList.forEach(p -> p.setImageUrl(this.productFileRepository
+                .findOneByProductIdAndListedTrue(p.getId()).getFile().getUrl()));
 
-        return productDTOList;
+        return productDTOList.stream().sorted(Comparator.comparing(ProductDTO::getName)).collect(Collectors.toList());
     }
 }

@@ -59,61 +59,82 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
       userId: undefined,
     });
 
+  const handleChange = (text: string) => {
+    if (text) {
+      return setSearch(text);
+    }
+
+    setFilteredProducts(products);
+    setSearch('');
+  };
+
   return (
     <>
       <Searchbar
         accessibilityStates
         placeholder="Pesquisar"
-        onChangeText={(text) => {
-          if (text) {
-            return setSearch(text);
-          }
-
-          setFilteredProducts(products);
-        }}
+        onChangeText={(text) => handleChange(text)}
         onBlur={filter}
         value={search}
       />
-      <FlatList
-        data={filteredProducts}
-        style={{
-          flex: 1,
-          width: screenWidth,
-        }}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <>
-            <TouchableOpacity onPress={() => view(item)}>
-              <View style={rowStyle}>
-                <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
-                  <Image
-                    style={listImageStyle}
-                    source={{
-                      uri:
-                        'https://i.pinimg.com/originals/53/9d/ca/539dca03d85f4e100f91a338bce0d246.png',
-                    }}
-                    resizeMode="contain"
-                  />
+      {filteredProducts && filteredProducts.length > 0 ? (
+        <FlatList
+          data={filteredProducts}
+          style={{
+            flex: 1,
+            width: screenWidth,
+          }}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <>
+              <TouchableOpacity onPress={() => view(item)}>
+                <View style={rowStyle}>
+                  <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                    <Image
+                      style={listImageStyle}
+                      source={{
+                        uri: item.imageUrl,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View>
+                    <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                      <Title>{item.name}</Title>
+                    </View>
+                    <View style={{ alignItems: 'flex-start' }}>
+                      <Subheading
+                        style={{ fontSize: 12 }}
+                      >{`Categoria: ${item.type}`}</Subheading>
+                    </View>
+                    <View style={{ alignItems: 'flex-start' }}>
+                      <Subheading
+                        style={{ fontSize: 12 }}
+                      >{`Marca: ${item.brand}`}</Subheading>
+                    </View>
+                  </View>
                 </View>
-                <View>
-                  <View style={{ alignItems: 'center', marginTop: 10 }}>
-                    <Title>{item.name}</Title>
-                  </View>
-                  <View style={{ alignItems: 'flex-start' }}>
-                    <Subheading>{`Categoria: ${item.type}`}</Subheading>
-                  </View>
-                  <View style={{ alignItems: 'flex-start' }}>
-                    <Subheading>{`Marca: ${item.brand}`}</Subheading>
-                  </View>
+                <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>
+                  <Divider accessibilityStates />
                 </View>
-              </View>
-              <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>
-                <Divider accessibilityStates />
-              </View>
-            </TouchableOpacity>
-          </>
-        )}
-      />
+              </TouchableOpacity>
+            </>
+          )}
+        />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <View style={{ alignItems: 'center', marginTop: '50%' }}>
+            <Image
+              style={listImageStyle}
+              source={require('../../img/AllcoolV1.1.png')}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={{ alignItems: 'center', marginTop: 10 }}>
+            <Title>Nenhum produto encontrado</Title>
+          </View>
+        </View>
+      )}
     </>
   );
 };

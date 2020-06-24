@@ -3,4 +3,5 @@ export type ProductDTO = {
   type: string;
   brand: string;
   name: string;
+  imageUrl: string;
 };

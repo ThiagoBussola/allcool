@@ -39,7 +39,6 @@ public class ProductFile {
     @JoinColumn(name = "file_id")
     private File file;
 
-    //TO-DO Ajustar diagramas (der - classes)
     @NotNull
     @Convert(converter = BooleanToYesOrNo.class)
     private Boolean listed = Boolean.FALSE;
