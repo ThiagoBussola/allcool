@@ -17,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql" ,"/sql/producttype/producttype.sql","/sql/product/product.sql","/sql/product/productfile.sql"})
+@Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/producttype/producttype.sql",
+        "/sql/product/product.sql", "/sql/product/productfile.sql"})
 public class ProductFileRepositoryTest {
 
     @Autowired
@@ -30,9 +31,15 @@ public class ProductFileRepositoryTest {
 
         List<ProductFile> productFileList = this.repository.findAll();
 
-        assertThat(productFileList).hasSize(2);
-        assertThat(productFileList).extracting(productFile -> productFile.getFile().getId()).containsExactlyInAnyOrder(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"),UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
-        assertThat(productFileList).extracting(productFile -> productFile.getProduct().getId()).containsExactlyInAnyOrder(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"),UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+        assertThat(productFileList).hasSize(3);
+        assertThat(productFileList).extracting(productFile -> productFile.getFile().getId())
+                .containsExactlyInAnyOrder(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"),
+                        UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"),
+                        UUID.fromString("757daf1c-ad4f-4bac-8e0e-b4594d05fb6c"));
+        assertThat(productFileList).extracting(productFile -> productFile.getProduct().getId())
+                .containsExactlyInAnyOrder(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"),
+                        UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"),
+                        UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
     }
 
     @Test
@@ -40,13 +47,13 @@ public class ProductFileRepositoryTest {
 
         List<ProductFile> productFileListBeforeDelete = this.repository.findAll();
 
-        assertThat(productFileListBeforeDelete).hasSize(2);
+        assertThat(productFileListBeforeDelete).hasSize(3);
 
         this.repository.deleteById(ADDRESS_ID);
 
         List<ProductFile> productFileListAfterDelete = this.repository.findAll();
 
-        assertThat(productFileListAfterDelete).hasSize(1);
+        assertThat(productFileListAfterDelete).hasSize(2);
     }
 
     @Test
@@ -84,8 +91,10 @@ public class ProductFileRepositoryTest {
         ProductFile productFileBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
 
         assertThat(productFileBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
-        assertThat(productFileBeforeUpdate.getProduct().getId()).isEqualByComparingTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
-        assertThat(productFileBeforeUpdate.getFile().getId()).isEqualByComparingTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
+        assertThat(productFileBeforeUpdate.getProduct().getId())
+                .isEqualByComparingTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+        assertThat(productFileBeforeUpdate.getFile().getId())
+                .isEqualByComparingTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
 
         productFileBeforeUpdate.setProduct(product);
         productFileBeforeUpdate.setFile(file);
@@ -93,9 +102,20 @@ public class ProductFileRepositoryTest {
         ProductFile productContainerAfterUpdate = this.repository.saveAndFlush(productFileBeforeUpdate);
 
         assertThat(productContainerAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
-        assertThat(productContainerAfterUpdate.getProduct().getId()).isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
-        assertThat(productContainerAfterUpdate.getFile().getId()).isEqualByComparingTo(UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
+        assertThat(productContainerAfterUpdate.getProduct().getId())
+                .isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+        assertThat(productContainerAfterUpdate.getFile().getId())
+                .isEqualByComparingTo(UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
+    }
 
+    @Test
+    public void findOneByProductIdAndListedTrue() {
+
+        ProductFile productFile = this.repository
+                .findOneByProductIdAndListedTrue(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+
+        assertThat(productFile.getId()).isEqualTo(UUID.fromString("5394ec25-3e3e-4a9d-ab1a-ca9269001fbe"));
+        assertThat(productFile.getFile().getId()).isEqualTo(UUID.fromString("757daf1c-ad4f-4bac-8e0e-b4594d05fb6c"));
     }
 }
 

@@ -30,11 +30,17 @@ public class FileRepositoryTest {
 
         List<File> fileList = this.repository.findAll();
 
-        assertThat(fileList).hasSize(2);
-        assertThat(fileList).extracting(File::getUrl).containsExactly("www.thiago.com.br", "www.teste.com.br");
-        assertThat(fileList).extracting(File::getType).containsExactly("TipoTeste", "tipoOutroTeste");
-        assertThat(fileList).extracting(File::getName).containsExactly("ArquivoTeste", "OutroArquivoTeste");
-        assertThat(fileList).extracting(File::getDate).containsExactly(LocalDateTime.of(2020, 5,14,1,0,0), LocalDateTime.of(2020,6,12,0,0,1));
+        assertThat(fileList).hasSize(3);
+        assertThat(fileList).extracting(File::getUrl).containsExactly("www.thiago.com.br",
+                "www.teste.com.br", "www.teste123.com.br");
+        assertThat(fileList).extracting(File::getType).containsExactly("TipoTeste",
+                "tipoOutroTeste", "tipoOutroTeste123");
+        assertThat(fileList).extracting(File::getName).containsExactly("ArquivoTeste",
+                "OutroArquivoTeste", "OutroArquivoTeste123");
+        assertThat(fileList).extracting(File::getDate).containsExactly(
+                LocalDateTime.of(2020, 5, 14, 1, 0, 0),
+                LocalDateTime.of(2020, 6, 12, 0, 0, 1),
+                LocalDateTime.of(2020, 6, 12, 0, 0, 1));
     }
 
     @Test
@@ -42,13 +48,13 @@ public class FileRepositoryTest {
 
         List<File> fileListBeforeDelete = this.repository.findAll();
 
-        assertThat(fileListBeforeDelete).hasSize(2);
+        assertThat(fileListBeforeDelete).hasSize(3);
 
         this.repository.deleteById(FILE_ID);
 
         List<File> fileListAfterDelete = this.repository.findAll();
 
-        assertThat(fileListAfterDelete).hasSize(1);
+        assertThat(fileListAfterDelete).hasSize(2);
     }
 
     @Test
@@ -57,8 +63,8 @@ public class FileRepositoryTest {
         File file = new File();
         file.setUrl("www.thiago.com.br");
         file.setType("TipoTeste");
-        file.setName ("ArquivoTeste");
-        file.setDate(LocalDateTime.of(2020,05,14,20,43,20));
+        file.setName("ArquivoTeste");
+        file.setDate(LocalDateTime.of(2020, 05, 14, 20, 43, 20));
 
 
         File savedFile = this.repository.saveAndFlush(file);
@@ -84,7 +90,7 @@ public class FileRepositoryTest {
         fileBeforeUpdate.setUrl("www.atualizado.com.br");
         fileBeforeUpdate.setType("novoTypeAtualizado");
         fileBeforeUpdate.setName("ArquivoTesteAtualizado");
-        fileBeforeUpdate.setDate(LocalDateTime.of(2000, 2, 1,20,43));
+        fileBeforeUpdate.setDate(LocalDateTime.of(2000, 2, 1, 20, 43));
 
         File fileAfterUpdate = this.repository.saveAndFlush(fileBeforeUpdate);
 
@@ -92,6 +98,6 @@ public class FileRepositoryTest {
         assertThat(fileAfterUpdate.getUrl()).isEqualTo("www.atualizado.com.br");
         assertThat(fileAfterUpdate.getType()).isEqualTo("novoTypeAtualizado");
         assertThat(fileAfterUpdate.getName()).isEqualTo("ArquivoTesteAtualizado");
-        assertThat(fileAfterUpdate.getDate()).isEqualTo(LocalDateTime.of(2000, 2, 1,20,43));
+        assertThat(fileAfterUpdate.getDate()).isEqualTo(LocalDateTime.of(2000, 2, 1, 20, 43));
     }
 }

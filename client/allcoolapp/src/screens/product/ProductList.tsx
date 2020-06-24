@@ -1,13 +1,21 @@
-import React from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product } from '../../types';
-import requestExecutor from '../../service/AxiosService';
+import { ProductDTO } from '../../types/dto';
+import { ProductService } from '../../service';
+import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
+import { listImageStyle, rowStyle } from '../../styles';
 
 type ProductListStackParamList = {
   Products: { userId: string } | undefined;
-  ProductView: { product: Product; userId: string | undefined };
+  ProductView: { productId: string; userId: string | undefined };
 };
 
 type ProductsListNavigationProp = StackNavigationProp<
@@ -22,24 +30,111 @@ type Props = {
   navigation: ProductsListNavigationProp;
 };
 
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
+
 const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
+  const [products, setProducts] = useState<ProductDTO[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    ProductService.findAll().then(({ data }) => {
+      setProducts(data);
+      setFilteredProducts(data);
+    });
+  }, []);
+
+  const filter = () => {
+    const filteredArray = products.filter((p) =>
+      p.name.trim().toLowerCase().includes(search.trim().toLowerCase())
+    );
+
+    setFilteredProducts(filteredArray);
+  };
+
+  const view = (product: ProductDTO) =>
+    navigation.navigate(`ProductView`, {
+      productId: product.id,
+      userId: undefined,
+    });
+
+  const handleChange = (text: string) => {
+    if (text) {
+      return setSearch(text);
+    }
+
+    setFilteredProducts(products);
+    setSearch('');
+  };
+
   return (
     <>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Listagem de Produtos</Text>
-        <View style={{ marginTop: 10 }}>
-          <Button
-            color="#ffbf00"
-            title="Visualizar Produto"
-            onPress={() =>
-              navigation.navigate('ProductView', {
-                product: { id: '1', name: 'Goose Island' },
-                userId: params && params.userId,
-              })
-            }
-          />
+      <Searchbar
+        accessibilityStates
+        placeholder="Pesquisar"
+        onChangeText={(text) => handleChange(text)}
+        onBlur={filter}
+        value={search}
+      />
+      {filteredProducts && filteredProducts.length > 0 ? (
+        <FlatList
+          data={filteredProducts}
+          style={{
+            flex: 1,
+            width: screenWidth,
+          }}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <>
+              <TouchableOpacity onPress={() => view(item)}>
+                <View style={rowStyle}>
+                  <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                    <Image
+                      style={listImageStyle}
+                      source={{
+                        uri: item.imageUrl,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View>
+                    <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                      <Title>{item.name}</Title>
+                    </View>
+                    <View style={{ alignItems: 'flex-start' }}>
+                      <Subheading
+                        style={{ fontSize: 12 }}
+                      >{`Categoria: ${item.type}`}</Subheading>
+                    </View>
+                    <View style={{ alignItems: 'flex-start' }}>
+                      <Subheading
+                        style={{ fontSize: 12 }}
+                      >{`Marca: ${item.brand}`}</Subheading>
+                    </View>
+                  </View>
+                </View>
+                <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>
+                  <Divider accessibilityStates />
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <View style={{ alignItems: 'center', marginTop: '50%' }}>
+            <Image
+              style={listImageStyle}
+              source={require('../../img/AllcoolV1.1.png')}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={{ alignItems: 'center', marginTop: 10 }}>
+            <Title>Nenhum produto encontrado</Title>
+          </View>
         </View>
-      </View>
+      )}
     </>
   );
 };

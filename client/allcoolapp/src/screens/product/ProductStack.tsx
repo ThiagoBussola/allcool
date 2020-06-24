@@ -1,7 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ProductView, ProductList } from './';
-import { Product } from 'src/types';
+import { Product } from '../../types';
+import { screenOptions } from '../../styles';
 
 //Type para se botar a rota e suas props
 export type RootStackParamList = {
@@ -16,16 +17,7 @@ const ProductStack: React.FC = () => {
     <>
       <RootStack.Navigator
         initialRouteName="Products"
-        screenOptions={{
-          headerTitle: 'Produtos',
-          headerStyle: {
-            backgroundColor: '#ffbf00',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
+        screenOptions={screenOptions('Produtos')}
       >
         <RootStack.Screen
           name="Products"
