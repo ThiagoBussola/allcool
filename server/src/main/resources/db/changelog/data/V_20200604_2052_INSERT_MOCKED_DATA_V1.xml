@@ -275,6 +275,9 @@
 
         <sql>
             insert into person (id, username, email, birthdate, userpassword)
+            values ('d74f3772-5097-44d0-995b-86330adac63c', 'Master Allcool', 'master@allcool.com', '2020-06-20',
+            '$2a$10$QQIsEfEhaaeUa7.FWpeddeLPvAox7rCpznoL4SkiiGSwHTSCrkOL6');
+            insert into person (id, username, email, birthdate, userpassword)
             values ('affb9869-61b3-4100-bafd-df7cf46ef341', 'Teste da Silva', 'teste@hotmail.com', '2000-01-01',
             '$2a$10$JW6eD13HWde0f3ApkqEGRuCkpRlX9I3FkVpxH1thUS6Bt5/FJ.FdS');
             insert into person (id, username, email, birthdate, userpassword)
@@ -288,6 +291,9 @@
         </preConditions>
 
         <sql>
+            insert into userclient (id, person_id, bio)
+            values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
+            'Usuário criado para ambiente de Homologação');
             insert into userclient (id, person_id, bio, file_id)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
             'Biografia de Teste da Silva', 'ce396aea-963e-11ea-bb37-0242ac130002');

@@ -4,7 +4,6 @@ import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.test.RepositoryTest;
 import br.com.allcool.user.domain.UserClient;
 import br.com.allcool.user.domain.UserClientAchievement;
-import org.h2.engine.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

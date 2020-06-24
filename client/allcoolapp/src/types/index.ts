@@ -7,3 +7,5 @@ export * from './ProductContainer';
 export * from './ProductFlavor';
 export * from './ProductType';
 export * from './ProductFile';
+export * from './Person';
+export * from './LoginRequest';
