@@ -54,7 +54,7 @@ public class Person implements UserDetails {
     @Column(name = "birthdate")
     private LocalDate birthDate;
    
-   @Length(max=150)
+    @Length(max=150)
     @NotBlank
     @Column(name = "userpassword")
     private String password;

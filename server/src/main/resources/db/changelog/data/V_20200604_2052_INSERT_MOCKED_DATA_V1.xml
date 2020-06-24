@@ -12,26 +12,70 @@
 
         <sql>
             insert into file (id, url, filetype, filename, filedate)
-            values ('715c87bc-abfb-4efc-8979-a4fae19c5234',
-            'https://allcoolapp-files.s3.amazonaws.com/fg0198a12345f6550134f51cf9bf5de1-product1.PNG', 'png',
-            'product1',
-            '2020-06-01 01:00:00');
+            values ('65d5bab3-da98-47bf-a066-ec0595bf5d09',
+            'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png',
+            'png', 'brahma_extra_red-lager_355ml', '2020-06-23 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
-            values ('c676d398-e1ec-4a91-a866-8f8098620df9',
-            'https://allcoolapp-files.s3.amazonaws.com/yg0198a233645d210134f51cf9bf5de1-product2.PNG', 'jpg',
-            'product2',
-            '2020-06-02 00:00:01');
+            values ('e324e577-c90c-40c1-a7dc-fb8f72917e28',
+            'https://allcool.s3.fr-par.scw.cloud/beers/patagonia_amber-lager_355ml.png',
+            'png', 'patagonia_amber-lager_355ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('dbfcf08e-13b6-49d4-8382-b33c66704f4c',
+            'https://allcool.s3.fr-par.scw.cloud/beers/skol_275ml.png',
+            'png', 'skol_275ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('44af3e10-9743-44c3-a39e-42ba1d898352',
+            'https://allcool.s3.fr-par.scw.cloud/beers/franziskaner_dunkel_500ml.png',
+            'png', 'franziskaner_dunkel_500ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('ae926927-f79e-498b-8e35-336ee304e855',
+            'https://allcool.s3.fr-par.scw.cloud/beers/colorado-ribeirao_600ml.png',
+            'png', 'colorado-ribeirao_600ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('b409dc72-7a47-4a53-8217-e8567fdbff6d',
+            'https://allcool.s3.fr-par.scw.cloud/beers/corona_330ml.png',
+            'png', 'corona_330ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('8fca5416-9ff4-488d-b19e-2f8f0f9917af',
+            'https://allcool.s3.fr-par.scw.cloud/beers/stella-artois_275ml.png',
+            'png', 'stella-artois_275ml', '2020-06-23 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('bf319d35-5cc7-4251-a5fb-5911e78e4a6e',
+            'https://allcool.s3.fr-par.scw.cloud/beers/bohemia_puro_malte_355ml.png',
+            'png', 'bohemia_puro_malte_355ml', '2020-06-23 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
-            values ('8fd70d05-11e1-473d-9d0b-025e5e60a9ed',
-            'https://allcoolapp-files.s3.amazonaws.com/tj0432s12433ds210134f51cf9bf5d6e-producttype1.PNG', 'png',
-            'producttype1',
-            '2020-06-02 01:00:00');
-            insert into file (id, url, filetype, filename, filedate)
             values ('5d70836e-babd-4914-b6e8-64254779cfed',
-            'https://allcoolapp-files.s3.amazonaws.com/43215s12433ds210134f51cf9bf5d6e-producttype2.PNG', 'png',
-            'producttype2',
-            '2020-06-02 01:00:00');
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_brahma.jpg',
+            'jpg', 'logo_brahma', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('8fd70d05-11e1-473d-9d0b-025e5e60a9ed',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_patagonia.jpg',
+            'jpg', 'logo_patagonia', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('d2fdfdfa-e02b-4d4b-8511-be8c854286c0',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_skol.jpg',
+            'jpg', 'logo_skol', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('61f7fae7-e913-4101-abbf-eab6ee05d2cf',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_franziskaner.jpg',
+            'jpg', 'logo_franziskaner', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('ed36be32-1889-4046-b04c-223649274367',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_colorado.jpg',
+            'jpg', 'logo_colorado', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('07937389-0c95-408e-bec7-581072061e88',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_corona.jpg',
+            'jpg', 'logo_corona', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('f793a2e5-f360-4758-89cb-6f1b7e66e33d',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_stella-artois.jpg',
+            'jpg', 'logo_stella-artois', '2020-06-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('1b413483-d16c-456d-8b02-5c7d2750bdb4',
+            'https://allcool.s3.fr-par.scw.cloud/brands/logo_bohemia.jpg',
+            'jpg', 'logo_bohemia', '2020-06-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
             values ('bf431a6f-bbf2-4932-85c4-ea0cd1a81b74',
@@ -80,6 +124,12 @@
             values ('d6a0ed3a-82b7-4c10-9190-27a737faf454', 1, 'Extra Red Lager');
             insert into producttype (id, code, description)
             values ('256b6606-97b6-11ea-bb37-0242ac130002', 2, 'Amber Lager');
+            insert into producttype (id, code, description)
+            values ('b14f706c-fbe0-43b4-bf0c-7afb36ff4149', 3, 'American Lager');
+            insert into producttype (id, code, description)
+            values ('78dc3b79-fbe9-4cee-8302-97e9af4c2247', 4, 'German Weizen');
+            insert into producttype (id, code, description)
+            values ('049ad2c4-c73a-41dc-a6e0-954e24197d2e', 5, 'Premium American Lager');
         </sql>
     </changeSet>
 
@@ -93,6 +143,18 @@
             values('c86c2e22-c34b-4c0c-aded-055d0c0e696a', 'Brahma', '5d70836e-babd-4914-b6e8-64254779cfed');
             insert into brand (id, brandname, file_id)
             values('d61fef57-50bf-4949-a296-2f09b3523504', 'Patagonia', '8fd70d05-11e1-473d-9d0b-025e5e60a9ed');
+            insert into brand (id, brandname, file_id)
+            values('fb7faff3-b5cc-470f-9775-d9b76252d8e5', 'Skol', 'd2fdfdfa-e02b-4d4b-8511-be8c854286c0');
+            insert into brand (id, brandname, file_id)
+            values('b597e935-48a1-4251-9deb-0e8270df8b74', 'Franziskaner', '61f7fae7-e913-4101-abbf-eab6ee05d2cf');
+            insert into brand (id, brandname, file_id)
+            values('dc528d69-07e5-42e9-b38e-c6cab8220eb2', 'Colorado', 'ed36be32-1889-4046-b04c-223649274367');
+            insert into brand (id, brandname, file_id)
+            values('57f21e89-e0bf-4231-a863-986538e47053', 'Corona ', '07937389-0c95-408e-bec7-581072061e88');
+            insert into brand (id, brandname, file_id)
+            values('334ea6f5-0ff3-4b23-84c6-dd4015cfbbaf', 'Stella Artois', 'f793a2e5-f360-4758-89cb-6f1b7e66e33d');
+            insert into brand (id, brandname, file_id)
+            values('76f45870-2636-457b-a3c7-5f417958bc56', 'Bohemia', '1b413483-d16c-456d-8b02-5c7d2750bdb4');
         </sql>
     </changeSet>
 
@@ -114,6 +176,48 @@
             equilibrado de malte e lúpulo. Os maltes caramelo Melanoidin, Carared e Carapils usados em sua produção lhe
             conferem um aroma sutil e boa formação de espuma.', 'Carnes e vegetais grelhados.', 'Y',
             '256b6606-97b6-11ea-bb37-0242ac130002','d61fef57-50bf-4949-a296-2f09b3523504');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('1c431db5-908f-4b89-ba05-77d402896e0c', 3, 'Skol Pilsen', 'Skol Pilsen é uma típica cerveja clara,
+            com aroma refinado e sabor leve e suave. Seu teor de amargor é menos acentuado e seu teor alcoólico é
+            médio.',
+            'Saladas, camarão e mariscos.', 'Y',
+            'b14f706c-fbe0-43b4-bf0c-7afb36ff4149','fb7faff3-b5cc-470f-9775-d9b76252d8e5');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('3657343c-4e27-4ac6-a562-f3a586612a16', 4, 'Franziskaner Dunkel', 'A Cerveja Franziskaner Hefe
+            Weissbier Dunkel apresenta cor caramelo e aspecto opaco, com um sabor mais intenso de malte do que
+            a variedade Hell, sendo encorpada e refrescante. Devido aos grãos de trigo torrados e adicionados no
+            seu processo de produção, possui um sabor marcante e um pronunciado aroma torrado que agrada aos amantes de
+            cerveja escura de todo o mundo.', 'Frango assado, lombo defumado e salsicha.', 'Y',
+            '78dc3b79-fbe9-4cee-8302-97e9af4c2247', 'b597e935-48a1-4251-9deb-0e8270df8b74');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('199a5d4f-c7b9-4580-a825-27601a24025a', 5, 'Colorado Ribeirão Lager', 'Essa é a Colorado Ribeirão
+            Lager. Uma cerveja que o nome já diz tudo. Nascida em Ribeirão Preto, nossa casa, é uma lager leve e
+            refrescante, mas com a cara da Colorado, uma cervejaria que nunca faria mais do mesmo. Desiberne!',
+            'Alimentos leves e frescos como peixes grelhados e saladas.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149',
+            'dc528d69-07e5-42e9-b38e-c6cab8220eb2');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('e9506774-2343-4a06-8566-801b21e5d6e2', 6, 'Corona 330ml', 'A Corona clássica: perfeita para saborear
+            na praia com os amigos, gelada e com uma fatia de limão.', 'Bolinhos de bacalhau, ostras temperadas ou
+            camarões fritos.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149', '57f21e89-e0bf-4231-a863-986538e47053');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('d30fe433-97c1-4b95-a6ce-9d9907608f79', 7, 'Stella Artois', 'A experiência e a tradição cervejeira
+            de mais de 600 anos resultam em uma lager muito bem equilibradas. Uma cerveja de sabor intenso e
+            com final suave. Stella Artois foi criada para ser saboreada.', 'Carnes vermelhas e frutos do mar.',
+            'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e', '334ea6f5-0ff3-4b23-84c6-dd4015cfbbaf');
+
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
+            values('c179f011-c4a2-4486-b9a7-bdf39456132d', 8, 'Bohemia Puro Malte', 'Primeira cerveja do Brasil, a
+            Bohemia Puro Malte tem sido fiel às suas principais características: aroma e sabor. O mestre cervejeiro
+            da Cervejaria Bohemia mantém a alquimia desta fórmula para obter um produto único e garantir um padrão de
+            qualidade extremamente rígido e superior. Clara, leve e muito refrescante, é produzida com lúpulo Saaz 100%
+            importado, da República Tcheca. Seu aroma levemente frutado é marcado por notas leves de malte e lúpulo.',
+            'Embutidos e saladas.', 'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e',
+            '76f45870-2636-457b-a3c7-5f417958bc56');
         </sql>
     </changeSet>
 
@@ -123,12 +227,30 @@
         </preConditions>
 
         <sql>
-            insert into productfile (id, product_id, file_id)
+            insert into productfile (id, product_id, file_id, listed)
             values('646cca9f-e90a-416a-a692-ae112968449e', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
-            '715c87bc-abfb-4efc-8979-a4fae19c5234');
-            insert into productfile (id, product_id, file_id)
+            '65d5bab3-da98-47bf-a066-ec0595bf5d09', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
             values('e9e2dfa3-7496-48a5-a64c-42eb3c52c237', '8f50022f-4058-4f8e-8062-fc0ef9bc327e',
-            'c676d398-e1ec-4a91-a866-8f8098620df9');
+            'e324e577-c90c-40c1-a7dc-fb8f72917e28', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('909bc4e0-6f71-4a8c-a837-ae4500f7c4da', '1c431db5-908f-4b89-ba05-77d402896e0c',
+            'dbfcf08e-13b6-49d4-8382-b33c66704f4c', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('7a3ab139-c8ec-4235-9c79-490d832a2c99', '3657343c-4e27-4ac6-a562-f3a586612a16',
+            '44af3e10-9743-44c3-a39e-42ba1d898352', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('daebe36f-fc00-4045-b84e-8d5e45432e0f', '199a5d4f-c7b9-4580-a825-27601a24025a',
+            'ae926927-f79e-498b-8e35-336ee304e855', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('bdcc6abb-795f-43e0-a70d-c6e76cf41320', 'e9506774-2343-4a06-8566-801b21e5d6e2',
+            'b409dc72-7a47-4a53-8217-e8567fdbff6d', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('09d29655-1aea-42a1-8ac6-d3229fa390b7', 'd30fe433-97c1-4b95-a6ce-9d9907608f79',
+            '8fca5416-9ff4-488d-b19e-2f8f0f9917af', 'Y');
+            insert into productfile (id, product_id, file_id, listed)
+            values('fd6e6d24-32b1-4ba6-99cc-f3eb7663c38b', 'c179f011-c4a2-4486-b9a7-bdf39456132d',
+            'bf319d35-5cc7-4251-a5fb-5911e78e4a6e', 'Y');
         </sql>
     </changeSet>
 

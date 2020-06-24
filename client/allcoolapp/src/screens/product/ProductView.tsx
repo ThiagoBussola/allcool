@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Image, StyleSheet } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product, Brand, File, Container, ProductFile } from 'src/types';
-import { Card, Divider } from 'react-native-paper';
-import { styles } from 'src/styles';
+import { Product, Brand, File, ProductFile } from '../../types';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export type ProductViewStackParamList = {
   Products: { userId: string } | undefined;
-  ProductView: { product: Product; userId: string | undefined };
+  ProductView: { productId: string; userId: string | undefined };
 };
 
 type ProductViewNavigationProp = StackNavigationProp<
@@ -83,7 +81,12 @@ const initialProductFile: ProductFile = {
   file: initialFileProductValues,
 };
 
-const ProductView: React.FC<Props> = ({ navigation, route: { params } }) => {
+const ProductView: React.FC<Props> = ({
+  navigation,
+  route: {
+    params: { productId },
+  },
+}) => {
   const [product, setProduct] = useState<Product>(initialProductValues);
   const [productFile, setProductFile] = useState<ProductFile>(
     initialProductFile
