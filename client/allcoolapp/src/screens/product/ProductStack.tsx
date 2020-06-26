@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ProductView, ProductList } from './';
 import { ProductReviewDTO } from '../../types/dto';
 import { rootStackOptions, screenStackOptions } from '../../styles';
+import { ProductReview } from '../product-review/ProductReview';
 
 //Type para se botar a rota e suas props
 export type RootStackParamList = {
@@ -33,7 +34,7 @@ const ProductStack: React.FC = () => {
         <RootStack.Screen
           name="ProductReview"
           options={screenStackOptions('Avaliação')}
-          component={ProductView}
+          component={ProductReview}
         />
       </RootStack.Navigator>
     </>
