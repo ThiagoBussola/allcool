@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { ProductReviewDTO } from '../../types/dto';
+import { Rating } from 'react-native-ratings';
+import { mainStyles } from '../../styles';
+import {
+  Card,
+  Avatar,
+  FAB,
+  TextInput,
+  Divider,
+  Text,
+  Button,
+} from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export type ProductReviewStackParamList = {
   ProductView: { productId: string; userId: string | undefined };
@@ -24,26 +36,126 @@ type Props = {
   route: ProductReviewRouteProp;
 };
 
+const CameraIcon = (props) => (
+  <Avatar.Icon {...props} icon="camera" style={{ backgroundColor: 'black' }} />
+);
+
 const ProductReview: React.FC<Props> = ({
   navigation,
   route: {
     params: { product, userId },
   },
 }) => {
-  const [rating, setRating] = useState(4.5);
+  const [showPic, setShowPic] = useState(false);
   return (
     <>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Review</Text>
+      <ScrollView>
+        <SafeAreaView style={mainStyles.container}>
+          <View
+            style={{
+              height: 50,
+              width: 320,
+              alignSelf: 'center',
+              marginTop: 10,
+            }}
+          >
+            <Card accessibilityStates onPress={() => {}}>
+              <Card.Title
+                accessibilityStates
+                title="Foto"
+                subtitle="Capture ou escolha uma foto do produto"
+                left={CameraIcon}
+              />
+              {showPic ? (
+                <>
+                  <Card.Cover
+                    accessibilityStates
+                    source={{
+                      uri:
+                        'https://p2.piqsels.com/preview/443/865/234/beer-corona-extra-beach-lake-thumbnail.jpg',
+                    }}
+                    resizeMethod="auto"
+                    resizeMode="contain"
+                    style={{ height: 200, width: 320 }}
+                  />
+                  <Button
+                    accessibilityStates
+                    icon="arrow-up"
+                    mode="contained"
+                    theme={{
+                      colors: { primary: '#ffbf00' },
+                    }}
+                    onPress={() => setShowPic(false)}
+                  >
+                    {''}
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  accessibilityStates
+                  icon="arrow-down"
+                  mode="contained"
+                  theme={{
+                    colors: { primary: '#ffbf00' },
+                  }}
+                  onPress={() => setShowPic(true)}
+                >
+                  {''}
+                </Button>
+              )}
+            </Card>
+          </View>
 
-        <View style={{ marginTop: 50 }}>
-          <Button
-            title="Review"
-            color="#ffbf00"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-      </View>
+          <View
+            style={{ marginTop: showPic ? '70%' : '20%', marginBottom: 10 }}
+          >
+            <Divider
+              style={{ marginTop: 10, marginBottom: 20 }}
+              accessibilityStates
+            >
+              <Text
+                style={{ alignSelf: 'center', marginTop: 10 }}
+                accessibilityStates
+              >
+                Nota
+              </Text>
+            </Divider>
+            <View>
+              <View style={{ marginTop: 15 }}>
+                <View>
+                  <Rating type="custom" startingValue={2.5} imageSize={25} />
+                </View>
+              </View>
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                <Text accessibilityStates style={{ fontSize: 16 }}>
+                  O que você achou?
+                </Text>
+              </View>
+              <TextInput
+                accessibilityStates
+                style={mainStyles.input}
+                mode="outlined"
+                placeholder="Comenta aí!"
+                theme={{
+                  colors: { primary: '#ffbf00' },
+                }}
+                multiline={true}
+                maxLength={200}
+                onChangeText={(value) => {}}
+              />
+            </View>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+      <FAB
+        accessibilityStates
+        style={mainStyles.fab}
+        icon="check"
+        label="Avaliar"
+        onPress={() => navigation.goBack()}
+      />
     </>
   );
 };

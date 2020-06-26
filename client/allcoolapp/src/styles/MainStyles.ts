@@ -68,4 +68,11 @@ export const mainStyles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#ffbf00',
+  },
 });

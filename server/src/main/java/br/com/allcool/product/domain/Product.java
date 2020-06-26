@@ -5,6 +5,7 @@ import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.producttype.domain.ProductType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -18,9 +19,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -74,4 +77,7 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @Transient
+    @Formula("select avg(r.rating) from Review r where r.product.id = id")
+    private BigDecimal rating;
 }
