@@ -47,6 +47,7 @@ const ProductReview: React.FC<Props> = ({
   },
 }) => {
   const [showPic, setShowPic] = useState(false);
+  const [showFab, setShowFab] = useState(true);
   return (
     <>
       <ScrollView>
@@ -56,7 +57,7 @@ const ProductReview: React.FC<Props> = ({
               height: 50,
               width: 320,
               alignSelf: 'center',
-              marginTop: 10,
+              marginTop: '5%',
             }}
           >
             <Card accessibilityStates onPress={() => {}}>
@@ -106,35 +107,36 @@ const ProductReview: React.FC<Props> = ({
             </Card>
           </View>
 
-          <View
-            style={{ marginTop: showPic ? '70%' : '20%', marginBottom: 10 }}
-          >
+          <View style={{ marginTop: showPic ? '70%' : '20%' }}>
             <Divider
-              style={{ marginTop: 10, marginBottom: 20 }}
+              style={{ marginTop: '5%', marginBottom: '5%' }}
               accessibilityStates
             >
               <Text
-                style={{ alignSelf: 'center', marginTop: 10 }}
+                style={{ alignSelf: 'center', marginTop: '3%' }}
                 accessibilityStates
               >
                 Nota
               </Text>
             </Divider>
             <View>
-              <View style={{ marginTop: 15 }}>
+              <View style={{ marginTop: '5%' }}>
                 <View>
                   <Rating type="custom" startingValue={2.5} imageSize={25} />
                 </View>
               </View>
             </View>
-            <View style={{ marginTop: 10 }}>
-              <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+            <Divider style={{ marginTop: '5%' }} accessibilityStates />
+            <View style={{ marginTop: '3%' }}>
+              <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
                 <Text accessibilityStates style={{ fontSize: 16 }}>
                   O que você achou?
                 </Text>
               </View>
               <TextInput
                 accessibilityStates
+                onFocus={() => setShowFab(false)}
+                onBlur={() => setShowFab(true)}
                 style={mainStyles.input}
                 mode="outlined"
                 placeholder="Comenta aí!"
@@ -153,7 +155,7 @@ const ProductReview: React.FC<Props> = ({
         accessibilityStates
         style={mainStyles.fab}
         icon="check"
-        label="Avaliar"
+        visible={showFab}
         onPress={() => navigation.goBack()}
       />
     </>
