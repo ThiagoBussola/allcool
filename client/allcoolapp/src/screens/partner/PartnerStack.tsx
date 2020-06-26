@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PartnerContainer } from './PartnerContainer';
-import { screenOptions } from '../../styles';
+import { rootStackOptions } from '../../styles';
 
 export type RootStackParamList = {
   PartnerContainer: { userId: string } | undefined;
@@ -14,7 +14,7 @@ const PartnerStack: React.FC = () => {
     <>
       <RootStack.Navigator
         initialRouteName="PartnerContainer"
-        screenOptions={screenOptions('Parceiros')}
+        screenOptions={rootStackOptions('Parceiros')}
       >
         <RootStack.Screen
           name="PartnerContainer"
