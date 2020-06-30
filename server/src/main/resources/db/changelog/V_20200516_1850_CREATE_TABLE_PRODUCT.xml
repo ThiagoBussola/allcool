@@ -36,6 +36,18 @@
             <column name="brand_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
+            <column name="ibu" type="numeric(10,4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="minimumtemperature" type="numeric(15,4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="maximumtemperature" type="numeric(15,4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alcoholcontent" type="numeric(15,4)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addPrimaryKey tableName="product" columnNames="id" constraintName="product_pk"/>
@@ -48,7 +60,8 @@
                 <foreignKeyConstraintExists foreignKeyName="pt_producttypeid_fk" foreignKeyTableName="product"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseTableName="product" baseColumnNames="producttype_id" constraintName="pt_producttypeid_fk" referencedTableName="producttype"
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="producttype_id"
+                                 constraintName="pt_producttypeid_fk" referencedTableName="producttype"
                                  referencedColumnNames="id"/>
     </changeSet>
     <changeSet id="add-pt_brandid_fk" author="eduardo.bonam">
@@ -57,7 +70,8 @@
                 <foreignKeyConstraintExists foreignKeyName="pt_brandid_fk" foreignKeyTableName="product"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseTableName="product" baseColumnNames="brand_id" constraintName="pt_brandid_fk" referencedTableName="brand"
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="brand_id" constraintName="pt_brandid_fk"
+                                 referencedTableName="brand"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

@@ -11,7 +11,8 @@ import {
   textSizeStyles,
   boldTextStyles,
 } from '../../styles';
-import { ProductService } from '../../service';
+import { ProductService, ProductFileService } from '../../service';
+import { ProductFileDTO } from 'src/types/dto';
 
 export type ProductViewStackParamList = {
   Products: { userId: string } | undefined;
@@ -30,18 +31,9 @@ type Props = {
   route: ProductViewRouteProp;
 };
 
-const initialFileProductValues: File = {
-  id: 'a980d335-db8e-494f-b072-61040eab8433',
-  date: '20/06/2020',
-  name: 'goose-island-midway.png',
-  type: 'goose-island-midway',
-  url:
-    'https://i.pinimg.com/originals/53/9d/ca/539dca03d85f4e100f91a338bce0d246.png',
-};
-
-const initialProductFile: ProductFile = {
-  id: 'b10e0f37-155b-4ea3-a1e3-04d4d6c8534c',
-  file: initialFileProductValues,
+const initialProductFile: ProductFileDTO = {
+  id: '',
+  url: '',
 };
 
 const ProductView: React.FC<Props> = ({
@@ -51,13 +43,19 @@ const ProductView: React.FC<Props> = ({
   },
 }) => {
   const [product, setProduct] = useState<Product>({});
-  const [productFile, setProductFile] = useState<ProductFile>(
+  const [productFile, setProductFile] = useState<ProductFileDTO>(
     initialProductFile
   );
 
   useEffect(() => {
-    ProductService.findById(productId).then(({ data }) => setProduct(data));
-  }, []);
+    ProductService.findById(productId)
+      .then(({ data }) => setProduct(data))
+      .then(() => {
+        ProductFileService.findAllByProductId(productId).then(
+          ({ data }) => data && setProductFile(data[0])
+        );
+      });
+  }, [productId]);
 
   return (
     <>
@@ -66,16 +64,17 @@ const ProductView: React.FC<Props> = ({
           <View>
             <Title style={{ fontSize: 18 }}>{`${product.name}`}</Title>
           </View>
-
-          <View style={{ height: 40, position: 'relative' }}>
-            <Image
-              style={{ width: 190, height: 205 }}
-              source={{
-                uri: productFile.file.url,
-              }}
-              resizeMode="cover"
-            />
-          </View>
+          {!!productFile.id && (
+            <View style={{ height: 40, position: 'relative' }}>
+              <Image
+                style={{ width: 190, height: 205 }}
+                source={{
+                  uri: productFile.url,
+                }}
+                resizeMode="cover"
+              />
+            </View>
+          )}
         </View>
 
         <View style={{ paddingHorizontal: 10 }}>
