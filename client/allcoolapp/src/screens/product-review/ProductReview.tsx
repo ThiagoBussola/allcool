@@ -47,7 +47,9 @@ const ProductReview: React.FC<Props> = ({
   },
 }) => {
   const [showPic, setShowPic] = useState(false);
-  const [showFab, setShowFab] = useState(true);
+  const [rating, setRating] = useState(0);
+
+  const isRated = rating > 0;
 
   return (
     <>
@@ -117,13 +119,18 @@ const ProductReview: React.FC<Props> = ({
                 style={{ alignSelf: 'center', marginTop: '3%' }}
                 accessibilityStates
               >
-                Nota
+                Classificação
               </Text>
             </Divider>
             <View>
               <View style={{ marginTop: '5%' }}>
                 <View>
-                  <Rating type="custom" startingValue={2.5} imageSize={25} />
+                  <Rating
+                    type="star"
+                    startingValue={rating}
+                    imageSize={25}
+                    onFinishRating={(rating) => setRating(rating)}
+                  />
                 </View>
               </View>
             </View>
@@ -136,8 +143,6 @@ const ProductReview: React.FC<Props> = ({
               </View>
               <TextInput
                 accessibilityStates
-                onFocus={() => setShowFab(false)}
-                onBlur={() => setShowFab(true)}
                 style={mainStyles.input}
                 mode="outlined"
                 placeholder="Comenta aí!"
@@ -149,84 +154,93 @@ const ProductReview: React.FC<Props> = ({
                 onChangeText={(value) => {}}
               />
             </View>
-            <View
-              style={[
-                {
-                  marginTop: '5%',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                },
-                rowStyle,
-              ]}
-            >
-              <View style={{ marginRight: '5%' }}>
-                <Chip
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
+            {isRated && (
+              <>
+                <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
+                  <Text accessibilityStates style={{ fontSize: 16 }}>
+                    Notou algum desses sabores?
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    {
+                      marginTop: '5%',
+                      justifyContent: 'center',
+                      flexWrap: 'wrap',
+                    },
+                    rowStyle,
+                  ]}
                 >
-                  Example
-                </Chip>
-              </View>
-              <View style={{ marginRight: '5%' }}>
-                <Chip
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
+                  <View style={{ marginRight: '5%' }}>
+                    <Chip
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                  <View style={{ marginRight: '5%' }}>
+                    <Chip
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                  <View>
+                    <Chip
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                </View>
+                <View
+                  style={[
+                    {
+                      marginTop: '5%',
+                      justifyContent: 'center',
+                      flexWrap: 'wrap',
+                    },
+                    rowStyle,
+                  ]}
                 >
-                  Example
-                </Chip>
-              </View>
-              <View>
-                <Chip
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
-                >
-                  Example
-                </Chip>
-              </View>
-            </View>
-            <View
-              style={[
-                {
-                  marginTop: '5%',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                },
-                rowStyle,
-              ]}
-            >
-              <View style={{ marginRight: '5%' }}>
-                <Chip
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
-                >
-                  Example
-                </Chip>
-              </View>
-              <View style={{ marginRight: '5%' }}>
-                <Chip
-                  selected={true}
-                  style={{ backgroundColor: '#ffbf00' }}
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
-                >
-                  Example
-                </Chip>
-              </View>
-              <View>
-                <Chip
-                  accessibilityStates
-                  onPress={() => console.log('Pressed')}
-                >
-                  Example
-                </Chip>
-              </View>
-            </View>
+                  <View style={{ marginRight: '5%' }}>
+                    <Chip
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                  <View style={{ marginRight: '5%' }}>
+                    <Chip
+                      selected={true}
+                      style={{ backgroundColor: '#ffbf00' }}
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                  <View>
+                    <Chip
+                      accessibilityStates
+                      onPress={() => console.log('Pressed')}
+                    >
+                      Example
+                    </Chip>
+                  </View>
+                </View>
+              </>
+            )}
           </View>
         </SafeAreaView>
         <View
           style={[
             mainStyles.container,
-            { marginBottom: '5%', marginTop: '15%' },
+            { marginBottom: '5%', marginTop: '5%' },
           ]}
         >
           <View style={mainStyles.input}>
