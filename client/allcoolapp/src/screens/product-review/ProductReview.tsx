@@ -4,15 +4,15 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { ProductReviewDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
-import { mainStyles } from '../../styles';
+import { mainStyles, rowStyle } from '../../styles';
 import {
   Card,
   Avatar,
-  FAB,
   TextInput,
   Divider,
   Text,
   Button,
+  Chip,
 } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -48,6 +48,7 @@ const ProductReview: React.FC<Props> = ({
 }) => {
   const [showPic, setShowPic] = useState(false);
   const [showFab, setShowFab] = useState(true);
+
   return (
     <>
       <ScrollView>
@@ -88,7 +89,7 @@ const ProductReview: React.FC<Props> = ({
                     }}
                     onPress={() => setShowPic(false)}
                   >
-                    {''}
+                    Ocultar
                   </Button>
                 </>
               ) : (
@@ -101,7 +102,7 @@ const ProductReview: React.FC<Props> = ({
                   }}
                   onPress={() => setShowPic(true)}
                 >
-                  {''}
+                  Visualizar
                 </Button>
               )}
             </Card>
@@ -148,16 +149,100 @@ const ProductReview: React.FC<Props> = ({
                 onChangeText={(value) => {}}
               />
             </View>
+            <View
+              style={[
+                {
+                  marginTop: '5%',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                },
+                rowStyle,
+              ]}
+            >
+              <View style={{ marginRight: '5%' }}>
+                <Chip
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+              <View style={{ marginRight: '5%' }}>
+                <Chip
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+              <View>
+                <Chip
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+            </View>
+            <View
+              style={[
+                {
+                  marginTop: '5%',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                },
+                rowStyle,
+              ]}
+            >
+              <View style={{ marginRight: '5%' }}>
+                <Chip
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+              <View style={{ marginRight: '5%' }}>
+                <Chip
+                  selected={true}
+                  style={{ backgroundColor: '#ffbf00' }}
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+              <View>
+                <Chip
+                  accessibilityStates
+                  onPress={() => console.log('Pressed')}
+                >
+                  Example
+                </Chip>
+              </View>
+            </View>
           </View>
         </SafeAreaView>
+        <View
+          style={[
+            mainStyles.container,
+            { marginBottom: '5%', marginTop: '15%' },
+          ]}
+        >
+          <View style={mainStyles.input}>
+            <Button
+              accessibilityStates
+              mode="contained"
+              theme={{
+                colors: { primary: '#ffbf00' },
+              }}
+              onPress={() => navigation.goBack()}
+            >
+              Avaliar
+            </Button>
+          </View>
+        </View>
       </ScrollView>
-      <FAB
-        accessibilityStates
-        style={mainStyles.fab}
-        icon="check"
-        visible={showFab}
-        onPress={() => navigation.goBack()}
-      />
     </>
   );
 };

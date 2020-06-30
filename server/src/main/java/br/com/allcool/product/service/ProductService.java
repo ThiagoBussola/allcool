@@ -29,7 +29,6 @@ public class ProductService {
     public Product findById(UUID id) {
 
         return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
-
     }
 
     public List<ProductDTO> findAll() {

@@ -36,12 +36,12 @@ public class ReviewProductFlavor {
     @JoinColumn(name = "review_id")
     private Review review;
 
-    @NotBlank
-    @Length(max = 60)
-    private String description;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "flavortype")
     private FlavorTypeEnum type;
+
+    @NotBlank
+    @Length(max = 15)
+    private String description;
 }
