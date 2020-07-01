@@ -117,6 +117,29 @@ public class ProductFileRepositoryTest {
         assertThat(productFile.getId()).isEqualTo(UUID.fromString("5394ec25-3e3e-4a9d-ab1a-ca9269001fbe"));
         assertThat(productFile.getFile().getId()).isEqualTo(UUID.fromString("757daf1c-ad4f-4bac-8e0e-b4594d05fb6c"));
     }
+
+    @Test
+    public void findAllByProductId() {
+
+        Product product = new Product();
+        product.setId(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+
+        List<ProductFile> listproductFile = this.repository
+                .findAllByProductId(product.getId());
+
+        assertThat(listproductFile).hasSize(2);
+        assertThat(listproductFile).extracting(ProductFile::getId)
+                .containsExactlyInAnyOrder(UUID.fromString("5394ec25-3e3e-4a9d-ab1a-ca9269001fbe"),
+                        UUID.fromString("e9e2dfa3-7496-48a5-a64c-42eb3c52c237"));
+        assertThat(listproductFile).extracting(pf -> pf.getProduct().getId())
+                .containsExactlyInAnyOrder(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"),
+                        UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+        assertThat(listproductFile).extracting(pf -> pf.getFile().getId())
+                .containsExactlyInAnyOrder(UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"),
+                        UUID.fromString("757daf1c-ad4f-4bac-8e0e-b4594d05fb6c"));
+        assertThat(listproductFile).extracting(ProductFile::getListed)
+                .containsExactlyInAnyOrder(true, false);
+    }
 }
 
 
