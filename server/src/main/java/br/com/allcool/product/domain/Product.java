@@ -77,18 +77,18 @@ public class Product {
 
     @NotNull
     @Column(name = "ibu")
-    private BigDecimal ibu = BigDecimal.valueOf(0);
+    private BigDecimal ibu = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "minimumtemperature")
-    private BigDecimal minimumTemperature = BigDecimal.valueOf(0);
+    private BigDecimal minimumTemperature = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "maximumtemperature")
-    private BigDecimal maximumTemperature = BigDecimal.valueOf(0);
+    private BigDecimal maximumTemperature = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "alcoholcontent")
-    private BigDecimal alcoholContent = BigDecimal.valueOf(0);
+    private BigDecimal alcoholContent = BigDecimal.ZERO;
 
 }

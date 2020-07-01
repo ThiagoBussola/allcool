@@ -12,7 +12,7 @@ import {
   boldTextStyles,
 } from '../../styles';
 import { ProductService, ProductFileService } from '../../service';
-import { ProductFileDTO } from 'src/types/dto';
+import { ProductFileDTO } from '../../types/dto';
 
 export type ProductViewStackParamList = {
   Products: { userId: string } | undefined;
@@ -60,7 +60,7 @@ const ProductView: React.FC<Props> = ({
   return (
     <>
       <ScrollView style={{ flex: 1 }}>
-        <View style={{ marginTop: 10, alignItems: 'center' }}>
+        <View style={{ marginTop: '1.2%', alignItems: 'center' }}>
           <View>
             <Title style={{ fontSize: 18 }}>{`${product.name}`}</Title>
           </View>
@@ -77,7 +77,7 @@ const ProductView: React.FC<Props> = ({
           )}
         </View>
 
-        <View style={{ paddingHorizontal: 10 }}>
+        <View style={{ paddingHorizontal: '3.3%' }}>
           <View style={{ alignItems: 'flex-start' }}>
             <View style={{ marginTop: '53%' }}>
               <Headline
@@ -128,7 +128,7 @@ const ProductView: React.FC<Props> = ({
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
-            marginBottom: 20,
+            marginBottom: '6.6%',
           }}
         >
           <Text accessibilityStates style={detailsStyle}>
