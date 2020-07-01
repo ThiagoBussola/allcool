@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -73,5 +74,21 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @NotNull
+    @Column(name = "ibu")
+    private BigDecimal ibu = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "minimumtemperature")
+    private BigDecimal minimumTemperature = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "maximumtemperature")
+    private BigDecimal maximumTemperature = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "alcoholcontent")
+    private BigDecimal alcoholContent = BigDecimal.ZERO;
 
 }

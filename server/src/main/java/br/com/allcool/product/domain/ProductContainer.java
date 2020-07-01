@@ -1,6 +1,7 @@
 package br.com.allcool.product.domain;
 
 import br.com.allcool.container.domain.Container;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,6 +30,7 @@ public class ProductContainer {
     private UUID id;
 
     @NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
