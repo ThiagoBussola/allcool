@@ -80,4 +80,20 @@ public class Product {
     @Transient
     @Formula("select avg(r.rating) from Review r where r.product.id = id")
     private BigDecimal rating;
+
+    @NotNull
+    @Column(name = "ibu")
+    private BigDecimal ibu = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "minimumtemperature")
+    private BigDecimal minimumTemperature = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "maximumtemperature")
+    private BigDecimal maximumTemperature = BigDecimal.ZERO;
+
+    @NotNull
+    @Column(name = "alcoholcontent")
+    private BigDecimal alcoholContent = BigDecimal.ZERO;
 }
