@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { ProductReviewDTO } from '../../types/dto';
+import { ProductReviewDTO, ReviewDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles, rowStyle } from '../../styles';
 import {
@@ -46,10 +46,19 @@ const ProductReview: React.FC<Props> = ({
     params: { product, userId },
   },
 }) => {
+  const [review, setReview] = useState<ReviewDTO>();
   const [showPic, setShowPic] = useState(false);
   const [rating, setRating] = useState(0);
 
-  const isRated = rating > 0;
+  const isRated: boolean = rating > 0;
+
+  const isPictureUploaded: boolean = !!(
+    review &&
+    review.file &&
+    review.file.url
+  );
+
+  const viewPicButtonRatingMargin: string = isPictureUploaded ? '20%' : '10%';
 
   return (
     <>
@@ -95,22 +104,26 @@ const ProductReview: React.FC<Props> = ({
                   </Button>
                 </>
               ) : (
-                <Button
-                  accessibilityStates
-                  icon="arrow-down"
-                  mode="contained"
-                  theme={{
-                    colors: { primary: '#ffbf00' },
-                  }}
-                  onPress={() => setShowPic(true)}
-                >
-                  Visualizar
-                </Button>
+                isPictureUploaded && (
+                  <Button
+                    accessibilityStates
+                    icon="arrow-down"
+                    mode="contained"
+                    theme={{
+                      colors: { primary: '#ffbf00' },
+                    }}
+                    onPress={() => setShowPic(true)}
+                  >
+                    Visualizar
+                  </Button>
+                )
               )}
             </Card>
           </View>
 
-          <View style={{ marginTop: showPic ? '70%' : '20%' }}>
+          <View
+            style={{ marginTop: showPic ? '70%' : viewPicButtonRatingMargin }}
+          >
             <Divider
               style={{ marginTop: '5%', marginBottom: '5%' }}
               accessibilityStates

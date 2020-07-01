@@ -3,6 +3,7 @@ package br.com.allcool.review.domain;
 import br.com.allcool.enums.FlavorTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "reviewproductflavor")
+@ToString(exclude = "review")
 @EqualsAndHashCode(of = {"id", "review"})
 public class ReviewProductFlavor {
 
