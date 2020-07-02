@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -40,17 +40,42 @@ const CameraIcon = (props) => (
   <Avatar.Icon {...props} icon="camera" style={{ backgroundColor: 'black' }} />
 );
 
+const initialValue = (product: ProductReviewDTO): ReviewDTO => ({
+  id: '',
+  user: {
+    id: '',
+    name: '',
+  },
+  product: {
+    id: product.id,
+    name: product.name,
+  },
+  file: undefined,
+  description: '',
+  rating: 0,
+});
+
 const ProductReview: React.FC<Props> = ({
   navigation,
   route: {
     params: { product, userId },
   },
 }) => {
-  const [review, setReview] = useState<ReviewDTO>();
+  const [review, setReview] = useState<ReviewDTO>(initialValue(product));
   const [showPic, setShowPic] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [isValid, setIsValid] = useState(false);
 
-  const isRated: boolean = rating > 0;
+  useEffect(() => {
+    validateFields();
+  }, [review.description]);
+
+  const validateFields = () => {
+    if (!review.description) {
+      setIsValid(false);
+    }
+  };
+
+  const isRated: boolean = review.rating! > 0;
 
   const isPictureUploaded: boolean = !!(
     review &&
@@ -140,9 +165,14 @@ const ProductReview: React.FC<Props> = ({
                 <View>
                   <Rating
                     type="star"
-                    startingValue={rating}
+                    startingValue={review.rating}
                     imageSize={25}
-                    onFinishRating={(rating) => setRating(rating)}
+                    onFinishRating={(rating) =>
+                      setReview((prevReview) => ({
+                        ...prevReview,
+                        rating,
+                      }))
+                    }
                   />
                 </View>
               </View>
@@ -164,7 +194,12 @@ const ProductReview: React.FC<Props> = ({
                 }}
                 multiline={true}
                 maxLength={200}
-                onChangeText={(value) => {}}
+                onChangeText={(value) =>
+                  setReview((prevState) => ({
+                    ...prevState,
+                    description: value,
+                  }))
+                }
               />
             </View>
             {isRated && (
@@ -263,6 +298,7 @@ const ProductReview: React.FC<Props> = ({
               theme={{
                 colors: { primary: '#ffbf00' },
               }}
+              disabled={!isValid}
               onPress={() => navigation.goBack()}
             >
               Avaliar

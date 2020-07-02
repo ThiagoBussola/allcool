@@ -47,7 +47,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
 
   const filter = () => {
     const filteredArray = products.filter((p) =>
-      p.name.trim().toLowerCase().includes(search.trim().toLowerCase())
+      p.name!.trim().toLowerCase().includes(search.trim().toLowerCase())
     );
 
     setFilteredProducts(filteredArray);
@@ -55,7 +55,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
 
   const view = (product: ProductDTO) =>
     navigation.navigate(`ProductView`, {
-      productId: product.id,
+      productId: product.id!,
       userId: undefined,
     });
 
@@ -84,7 +84,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
             flex: 1,
             width: screenWidth,
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id!}
           renderItem={({ item }) => (
             <>
               <TouchableOpacity onPress={() => view(item)}>
