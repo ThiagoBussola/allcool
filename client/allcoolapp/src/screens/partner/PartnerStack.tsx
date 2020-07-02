@@ -1,9 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PartnerContainer } from './PartnerContainer';
+import { PartnerList } from './PartnerList';
 import { rootStackOptions } from '../../styles';
 
 export type RootStackParamList = {
+  Partners: { userId: string } | undefined;
   PartnerContainer: { userId: string } | undefined;
 };
 

@@ -39,13 +39,15 @@ public class PartnerResourceTest {
 		 	PartnerDTO partner = new PartnerDTO();
 	    	partner.setId(UUID.randomUUID());
 	    	partner.setName("MPB Bar");
-	    	partner.setDescription("Bar de Emo");
+	    	partner.setLocality("Maringa - PR");
+	    	partner.setAddress("Rua teste, 111 - teste");
 	        partner.setPhoneNumber("992448023");
 	        
 	        PartnerDTO partner2 = new PartnerDTO();
 	        partner2.setId(UUID.randomUUID());
 	        partner2.setName("Atari Bar");
-	    	partner2.setDescription("Bar de Emo 2");
+	    	partner2.setLocality("Sarandi - PR");
+	    	partner2.setAddress("Rua teste, 222 - teste");
 	    	partner2.setPhoneNumber("99446556");
 
 	        when(this.service.findAll()).thenReturn(Arrays.asList(partner, partner2));
@@ -57,8 +59,10 @@ public class PartnerResourceTest {
 	                		partner2.getId().toString())))
 	                .andExpect(jsonPath("$.[*].name", hasItems(partner.getName(),
 	                		partner2.getName())))
-	                .andExpect(jsonPath("$.[*].description", hasItems(partner.getDescription(),
-	                		partner2.getDescription())))
+	                .andExpect(jsonPath("$.[*].locality", hasItems(partner.getLocality(),
+	                		partner2.getLocality())))
+	                .andExpect(jsonPath("$.[*].address", hasItems(partner.getAddress(),
+	                		partner2.getAddress())))
 	                .andExpect(jsonPath("$.[*].phoneNumber", hasItems(partner.getPhoneNumber(),
 	                		partner2.getPhoneNumber())));
 

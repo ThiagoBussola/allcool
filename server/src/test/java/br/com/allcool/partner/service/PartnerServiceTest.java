@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import br.com.allcool.address.domain.Address;
 import br.com.allcool.dto.PartnerDTO;
 import br.com.allcool.partner.domain.Partner;
 import br.com.allcool.partner.repository.PartnerRepository;
@@ -32,10 +33,17 @@ public class PartnerServiceTest {
     @Test
     public void findAll() {
         
+    	Address address = new Address();
+    	address.setId(UUID.randomUUID());
+    	address.setLocality("Maringa");
+    	address.setDistrict("Zona 7");
+    	address.setFederatedUnit("PR");
+    	address.setPublicPlace("Av. Paranagua, 138");
+    	
         Partner partner = new Partner();
         partner.setId(UUID.randomUUID());
         partner.setName("Teste parceiro");
-        partner.setDescription("Lugar com ambiente agradavel");
+        partner.setAddress(address);
         partner.setPhoneNumber("992448023");
         partner.setRating(BigDecimal.valueOf(4.5));
 
@@ -46,7 +54,8 @@ public class PartnerServiceTest {
         assertThat(result).extracting(PartnerDTO::getId).containsExactly(partner.getId());
         assertThat(result).extracting(PartnerDTO::getPhoneNumber).containsExactly(partner.getPhoneNumber());
         assertThat(result).extracting(PartnerDTO::getName).containsExactly(partner.getName());
-        assertThat(result).extracting(PartnerDTO::getDescription).containsExactly(partner.getDescription());
+        assertThat(result).extracting(PartnerDTO::getLocality).containsExactly("Maringa - PR");
+        assertThat(result).extracting(PartnerDTO::getAddress).containsExactly("Av. Paranagua, 138 - Zona 7");
 
         verify(this.repository).findAll();
         verifyNoMoreInteractions(this.repository);

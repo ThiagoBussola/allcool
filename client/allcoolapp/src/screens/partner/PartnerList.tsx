@@ -5,13 +5,17 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
+  Text,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { PartnerService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { PartnerService } from '../../service';
 import { listImageStyle, rowStyle } from '../../styles';
 import { PartnerDTO } from '../../types/dto/PartnerDTO';
+
 
 type PartnerListStackParamList = {
   Partners: { userId: string } | undefined;
@@ -86,19 +90,27 @@ const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
                   <View style={{marginLeft:10 }}>
-                    <View style={{ alignItems: 'flex-start', marginTop: 10}}>
+                    <View style={{ alignItems: 'flex-start', marginTop: 5}}>
                       <Title>{item.name}</Title>
                     </View>
-                    <View style={{ alignItems: 'flex-start' }}>
-                      <Subheading
-                        style={{ fontSize: 12 }}
-                      >{`Descrição: ${item.description}`}</Subheading>
+                    <View style={{ marginTop: -10 }}>
+                      <Subheading style={{ fontSize: 12, marginBottom: -10 }}>
+                      {`${item.address}`}
+                      </Subheading>
                     </View>
-                    <View style={{ alignItems: 'flex-start' }}>
-                      <Subheading
-                        style={{ fontSize: 12 }}
-                      >{`Telefone: ${item.phoneNumber}`}</Subheading>
+                    <View style={{ }}>
+                      <Subheading style={{ fontSize: 12, marginBottom: -10 }}>
+                        {`${item.locality}`}
+                      </Subheading>
                     </View>
+                    <View>
+                      <Subheading style={{ fontSize: 12 }}>
+                        {`${item.phoneNumber}`}
+                      </Subheading>
+                    </View>
+                  </View>
+                  <View style={{paddingLeft: 10, marginTop: 10, flex: 1, flexDirection: 'row-reverse'}}>
+                      <MaterialCommunityIcons name="map-search-outline" color={'#ffbf00'} size={50}/>
                   </View>
                 </View>
                 <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>

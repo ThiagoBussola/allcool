@@ -1,6 +1,7 @@
 export type PartnerDTO = {
   id: string;
   name: string;
-  description: string;
+  locality: string;
+  address: string;
   phoneNumber: string;
 };

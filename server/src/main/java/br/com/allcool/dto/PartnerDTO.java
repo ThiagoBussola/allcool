@@ -9,7 +9,8 @@ public class PartnerDTO {
 
 	 private UUID id;
 	 private String name;
-	 private String description;
 	 private String phoneNumber;
+	 private String address;
+	 private String locality;
 	 
 }
