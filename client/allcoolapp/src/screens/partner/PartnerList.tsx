@@ -89,31 +89,26 @@ const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{marginLeft:10 }}>
-                    <View style={{ alignItems: 'flex-start', marginTop: 5}}>
+                  <View style={{marginLeft:'5%' }}>
+                    <View style={{ alignItems: 'flex-start', marginTop: '1%'}}>
                       <Title>{item.name}</Title>
                     </View>
-                    <View style={{ marginTop: -10 }}>
-                      <Subheading style={{ fontSize: 12, marginBottom: -10 }}>
+                    <View>
+                      <Subheading style={{ fontSize: 12}}>
                       {`${item.address}`}
                       </Subheading>
                     </View>
-                    <View style={{ }}>
-                      <Subheading style={{ fontSize: 12, marginBottom: -10 }}>
-                        {`${item.locality}`}
-                      </Subheading>
-                    </View>
                     <View>
-                      <Subheading style={{ fontSize: 12 }}>
-                        {`${item.phoneNumber}`}
+                      <Subheading style={{ fontSize: 12}}>
+                        {`${item.locality}`} - {`${item.phoneNumber}`}
                       </Subheading>
                     </View>
                   </View>
-                  <View style={{paddingLeft: 10, marginTop: 10, flex: 1, flexDirection: 'row-reverse'}}>
+                  <View style={{paddingLeft: '5%', marginTop: '7%', flex: 1, flexDirection: 'row-reverse'}}>
                       <MaterialCommunityIcons name="map-search-outline" color={'#ffbf00'} size={50}/>
                   </View>
                 </View>
-                <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>
+                <View style={{ marginTop: '5%', backgroundColor: '#ffbf00' }}>
                   <Divider accessibilityStates />
                 </View>
               </TouchableOpacity>
@@ -129,7 +124,7 @@ const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
               resizeMode="contain"
             />
           </View>
-          <View style={{ alignItems: 'center', marginTop: 10 }}>
+          <View style={{ alignItems: 'center', marginTop: '5%' }}>
             <Title>Nenhum parceiro encontrado</Title>
           </View>
         </View>
