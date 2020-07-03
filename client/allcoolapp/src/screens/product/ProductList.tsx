@@ -131,7 +131,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
             />
           </View>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Title>Nenhum produto encontrado</Title>
+            <Subheading>Nenhum produto encontrado</Subheading>
           </View>
         </View>
       )}
