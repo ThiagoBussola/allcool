@@ -74,10 +74,12 @@ const ProductView: React.FC<Props> = ({
         <SafeAreaView style={mainStyles.container}>
           <View style={{ marginTop: '1.2%' }}>
             <View>
-              <Title style={{ fontSize: 18 }}>{`${product.name}`}</Title>
+              <Title style={{ fontSize: 18, alignSelf: 'center' }}>
+                {product.name}
+              </Title>
             </View>
             {!!productFile.id && (
-              <View style={{ height: 40 }}>
+              <View style={{ height: 40, alignSelf: 'center' }}>
                 <Image
                   style={{ width: 190, height: 205 }}
                   source={{
@@ -99,7 +101,7 @@ const ProductView: React.FC<Props> = ({
             </View>
           </View>
 
-          <View style={{ paddingHorizontal: '3.3%' }}>
+          <View>
             <View style={{ alignItems: 'flex-start' }}>
               <View style={{ marginTop: '5%' }}>
                 <Headline
@@ -107,7 +109,7 @@ const ProductView: React.FC<Props> = ({
                 >{`Sobre ${product.name}`}</Headline>
               </View>
               <View>
-                <Text accessibilityStates>{`${product.description}`}</Text>
+                <Text accessibilityStates>{product.description}</Text>
               </View>
 
               <View>
@@ -116,7 +118,7 @@ const ProductView: React.FC<Props> = ({
                 </Headline>
               </View>
               <View>
-                <Text accessibilityStates>{`${product.harmonization}`}</Text>
+                <Text accessibilityStates>{product.harmonization}</Text>
               </View>
               <View>
                 <Headline style={[textSizeStyles, boldTextStyles]}>
@@ -136,7 +138,7 @@ const ProductView: React.FC<Props> = ({
               <Text accessibilityStates style={boldTextStyles}>
                 Categoria:
               </Text>
-              {` ${product.type?.description}`}
+              {product.type && product.type.description}
             </Text>
             <Text accessibilityStates style={detailsStyle}>
               <Text accessibilityStates style={boldTextStyles}>
@@ -163,7 +165,7 @@ const ProductView: React.FC<Props> = ({
               <Text accessibilityStates style={boldTextStyles}>
                 IBU:
               </Text>
-              {` ${product.ibu}`}
+              {product.ibu}
             </Text>
           </View>
         </SafeAreaView>

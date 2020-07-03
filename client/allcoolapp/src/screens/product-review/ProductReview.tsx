@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { ProductReviewDTO, ReviewDTO } from '../../types/dto';
+import { ProductFlavor } from '../../types';
 import { Rating } from 'react-native-ratings';
-import { mainStyles, rowStyle } from '../../styles';
+import { mainStyles } from '../../styles';
 import {
   Card,
   Avatar,
@@ -55,6 +56,26 @@ const initialValue = (product: ProductReviewDTO): ReviewDTO => ({
   rating: 0,
 });
 
+const dataSource = [
+  'Volvo',
+  'Alpha Sports',
+  'Ford',
+  'Gräf & Stift',
+  'Aston Martin',
+  'BMW',
+  'Tarrant Automobile',
+  'Push',
+  'Österreichische Austro-Fiat',
+  'Mazda',
+  'Rosenbauer',
+];
+
+const color = ['red', '#66CCFF', '#FFCC00', '#1C9379', '#8A7BA7'];
+const randomColor = () => {
+  let col = color[Math.floor(Math.random() * color.length)];
+  return col;
+};
+
 const ProductReview: React.FC<Props> = ({
   navigation,
   route: {
@@ -62,20 +83,11 @@ const ProductReview: React.FC<Props> = ({
   },
 }) => {
   const [review, setReview] = useState<ReviewDTO>(initialValue(product));
+  const [flavors, setFlavors] = useState<ProductFlavor[]>([]);
   const [showPic, setShowPic] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
-  useEffect(() => {
-    validateFields();
-  }, [review.description]);
-
-  const validateFields = () => {
-    if (!review.description) {
-      setIsValid(false);
-    }
-  };
-
-  const isRated: boolean = review.rating! > 0;
+  const isRated: boolean = !!(review.rating && review.rating > 0);
 
   const isPictureUploaded: boolean = !!(
     review &&
@@ -83,16 +95,13 @@ const ProductReview: React.FC<Props> = ({
     review.file.url
   );
 
-  const viewPicButtonRatingMargin: string = isPictureUploaded ? '20%' : '10%';
-
   return (
     <>
       <ScrollView>
         <SafeAreaView style={mainStyles.container}>
           <View
             style={{
-              height: 50,
-              width: 320,
+              width: '100%',
               alignSelf: 'center',
               marginTop: '5%',
             }}
@@ -146,39 +155,59 @@ const ProductReview: React.FC<Props> = ({
             </Card>
           </View>
 
-          <View
-            style={{ marginTop: showPic ? '70%' : viewPicButtonRatingMargin }}
-          >
-            <Divider
-              style={{ marginTop: '5%', marginBottom: '5%' }}
-              accessibilityStates
+          <View>
+            <View
+              style={{
+                marginTop: showPic ? '70%' : '0%',
+              }}
             >
-              <Text
-                style={{ alignSelf: 'center', marginTop: '3%' }}
-                accessibilityStates
+              <View
+                style={{
+                  marginTop: '5%',
+                  marginBottom: '5%',
+                }}
               >
-                Classificação
-              </Text>
-            </Divider>
-            <View>
-              <View style={{ marginTop: '5%' }}>
-                <View>
-                  <Rating
-                    type="star"
-                    startingValue={review.rating}
-                    imageSize={25}
-                    onFinishRating={(rating) =>
-                      setReview((prevReview) => ({
-                        ...prevReview,
-                        rating,
-                      }))
-                    }
-                  />
+                <Divider accessibilityStates />
+              </View>
+              <View>
+                <View style={{ alignItems: 'flex-start' }}>
+                  <Text accessibilityStates style={{ fontSize: 16 }}>
+                    Classificação
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    marginTop: '4%',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <View>
+                    <Rating
+                      type="star"
+                      startingValue={review.rating}
+                      imageSize={30}
+                      onFinishRating={(rating) => {
+                        setReview((prevReview) => ({
+                          ...prevReview,
+                          rating,
+                        }));
+                        setIsValid(true);
+                      }}
+                    />
+                  </View>
+                </View>
+                <View
+                  style={{
+                    marginTop: '5%',
+                  }}
+                >
+                  <Divider accessibilityStates />
                 </View>
               </View>
             </View>
-            <Divider style={{ marginTop: '5%' }} accessibilityStates />
-            <View style={{ marginTop: '3%' }}>
+
+            <View>
               <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
                 <Text accessibilityStates style={{ fontSize: 16 }}>
                   O que você achou?
@@ -202,6 +231,7 @@ const ProductReview: React.FC<Props> = ({
                 }
               />
             </View>
+
             {isRated && (
               <>
                 <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
@@ -210,76 +240,34 @@ const ProductReview: React.FC<Props> = ({
                   </Text>
                 </View>
                 <View
-                  style={[
-                    {
-                      marginTop: '5%',
-                      justifyContent: 'center',
-                      flexWrap: 'wrap',
-                    },
-                    rowStyle,
-                  ]}
+                  style={{
+                    flex: 1,
+                    marginTop: '5%',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                  }}
                 >
-                  <View style={{ marginRight: '5%' }}>
-                    <Chip
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
-                  <View style={{ marginRight: '5%' }}>
-                    <Chip
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
-                  <View>
-                    <Chip
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
-                </View>
-                <View
-                  style={[
-                    {
-                      marginTop: '5%',
-                      justifyContent: 'center',
-                      flexWrap: 'wrap',
-                    },
-                    rowStyle,
-                  ]}
-                >
-                  <View style={{ marginRight: '5%' }}>
-                    <Chip
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
-                  <View style={{ marginRight: '5%' }}>
-                    <Chip
-                      selected={true}
-                      style={{ backgroundColor: '#ffbf00' }}
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
-                  <View>
-                    <Chip
-                      accessibilityStates
-                      onPress={() => console.log('Pressed')}
-                    >
-                      Example
-                    </Chip>
-                  </View>
+                  {dataSource.map((item, index) => {
+                    return (
+                      <View
+                        key={index}
+                        style={{
+                          margin: '1%',
+                        }}
+                      >
+                        <Chip
+                          accessibilityStates
+                          key={item + index}
+                          mode="outlined"
+                          textStyle={{ color: 'white', fontSize: 14 }} //label properties
+                          style={{ backgroundColor: randomColor() }} //display diff color BG
+                          onPress={() => Alert.alert('Clicked Chip' + item)}
+                        >
+                          {item}
+                        </Chip>
+                      </View>
+                    );
+                  })}
                 </View>
               </>
             )}
@@ -291,7 +279,7 @@ const ProductReview: React.FC<Props> = ({
             { marginBottom: '5%', marginTop: '5%' },
           ]}
         >
-          <View style={mainStyles.input}>
+          <View>
             <Button
               accessibilityStates
               mode="contained"
