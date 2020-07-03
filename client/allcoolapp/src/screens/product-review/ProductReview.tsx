@@ -14,6 +14,8 @@ import {
   Text,
   Button,
   Chip,
+  Subheading,
+  Title,
 } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -99,11 +101,17 @@ const ProductReview: React.FC<Props> = ({
     <>
       <ScrollView>
         <SafeAreaView style={mainStyles.container}>
+          <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
+            <Title style={{ fontSize: 16 }}>Produto</Title>
+          </View>
+          <View style={{ alignItems: 'flex-start' }}>
+            <Subheading style={{ fontSize: 12 }}>{product.name}</Subheading>
+          </View>
           <View
             style={{
               width: '100%',
               alignSelf: 'center',
-              marginTop: '5%',
+              marginTop: '3%',
             }}
           >
             <Card accessibilityStates onPress={() => {}}>
@@ -164,21 +172,18 @@ const ProductReview: React.FC<Props> = ({
               <View
                 style={{
                   marginTop: '5%',
-                  marginBottom: '5%',
                 }}
               >
                 <Divider accessibilityStates />
               </View>
               <View>
-                <View style={{ alignItems: 'flex-start' }}>
-                  <Text accessibilityStates style={{ fontSize: 16 }}>
-                    Classificação
-                  </Text>
+                <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
+                  <Title style={{ fontSize: 16 }}>Classificação</Title>
                 </View>
                 <View
                   style={{
                     flex: 1,
-                    marginTop: '4%',
+                    marginTop: '2%',
                     alignItems: 'flex-start',
                   }}
                 >
@@ -208,14 +213,12 @@ const ProductReview: React.FC<Props> = ({
             </View>
 
             <View>
-              <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
-                <Text accessibilityStates style={{ fontSize: 16 }}>
-                  O que você achou?
-                </Text>
+              <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
+                <Title style={{ fontSize: 16 }}>O que você achou?</Title>
               </View>
               <TextInput
                 accessibilityStates
-                style={mainStyles.input}
+                style={[mainStyles.input, { width: '100%', marginTop: '1%' }]}
                 mode="outlined"
                 placeholder="Comenta aí!"
                 theme={{
@@ -234,10 +237,17 @@ const ProductReview: React.FC<Props> = ({
 
             {isRated && (
               <>
-                <View style={{ alignItems: 'flex-start', marginTop: '5%' }}>
-                  <Text accessibilityStates style={{ fontSize: 16 }}>
+                <View
+                  style={{
+                    marginTop: '5%',
+                  }}
+                >
+                  <Divider accessibilityStates />
+                </View>
+                <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
+                  <Title style={{ fontSize: 16 }}>
                     Notou algum desses sabores?
-                  </Text>
+                  </Title>
                 </View>
                 <View
                   style={{
@@ -259,8 +269,8 @@ const ProductReview: React.FC<Props> = ({
                           accessibilityStates
                           key={item + index}
                           mode="outlined"
-                          textStyle={{ color: 'white', fontSize: 14 }} //label properties
-                          style={{ backgroundColor: randomColor() }} //display diff color BG
+                          textStyle={{ color: 'black', fontSize: 14 }}
+                          style={{ backgroundColor: '#f7f7f7' }}
                           onPress={() => Alert.alert('Clicked Chip' + item)}
                         >
                           {item}
