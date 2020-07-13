@@ -1,6 +1,6 @@
 import { FlavorTypeEnum } from '../enum';
 
-export type ProductFlavor = {
+export type ProductFlavorDTO = {
   id: string;
   type: FlavorTypeEnum;
   description: string;

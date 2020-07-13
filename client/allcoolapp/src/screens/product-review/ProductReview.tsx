@@ -3,21 +3,19 @@ import { View, SafeAreaView, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { ProductReviewDTO, ReviewDTO } from '../../types/dto';
-import { ProductFlavor } from '../../types';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
 import {
-  Card,
-  Avatar,
   TextInput,
   Divider,
-  Text,
   Button,
   Chip,
   Subheading,
   Title,
 } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ProductFlavorService, ReviewService } from '../../service';
+import { ProductReviewCard } from './ProductReviewCard';
 
 export type ProductReviewStackParamList = {
   ProductView: { productId: string; userId: string | undefined };
@@ -39,44 +37,14 @@ type Props = {
   route: ProductReviewRouteProp;
 };
 
-const CameraIcon = (props) => (
-  <Avatar.Icon {...props} icon="camera" style={{ backgroundColor: 'black' }} />
-);
-
-const initialValue = (product: ProductReviewDTO): ReviewDTO => ({
+const initialValue = (productId: string, userClientId: string): ReviewDTO => ({
   id: '',
-  user: {
-    id: '',
-    name: '',
-  },
-  product: {
-    id: product.id,
-    name: product.name,
-  },
-  file: undefined,
+  userClientId,
+  productId,
   description: '',
   rating: 0,
+  flavors: [],
 });
-
-const dataSource = [
-  'Volvo',
-  'Alpha Sports',
-  'Ford',
-  'Gräf & Stift',
-  'Aston Martin',
-  'BMW',
-  'Tarrant Automobile',
-  'Push',
-  'Österreichische Austro-Fiat',
-  'Mazda',
-  'Rosenbauer',
-];
-
-const color = ['red', '#66CCFF', '#FFCC00', '#1C9379', '#8A7BA7'];
-const randomColor = () => {
-  let col = color[Math.floor(Math.random() * color.length)];
-  return col;
-};
 
 const ProductReview: React.FC<Props> = ({
   navigation,
@@ -84,18 +52,31 @@ const ProductReview: React.FC<Props> = ({
     params: { product, userId },
   },
 }) => {
-  const [review, setReview] = useState<ReviewDTO>(initialValue(product));
-  const [flavors, setFlavors] = useState<ProductFlavor[]>([]);
+  const [review, setReview] = useState<ReviewDTO>(
+    initialValue(product.id!, userId)
+  );
   const [showPic, setShowPic] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
+  useEffect(() => {
+    if (product.id) {
+      ProductFlavorService.findAllByProductId(product.id).then(({ data }) =>
+        setReview((prevState) => ({
+          ...prevState,
+          flavors: data,
+        }))
+      );
+    }
+  }, [product.id]);
+
   const isRated: boolean = !!(review.rating && review.rating > 0);
 
-  const isPictureUploaded: boolean = !!(
-    review &&
-    review.file &&
-    review.file.url
-  );
+  const submitReview = () =>
+    ReviewService.saveReview(review)
+      .then(() => navigation.goBack())
+      .catch(({ response }) => console.log(response));
+
+  const handleChange = (name: string, value) => {};
 
   return (
     <>
@@ -107,68 +88,11 @@ const ProductReview: React.FC<Props> = ({
           <View style={{ alignItems: 'flex-start' }}>
             <Subheading style={{ fontSize: 12 }}>{product.name}</Subheading>
           </View>
-          <View
-            style={{
-              width: '100%',
-              alignSelf: 'center',
-              marginTop: '3%',
-            }}
-          >
-            <Card accessibilityStates onPress={() => {}}>
-              <Card.Title
-                accessibilityStates
-                title="Foto"
-                subtitle="Capture ou escolha uma foto do produto"
-                left={CameraIcon}
-              />
-              {showPic ? (
-                <>
-                  <Card.Cover
-                    accessibilityStates
-                    source={{
-                      uri:
-                        'https://p2.piqsels.com/preview/443/865/234/beer-corona-extra-beach-lake-thumbnail.jpg',
-                    }}
-                    resizeMethod="auto"
-                    resizeMode="contain"
-                    style={{ height: 200, width: 320 }}
-                  />
-                  <Button
-                    accessibilityStates
-                    icon="arrow-up"
-                    mode="contained"
-                    theme={{
-                      colors: { primary: '#ffbf00' },
-                    }}
-                    onPress={() => setShowPic(false)}
-                  >
-                    Ocultar
-                  </Button>
-                </>
-              ) : (
-                isPictureUploaded && (
-                  <Button
-                    accessibilityStates
-                    icon="arrow-down"
-                    mode="contained"
-                    theme={{
-                      colors: { primary: '#ffbf00' },
-                    }}
-                    onPress={() => setShowPic(true)}
-                  >
-                    Visualizar
-                  </Button>
-                )
-              )}
-            </Card>
-          </View>
+
+          <ProductReviewCard showPic={showPic} setShowPic={setShowPic} />
 
           <View>
-            <View
-              style={{
-                marginTop: showPic ? '70%' : '0%',
-              }}
-            >
+            <View>
               <View
                 style={{
                   marginTop: '5%',
@@ -257,7 +181,7 @@ const ProductReview: React.FC<Props> = ({
                     flexWrap: 'wrap',
                   }}
                 >
-                  {dataSource.map((item, index) => {
+                  {review?.flavors?.map((flavor, index) => {
                     return (
                       <View
                         key={index}
@@ -267,13 +191,16 @@ const ProductReview: React.FC<Props> = ({
                       >
                         <Chip
                           accessibilityStates
-                          key={item + index}
+                          key={flavor.id}
                           mode="outlined"
                           textStyle={{ color: 'black', fontSize: 14 }}
+                          selectedColor="#ffbf00"
                           style={{ backgroundColor: '#f7f7f7' }}
-                          onPress={() => Alert.alert('Clicked Chip' + item)}
+                          onPress={() =>
+                            Alert.alert('Clicked Chip' + flavor.description)
+                          }
                         >
-                          {item}
+                          {flavor.description}
                         </Chip>
                       </View>
                     );
@@ -297,7 +224,7 @@ const ProductReview: React.FC<Props> = ({
                 colors: { primary: '#ffbf00' },
               }}
               disabled={!isValid}
-              onPress={() => navigation.goBack()}
+              onPress={() => submitReview()}
             >
               Avaliar
             </Button>
