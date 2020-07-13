@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,7 +47,6 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "file_id")
     private File file;
@@ -58,6 +58,7 @@ public class Review {
     @NotNull
     private BigDecimal rating = BigDecimal.ZERO;
 
+    @NotEmpty
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewProductFlavor> flavors = new ArrayList<>();
 }

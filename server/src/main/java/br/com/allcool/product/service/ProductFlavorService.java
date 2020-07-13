@@ -23,7 +23,7 @@ public class ProductFlavorService {
     public List<ProductFlavorDTO> findAllByProductId(UUID productId) {
 
         return this.repository.findAllByProductId(productId).stream()
-                .map(pf -> new ProductFlavorDTO(pf.getId(), pf.getDescription()))
+                .map(pf -> new ProductFlavorDTO(pf.getId(), pf.getDescription(), pf.getType()))
                 .sorted(Comparator.comparing(ProductFlavorDTO::getDescription))
                 .collect(Collectors.toList());
     }

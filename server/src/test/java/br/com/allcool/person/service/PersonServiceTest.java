@@ -20,7 +20,6 @@ import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
 
 @RunWith(SpringRunner.class)
-@SuppressWarnings("deprecation")
 public class PersonServiceTest {
 
 	@Mock
