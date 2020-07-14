@@ -76,6 +76,7 @@ const LoginContainer: React.FC<Props> = ({ navigation, route: { params } }) => {
       password: loginState.password,
     })
       .then((response) => {
+        StorageService.storeUserClient(response.data.userId);
         StorageService.storeKey('JWT-Token', response.data.token).then(() =>
           navigation.dispatch(StackActions.replace('Products'))
         );
