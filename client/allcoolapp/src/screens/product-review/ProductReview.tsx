@@ -16,6 +16,10 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import { ProductFlavorService, ReviewService } from '../../service';
 import { ProductReviewCard } from './ProductReviewCard';
+import {
+  SnackbarNotification,
+  SnackbarState,
+} from '../../components/SnackbarNotification';
 
 export type ProductReviewStackParamList = {
   ProductView: { productId: string; userId: string | undefined };
@@ -57,15 +61,26 @@ const ProductReview: React.FC<Props> = ({
   );
   const [showPic, setShowPic] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
     if (product.id) {
-      ProductFlavorService.findAllByProductId(product.id).then(({ data }) =>
-        setReview((prevState) => ({
-          ...prevState,
-          flavors: data,
-        }))
-      );
+      ProductFlavorService.findAllByProductId(product.id)
+        .then(({ data }) =>
+          setReview((prevState) => ({
+            ...prevState,
+            flavors: data,
+          }))
+        )
+        .then(() =>
+          setSnackbarState({
+            message: 'Carregou',
+            visible: true,
+          })
+        );
     }
   }, [product.id]);
 
@@ -231,6 +246,15 @@ const ProductReview: React.FC<Props> = ({
           </View>
         </View>
       </ScrollView>
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
     </>
   );
 };
