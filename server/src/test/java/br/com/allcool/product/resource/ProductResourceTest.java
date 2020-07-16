@@ -117,5 +117,4 @@ public class ProductResourceTest {
         verify(this.service).findAll();
         verifyNoMoreInteractions(this.service);
     }
-
 }

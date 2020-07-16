@@ -164,60 +164,68 @@
         </preConditions>
 
         <sql>
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('f0e11a71-8ff7-4e61-80b4-de0082665b73', 1, 'Brahma Extra Red Lager', 'Sabor marcante que combina com
-            massas e queijos é com a Brahma Red Lager. A cerveja tem um leve aroma de caramelo, malte torrado e suaves
-            notas de frutas e doces.', 'Massas a Bolonhesa e Queijo Parmesão.', 'Y',
-            'd6a0ed3a-82b7-4c10-9190-27a737faf454','c86c2e22-c34b-4c0c-aded-055d0c0e696a');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('f0e11a71-8ff7-4e61-80b4-de0082665b73', 1, 'Brahma Extra Red Lager', 'Sabor marcante que combina com ' ||
+            'massas e queijos é com a Brahma Red Lager. A cerveja tem um leve aroma de caramelo, malte torrado e suaves ' ||
+            'notas de frutas e doces.', 'Massas a Bolonhesa e Queijo Parmesão.', 'Y',
+            'd6a0ed3a-82b7-4c10-9190-27a737faf454','c86c2e22-c34b-4c0c-aded-055d0c0e696a', 10, 4, 8, 5.2);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('8f50022f-4058-4f8e-8062-fc0ef9bc327e', 2, 'Patagonia Amber Lager', 'Nossa primogênita, uma Amber
-            Lager clássica, feita com lúpulos cultivados e colhidos por nós. Tem cor marrom acobreada e o sabor
-            equilibrado de malte e lúpulo. Os maltes caramelo Melanoidin, Carared e Carapils usados em sua produção lhe
-            conferem um aroma sutil e boa formação de espuma.', 'Carnes e vegetais grelhados.', 'Y',
-            '256b6606-97b6-11ea-bb37-0242ac130002','d61fef57-50bf-4949-a296-2f09b3523504');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('8f50022f-4058-4f8e-8062-fc0ef9bc327e', 2, 'Patagonia Amber Lager', 'Nossa primogênita, uma Amber ' ||
+            'Lager clássica, feita com lúpulos cultivados e colhidos por nós. Tem cor marrom acobreada e o sabor ' ||
+            'equilibrado de malte e lúpulo. Os maltes caramelo Melanoidin, Carared e Carapils usados em sua produção lhe ' ||
+            'conferem um aroma sutil e boa formação de espuma.', 'Carnes e vegetais grelhados.', 'Y',
+            '256b6606-97b6-11ea-bb37-0242ac130002','d61fef57-50bf-4949-a296-2f09b3523504', 13.5, 4, 8, 4.5);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('1c431db5-908f-4b89-ba05-77d402896e0c', 3, 'Skol Pilsen', 'Skol Pilsen é uma típica cerveja clara,
-            com aroma refinado e sabor leve e suave. Seu teor de amargor é menos acentuado e seu teor alcoólico é
-            médio.',
-            'Saladas, camarão e mariscos.', 'Y',
-            'b14f706c-fbe0-43b4-bf0c-7afb36ff4149','fb7faff3-b5cc-470f-9775-d9b76252d8e5');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('1c431db5-908f-4b89-ba05-77d402896e0c', 3, 'Skol Pilsen', 'Skol Pilsen é uma típica cerveja clara, ' ||
+            'com aroma refinado e sabor leve e suave. Seu teor de amargor é menos acentuado e seu teor alcoólico é ' ||
+            'médio.', 'Saladas, camarão e mariscos.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149',
+            'fb7faff3-b5cc-470f-9775-d9b76252d8e5', 8, 0, 4, 4.6);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('3657343c-4e27-4ac6-a562-f3a586612a16', 4, 'Franziskaner Dunkel', 'A Cerveja Franziskaner Hefe
-            Weissbier Dunkel apresenta cor caramelo e aspecto opaco, com um sabor mais intenso de malte do que
-            a variedade Hell, sendo encorpada e refrescante. Devido aos grãos de trigo torrados e adicionados no
-            seu processo de produção, possui um sabor marcante e um pronunciado aroma torrado que agrada aos amantes de
-            cerveja escura de todo o mundo.', 'Frango assado, lombo defumado e salsicha.', 'Y',
-            '78dc3b79-fbe9-4cee-8302-97e9af4c2247', 'b597e935-48a1-4251-9deb-0e8270df8b74');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('3657343c-4e27-4ac6-a562-f3a586612a16', 4, 'Franziskaner Dunkel', 'A Cerveja Franziskaner Hefe ' ||
+            'Weissbier Dunkel apresenta cor caramelo e aspecto opaco, com um sabor mais intenso de malte do que ' ||
+            'a variedade Hell, sendo encorpada e refrescante. Devido aos grãos de trigo torrados e adicionados no ' ||
+            'seu processo de produção, possui um sabor marcante e um pronunciado aroma torrado que agrada aos amantes de ' ||
+            'cerveja escura de todo o mundo.', 'Frango assado, lombo defumado e salsicha.', 'Y',
+            '78dc3b79-fbe9-4cee-8302-97e9af4c2247', 'b597e935-48a1-4251-9deb-0e8270df8b74', 12, 4, 8, 5);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('199a5d4f-c7b9-4580-a825-27601a24025a', 5, 'Colorado Ribeirão Lager', 'Essa é a Colorado Ribeirão
-            Lager. Uma cerveja que o nome já diz tudo. Nascida em Ribeirão Preto, nossa casa, é uma lager leve e
-            refrescante, mas com a cara da Colorado, uma cervejaria que nunca faria mais do mesmo. Desiberne!',
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('199a5d4f-c7b9-4580-a825-27601a24025a', 5, 'Colorado Ribeirão Lager', 'Essa é a Colorado Ribeirão ' ||
+            'Lager. Uma cerveja que o nome já diz tudo. Nascida em Ribeirão Preto, nossa casa, é uma lager leve e ' ||
+            'refrescante, mas com a cara da Colorado, uma cervejaria que nunca faria mais do mesmo. Desiberne!',
             'Alimentos leves e frescos como peixes grelhados e saladas.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149',
-            'dc528d69-07e5-42e9-b38e-c6cab8220eb2');
+            'dc528d69-07e5-42e9-b38e-c6cab8220eb2', 20, 0, 4, 4.5);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('e9506774-2343-4a06-8566-801b21e5d6e2', 6, 'Corona 330ml', 'A Corona clássica: perfeita para saborear
-            na praia com os amigos, gelada e com uma fatia de limão.', 'Bolinhos de bacalhau, ostras temperadas ou
-            camarões fritos.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149', '57f21e89-e0bf-4231-a863-986538e47053');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('e9506774-2343-4a06-8566-801b21e5d6e2', 6, 'Corona 330ml', 'A Corona clássica: perfeita para saborear ' ||
+            'na praia com os amigos, gelada e com uma fatia de limão.', 'Bolinhos de bacalhau, ostras temperadas ou ' ||
+            'camarões fritos.', 'Y', 'b14f706c-fbe0-43b4-bf0c-7afb36ff4149', '57f21e89-e0bf-4231-a863-986538e47053', 18,
+            0, 4, 4.6);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('d30fe433-97c1-4b95-a6ce-9d9907608f79', 7, 'Stella Artois', 'A experiência e a tradição cervejeira
-            de mais de 600 anos resultam em uma lager muito bem equilibradas. Uma cerveja de sabor intenso e
-            com final suave. Stella Artois foi criada para ser saboreada.', 'Carnes vermelhas e frutos do mar.',
-            'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e', '334ea6f5-0ff3-4b23-84c6-dd4015cfbbaf');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('d30fe433-97c1-4b95-a6ce-9d9907608f79', 7, 'Stella Artois', 'A experiência e a tradição cervejeira ' ||
+            'de mais de 600 anos resultam em uma lager muito bem equilibradas. Uma cerveja de sabor intenso e ' ||
+            'com final suave. Stella Artois foi criada para ser saboreada.', 'Carnes vermelhas e frutos do mar.',
+            'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e', '334ea6f5-0ff3-4b23-84c6-dd4015cfbbaf', 16, 0, 4, 5);
 
-            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id)
-            values('c179f011-c4a2-4486-b9a7-bdf39456132d', 8, 'Bohemia Puro Malte', 'Primeira cerveja do Brasil, a
-            Bohemia Puro Malte tem sido fiel às suas principais características: aroma e sabor. O mestre cervejeiro
-            da Cervejaria Bohemia mantém a alquimia desta fórmula para obter um produto único e garantir um padrão de
-            qualidade extremamente rígido e superior. Clara, leve e muito refrescante, é produzida com lúpulo Saaz 100%
-            importado, da República Tcheca. Seu aroma levemente frutado é marcado por notas leves de malte e lúpulo.',
-            'Embutidos e saladas.', 'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e',
-            '76f45870-2636-457b-a3c7-5f417958bc56');
+            insert into product(id, code, productname, description, harmonization, active, producttype_id, brand_id, ibu,
+            minimumtemperature, maximumtemperature, alcoholcontent)
+            values('c179f011-c4a2-4486-b9a7-bdf39456132d', 8, 'Bohemia Puro Malte', 'Primeira cerveja do Brasil, a ' ||
+            'Bohemia Puro Malte tem sido fiel às suas principais características: aroma e sabor. O mestre cervejeiro ' ||
+            'da Cervejaria Bohemia mantém a alquimia desta fórmula para obter um produto único e garantir um padrão de ' ||
+            'qualidade extremamente rígido e superior. Clara, leve e muito refrescante, é produzida com lúpulo Saaz 100% ' ||
+            'importado, da República Tcheca. Seu aroma levemente frutado é marcado por notas leves de malte e lúpulo.',
+            'Embutidos e saladas.', 'Y', '049ad2c4-c73a-41dc-a6e0-954e24197d2e', '76f45870-2636-457b-a3c7-5f417958bc56',
+            9, 0, 4, 4.95);
         </sql>
     </changeSet>
 
@@ -338,8 +346,8 @@
             values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87060-026', 'Rua Luiza Zequim', 'Jardim Santa Rosa',
             'Maringa', 'PR');
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
-            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87060-023', 'Rua Teste Update','Bairro Teste', 'Cidade
-            Teste', 'RR');
+            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87060-023', 'Rua Teste Update','Bairro Teste', 
+            'Cidade Teste', 'RR');
         </sql>
     </changeSet>
 
