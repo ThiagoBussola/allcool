@@ -2,16 +2,31 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PartnerContainer } from './PartnerContainer';
 import { PartnerList } from './PartnerList';
-import { rootStackOptions } from '../../styles';
+import { rootStackOptions, screenStackOptions } from '../../styles';
+import { RouteProp } from '@react-navigation/native';
 
-export type RootStackParamList = {
-  Partners: { userId: string } | undefined;
-  PartnerContainer: { userId: string } | undefined;
+export type PartnerRootStackParamList = {
+  PartnerStack: { userId: string };
+  Partners: { userId: string };
+  PartnerContainer: { userId: string };
 };
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<PartnerRootStackParamList>();
 
-const PartnerStack: React.FC = () => {
+type PartnerStackRouteProp = RouteProp<
+  PartnerRootStackParamList,
+  'PartnerStack'
+>;
+
+type Props = {
+  route: PartnerStackRouteProp;
+};
+
+const PartnerStack: React.FC<Props> = ({
+  route: {
+    params: { userId },
+  },
+}) => {
   return (
     <>
       <RootStack.Navigator
@@ -21,12 +36,13 @@ const PartnerStack: React.FC = () => {
         <RootStack.Screen
           name="Partners"
           component={PartnerList}
-          initialParams={{ userId: '1' }}
+          initialParams={{ userId }}
         />
         <RootStack.Screen
           name="PartnerContainer"
+          options={screenStackOptions('Parceiro')}
           component={PartnerContainer}
-          initialParams={{ userId: '1' }}
+          initialParams={{ userId }}
         />
       </RootStack.Navigator>
     </>

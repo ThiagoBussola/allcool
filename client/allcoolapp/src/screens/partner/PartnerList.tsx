@@ -5,7 +5,6 @@ import {
   FlatList,
   TouchableOpacity,
   Dimensions,
-  Text,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -16,24 +15,32 @@ import { PartnerService } from '../../service';
 import { listImageStyle, rowStyle } from '../../styles';
 import { PartnerDTO } from '../../types/dto/PartnerDTO';
 
-
 type PartnerListStackParamList = {
-  Partners: { userId: string } | undefined;
-  PartnerContainer: { partnerId: string; userId: string | undefined };
+  Partners: { userId: string };
+  PartnerContainer: { partnerId: string };
 };
 
-type PartnerListNavigationProp = StackNavigationProp<PartnerListStackParamList, 'Partners'>;
+type PartnerListNavigationProp = StackNavigationProp<
+  PartnerListStackParamList,
+  'Partners'
+>;
+
 type PartnersListRouteProp = RouteProp<PartnerListStackParamList, 'Partners'>;
 
 type Props = {
-  route: PartnersListRouteProp;
   navigation: PartnerListNavigationProp;
+  route: PartnersListRouteProp;
 };
 
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
+const PartnerList: React.FC<Props> = ({
+  navigation,
+  route: {
+    params: { userId },
+  },
+}) => {
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
   const [filteredPartners, setFilteredPartners] = useState<PartnerDTO[]>([]);
   const [search, setSearch] = useState('');
@@ -56,7 +63,6 @@ const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
   const view = (partner: PartnerDTO) =>
     navigation.navigate(`PartnerContainer`, {
       partnerId: partner.id,
-      userId: undefined,
     });
 
   const handleChange = (text: string) => {
@@ -89,23 +95,34 @@ const PartnerList: React.FC<Props> = ({ navigation, route: { params } }) => {
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{marginLeft:'5%' }}>
-                    <View style={{ alignItems: 'flex-start', marginTop: '1%'}}>
+                  <View style={{ marginLeft: '5%' }}>
+                    <View style={{ alignItems: 'flex-start', marginTop: '1%' }}>
                       <Title>{item.name}</Title>
                     </View>
                     <View>
-                      <Subheading style={{ fontSize: 12}}>
-                      {`${item.address}`}
+                      <Subheading style={{ fontSize: 12 }}>
+                        {`${item.address}`}
                       </Subheading>
                     </View>
                     <View>
-                      <Subheading style={{ fontSize: 12}}>
+                      <Subheading style={{ fontSize: 12 }}>
                         {`${item.locality}`} - {`${item.phoneNumber}`}
                       </Subheading>
                     </View>
                   </View>
-                  <View style={{paddingLeft: '5%', marginTop: '7%', flex: 1, flexDirection: 'row-reverse'}}>
-                      <MaterialCommunityIcons name="map-search-outline" color={'#ffbf00'} size={50}/>
+                  <View
+                    style={{
+                      paddingLeft: '5%',
+                      marginTop: '7%',
+                      flex: 1,
+                      flexDirection: 'row-reverse',
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="map-search-outline"
+                      color={'#ffbf00'}
+                      size={50}
+                    />
                   </View>
                 </View>
                 <View style={{ marginTop: '5%', backgroundColor: '#ffbf00' }}>

@@ -18,22 +18,22 @@ const _MyTheme = {
 
 //Type para se botar a rota e suas props
 export type RootStackParamList = {
-  Partners: undefined;
-  Products: { userId: string } | undefined;
+  Login: undefined;
+  Tabs: undefined;
 };
 
-const RootStack = createStackNavigator();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
     <>
       <NavigationContainer theme={_MyTheme}>
         <RootStack.Navigator
-          initialRouteName="LoginContainer"
+          initialRouteName="Login"
           screenOptions={{ headerShown: false }}
         >
-          <RootStack.Screen name="LoginContainer" component={LoginStack} />
-          <RootStack.Screen name="Products" component={TabsHomeStack} />
+          <RootStack.Screen name="Login" component={LoginStack} />
+          <RootStack.Screen name="Tabs" component={TabsHomeStack} />
         </RootStack.Navigator>
       </NavigationContainer>
     </>

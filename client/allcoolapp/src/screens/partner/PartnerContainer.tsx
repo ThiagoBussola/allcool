@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 export type PartnerContainerStackParamList = {
-  PartnerContainer: { userId: string | undefined };
+  PartnerContainer: { userId: string };
   Products: { userId: string } | undefined;
 };
 
@@ -25,14 +25,15 @@ type Props = {
 
 const PartnerContainer: React.FC<Props> = ({
   navigation,
-  route: { params },
+  route: {
+    params: { userId },
+  },
 }) => {
   return (
     <>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{`Bem vindo a tela de parceiros, usuário ${
-          params && params.userId
-        }`}</Text>
+        <Text>{`Bem vindo a tela de parceiros, usuário`}</Text>
+        <Text>{userId}</Text>
         <View style={{ marginTop: 10 }}>
           <Button
             color="#ffbf00"

@@ -2,26 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Product, Brand, File, ProductFile } from '../../types';
+import { Product } from '../../types';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Title, Text, Headline } from 'react-native-paper';
-import {
-  rowStyle,
-  detailsStyle,
-  textSizeStyles,
-  boldTextStyles,
-} from '../../styles';
+import { detailsStyle, textSizeStyles, boldTextStyles } from '../../styles';
 import { ProductService, ProductFileService } from '../../service';
 import { ProductFileDTO } from '../../types/dto';
 
 export type ProductViewStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { productId: string; userId: string | undefined };
+  ProductView: { productId: string; userId: string };
 };
 
 type ProductViewNavigationProp = StackNavigationProp<
   ProductViewStackParamList,
-  'Products'
+  'ProductView'
 >;
 
 type ProductViewRouteProp = RouteProp<ProductViewStackParamList, 'ProductView'>;
@@ -39,7 +33,7 @@ const initialProductFile: ProductFileDTO = {
 const ProductView: React.FC<Props> = ({
   navigation,
   route: {
-    params: { productId },
+    params: { productId, userId },
   },
 }) => {
   const [product, setProduct] = useState<Product>({});

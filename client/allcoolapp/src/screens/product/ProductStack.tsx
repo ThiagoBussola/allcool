@@ -1,20 +1,33 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ProductView, ProductList } from './';
-import { ProductReviewDTO } from '../../types/dto';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { ProductReview } from '../product-review/ProductReview';
+import { RouteProp } from '@react-navigation/native';
 
-//Type para se botar a rota e suas props
-export type RootStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { productId: string; userId: string | undefined };
-  ProductReview: { product: ProductReviewDTO; userId: string };
+export type ProductRootStackParamList = {
+  ProductStack: { userId: string };
+  Products: { userId: string };
+  ProductView: { userId: string };
+  ProductReview: { userId: string };
 };
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<ProductRootStackParamList>();
 
-const ProductStack: React.FC = () => {
+type ProductStackRouteProp = RouteProp<
+  ProductRootStackParamList,
+  'ProductStack'
+>;
+
+type Props = {
+  route: ProductStackRouteProp;
+};
+
+const ProductStack: React.FC<Props> = ({
+  route: {
+    params: { userId },
+  },
+}) => {
   return (
     <>
       <RootStack.Navigator
@@ -24,17 +37,19 @@ const ProductStack: React.FC = () => {
         <RootStack.Screen
           name="Products"
           component={ProductList}
-          initialParams={{ userId: '1' }}
+          initialParams={{ userId }}
         />
         <RootStack.Screen
           name="ProductView"
           options={screenStackOptions('Produto')}
           component={ProductView}
+          initialParams={{ userId }}
         />
         <RootStack.Screen
           name="ProductReview"
           options={screenStackOptions('Avaliação')}
           component={ProductReview}
+          initialParams={{ userId }}
         />
       </RootStack.Navigator>
     </>
