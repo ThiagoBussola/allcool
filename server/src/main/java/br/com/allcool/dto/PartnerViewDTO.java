@@ -16,4 +16,6 @@ public class PartnerViewDTO {
     private BigDecimal rating;
     private FileDTO fileDTO;
     private List<WorkingPeriodDTO> workingPeriodDTOList;
+    private String address;
+    private String locality;
 }

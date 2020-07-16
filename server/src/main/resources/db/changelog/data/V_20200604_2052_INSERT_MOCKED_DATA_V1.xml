@@ -315,7 +315,7 @@
         <sql>
             insert into achievement (id, product_id, file_id, title, description, achievementtype)
             values ('ce583254-d732-4fe7-85fb-a11585399766', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
-            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores
+            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores ' ||
             cervejeiros do Allcool!', 'PRODUCT');
 
             insert into achievement (id, file_id, title, description, achievementtype)
@@ -363,7 +363,7 @@
             4.00);
             insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
             values('d0c4238f-a9c9-452b-9c09-315e19d46506',
-            '28fd5d3c-97b2-11ea-bb37-0242ac130002','ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Cachaçaria', 'Local
+            '28fd5d3c-97b2-11ea-bb37-0242ac130002','ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Cachaçaria', 'Local ' ||
             agradavel teste', '995448027', 5.00);
         </sql>
     </changeSet>
@@ -460,7 +460,7 @@
             values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Sabor adocicado',
             'SWEET');
             insert into reviewproductflavor (id, review_id, description, flavortype)
-            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Sabor gostoso e
+            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Sabor gostoso e ' ||
             suave', 'UMAMI');
         </sql>
     </changeSet>

@@ -1,5 +1,6 @@
 package br.com.allcool.converter;
 
+import br.com.allcool.address.domain.Address;
 import br.com.allcool.dto.FileDTO;
 import br.com.allcool.dto.PartnerViewDTO;
 import br.com.allcool.dto.WorkingPeriodDTO;
@@ -26,6 +27,8 @@ public class PartnerViewDTOConverter {
         dto.setDescription(partner.getDescription());
         dto.setPhoneNumber(partner.getPhoneNumber());
         dto.setRating(partner.getRating());
+        dto.setAddress(buildStringAddress(partner.getAddress()));
+        dto.setLocality(buildStringLocality(partner.getAddress()));
 
         if (Objects.nonNull(partner.getFile())) {
             dto.setFileDTO(new FileDTO(partner.getFile().getId(), partner.getFile().getUrl()));
@@ -36,5 +39,15 @@ public class PartnerViewDTOConverter {
         dto.setWorkingPeriodDTOList(workingPeriodDTOS);
 
         return dto;
+    }
+
+    private String buildStringAddress(Address address) {
+
+        return address.getPublicPlace() + " - " + address.getDistrict();
+    }
+
+    private String buildStringLocality(Address address) {
+
+        return address.getLocality() + " - " + address.getFederatedUnit();
     }
 }
