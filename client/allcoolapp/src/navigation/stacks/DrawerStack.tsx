@@ -42,7 +42,7 @@ const DrawerStack: React.FC<Props> = ({
       <>
         <Avatar.Image
           accessibilityStates
-          size={60}
+          size={50}
           source={require('../../img/AllcoolV1.1.png')}
           style={{
             backgroundColor: 'white',
@@ -53,7 +53,7 @@ const DrawerStack: React.FC<Props> = ({
         <Title
           style={{
             marginLeft: '5%',
-            fontSize: 16,
+            fontSize: 18,
           }}
         >
           Allcool
