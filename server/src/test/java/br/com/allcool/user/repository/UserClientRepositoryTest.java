@@ -83,4 +83,15 @@ public class UserClientRepositoryTest {
         assertThat(userAfterUpdate.getId()).isEqualTo(USER_ID);
         assertThat(userAfterUpdate.getBio()).isEqualTo("ZZZ");
     }
+        
+    @Test
+    public void findByPersonId() {
+
+        UserClient user = this.repository.findByPersonId(UUID.fromString("affb9869-61b3-4100-bafd-df7cf46ef341"));
+
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(USER_ID);
+        assertThat(user.getBio()).isEqualTo("Biografia de fulano");
+    }
+    
 }

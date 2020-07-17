@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp, StackActions } from '@react-navigation/native';
 import { TextInput, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { mainStyles } from '../../styles';
 import { LoginService } from '../../service';
 import StorageService from '../../service/StorageService';
-
-export type LogintackParamList = {
-  LoginContainer: { userId: string } | undefined;
-  Products: { userId: string } | undefined;
-};
-
-type LoginNavigationProp = StackNavigationProp<
-  LogintackParamList,
-  'LoginContainer'
->;
-type LoginRouteProp = RouteProp<LogintackParamList, 'LoginContainer'>;
+import { LoginNavigationProp } from '../../navigation';
 
 type Props = {
   navigation: LoginNavigationProp;
-  route: LoginRouteProp;
 };
 
 type LoginFormType = {
@@ -36,7 +23,7 @@ const initialState: LoginFormType = {
   secureText: false,
 };
 
-const LoginContainer: React.FC<Props> = ({ navigation, route: { params } }) => {
+const LoginContainer: React.FC<Props> = ({ navigation }) => {
   const [loginState, setLoginState] = useState<LoginFormType>(initialState);
   const [alreadyLogged, setAlreadyLogged] = useState(true);
 
@@ -45,12 +32,15 @@ const LoginContainer: React.FC<Props> = ({ navigation, route: { params } }) => {
   }, []);
 
   const isUserAlreadyLogged = async () => {
-    var token = await StorageService.getKey('JWT-Token');
+    const token = await StorageService.getKey('JWT-Token');
+
     if (token) {
-      navigation.dispatch(StackActions.replace('Products'));
-    } else {
-      setAlreadyLogged(false);
+      const id = await StorageService.getKey('userId');
+
+      return navigation.replace('Drawer', { userId: id || '' });
     }
+
+    setAlreadyLogged(false);
   };
 
   const handleChange = (name: string, value: string) =>
@@ -76,8 +66,13 @@ const LoginContainer: React.FC<Props> = ({ navigation, route: { params } }) => {
       password: loginState.password,
     })
       .then((response) => {
-        StorageService.storeKey('JWT-Token', response.data.token).then(() =>
-          navigation.dispatch(StackActions.replace('Products'))
+        StorageService.storeUserClient(response.data.userId);
+        StorageService.storeKey('JWT-Token', response.data.token).then(
+          async () => {
+            const id = await StorageService.getKey('userId');
+
+            return navigation.replace('Drawer', { userId: id || '' });
+          }
         );
       })
       .catch((error) => {
