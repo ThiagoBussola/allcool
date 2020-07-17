@@ -26,6 +26,5 @@ public class ReviewService {
 
         return this.reviewRepository.findAllByProductId(productId).stream()
                 .map(converter::to).collect(Collectors.toList());
-
     }
 }

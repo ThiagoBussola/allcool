@@ -2,6 +2,7 @@ package br.com.allcool.converter;
 
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.file.domain.File;
+import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.user.domain.UserClient;
@@ -18,26 +19,33 @@ public class ReviewDTOConverterTest {
     @Test
     public void to() {
 
-        Review review = new Review();
-        review.setId(UUID.randomUUID());
-        review.setDescription("Uma cerveja muito boa!");
+        File file = new File();
+        file.setUrl("www.teste.com.br");
+
+        Person person = new Person();
+        person.setId(UUID.randomUUID());
+        person.setName("Claudinho");
 
         UserClient userClient = new UserClient();
-        userClient.getPerson().setName("Claudinho");
-        userClient.getFile().setUrl("32f5d633-c094-46d8-826e-d799572d7610");
+        userClient.setPerson(person);
+        userClient.setFile(file);
 
         Product product = new Product();
         product.setName("Brahma Extra");
 
-        File file = new File();
-        file.setUrl("teste.com");
+        Review review = new Review();
+        review.setId(UUID.randomUUID());
+        review.setDescription("Uma cerveja muito boa!");
+        review.setUser(userClient);
+        review.setProduct(product);
+        review.setFile(file);
 
         ReviewDTO dto = this.dtoConverter.to(review);
 
         assertThat(dto.getId()).isEqualTo(review.getId());
-        assertThat(dto.getUserName()).isEqualTo(review.getUser());
-        assertThat(dto.getProductName()).isEqualTo(review.getProduct());
-        assertThat(dto.getAvatarUrl()).isEqualTo(review.getFile());
+        assertThat(dto.getUserName()).isEqualTo(review.getUser().getPerson().getName());
+        assertThat(dto.getProductName()).isEqualTo(review.getProduct().getName());
+        assertThat(dto.getAvatarUrl()).isEqualTo(review.getFile().getUrl());
         assertThat(dto.getDescription()).isEqualTo(review.getDescription());
         assertThat(dto.getRating()).isEqualTo(review.getRating());
     }

@@ -2,6 +2,7 @@ package br.com.allcool.review.service;
 
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.file.domain.File;
+import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,22 +35,29 @@ public class ReviewServiceTest {
     @Test
     public void findAllByProductId() {
 
-        Review review = new Review();
-        review.setId(UUID.randomUUID());
-        review.setDescription("Uma cerveja muito boa!");
-        review.setRating(BigDecimal.valueOf(5));
+        File file = new File();
+        file.setUrl("www.teste.com.br");
+
+        Person person = new Person();
+        person.setId(UUID.randomUUID());
+        person.setName("Claudinho");
 
         UserClient userClient = new UserClient();
-        userClient.getPerson().setName("Claudinho");
-        userClient.getFile().setUrl("32f5d633-c094-46d8-826e-d799572d7610");
+        userClient.setPerson(person);
+        userClient.setFile(file);
 
         Product product = new Product();
         product.setName("Brahma Extra");
 
-        File file = new File();
-        file.setUrl("teste.com");
+        Review review = new Review();
+        review.setId(UUID.randomUUID());
+        review.setDescription("Uma cerveja muito boa!");
+        review.setRating(BigDecimal.valueOf(5));
+        review.setUser(userClient);
+        review.setProduct(product);
+        review.setFile(file);
 
-        when(this.repository.findAllByProductId(review.getId())).thenReturn((List<Review>) review);
+        when(this.repository.findAllByProductId(review.getId())).thenReturn(Collections.singletonList(review));
 
         List<ReviewDTO> result = this.service.findAllByProductId(review.getId());
 

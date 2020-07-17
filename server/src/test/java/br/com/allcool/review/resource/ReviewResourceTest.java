@@ -43,19 +43,17 @@ public class ReviewResourceTest {
         review1DTO.setUserName("Marcelo Silva");
         review1DTO.setProductName("Goose IPA");
         review1DTO.setAvatarUrl("32f5d633-c094-46d8-826e-d799572d7610");
-        review1DTO.setDescription("Pegamos o tradicional estilo inglês, a India Pale Ale, e criamos a nossa versão " +
-                "mais encorpada, com aromas cítricos e sabor intenso mas suave.");
+        review1DTO.setDescription("Uma ótima IPA, com aromas cítricos e sabor intenso mas suave.");
         review1DTO.setRating(BigDecimal.valueOf(5));
 
         ReviewDTO review2DTO = new ReviewDTO();
 
-        review1DTO.setId(UUID.randomUUID());
-        review1DTO.setUserName("Pedro Henrique");
-        review1DTO.setProductName("Coruja Amber Lager");
-        review1DTO.setAvatarUrl("fca353f0-4027-4d13-a2f6-a9ec218720a3");
-        review1DTO.setDescription("A afinidade harmoniosa entre o caramelo e o malte tostado os ingredientes " +
-                "100% naturais e o espírito de desafio do dry hopping");
-        review1DTO.setRating(BigDecimal.valueOf(4));
+        review2DTO.setId(UUID.randomUUID());
+        review2DTO.setUserName("Pedro Henrique");
+        review2DTO.setProductName("Coruja Amber Lager");
+        review2DTO.setAvatarUrl("fca353f0-4027-4d13-a2f6-a9ec218720a3");
+        review2DTO.setDescription("Bem presente o malte tostado e bastante lúpulo");
+        review2DTO.setRating(BigDecimal.valueOf(4));
 
         List<ReviewDTO> listReviewDTOS = new ArrayList<>();
         listReviewDTOS.add(review1DTO);
