@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { ProductReviewDTO } from '../../types/dto';
-
-export type ProductReviewStackParamList = {
-  ProductView: { productId: string; userId: string | undefined };
-  ProductReview: { product: ProductReviewDTO; userId: string };
-};
-
-type ProductReviewNavigationProp = StackNavigationProp<
-  ProductReviewStackParamList,
-  'ProductView'
->;
-
-type ProductReviewRouteProp = RouteProp<
-  ProductReviewStackParamList,
-  'ProductReview'
->;
+import {
+  ProductReviewNavigationProp,
+  ProductReviewRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: ProductReviewNavigationProp;

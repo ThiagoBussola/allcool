@@ -6,24 +6,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import { listImageStyle, rowStyle } from '../../styles';
-
-type ProductListStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { productId: string; userId: string | undefined };
-};
-
-type ProductsListNavigationProp = StackNavigationProp<
-  ProductListStackParamList,
-  'Products'
->;
-
-type ProductsListRouteProp = RouteProp<ProductListStackParamList, 'Products'>;
+import {
+  ProductsListRouteProp,
+  ProductsListNavigationProp,
+} from '../../navigation';
 
 type Props = {
   route: ProductsListRouteProp;
@@ -33,7 +23,12 @@ type Props = {
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
+const ProductList: React.FC<Props> = ({
+  navigation,
+  route: {
+    params: { userId },
+  },
+}) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState('');
@@ -56,7 +51,6 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
   const view = (product: ProductDTO) =>
     navigation.navigate(`ProductView`, {
       productId: product.id,
-      userId: undefined,
     });
 
   const handleChange = (text: string) => {
