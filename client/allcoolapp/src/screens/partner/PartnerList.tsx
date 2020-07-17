@@ -6,26 +6,15 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { PartnerService } from '../../service';
 import { listImageStyle, rowStyle } from '../../styles';
 import { PartnerDTO } from '../../types/dto/PartnerDTO';
-
-type PartnerListStackParamList = {
-  Partners: { userId: string };
-  PartnerContainer: { partnerId: string };
-};
-
-type PartnerListNavigationProp = StackNavigationProp<
-  PartnerListStackParamList,
-  'Partners'
->;
-
-type PartnersListRouteProp = RouteProp<PartnerListStackParamList, 'Partners'>;
+import {
+  PartnerListNavigationProp,
+  PartnersListRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: PartnerListNavigationProp;

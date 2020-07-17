@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { Product } from '../../types';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Title, Text, Headline } from 'react-native-paper';
 import { detailsStyle, textSizeStyles, boldTextStyles } from '../../styles';
 import { ProductService, ProductFileService } from '../../service';
 import { ProductFileDTO } from '../../types/dto';
-
-export type ProductViewStackParamList = {
-  ProductView: { productId: string; userId: string };
-};
-
-type ProductViewNavigationProp = StackNavigationProp<
-  ProductViewStackParamList,
-  'ProductView'
->;
-
-type ProductViewRouteProp = RouteProp<ProductViewStackParamList, 'ProductView'>;
+import {
+  ProductViewNavigationProp,
+  ProductViewRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: ProductViewNavigationProp;

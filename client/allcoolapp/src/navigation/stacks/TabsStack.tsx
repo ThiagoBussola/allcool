@@ -1,10 +1,10 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { ProductStack, PartnerStack } from '../index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
+import { PartnerStack, ProductStack } from './';
 
-export type TabsStackParamList = {
+type TabsStackParamList = {
   Tabs: { userId: string };
   Products: { userId: string };
   Partners: { userId: string };
@@ -18,7 +18,7 @@ type Props = {
 
 const Tab = createMaterialBottomTabNavigator<TabsStackParamList>();
 
-const TabsHomeStack: React.FC<Props> = ({
+const TabsStack: React.FC<Props> = ({
   route: {
     params: { userId },
   },
@@ -61,4 +61,4 @@ const TabsHomeStack: React.FC<Props> = ({
   );
 };
 
-export { TabsHomeStack };
+export { TabsStack };

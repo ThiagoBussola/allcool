@@ -6,24 +6,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import { listImageStyle, rowStyle } from '../../styles';
-
-type ProductListStackParamList = {
-  Products: { userId: string };
-  ProductView: { productId: string };
-};
-
-type ProductsListNavigationProp = StackNavigationProp<
-  ProductListStackParamList,
-  'Products'
->;
-
-type ProductsListRouteProp = RouteProp<ProductListStackParamList, 'Products'>;
+import {
+  ProductsListRouteProp,
+  ProductsListNavigationProp,
+} from '../../navigation';
 
 type Props = {
   route: ProductsListRouteProp;

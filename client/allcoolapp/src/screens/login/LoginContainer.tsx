@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { TextInput, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { mainStyles } from '../../styles';
 import { LoginService } from '../../service';
 import StorageService from '../../service/StorageService';
-
-export type LoginStackParamList = {
-  Tabs: { userId: string };
-};
-
-type LoginNavigationProp = StackNavigationProp<LoginStackParamList, 'Tabs'>;
+import { LoginNavigationProp } from '../../navigation';
 
 type Props = {
   navigation: LoginNavigationProp;
@@ -43,7 +37,7 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
     if (token) {
       const id = await StorageService.getKey('userId');
 
-      return navigation.replace('Tabs', { userId: id || '' });
+      return navigation.replace('Drawer', { userId: id || '' });
     }
 
     setAlreadyLogged(false);
@@ -77,7 +71,7 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
           async () => {
             const id = await StorageService.getKey('userId');
 
-            return navigation.replace('Tabs', { userId: id || '' });
+            return navigation.replace('Drawer', { userId: id || '' });
           }
         );
       })

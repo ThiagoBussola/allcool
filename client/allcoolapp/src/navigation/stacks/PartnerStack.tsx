@@ -1,11 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { PartnerContainer } from './PartnerContainer';
-import { PartnerList } from './PartnerList';
+import { PartnerContainer, PartnerList } from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
 
-export type PartnerRootStackParamList = {
+type PartnerRootStackParamList = {
   PartnerStack: { userId: string };
   Partners: { userId: string };
   PartnerContainer: { userId: string };

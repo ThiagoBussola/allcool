@@ -1,22 +1,9 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-
-export type PartnerContainerStackParamList = {
-  PartnerContainer: { userId: string };
-  Products: { userId: string } | undefined;
-};
-
-type PartnerContainerNavigationProp = StackNavigationProp<
-  PartnerContainerStackParamList,
-  'PartnerContainer'
->;
-
-type PartnerContainerRouteProp = RouteProp<
-  PartnerContainerStackParamList,
-  'PartnerContainer'
->;
+import {
+  PartnerContainerNavigationProp,
+  PartnerContainerRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: PartnerContainerNavigationProp;

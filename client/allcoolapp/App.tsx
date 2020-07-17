@@ -2,8 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { LoginStack, TabsHomeStack } from './src/screens';
-import { createStackNavigator } from '@react-navigation/stack';
+import { AppRootStack, LoginStack, DrawerStack } from './src/navigation';
 
 const _MyTheme = {
   dark: false,
@@ -16,25 +15,17 @@ const _MyTheme = {
   },
 };
 
-//Type para se botar a rota e suas props
-export type RootStackParamList = {
-  Login: undefined;
-  Tabs: undefined;
-};
-
-const RootStack = createStackNavigator<RootStackParamList>();
-
 const App = () => {
   return (
     <>
       <NavigationContainer theme={_MyTheme}>
-        <RootStack.Navigator
+        <AppRootStack.Navigator
           initialRouteName="Login"
           screenOptions={{ headerShown: false }}
         >
-          <RootStack.Screen name="Login" component={LoginStack} />
-          <RootStack.Screen name="Tabs" component={TabsHomeStack} />
-        </RootStack.Navigator>
+          <AppRootStack.Screen name="Login" component={LoginStack} />
+          <AppRootStack.Screen name="Drawer" component={DrawerStack} />
+        </AppRootStack.Navigator>
       </NavigationContainer>
     </>
   );

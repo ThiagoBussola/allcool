@@ -1,24 +1,24 @@
 import React from 'react';
+import { LoginContainer } from '../../screens';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginContainer } from './LoginContainer';
 
-export type RootStackParamList = {
+type LoginRootStackParamList = {
   Login: undefined;
 };
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const LoginRootStack = createStackNavigator<LoginRootStackParamList>();
 
 const LoginStack: React.FC = () => {
   return (
     <>
-      <RootStack.Navigator
+      <LoginRootStack.Navigator
         initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
       >
-        <RootStack.Screen name="Login" component={LoginContainer} />
-      </RootStack.Navigator>
+        <LoginRootStack.Screen name="Login" component={LoginContainer} />
+      </LoginRootStack.Navigator>
     </>
   );
 };
