@@ -3,10 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ProductView, ProductList, ProductReview } from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
-import { Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MenuActionButton } from '../../components';
 
 type ProductRootStackParamList = {
   ProductStack: { userId: string };
@@ -38,24 +36,11 @@ const ProductStack: React.FC<Props> = ({
     params: { userId },
   },
 }) => {
-  const renderDrawerButton = () => {
-    return (
-      <TouchableOpacity
-        style={{ marginLeft: 15 }}
-        onPress={() => navigation.openDrawer()}
-      >
-        <MaterialCommunityIcons name="menu" color="white" size={36} />
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <>
       <RootStack.Navigator
         initialRouteName="Products"
-        screenOptions={{
-          ...rootStackOptions('Produtos'),
-        }}
+        screenOptions={rootStackOptions('Produtos')}
       >
         <RootStack.Screen
           name="Products"
@@ -63,7 +48,9 @@ const ProductStack: React.FC<Props> = ({
           initialParams={{ userId }}
           options={{
             ...screenStackOptions('Produtos'),
-            headerLeft: () => renderDrawerButton(),
+            headerLeft: () => (
+              <MenuActionButton onPress={() => navigation.openDrawer()} />
+            ),
           }}
         />
         <RootStack.Screen

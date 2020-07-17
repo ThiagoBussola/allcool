@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { PartnerContainer, PartnerList } from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
+import { MenuActionButton } from '../../components';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 type PartnerRootStackParamList = {
   PartnerStack: { userId: string };
@@ -17,11 +19,18 @@ type PartnerStackRouteProp = RouteProp<
   'PartnerStack'
 >;
 
+type PartnerDrawerNavigationProp = DrawerNavigationProp<
+  PartnerRootStackParamList,
+  'PartnerStack'
+>;
+
 type Props = {
+  navigation: PartnerDrawerNavigationProp;
   route: PartnerStackRouteProp;
 };
 
 const PartnerStack: React.FC<Props> = ({
+  navigation,
   route: {
     params: { userId },
   },
@@ -36,6 +45,12 @@ const PartnerStack: React.FC<Props> = ({
           name="Partners"
           component={PartnerList}
           initialParams={{ userId }}
+          options={{
+            ...screenStackOptions('Parceiros'),
+            headerLeft: () => (
+              <MenuActionButton onPress={() => navigation.openDrawer()} />
+            ),
+          }}
         />
         <RootStack.Screen
           name="PartnerContainer"
