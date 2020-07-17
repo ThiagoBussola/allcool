@@ -1,32 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, SafeAreaView } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { Rating } from 'react-native-ratings';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { ProductReviewDTO, ProductFileDTO } from '../../types/dto';
 import { Product } from '../../types';
-import { ProductFileService, ProductService } from '../../service';
-import { Title, Headline, Text } from 'react-native-paper';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { Title, Text, Headline } from 'react-native-paper';
 import {
+  detailsStyle,
   textSizeStyles,
   boldTextStyles,
-  detailsStyle,
   mainStyles,
 } from '../../styles';
-
-export type ProductViewStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { productId: string; userId: string | undefined };
-  ProductReview: { product: ProductReviewDTO; userId: string };
-};
-
-type ProductViewNavigationProp = StackNavigationProp<
-  ProductViewStackParamList,
-  'Products'
->;
-
-type ProductViewRouteProp = RouteProp<ProductViewStackParamList, 'ProductView'>;
+import { ProductService, ProductFileService } from '../../service';
+import { ProductFileDTO } from '../../types/dto';
+import {
+  ProductViewNavigationProp,
+  ProductViewRouteProp,
+} from '../../navigation';
+import { Rating } from 'react-native-ratings';
 
 type Props = {
   navigation: ProductViewNavigationProp;
@@ -41,7 +30,7 @@ const initialProductFile: ProductFileDTO = {
 const ProductView: React.FC<Props> = ({
   navigation,
   route: {
-    params: { productId, userId = '1' },
+    params: { productId, userId },
   },
 }) => {
   const [product, setProduct] = useState<Product>({});

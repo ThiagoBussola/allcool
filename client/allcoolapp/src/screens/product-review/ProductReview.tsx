@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, Alert } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { ProductReviewDTO, ReviewDTO } from '../../types/dto';
+import { ReviewDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
 import {
@@ -20,21 +18,10 @@ import {
   SnackbarNotification,
   SnackbarState,
 } from '../../components/SnackbarNotification';
-
-export type ProductReviewStackParamList = {
-  ProductView: { productId: string; userId: string | undefined };
-  ProductReview: { product: ProductReviewDTO; userId: string };
-};
-
-type ProductReviewNavigationProp = StackNavigationProp<
-  ProductReviewStackParamList,
-  'ProductView'
->;
-
-type ProductReviewRouteProp = RouteProp<
-  ProductReviewStackParamList,
-  'ProductReview'
->;
+import {
+  ProductReviewNavigationProp,
+  ProductReviewRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: ProductReviewNavigationProp;

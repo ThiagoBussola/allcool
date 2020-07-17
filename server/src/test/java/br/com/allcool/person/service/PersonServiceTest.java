@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.allcool.config.security.TokenService;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
+import br.com.allcool.user.domain.UserClient;
+import br.com.allcool.user.repository.UserClientRepository;
 
 @RunWith(SpringRunner.class)
 public class PersonServiceTest {
@@ -34,6 +36,9 @@ public class PersonServiceTest {
 	@Mock
 	private PersonRepository personRepository;
 	
+	@Mock
+	private UserClientRepository userClientRepository;
+	
 	@Rule
     public ExpectedException expectedException = ExpectedException.none();
 	
@@ -42,7 +47,7 @@ public class PersonServiceTest {
 	@Before
 	public void setup() {
 		
-		service = new PersonService(authManager, tokenService, passwordEncoder, personRepository);
+		service = new PersonService(authManager, tokenService, passwordEncoder, personRepository, userClientRepository);
 	}
 	
 	@Test

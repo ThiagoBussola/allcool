@@ -1,5 +1,7 @@
 package br.com.allcool.person.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,8 @@ import br.com.allcool.config.security.resource.LoginRequest;
 import br.com.allcool.config.security.resource.TokenDTO;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
+import br.com.allcool.user.domain.UserClient;
+import br.com.allcool.user.repository.UserClientRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -31,6 +35,7 @@ public class PersonService {
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	private final PersonRepository personRepository;
+	private final UserClientRepository userClientRepository;
 	
 	public ResponseEntity<TokenDTO> login(LoginRequest login) {	
 		
@@ -40,7 +45,8 @@ public class PersonService {
 			
 			Authentication auth = authManager.authenticate(dadosLogin);
 			String token = tokenService.createToken(auth);
-			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
+			UUID userId = getIdUserLogado(auth);
+			return ResponseEntity.ok(new TokenDTO(token, "Bearer", userId));
 			
 		} catch (AuthenticationException e) {
 			return ResponseEntity.badRequest().build();
@@ -58,6 +64,14 @@ public class PersonService {
 		person.setPassword(passwordEncoder.encode(password));
 		
 		personRepository.save(person);
+	}
+	
+	private UUID getIdUserLogado(Authentication auth) {
+		
+		Person person = (Person) auth.getPrincipal();		
+		UserClient userClient = userClientRepository.findByPersonId(person.getId());
+		return userClient.getId();
+		
 	}
 	
 }
