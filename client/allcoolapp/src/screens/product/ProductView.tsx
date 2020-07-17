@@ -127,7 +127,7 @@ const ProductView: React.FC<Props> = ({
               <Text accessibilityStates style={boldTextStyles}>
                 Categoria:
               </Text>
-              {product.type && product.type.description}
+              {` ${product.type && product.type.description}`}
             </Text>
             <Text accessibilityStates style={detailsStyle}>
               <Text accessibilityStates style={boldTextStyles}>
@@ -154,7 +154,7 @@ const ProductView: React.FC<Props> = ({
               <Text accessibilityStates style={boldTextStyles}>
                 IBU:
               </Text>
-              {product.ibu}
+              {` ${product.ibu}`}
             </Text>
           </View>
         </SafeAreaView>
