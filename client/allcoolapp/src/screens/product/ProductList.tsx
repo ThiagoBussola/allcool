@@ -9,7 +9,7 @@ import {
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
-import { listImageStyle, rowStyle } from '../../styles';
+import { listImageStyle, rowStyle, mainStyles } from '../../styles';
 import {
   ProductsListRouteProp,
   ProductsListNavigationProp,
@@ -23,12 +23,7 @@ type Props = {
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const ProductList: React.FC<Props> = ({
-  navigation,
-  route: {
-    params: { userId },
-  },
-}) => {
+const ProductList: React.FC<Props> = ({ navigation }) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState('');
@@ -98,12 +93,12 @@ const ProductList: React.FC<Props> = ({
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Categoria: ${item.type}`}</Subheading>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Marca: ${item.brand}`}</Subheading>
                     </View>
                   </View>
@@ -125,7 +120,9 @@ const ProductList: React.FC<Props> = ({
             />
           </View>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading>Nenhum produto encontrado</Subheading>
+            <Subheading style={mainStyles.subHeading}>
+              Nenhum produto encontrado
+            </Subheading>
           </View>
         </View>
       )}

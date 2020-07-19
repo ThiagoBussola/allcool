@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 public class ReviewFormDTOConverter {
 
@@ -36,7 +35,9 @@ public class ReviewFormDTOConverter {
         entity.setUser(userClient);
 
         List<ReviewProductFlavor> flavors =
-                dto.getProductFlavors().stream().map(productFlavorFunction).collect(Collectors.toList());
+                dto.getFlavors().stream().map(productFlavorFunction).collect(Collectors.toList());
+
+        flavors.forEach(f -> f.setReview(entity));
 
         entity.setFlavors(flavors);
         entity.setRating(dto.getRating());

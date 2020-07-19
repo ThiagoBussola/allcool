@@ -3,7 +3,6 @@ package br.com.allcool.converter;
 import br.com.allcool.dto.ProductFlavorDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.enums.FlavorTypeEnum;
-import br.com.allcool.product.domain.ProductFlavor;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.domain.ReviewProductFlavor;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import java.util.Collections;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 public class ReviewFormDTOConverterTest {
 
@@ -26,7 +24,7 @@ public class ReviewFormDTOConverterTest {
 
         ReviewFormDTO dto = new ReviewFormDTO();
         dto.setDescription("Great beer");
-        dto.setProductFlavors(Collections.singletonList(productFlavorDTO));
+        dto.setFlavors(Collections.singletonList(productFlavorDTO));
         dto.setProductId(UUID.randomUUID());
         dto.setUserClientId(UUID.randomUUID());
         dto.setRating(BigDecimal.valueOf(5));
@@ -38,8 +36,8 @@ public class ReviewFormDTOConverterTest {
         assertThat(review.getProduct().getId()).isEqualTo(dto.getProductId());
         assertThat(review.getUser().getId()).isEqualTo(dto.getUserClientId());
         assertThat(review.getFlavors()).extracting(ReviewProductFlavor::getDescription)
-                .containsExactly(dto.getProductFlavors().get(0).getDescription());
+                .containsExactly(dto.getFlavors().get(0).getDescription());
         assertThat(review.getFlavors()).extracting(ReviewProductFlavor::getType)
-                .containsExactly(dto.getProductFlavors().get(0).getType());
+                .containsExactly(dto.getFlavors().get(0).getType());
     }
 }

@@ -9,13 +9,18 @@ import {
   boldTextStyles,
   mainStyles,
 } from '../../styles';
-import { ProductService, ProductFileService } from '../../service';
+import {
+  ProductService,
+  ProductFileService,
+  ReviewService,
+} from '../../service';
 import { ProductFileDTO } from '../../types/dto';
 import {
   ProductViewNavigationProp,
   ProductViewRouteProp,
 } from '../../navigation';
 import { Rating } from 'react-native-ratings';
+import { SnackbarNotification, SnackbarState } from '../../components';
 
 type Props = {
   navigation: ProductViewNavigationProp;
@@ -33,23 +38,39 @@ const ProductView: React.FC<Props> = ({
     params: { productId, userId },
   },
 }) => {
+  const [productReviewed, setProductReviewed] = useState(false);
   const [product, setProduct] = useState<Product>({});
   const [productFile, setProductFile] = useState<ProductFileDTO>(
     initialProductFile
   );
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
     ProductService.findById(productId)
       .then(({ data }) => setProduct(data))
-      .then(() => {
+      .then(() =>
+        ReviewService.isProductReviewed(productId, userId).then(({ data }) =>
+          setProductReviewed(data)
+        )
+      )
+      .then(() =>
         ProductFileService.findAllByProductId(productId).then(
           ({ data }) => data && setProductFile(data[0])
-        );
-      });
-  }, [productId]);
+        )
+      )
+      .catch(({ response }) =>
+        setSnackbarState({
+          message: response.data?.message || response.data,
+          visible: true,
+        })
+      );
+  }, [productId, userId]);
 
   const onReview = () => {
-    if (userId) {
+    if (userId && !productReviewed) {
       navigation.navigate('ProductReview', {
         product: { id: productId, name: product.name },
         userId,
@@ -79,7 +100,7 @@ const ProductView: React.FC<Props> = ({
               </View>
             )}
             <View style={{ marginTop: '50%' }}>
-              <TouchableOpacity onPress={onReview}>
+              <TouchableOpacity onPress={onReview} disabled={productReviewed}>
                 <Rating
                   type="custom"
                   startingValue={product.rating}
@@ -159,6 +180,15 @@ const ProductView: React.FC<Props> = ({
           </View>
         </SafeAreaView>
       </ScrollView>
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
     </>
   );
 };

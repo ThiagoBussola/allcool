@@ -7,9 +7,7 @@ import br.com.allcool.enums.FlavorTypeEnum;
 import br.com.allcool.exception.CreationNotPermittedException;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -45,7 +43,7 @@ public class ReviewServiceTest {
 
         ReviewFormDTO dto = new ReviewFormDTO();
         dto.setDescription("Great beer");
-        dto.setProductFlavors(Collections.singletonList(productFlavorDTO));
+        dto.setFlavors(Collections.singletonList(productFlavorDTO));
         dto.setProductId(UUID.randomUUID());
         dto.setUserClientId(UUID.randomUUID());
         dto.setRating(BigDecimal.valueOf(5));
@@ -71,7 +69,7 @@ public class ReviewServiceTest {
 
         ReviewFormDTO dto = new ReviewFormDTO();
         dto.setDescription("Great beer");
-        dto.setProductFlavors(Collections.singletonList(productFlavorDTO));
+        dto.setFlavors(Collections.singletonList(productFlavorDTO));
         dto.setUserClientId(UUID.randomUUID());
         dto.setRating(BigDecimal.valueOf(5));
 
@@ -90,7 +88,7 @@ public class ReviewServiceTest {
 
         ReviewFormDTO dto = new ReviewFormDTO();
         dto.setDescription("Great beer");
-        dto.setProductFlavors(Collections.singletonList(productFlavorDTO));
+        dto.setFlavors(Collections.singletonList(productFlavorDTO));
         dto.setProductId(UUID.randomUUID());
         dto.setRating(BigDecimal.valueOf(5));
 
@@ -124,7 +122,7 @@ public class ReviewServiceTest {
 
         ReviewFormDTO dto = new ReviewFormDTO();
         dto.setDescription("Great beer");
-        dto.setProductFlavors(Collections.singletonList(productFlavorDTO));
+        dto.setFlavors(Collections.singletonList(productFlavorDTO));
         dto.setProductId(UUID.randomUUID());
         dto.setUserClientId(UUID.randomUUID());
         dto.setRating(BigDecimal.valueOf(5));
@@ -137,6 +135,22 @@ public class ReviewServiceTest {
                 .isEqualTo("Não foi possível salvar o registro. Motivo: O usuário logado já fez uma avaliação para o produto selecionado.");
 
         verify(this.repository).existsByUserIdAndProductId(dto.getUserClientId(), dto.getProductId());
+        verifyNoMoreInteractions(this.repository);
+    }
+
+    @Test
+    public void isProductReviewed() {
+
+        UUID userId = UUID.randomUUID();
+        UUID productId = UUID.randomUUID();
+
+        when(this.repository.existsByUserIdAndProductId(userId, productId)).thenReturn(true);
+
+        Boolean result = this.service.isProductReviewed(userId, productId);
+
+        assertThat(result).isTrue();
+
+        verify(this.repository).existsByUserIdAndProductId(userId, productId);
         verifyNoMoreInteractions(this.repository);
     }
 }

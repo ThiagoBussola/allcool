@@ -38,4 +38,5 @@ export const mainStyles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#ffbf00',
   },
+  subHeading: { color: '#888888', fontSize: 14, marginTop: '-1%' },
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Card, Avatar, Button } from 'react-native-paper';
 
@@ -12,6 +12,22 @@ const CameraIcon = (props) => (
 );
 
 const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
+  const [hasPic] = useState(false);
+  const renderViewPicButton = () => (
+    <Button
+      accessibilityStates
+      icon={showPic ? 'arrow-up' : 'arrow-down'}
+      mode="contained"
+      style={{ borderRadius: 1 }}
+      theme={{
+        colors: { primary: '#ffbf00' },
+      }}
+      onPress={() => setShowPic(!showPic)}
+    >
+      {showPic ? 'Ocultar' : 'Visualizar'}
+    </Button>
+  );
+
   return (
     <>
       <View
@@ -28,42 +44,26 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
             subtitle="Capture ou escolha uma foto do produto"
             left={CameraIcon}
           />
-          {showPic ? (
+          {hasPic && (
             <>
-              <Card.Cover
-                accessibilityStates
-                source={{
-                  uri:
-                    'https://p2.piqsels.com/preview/443/865/234/beer-corona-extra-beach-lake-thumbnail.jpg',
-                }}
-                resizeMethod="auto"
-                resizeMode="contain"
-                style={{ height: 200, width: 320 }}
-              />
-              <Button
-                accessibilityStates
-                icon="arrow-up"
-                mode="contained"
-                theme={{
-                  colors: { primary: '#ffbf00' },
-                }}
-                onPress={() => setShowPic(false)}
-              >
-                Ocultar
-              </Button>
+              {showPic ? (
+                <>
+                  <Card.Cover
+                    accessibilityStates
+                    source={{
+                      uri:
+                        'https://p2.piqsels.com/preview/443/865/234/beer-corona-extra-beach-lake-thumbnail.jpg',
+                    }}
+                    resizeMethod="auto"
+                    resizeMode="contain"
+                    style={{ height: 200, width: 367 }}
+                  />
+                  {renderViewPicButton()}
+                </>
+              ) : (
+                renderViewPicButton()
+              )}
             </>
-          ) : (
-            <Button
-              accessibilityStates
-              icon="arrow-down"
-              mode="contained"
-              theme={{
-                colors: { primary: '#ffbf00' },
-              }}
-              onPress={() => setShowPic(true)}
-            >
-              Visualizar
-            </Button>
           )}
         </Card>
       </View>

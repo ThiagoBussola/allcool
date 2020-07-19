@@ -15,5 +15,5 @@ public class ReviewFormDTO {
     private UUID productId;
     private String description;
     private BigDecimal rating;
-    private List<ProductFlavorDTO> productFlavors = new ArrayList<>();
+    private List<ProductFlavorDTO> flavors = new ArrayList<>();
 }

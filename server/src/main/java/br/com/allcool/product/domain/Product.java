@@ -78,8 +78,7 @@ public class Product {
     private Brand brand;
 
     @Transient
-    @Formula("select avg(r.rating) from Review r where r.product.id = id")
-    private BigDecimal rating;
+    private BigDecimal rating = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "ibu")

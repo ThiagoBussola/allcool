@@ -6,8 +6,9 @@ import br.com.allcool.exception.CreationNotPermittedException;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
@@ -31,7 +32,7 @@ public class ReviewService {
             throw new CreationNotPermittedException("Registro sem usuário vínculado. Atualize e tente novamente.");
         }
 
-        if (dto.getProductFlavors().isEmpty()) {
+        if (dto.getFlavors().isEmpty()) {
             throw new CreationNotPermittedException("Nenhum sabor foi selecionado.");
         }
 
@@ -45,5 +46,11 @@ public class ReviewService {
         this.verifyReviewFormDTOConsistency(dto);
 
         return this.repository.save(new ReviewFormDTOConverter().from(dto));
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isProductReviewed(UUID userId, UUID productId) {
+
+        return this.repository.existsByUserIdAndProductId(userId, productId);
     }
 }
