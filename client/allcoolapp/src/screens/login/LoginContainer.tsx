@@ -87,8 +87,13 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
   return (
     <>
       {!alreadyLogged && (
-        <SafeAreaView style={mainStyles.container}>
-          <View style={{ alignItems: 'center' }}>
+        <SafeAreaView
+          style={[
+            mainStyles.container,
+            { justifyContent: 'center', alignItems: 'center' },
+          ]}
+        >
+          <View>
             <Image
               style={{ width: 75, height: 75 }}
               source={require('../../img/AllcoolV1.1.png')}

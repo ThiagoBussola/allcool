@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { ProductReviewDTO } from '../../types/dto';
 
 type ProductListStackParamList = {
   Products: { userId: string };
@@ -19,6 +19,7 @@ export type ProductsListRouteProp = RouteProp<
 
 type ProductViewStackParamList = {
   ProductView: { productId: string; userId: string };
+  ProductReview: { product: ProductReviewDTO; userId: string };
 };
 
 export type ProductViewNavigationProp = StackNavigationProp<

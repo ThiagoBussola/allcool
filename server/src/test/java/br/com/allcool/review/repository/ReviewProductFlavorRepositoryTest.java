@@ -37,7 +37,7 @@ public class ReviewProductFlavorRepositoryTest {
                 .containsExactly(UUID.fromString("d6353fa6-796e-4fca-aa11-d731633782dd"),
                                  UUID.fromString("d8942a4c-183a-4261-83ff-6c466e5ced8f"));
         assertThat(reviewProductFlavorList).extracting(ReviewProductFlavor::getDescription)
-                .containsExactly("Sabor adocicado", "Sabor gostoso e suave");
+                .containsExactly("Adocicado", "Umami");
         assertThat(reviewProductFlavorList).extracting(ReviewProductFlavor::getType)
                 .containsExactly(FlavorTypeEnum.SWEET, FlavorTypeEnum.UMAMI);
     }
@@ -64,7 +64,7 @@ public class ReviewProductFlavorRepositoryTest {
 
         ReviewProductFlavor reviewProductFlavor = new ReviewProductFlavor();
         reviewProductFlavor.setReview(review);
-        reviewProductFlavor.setDescription("Teste de review product flavor");
+        reviewProductFlavor.setDescription("Product flavor");
         reviewProductFlavor.setType(FlavorTypeEnum.SWEET);
 
 
@@ -81,7 +81,7 @@ public class ReviewProductFlavorRepositoryTest {
         ReviewProductFlavor reviewProductFlavorBeforeUpdate = this.repository.findById(REVIEWPRODUCTFLAVOR_ID).get();
 
         assertThat(reviewProductFlavorBeforeUpdate.getId()).isEqualTo(REVIEWPRODUCTFLAVOR_ID);
-        assertThat(reviewProductFlavorBeforeUpdate.getDescription()).isEqualTo("Sabor adocicado");
+        assertThat(reviewProductFlavorBeforeUpdate.getDescription()).isEqualTo("Adocicado");
         assertThat(reviewProductFlavorBeforeUpdate.getType()).isEqualByComparingTo(FlavorTypeEnum.SWEET);
 
         reviewProductFlavorBeforeUpdate.setDescription("Sabor Update");

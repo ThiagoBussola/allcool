@@ -1,5 +1,5 @@
 import requestExecutor from './AxiosService';
-import { LoginRequest, Person } from 'src/types';
+import { LoginRequest, Person } from '../types';
 
 const resource = '/auth';
 

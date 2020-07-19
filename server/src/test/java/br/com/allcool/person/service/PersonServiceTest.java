@@ -22,7 +22,6 @@ import br.com.allcool.user.domain.UserClient;
 import br.com.allcool.user.repository.UserClientRepository;
 
 @RunWith(SpringRunner.class)
-@SuppressWarnings("deprecation")
 public class PersonServiceTest {
 
 	@Mock

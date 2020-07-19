@@ -46,7 +46,6 @@ public class ProductFlavor {
     private FlavorTypeEnum type;
 
     @NotBlank
-    @Length(max = 60)
+    @Length(max = 15)
     private String description;
-
 }

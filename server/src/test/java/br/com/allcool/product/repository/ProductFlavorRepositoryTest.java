@@ -17,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/file/file.sql","/sql/brand/brand.sql", "/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/product/productflavor.sql"})
+@Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/producttype/producttype.sql",
+        "/sql/product/product.sql", "/sql/product/productflavor.sql"})
 public class ProductFlavorRepositoryTest {
 
     @Autowired
@@ -31,10 +32,14 @@ public class ProductFlavorRepositoryTest {
         List<ProductFlavor> productFlavorList = this.repository.findAll();
 
         assertThat(productFlavorList).hasSize(2);
-        assertThat(productFlavorList).extracting(ProductFlavor::getType).containsExactlyInAnyOrder(FlavorTypeEnum.SWEET, FlavorTypeEnum.BITTER);
-        assertThat(productFlavorList).extracting(ProductFlavor::getDescription).containsExactlyInAnyOrder("Tem uma variação em cor de ouro a âmbar escuro.", "Apresenta notasntensas que remetem à um sabor adocicado.");
-        assertThat(productFlavorList).extracting(productFlavor -> productFlavor.getProduct().getId()).containsExactlyInAnyOrder(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"), UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
-
+        assertThat(productFlavorList).extracting(ProductFlavor::getType)
+                .containsExactlyInAnyOrder(FlavorTypeEnum.SWEET, FlavorTypeEnum.BITTER);
+        assertThat(productFlavorList).extracting(ProductFlavor::getDescription)
+                .containsExactlyInAnyOrder("Amargo",
+                        "Adocicado");
+        assertThat(productFlavorList).extracting(productFlavor -> productFlavor.getProduct().getId())
+                .containsExactlyInAnyOrder(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"),
+                        UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
     }
 
     @Test
@@ -59,7 +64,7 @@ public class ProductFlavorRepositoryTest {
         product.setName("Produto");
 
         ProductFlavor productFlavor = new ProductFlavor();
-        productFlavor.setDescription("Descrição exemplo");
+        productFlavor.setDescription("Descrição ex");
         productFlavor.setProduct(product);
         productFlavor.setType(FlavorTypeEnum.SALTY);
 
@@ -69,7 +74,6 @@ public class ProductFlavorRepositoryTest {
         assertThat(savedProductFlavor.getDescription()).isEqualTo(productFlavor.getDescription());
         assertThat(savedProductFlavor.getProduct().getName()).isEqualTo(product.getName());
         assertThat(savedProductFlavor.getType()).isEqualByComparingTo(productFlavor.getType());
-
     }
 
     @Test
@@ -81,8 +85,10 @@ public class ProductFlavorRepositoryTest {
         ProductFlavor productFlavorBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
 
         assertThat(productFlavorBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
-        assertThat(productFlavorBeforeUpdate.getDescription()).isEqualTo("Apresenta notasntensas que remetem à um sabor adocicado.");
-        assertThat(productFlavorBeforeUpdate.getProduct().getId()).isEqualByComparingTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+        assertThat(productFlavorBeforeUpdate.getDescription())
+                .isEqualTo("Adocicado");
+        assertThat(productFlavorBeforeUpdate.getProduct().getId())
+                .isEqualByComparingTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
         assertThat(productFlavorBeforeUpdate.getType()).isEqualByComparingTo(FlavorTypeEnum.SWEET);
 
         productFlavorBeforeUpdate.setDescription("Teste Update");
@@ -93,8 +99,18 @@ public class ProductFlavorRepositoryTest {
 
         assertThat(productFileAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
         assertThat(productFileAfterUpdate.getDescription()).isEqualTo("Teste Update");
-        assertThat(productFileAfterUpdate.getProduct().getId()).isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+        assertThat(productFileAfterUpdate.getProduct().getId())
+                .isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
         assertThat(productFileAfterUpdate.getType()).isEqualByComparingTo(FlavorTypeEnum.SALTY);
+    }
 
+    @Test
+    public void findAllByProductId() {
+
+        List<ProductFlavor> productFlavorList = this.repository.findAllByProductId(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+
+        assertThat(productFlavorList).hasSize(1);
+        assertThat(productFlavorList).extracting(ProductFlavor::getDescription).containsExactly("Adocicado");
+        assertThat(productFlavorList).extracting(ProductFlavor::getType).containsExactly(FlavorTypeEnum.SWEET);
     }
 }
