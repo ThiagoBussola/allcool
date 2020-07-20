@@ -56,7 +56,7 @@ const DrawerStack: React.FC<Props> = ({
             fontSize: 18,
           }}
         >
-          Allcool
+          Usuário Teste da Silva
         </Title>
 
         <DrawerContentScrollView {...props}>
