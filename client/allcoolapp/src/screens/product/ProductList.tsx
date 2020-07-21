@@ -87,9 +87,9 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
                       resizeMode="contain"
                     />
                   </View>
-                  <View>
+                  <View style={{ marginTop: '2%' }}>
                     <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
-                      <Title>{item.name}</Title>
+                      <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading

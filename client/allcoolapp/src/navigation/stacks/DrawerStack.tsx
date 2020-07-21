@@ -10,6 +10,7 @@ import { RouteProp } from '@react-navigation/native';
 import { TabsStack } from './';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, Title } from 'react-native-paper';
+import { mainStyles } from '../../styles';
 
 type DrawerStackParamList = {
   Drawer: { userId: string };
@@ -51,10 +52,12 @@ const DrawerStack: React.FC<Props> = ({
           }}
         />
         <Title
-          style={{
-            marginLeft: '5%',
-            fontSize: 18,
-          }}
+          style={[
+            mainStyles.title,
+            {
+              marginLeft: '5%',
+            },
+          ]}
         >
           Allcool
         </Title>
@@ -63,6 +66,7 @@ const DrawerStack: React.FC<Props> = ({
           <DrawerItem
             inactiveBackgroundColor="#f7f7f7"
             label="Fechar"
+            labelStyle={mainStyles.buttonText}
             onPress={() => props.navigation.closeDrawer()}
             icon={() => (
               <MaterialCommunityIcons name="close" color="black" size={22} />
@@ -72,6 +76,7 @@ const DrawerStack: React.FC<Props> = ({
             label="Sair"
             inactiveBackgroundColor="#f7f7f7"
             inactiveTintColor="red"
+            labelStyle={mainStyles.buttonText}
             onPress={() =>
               StorageService.clear().then(() => navigation.replace('Login'))
             }

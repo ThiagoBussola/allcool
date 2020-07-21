@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Snackbar } from 'react-native-paper';
+import { Text } from 'react-native';
 
 export type SnackbarState = {
   visible: boolean;
@@ -34,7 +35,7 @@ const SnackbarNotification: React.FC<Props> = ({
           onPress: () => dismissSnackbar(),
         }}
       >
-        {snackbarState.message}
+        <Text style={{ fontSize: 18 }}>{snackbarState.message}</Text>
       </Snackbar>
     </>
   );

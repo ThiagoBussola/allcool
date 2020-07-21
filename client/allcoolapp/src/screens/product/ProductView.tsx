@@ -5,9 +5,10 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Title, Text, Headline } from 'react-native-paper';
 import {
   detailsStyle,
-  textSizeStyles,
   boldTextStyles,
+  textStyles,
   mainStyles,
+  detailsTitleStyles,
 } from '../../styles';
 import {
   ProductService,
@@ -82,11 +83,18 @@ const ProductView: React.FC<Props> = ({
     <>
       <ScrollView style={{ flex: 1 }}>
         <SafeAreaView style={mainStyles.container}>
-          <View style={{ marginTop: '1.2%' }}>
+          <View style={{ marginTop: '3%' }}>
             <View>
-              <Title style={{ fontSize: 18, alignSelf: 'center' }}>
+              <Headline
+                style={[
+                  boldTextStyles,
+                  {
+                    alignSelf: 'center',
+                  },
+                ]}
+              >
                 {product.name}
-              </Title>
+              </Headline>
             </View>
             {!!productFile.id && (
               <View style={{ height: 40, alignSelf: 'center' }}>
@@ -113,45 +121,46 @@ const ProductView: React.FC<Props> = ({
 
           <View>
             <View style={{ alignItems: 'flex-start' }}>
-              <View style={{ marginTop: '5%' }}>
+              <View style={{ marginTop: '3%' }}>
                 <Headline
-                  style={[textSizeStyles, boldTextStyles]}
+                  style={boldTextStyles}
                 >{`Sobre ${product.name}`}</Headline>
               </View>
               <View>
-                <Text accessibilityStates>{product.description}</Text>
+                <Text accessibilityStates style={textStyles}>
+                  {product.description}
+                </Text>
               </View>
 
-              <View>
-                <Headline style={[textSizeStyles, boldTextStyles]}>
-                  Harmonização
-                </Headline>
+              <View style={{ marginTop: '2%' }}>
+                <Headline style={boldTextStyles}>Harmonização</Headline>
               </View>
               <View>
-                <Text accessibilityStates>{product.harmonization}</Text>
+                <Text accessibilityStates style={textStyles}>
+                  {product.harmonization}
+                </Text>
               </View>
-              <View>
-                <Headline style={[textSizeStyles, boldTextStyles]}>
-                  Detalhes
-                </Headline>
+              <View style={{ marginTop: '2%' }}>
+                <Headline style={boldTextStyles}>Detalhes</Headline>
               </View>
             </View>
           </View>
 
           <View
             style={{
+              marginTop: '1%',
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}
           >
             <Text accessibilityStates style={detailsStyle}>
-              <Text accessibilityStates style={boldTextStyles}>
+              <Text accessibilityStates style={detailsTitleStyles}>
                 Categoria:
               </Text>
               {` ${product.type && product.type.description}`}
             </Text>
             <Text accessibilityStates style={detailsStyle}>
-              <Text accessibilityStates style={boldTextStyles}>
+              <Text accessibilityStates style={detailsTitleStyles}>
                 Teor Alcoólico:
               </Text>
               {` ${product.alcoholContent}%`}
@@ -162,17 +171,18 @@ const ProductView: React.FC<Props> = ({
             style={{
               flexDirection: 'row',
               justifyContent: 'space-around',
-              marginBottom: '6.6%',
+              marginBottom: '10%',
+              marginTop: '2%',
             }}
           >
             <Text accessibilityStates style={detailsStyle}>
-              <Text accessibilityStates style={boldTextStyles}>
+              <Text accessibilityStates style={detailsTitleStyles}>
                 Temperatura Ideal:
               </Text>
               {` ${product.minimumTemperature}-${product.maximumTemperature}°C`}
             </Text>
             <Text accessibilityStates style={detailsStyle}>
-              <Text accessibilityStates style={boldTextStyles}>
+              <Text accessibilityStates style={detailsTitleStyles}>
                 IBU:
               </Text>
               {` ${product.ibu}`}
