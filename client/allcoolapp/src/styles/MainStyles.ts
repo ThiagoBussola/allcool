@@ -14,9 +14,10 @@ export const mainStyles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    marginTop: 10,
+    marginTop: '3%',
     width: 300,
-    fontSize: 15,
+    fontSize: 18,
+    fontFamily: 'Bebas Neue Pro Regular',
     borderRadius: 3,
     backgroundColor: '#fff',
   },
@@ -24,7 +25,7 @@ export const mainStyles = StyleSheet.create({
     width: 300,
     height: 42,
     backgroundColor: '#ffbf00',
-    marginTop: 15,
+    marginTop: '4%',
   },
   textButton: {
     fontSize: 16,
@@ -38,5 +39,15 @@ export const mainStyles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#ffbf00',
   },
-  subHeading: { color: '#888888', fontSize: 14, marginTop: '-1%' },
+  title: { fontSize: 24 },
+  subHeading: {
+    color: '#888888',
+    fontSize: 16,
+    marginTop: '-1%',
+    fontFamily: 'Bebas Neue Pro Regular',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Bebas Neue Pro Regular',
+  },
 });

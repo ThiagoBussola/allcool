@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, Text } from 'react-native';
 import { ReviewDTO, ProductFlavorDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
@@ -143,7 +143,7 @@ const ProductReview: React.FC<Props> = ({
       <ScrollView>
         <SafeAreaView style={mainStyles.container}>
           <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
-            <Title style={{ fontSize: 18 }}>Avalie o produto</Title>
+            <Title style={mainStyles.title}>Avalie o produto</Title>
           </View>
           <View style={{ alignItems: 'flex-start' }}>
             <Subheading style={mainStyles.subHeading}>
@@ -164,7 +164,7 @@ const ProductReview: React.FC<Props> = ({
               </View>
               <View>
                 <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
-                  <Title style={{ fontSize: 18 }}>
+                  <Title style={mainStyles.title}>
                     Classificação{<RequiredFieldMarker />}
                   </Title>
                   <Subheading style={mainStyles.subHeading}>
@@ -201,7 +201,7 @@ const ProductReview: React.FC<Props> = ({
 
             <View>
               <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
-                <Title style={{ fontSize: 18 }}>
+                <Title style={mainStyles.title}>
                   O que você achou?{<RequiredFieldMarker />}
                 </Title>
               </View>
@@ -229,7 +229,7 @@ const ProductReview: React.FC<Props> = ({
                   <Divider accessibilityStates />
                 </View>
                 <View style={{ alignItems: 'flex-start', marginTop: '3%' }}>
-                  <Title style={{ fontSize: 18 }}>
+                  <Title style={mainStyles.title}>
                     Notou algum desses sabores?{<RequiredFieldMarker />}
                   </Title>
                 </View>
@@ -284,8 +284,9 @@ const ProductReview: React.FC<Props> = ({
               theme={{
                 colors: { primary: '#ffbf00' },
               }}
-              disabled={!isValid}
               onPress={() => submitReview()}
+              disabled={!isValid}
+              labelStyle={mainStyles.buttonText}
             >
               Avaliar
             </Button>

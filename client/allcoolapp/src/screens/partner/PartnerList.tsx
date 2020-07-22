@@ -84,9 +84,9 @@ const PartnerList: React.FC<Props> = ({
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{ marginLeft: '5%' }}>
+                  <View style={{ marginLeft: '5%', marginTop: '2%' }}>
                     <View style={{ alignItems: 'flex-start', marginTop: '1%' }}>
-                      <Title>{item.name}</Title>
+                      <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View>
                       <Subheading style={mainStyles.subHeading}>

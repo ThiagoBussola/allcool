@@ -3,8 +3,39 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRootStack, LoginStack, DrawerStack } from './src/navigation';
+import {
+  configureFonts,
+  DefaultTheme,
+  Provider as PaperProvider,
+  Theme,
+} from 'react-native-paper';
+import { Fonts } from 'react-native-paper/lib/typescript/src/types';
 
-const _MyTheme = {
+const fontConfig: Fonts = {
+  regular: {
+    fontFamily: 'Bebas Neue Pro Regular',
+    fontWeight: 'normal',
+  },
+  medium: {
+    fontFamily: 'Bebas Neue Pro Bold',
+    fontWeight: 'normal',
+  },
+  light: {
+    fontFamily: 'Bebas Neue Pro Light',
+    fontWeight: 'normal',
+  },
+  thin: {
+    fontFamily: 'Bebas Neue Pro Thin',
+    fontWeight: 'normal',
+  },
+};
+
+const paperTheme: Theme = {
+  ...DefaultTheme,
+  fonts: configureFonts({ default: fontConfig }),
+};
+
+const navigationTheme = {
   dark: false,
   colors: {
     primary: 'rgb(255, 45, 85)',
@@ -18,15 +49,17 @@ const _MyTheme = {
 const App = () => {
   return (
     <>
-      <NavigationContainer theme={_MyTheme}>
-        <AppRootStack.Navigator
-          initialRouteName="Login"
-          screenOptions={{ headerShown: false }}
-        >
-          <AppRootStack.Screen name="Login" component={LoginStack} />
-          <AppRootStack.Screen name="Drawer" component={DrawerStack} />
-        </AppRootStack.Navigator>
-      </NavigationContainer>
+      <PaperProvider theme={paperTheme}>
+        <NavigationContainer theme={navigationTheme}>
+          <AppRootStack.Navigator
+            initialRouteName="Login"
+            screenOptions={{ headerShown: false }}
+          >
+            <AppRootStack.Screen name="Login" component={LoginStack} />
+            <AppRootStack.Screen name="Drawer" component={DrawerStack} />
+          </AppRootStack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </>
   );
 };

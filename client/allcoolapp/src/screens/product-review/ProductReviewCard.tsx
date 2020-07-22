@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Card, Avatar, Button } from 'react-native-paper';
+import { mainStyles } from '../../styles';
 
 type Props = {
   showPic: boolean;
@@ -41,7 +42,9 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
           <Card.Title
             accessibilityStates
             title="Foto"
+            titleStyle={mainStyles.title}
             subtitle="Capture ou escolha uma foto do produto"
+            subtitleStyle={mainStyles.subHeading}
             left={CameraIcon}
           />
           {hasPic && (

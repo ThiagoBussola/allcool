@@ -13,6 +13,8 @@ export const rootStackOptions = (
     textAlign: 'center',
     flexGrow: 1,
     alignSelf: 'center',
+    fontFamily: 'Bebas Neue Pro Bold',
+    fontSize: 28,
   },
   headerTitleContainerStyle: {
     alignSelf: 'center',
