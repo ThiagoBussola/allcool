@@ -87,8 +87,13 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
   return (
     <>
       {!alreadyLogged && (
-        <SafeAreaView style={mainStyles.container}>
-          <View style={{ alignItems: 'center' }}>
+        <SafeAreaView
+          style={[
+            mainStyles.container,
+            { justifyContent: 'center', alignItems: 'center' },
+          ]}
+        >
+          <View>
             <Image
               style={{ width: 75, height: 75 }}
               source={require('../../img/AllcoolV1.1.png')}
@@ -119,18 +124,13 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
               style={mainStyles.button}
               onPress={executeLogin}
               mode="contained"
+              labelStyle={mainStyles.buttonText}
             >
               Entrar
             </Button>
           </View>
-          <View style={{ position: 'relative', marginTop: 10 }}>
-            <Text
-              style={{
-                color: '#969696',
-                textAlign: 'center',
-              }}
-              onPress={() => {}}
-            >
+          <View style={{ position: 'relative', marginTop: '5%' }}>
+            <Text style={[mainStyles.subHeading]} onPress={() => {}}>
               Não tem uma conta?
               <Text style={{ color: '#ffbf00' }}> Cadastre-se.</Text>
             </Text>

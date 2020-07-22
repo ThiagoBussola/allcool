@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -42,10 +43,12 @@ public class ProductServiceTest {
         UUID id = UUID.randomUUID();
 
         when(this.repository.findById(id)).thenReturn(Optional.of(new Product()));
+        when(this.repository.getProductAverageRating(id)).thenReturn(BigDecimal.valueOf(3.5));
 
         this.service.findById(id);
 
         verify(this.repository).findById(id);
+        verify(this.repository).getProductAverageRating(id);
         verifyNoMoreInteractions(this.repository);
     }
 

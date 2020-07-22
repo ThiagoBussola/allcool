@@ -5,6 +5,7 @@ import br.com.allcool.converter.BooleanToYesOrNo;
 import br.com.allcool.producttype.domain.ProductType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -75,6 +77,9 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @Transient
+    private BigDecimal rating = BigDecimal.ZERO;
+
     @NotNull
     @Column(name = "ibu")
     private BigDecimal ibu = BigDecimal.ZERO;
@@ -90,5 +95,4 @@ public class Product {
     @NotNull
     @Column(name = "alcoholcontent")
     private BigDecimal alcoholContent = BigDecimal.ZERO;
-
 }

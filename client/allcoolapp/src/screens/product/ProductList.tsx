@@ -9,7 +9,7 @@ import {
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
-import { listImageStyle, rowStyle } from '../../styles';
+import { listImageStyle, rowStyle, mainStyles } from '../../styles';
 import {
   ProductsListRouteProp,
   ProductsListNavigationProp,
@@ -23,12 +23,7 @@ type Props = {
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const ProductList: React.FC<Props> = ({
-  navigation,
-  route: {
-    params: { userId },
-  },
-}) => {
+const ProductList: React.FC<Props> = ({ navigation }) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState('');
@@ -42,7 +37,7 @@ const ProductList: React.FC<Props> = ({
 
   const filter = () => {
     const filteredArray = products.filter((p) =>
-      p.name.trim().toLowerCase().includes(search.trim().toLowerCase())
+      p.name!.trim().toLowerCase().includes(search.trim().toLowerCase())
     );
 
     setFilteredProducts(filteredArray);
@@ -50,7 +45,7 @@ const ProductList: React.FC<Props> = ({
 
   const view = (product: ProductDTO) =>
     navigation.navigate(`ProductView`, {
-      productId: product.id,
+      productId: product.id!,
     });
 
   const handleChange = (text: string) => {
@@ -78,7 +73,7 @@ const ProductList: React.FC<Props> = ({
             flex: 1,
             width: screenWidth,
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id!}
           renderItem={({ item }) => (
             <>
               <TouchableOpacity onPress={() => view(item)}>
@@ -92,18 +87,18 @@ const ProductList: React.FC<Props> = ({
                       resizeMode="contain"
                     />
                   </View>
-                  <View>
+                  <View style={{ marginTop: '2%' }}>
                     <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
-                      <Title>{item.name}</Title>
+                      <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Categoria: ${item.type}`}</Subheading>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Marca: ${item.brand}`}</Subheading>
                     </View>
                   </View>
@@ -125,7 +120,9 @@ const ProductList: React.FC<Props> = ({
             />
           </View>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading>Nenhum produto encontrado</Subheading>
+            <Subheading style={mainStyles.subHeading}>
+              Nenhum produto encontrado
+            </Subheading>
           </View>
         </View>
       )}

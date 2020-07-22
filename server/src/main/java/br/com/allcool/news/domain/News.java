@@ -38,7 +38,6 @@ public class News {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "file_id")
     private File file;

@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Data
@@ -28,14 +28,12 @@ public class Brand {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID id;
 
-    @NotNull
+    @NotBlank
     @Length(max = 60)
     @Column(name = "brandname")
     private String name;
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private File file;
-
 }

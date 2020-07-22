@@ -15,9 +15,7 @@
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="file_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
+            <column name="file_id" type="uuid"/>
             <column name="brandname" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>

@@ -1,6 +1,5 @@
 package br.com.allcool.review.repository;
 
-import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.domain.ReviewProductFlavor;
 import org.springframework.data.jpa.repository.JpaRepository;
 

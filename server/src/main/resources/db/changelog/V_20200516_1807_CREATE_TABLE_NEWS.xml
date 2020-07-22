@@ -15,12 +15,8 @@
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="address_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-            <column name="file_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
+            <column name="address_id" type="uuid"/>
+            <column name="file_id" type="uuid"/>
             <column name="description" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>

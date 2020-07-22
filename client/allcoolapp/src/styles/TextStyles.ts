@@ -1,9 +1,15 @@
 import { StyleProp, TextStyle } from 'react-native';
 
-export const textSizeStyles: StyleProp<TextStyle> = {
-  fontSize: 14,
+export const boldTextStyles: StyleProp<TextStyle> = {
+  fontFamily: 'Bebas Neue Pro Bold',
 };
 
-export const boldTextStyles: StyleProp<TextStyle> = {
-  fontWeight: 'bold',
+export const detailsTitleStyles: StyleProp<TextStyle> = {
+  fontSize: 18,
+  fontFamily: 'Bebas Neue Pro Bold Italic',
+};
+
+export const textStyles: StyleProp<TextStyle> = {
+  fontSize: 18,
+  fontFamily: 'Bebas Neue Pro Regular',
 };

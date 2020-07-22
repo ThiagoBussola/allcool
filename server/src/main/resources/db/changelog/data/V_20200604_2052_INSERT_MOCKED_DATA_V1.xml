@@ -269,10 +269,10 @@
 
         <sql>
             insert into productflavor (id, description, flavortype, product_id)
-            values('f329cccf-c105-48f6-95c2-78a4ce11cf7f', 'Apresenta notasntensas que remetem à um sabor adocicado.',
+            values('f329cccf-c105-48f6-95c2-78a4ce11cf7f', 'Adocicado',
             'SWEET', 'f0e11a71-8ff7-4e61-80b4-de0082665b73');
             insert into productflavor (id, description, flavortype, product_id)
-            values('fbfef2e6-e26d-4839-8c12-cc6849d195a8', 'Tem uma variação em cor de ouro a âmbar escuro.', 'BITTER',
+            values('fbfef2e6-e26d-4839-8c12-cc6849d195a8', 'Amargo', 'BITTER',
             '8f50022f-4058-4f8e-8062-fc0ef9bc327e');
         </sql>
     </changeSet>
@@ -457,11 +457,10 @@
 
         <sql>
             insert into reviewproductflavor (id, review_id, description, flavortype)
-            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Sabor adocicado',
+            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Adocicado',
             'SWEET');
             insert into reviewproductflavor (id, review_id, description, flavortype)
-            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Sabor gostoso e ' ||
-            'suave', 'UMAMI');
+            values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Umami', 'UMAMI');
         </sql>
     </changeSet>
 </databaseChangeLog>

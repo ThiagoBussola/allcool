@@ -9,7 +9,7 @@ import {
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PartnerService } from '../../service';
-import { listImageStyle, rowStyle } from '../../styles';
+import { listImageStyle, rowStyle, mainStyles } from '../../styles';
 import { PartnerDTO } from '../../types/dto/PartnerDTO';
 import {
   PartnerListNavigationProp,
@@ -84,17 +84,21 @@ const PartnerList: React.FC<Props> = ({
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{ marginLeft: '5%' }}>
+                  <View style={{ marginLeft: '5%', marginTop: '2%' }}>
                     <View style={{ alignItems: 'flex-start', marginTop: '1%' }}>
-                      <Title>{item.name}</Title>
+                      <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View>
-                      <Subheading style={{ fontSize: 12 }}>
-                        {`${item.address}`}
+                      <Subheading style={mainStyles.subHeading}>
+                        {`${
+                          item.address.length > 40
+                            ? item.address.slice(0, 40).concat('...')
+                            : item.address
+                        }`}
                       </Subheading>
                     </View>
                     <View>
-                      <Subheading style={{ fontSize: 12 }}>
+                      <Subheading style={mainStyles.subHeading}>
                         {`${item.locality}`} - {`${item.phoneNumber}`}
                       </Subheading>
                     </View>
@@ -130,8 +134,10 @@ const PartnerList: React.FC<Props> = ({
               resizeMode="contain"
             />
           </View>
-          <View style={{ alignItems: 'center', marginTop: '5%' }}>
-            <Title>Nenhum parceiro encontrado</Title>
+          <View style={{ alignItems: 'center', marginTop: 10 }}>
+            <Subheading style={mainStyles.subHeading}>
+              Nenhum parceiro encontrado
+            </Subheading>
           </View>
         </View>
       )}

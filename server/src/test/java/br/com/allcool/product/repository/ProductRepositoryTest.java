@@ -2,9 +2,8 @@ package br.com.allcool.product.repository;
 
 import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.container.domain.Container;
-import br.com.allcool.enums.ContainerTypeEnum;
 import br.com.allcool.enums.FlavorTypeEnum;
-import br.com.allcool.file.domain.File;
+import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.domain.ProductContainer;
 import br.com.allcool.product.domain.ProductFlavor;
@@ -17,28 +16,24 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.filter;
 
 @RepositoryTest
 @RunWith(SpringRunner.class)
-@Sql(scripts = {"/sql/file/file.sql","/sql/brand/brand.sql","/sql/container/container.sql",
+@Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/container/container.sql",
         "/sql/producttype/producttype.sql", "/sql/product/product.sql",
         "/sql/product/productflavor.sql", "/sql/product/productcontainer.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class ProductRepositoryTest {
 
+    private final UUID PRODUCT_ID = UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa");
     @Autowired
     private ProductRepository repository;
-
     @Autowired
     private ProductContainerRepository productContainerRepository;
-
-    private final UUID PRODUCT_ID = UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa");
 
     @Test
     public void findAll() {
@@ -127,8 +122,19 @@ public class ProductRepositoryTest {
         assertThat(productAfterUpdate.getDescription()).isEqualTo("Eugênia é uma cerveja do estilo Session IPA, com aromas marcantes dos lúpulos americanos, alemães e franceses, com um ingrediente especial: a fruta Uvaia, típica da Mata Atlântica, rica em vitamina C e A, super aromática e com sabor cítrico. A Cerveja Colorado Eugênia é leve, refrescante e amarga na medida (40 IBU). Desiberne, cerveja pode ter fruta!");
         assertThat(productAfterUpdate.getHarmonization()).isEqualTo("Ceviche, comida mexicana (tacos, quesadilla), chicken wings, petiscos, churrasco e sobremesas ácidas.");
         assertThat(productAfterUpdate.getActive()).isEqualTo(false);
-
     }
 
+    @Test
+    @Sql(scripts = {"/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/container/container.sql",
+            "/sql/producttype/producttype.sql", "/sql/product/product.sql",
+            "/sql/product/productflavor.sql", "/sql/product/productcontainer.sql",
+            "/sql/person/person.sql", "/sql/user/userclient.sql", "/sql/review/review.sql"})
+    public void getProductAverageRating() {
 
+        assertThat(this.repository.getProductAverageRating(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa")))
+                .isEqualTo(BigDecimal.valueOf(3.0));
+
+        assertThat(this.repository.getProductAverageRating(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e")))
+                .isEqualTo(BigDecimal.valueOf(5.0));
+    }
 }

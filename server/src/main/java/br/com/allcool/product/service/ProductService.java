@@ -9,6 +9,8 @@ import br.com.allcool.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -26,10 +28,23 @@ public class ProductService {
         this.productFileRepository = productFileRepository;
     }
 
+    private BigDecimal getProductRating(UUID id) {
+
+        BigDecimal rating = this.repository.getProductAverageRating(id);
+
+        if (rating.signum() > 0) {
+            rating = rating.setScale(0, RoundingMode.UP);
+        }
+
+        return rating;
+    }
+
     public Product findById(UUID id) {
 
-        return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+        Product product = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+        product.setRating(getProductRating(id));
 
+        return product;
     }
 
     public List<ProductDTO> findAll() {

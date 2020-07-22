@@ -7,4 +7,5 @@ export const rowStyle: StyleProp<ViewStyle> = {
 export const detailsStyle: StyleProp<TextStyle> = {
   width: '50%',
   paddingHorizontal: 10,
+  fontSize: 16,
 };

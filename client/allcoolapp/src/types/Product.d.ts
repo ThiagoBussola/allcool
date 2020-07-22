@@ -14,6 +14,7 @@ export type Product = {
   containers?: ProductContainer[];
   flavors?: ProductFlavor[];
   brand?: Brand;
+  rating?: number;
   ibu?: number;
   minimumTemperature?: number;
   maximumTemperature?: number;
