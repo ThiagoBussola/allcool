@@ -1,4 +1,3 @@
-import { Product } from './Product';
 import { FlavorTypeEnum } from './enum/FlavorTypeEnum';
 
 export type ProductFlavor = {

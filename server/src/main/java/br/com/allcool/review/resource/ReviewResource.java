@@ -1,17 +1,21 @@
 package br.com.allcool.review.resource;
 
 import br.com.allcool.dto.ReviewDTO;
+import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.review.service.ReviewService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+
+@RestController
 @RequestMapping("/api/reviews")
 public class ReviewResource {
 
@@ -25,5 +29,20 @@ public class ReviewResource {
     public ResponseEntity<List<ReviewDTO>> findAllByProductId(@PathVariable("productId") UUID id) {
 
         return ResponseEntity.ok(this.service.findAllByProductId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> saveReview(@RequestBody ReviewFormDTO review) {
+
+        this.service.saveReview(review);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/products/{productId}/users/{userId}/verify-user-review")
+    public ResponseEntity<Boolean> isProductReviewed(
+            @PathVariable("productId") UUID productId, @PathVariable("userId") UUID userId) {
+
+        return ResponseEntity.ok(service.isProductReviewed(userId, productId));
     }
 }

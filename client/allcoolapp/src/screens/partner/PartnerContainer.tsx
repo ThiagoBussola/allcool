@@ -1,22 +1,9 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-
-export type PartnerContainerStackParamList = {
-  PartnerContainer: { userId: string | undefined };
-  Products: { userId: string } | undefined;
-};
-
-type PartnerContainerNavigationProp = StackNavigationProp<
-  PartnerContainerStackParamList,
-  'PartnerContainer'
->;
-
-type PartnerContainerRouteProp = RouteProp<
-  PartnerContainerStackParamList,
-  'PartnerContainer'
->;
+import {
+  PartnerContainerNavigationProp,
+  PartnerContainerRouteProp,
+} from '../../navigation';
 
 type Props = {
   navigation: PartnerContainerNavigationProp;
@@ -25,14 +12,15 @@ type Props = {
 
 const PartnerContainer: React.FC<Props> = ({
   navigation,
-  route: { params },
+  route: {
+    params: { userId },
+  },
 }) => {
   return (
     <>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{`Bem vindo a tela de parceiros, usuário ${
-          params && params.userId
-        }`}</Text>
+        <Text>{`Bem vindo a tela de parceiros, usuário`}</Text>
+        <Text>{userId}</Text>
         <View style={{ marginTop: 10 }}>
           <Button
             color="#ffbf00"

@@ -6,24 +6,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
-import { listImageStyle, rowStyle } from '../../styles';
-
-type ProductListStackParamList = {
-  Products: { userId: string } | undefined;
-  ProductView: { productId: string; userId: string | undefined };
-};
-
-type ProductsListNavigationProp = StackNavigationProp<
-  ProductListStackParamList,
-  'Products'
->;
-
-type ProductsListRouteProp = RouteProp<ProductListStackParamList, 'Products'>;
+import { listImageStyle, rowStyle, mainStyles } from '../../styles';
+import {
+  ProductsListRouteProp,
+  ProductsListNavigationProp,
+} from '../../navigation';
 
 type Props = {
   route: ProductsListRouteProp;
@@ -33,7 +23,7 @@ type Props = {
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
+const ProductList: React.FC<Props> = ({ navigation }) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState('');
@@ -47,7 +37,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
 
   const filter = () => {
     const filteredArray = products.filter((p) =>
-      p.name.trim().toLowerCase().includes(search.trim().toLowerCase())
+      p.name!.trim().toLowerCase().includes(search.trim().toLowerCase())
     );
 
     setFilteredProducts(filteredArray);
@@ -55,8 +45,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
 
   const view = (product: ProductDTO) =>
     navigation.navigate(`ProductView`, {
-      productId: product.id,
-      userId: undefined,
+      productId: product.id!,
     });
 
   const handleChange = (text: string) => {
@@ -84,7 +73,7 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
             flex: 1,
             width: screenWidth,
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id!}
           renderItem={({ item }) => (
             <>
               <TouchableOpacity onPress={() => view(item)}>
@@ -98,18 +87,18 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
                       resizeMode="contain"
                     />
                   </View>
-                  <View>
+                  <View style={{ marginTop: '2%' }}>
                     <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
-                      <Title>{item.name}</Title>
+                      <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Categoria: ${item.type}`}</Subheading>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
                       <Subheading
-                        style={{ fontSize: 12 }}
+                        style={mainStyles.subHeading}
                       >{`Marca: ${item.brand}`}</Subheading>
                     </View>
                   </View>
@@ -131,7 +120,9 @@ const ProductList: React.FC<Props> = ({ navigation, route: { params } }) => {
             />
           </View>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading>Nenhum produto encontrado</Subheading>
+            <Subheading style={mainStyles.subHeading}>
+              Nenhum produto encontrado
+            </Subheading>
           </View>
         </View>
       )}

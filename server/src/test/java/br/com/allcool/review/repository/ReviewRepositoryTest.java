@@ -22,8 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RepositoryTest
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"/sql/person/person.sql", "/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/user/userclient.sql",
-                "/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/product/productflavor.sql",
-                "/sql/review/review.sql", "/sql/review/reviewproductflavor.sql"})
+        "/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/product/productflavor.sql",
+        "/sql/review/review.sql", "/sql/review/reviewproductflavor.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class ReviewRepositoryTest {
 
@@ -120,5 +120,18 @@ public class ReviewRepositoryTest {
         assertThat(reviewAfterUpdate.getId()).isEqualTo(REVIEW_ID);
         assertThat(reviewAfterUpdate.getDescription()).isEqualTo("Review teste allcool!");
         assertThat(reviewAfterUpdate.getRating()).isEqualTo(BigDecimal.valueOf(5));
+    }
+
+    @Test
+    public void existsByUserIdAndProductId() {
+
+        assertThat(this.repository.existsByUserIdAndProductId(UUID.fromString("3793d49a-01fa-47cc-b762-da24738b750c"),
+                UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"))).isTrue();
+
+        assertThat(this.repository.existsByUserIdAndProductId(UUID.fromString("3793d49a-01fa-47cc-b762-da24738b750c"),
+                UUID.randomUUID())).isFalse();
+
+        assertThat(this.repository.existsByUserIdAndProductId(UUID.randomUUID(),
+                UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"))).isFalse();
     }
 }

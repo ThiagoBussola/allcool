@@ -1,7 +1,7 @@
 import requestExecutor from './AxiosService';
-import { ProductDTO } from 'src/types/dto';
+import { ProductDTO } from '../types/dto';
 import { AxiosPromise } from 'axios';
-import { Product } from 'src/types';
+import { Product } from '../types';
 
 const resource = '/api/products';
 

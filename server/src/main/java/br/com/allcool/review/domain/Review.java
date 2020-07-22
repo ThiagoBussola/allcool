@@ -47,7 +47,6 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "file_id")
     private File file;
