@@ -68,6 +68,7 @@ const ProductReview: React.FC<Props> = ({
           })
         );
     }
+    //eslint-disable-next-line
   }, [product.id]);
 
   useEffect(() => {
