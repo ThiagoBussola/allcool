@@ -29,6 +29,7 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     isUserAlreadyLogged();
+    //eslint-disable-next-line
   }, []);
 
   const isUserAlreadyLogged = async () => {
