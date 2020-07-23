@@ -59,7 +59,7 @@ const DrawerStack: React.FC<Props> = ({
             },
           ]}
         >
-          Allcool
+          Usuário Teste da Silva
         </Title>
 
         <DrawerContentScrollView {...props}>
