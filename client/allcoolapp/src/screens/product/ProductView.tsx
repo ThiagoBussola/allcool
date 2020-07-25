@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, SafeAreaView } from 'react-native';
+import { View, Image } from 'react-native';
 import { Product } from '../../types';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Title, Text, Headline } from 'react-native-paper';
+import { Text, Headline } from 'react-native-paper';
 import {
   detailsStyle,
   boldTextStyles,
@@ -82,7 +82,7 @@ const ProductView: React.FC<Props> = ({
   return (
     <>
       <ScrollView style={{ flex: 1 }}>
-        <SafeAreaView style={mainStyles.container}>
+        <View style={mainStyles.container}>
           <View style={{ marginTop: '3%' }}>
             <View>
               <Headline
@@ -188,7 +188,7 @@ const ProductView: React.FC<Props> = ({
               {` ${product.ibu}`}
             </Text>
           </View>
-        </SafeAreaView>
+        </View>
       </ScrollView>
       <SnackbarNotification
         snackbarState={snackbarState}

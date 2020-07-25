@@ -96,11 +96,11 @@
 
             insert into file (id, url, filetype, filename, filedate)
             values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic1.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/partners/azeitona.png', 'png',
             'partnerpic1', '2020-07-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic2.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/partners/agua-doce-cachacaria.png', 'png',
             'partnerpic2', '2020-08-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
@@ -392,6 +392,21 @@
             insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
             values('2436a578-a5da-4557-b9e7-0adf4ac687a4', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Segunda-feira',
             '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('ce02bb76-dbc6-4ac3-8e15-467780f0dc1d', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Terça-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('fd27c718-dfdb-4085-9432-46457a711e36', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Quarta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('d7364ff3-8239-4e95-a935-14b3ce3e813a', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Quinta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('87897e78-a7d3-4bab-94f4-a1b070956299', '68a0e950-37b8-4f01-9f40-f33fdfbc8720',  'Sexta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('c0ea0ac1-859e-4c60-88ae-6cf980e30d95', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Sábado',
+            '17:00:00', '03:00:00');
             insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
             values('a1bba17e-234f-4d0a-9051-86bd498b064a', 'd0c4238f-a9c9-452b-9c09-315e19d46506', 'Sábado', '17:30:00',
             '00:30:00');
