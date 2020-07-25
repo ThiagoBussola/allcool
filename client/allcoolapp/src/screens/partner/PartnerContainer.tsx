@@ -44,13 +44,32 @@ const PartnerContainer: React.FC<Props> = ({
     );
   }, [partnerId, userId]);
 
+  const renderChip = (key, value) => {
+    return (
+      <View style={{ marginLeft: '3%' }}>
+        <Chip
+          accessibilityStates
+          key={key}
+          mode="outlined"
+          textStyle={{ color: 'black', fontSize: 14 }}
+          selectedColor="black"
+          style={{
+            backgroundColor: '#ffbf00',
+          }}
+        >
+          {value}
+        </Chip>
+      </View>
+    );
+  };
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <ScrollView style={{ flex: 1 }}>
-          <View style={{}}>
+          <View>
             {!!partner.fileDTO?.id && (
               <View style={{ alignSelf: 'center' }}>
                 <Image
@@ -88,7 +107,9 @@ const PartnerContainer: React.FC<Props> = ({
             </View>
 
             <View>
-              <Text style={textStyles}>{`Fone: ${partner.phoneNumber}`}</Text>
+              <Text style={textStyles}>
+                {`Telefone: ${partner.phoneNumber}`}
+              </Text>
             </View>
 
             <View>
@@ -97,18 +118,18 @@ const PartnerContainer: React.FC<Props> = ({
               </View>
               <Text style={textStyles}>{partner.description}</Text>
             </View>
+            <View style={{ marginTop: '2%' }}>
+              <Headline style={boldTextStyles}>
+                Horário de Funcionamento
+              </Headline>
+            </View>
             <View
               style={{
                 flex: 1,
-                marginTop: '5%',
+                marginTop: '2%',
                 flexWrap: 'nowrap',
               }}
             >
-              <View style={{ marginTop: '2%' }}>
-                <Headline style={boldTextStyles}>
-                  Horário de Funcionamento
-                </Headline>
-              </View>
               {partner.workingPeriodDTOList?.map((wp, index) => (
                 <View
                   key={index}
@@ -126,34 +147,8 @@ const PartnerContainer: React.FC<Props> = ({
                   >
                     <Text style={textStyles}>{`${wp.day}:`}</Text>
                   </View>
-                  <View style={{ marginLeft: '5%' }}>
-                    <Chip
-                      accessibilityStates
-                      key={wp.id}
-                      mode="outlined"
-                      textStyle={{ color: 'black', fontSize: 14 }}
-                      selectedColor="black"
-                      style={{
-                        backgroundColor: '#ffbf00',
-                      }}
-                    >
-                      {wp.openingTime}
-                    </Chip>
-                  </View>
-                  <View style={{ marginLeft: '3%' }}>
-                    <Chip
-                      accessibilityStates
-                      key={wp.id}
-                      mode="outlined"
-                      textStyle={{ color: 'black', fontSize: 14 }}
-                      selectedColor="black"
-                      style={{
-                        backgroundColor: '#ffbf00',
-                      }}
-                    >
-                      {wp.closingTime}
-                    </Chip>
-                  </View>
+                  {renderChip(wp.id, wp.openingTime)}
+                  {renderChip(wp.id, wp.closingTime)}
                 </View>
               ))}
             </View>
