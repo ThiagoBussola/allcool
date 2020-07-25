@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { Product } from '../../types';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, Headline, ActivityIndicator } from 'react-native-paper';
+import { Text, Headline } from 'react-native-paper';
 import {
   detailsStyle,
   boldTextStyles,
@@ -106,25 +106,13 @@ const ProductView: React.FC<Props> = ({
               </View>
               {!!productFile.id && (
                 <View style={{ height: 40, alignSelf: 'center' }}>
-                  {loading ? (
-                    <ActivityIndicator
-                      accessibilityStates
-                      color="#ffbf00"
-                      size={80}
-                      style={{
-                        width: 190,
-                        height: 205,
-                      }}
-                    />
-                  ) : (
-                    <Image
-                      style={{ width: 190, height: 205 }}
-                      source={{
-                        uri: productFile.url,
-                      }}
-                      resizeMode="cover"
-                    />
-                  )}
+                  <Image
+                    style={{ width: 190, height: 205 }}
+                    source={{
+                      uri: productFile.url,
+                    }}
+                    resizeMode="cover"
+                  />
                 </View>
               )}
               <View style={{ marginTop: '50%' }}>
