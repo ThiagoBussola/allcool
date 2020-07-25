@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 type PartnerContainerStackParamList = {
-  PartnerContainer: { userId: string };
+  PartnerContainer: { partnerId: string; userId: string };
   Products: { userId: string } | undefined;
 };
 
