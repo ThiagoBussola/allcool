@@ -12,5 +12,4 @@ public class PartnerDTO {
 	 private String phoneNumber;
 	 private String address;
 	 private String locality;
-	 
 }

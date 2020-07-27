@@ -34,6 +34,7 @@ public class ProductFile {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "file_id")
     private File file;
