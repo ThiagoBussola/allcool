@@ -6,6 +6,7 @@ import { mainStyles } from '../../styles';
 import { LoginService } from '../../service';
 import StorageService from '../../service/StorageService';
 import { LoginNavigationProp } from '../../navigation';
+import { SnackbarNotification, SnackbarState } from '../../components';
 
 type Props = {
   navigation: LoginNavigationProp;
@@ -26,6 +27,10 @@ const initialState: LoginFormType = {
 const LoginContainer: React.FC<Props> = ({ navigation }) => {
   const [loginState, setLoginState] = useState<LoginFormType>(initialState);
   const [alreadyLogged, setAlreadyLogged] = useState(true);
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
     isUserAlreadyLogged();
@@ -51,14 +56,18 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
     }));
 
   const wrongUsernameOrPasssord = () => {
-    Alert.alert(
-      'Nome de usuário ou senha inválidos.',
-      'Verifique seus dados de acesso e tente novamente.'
-    );
+    setSnackbarState({
+      message:
+        'Nome de usuário ou senha inválidos. Verifique seus dados de acesso e tente novamente.',
+      visible: true,
+    });
   };
 
   const connectionWithProblems = (error) => {
-    Alert.alert('Ocorreu um problema ao conectar com o servidor.', error);
+    setSnackbarState({
+      message: 'Ocorreu um problema ao conectar com o servidor. ' + error,
+      visible: true,
+    });
   };
 
   const executeLogin = () => {
@@ -138,6 +147,15 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
           </View>
         </SafeAreaView>
       )}
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
     </>
   );
 };

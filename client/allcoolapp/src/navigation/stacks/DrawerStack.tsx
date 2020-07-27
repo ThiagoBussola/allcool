@@ -59,19 +59,10 @@ const DrawerStack: React.FC<Props> = ({
             },
           ]}
         >
-          Usuário Teste da Silva
+          José da Silva
         </Title>
 
         <DrawerContentScrollView {...props}>
-          <DrawerItem
-            inactiveBackgroundColor="#f7f7f7"
-            label="Fechar"
-            labelStyle={mainStyles.buttonText}
-            onPress={() => props.navigation.closeDrawer()}
-            icon={() => (
-              <MaterialCommunityIcons name="close" color="black" size={22} />
-            )}
-          />
           <DrawerItem
             label="Sair"
             inactiveBackgroundColor="#f7f7f7"
