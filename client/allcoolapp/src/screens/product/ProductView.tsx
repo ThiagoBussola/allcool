@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { Product } from '../../types';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Text, Headline } from 'react-native-paper';
