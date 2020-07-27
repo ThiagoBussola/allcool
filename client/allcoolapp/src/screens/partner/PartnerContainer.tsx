@@ -99,10 +99,7 @@ const PartnerContainer: React.FC<Props> = ({
               </View>
 
               <View style={{ marginTop: '2%' }}>
-                <Text
-                  accessibilityStates
-                  style={[textStyles, { color: 'black' }]}
-                >
+                <Text accessibilityStates style={textStyles}>
                   {partner.description}
                 </Text>
               </View>
