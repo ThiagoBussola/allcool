@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import {
   PartnerContainerNavigationProp,
   PartnerContainerRouteProp,
 } from '../../navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import { boldTextStyles, textStyles, mainStyles } from '../../styles';
-import { Headline, Chip } from 'react-native-paper';
+import { Headline, Chip, Text } from 'react-native-paper';
 import { PartnerService } from '../../service';
 import { PartnerViewDTO } from '../../types/dto';
 import {
@@ -98,27 +98,29 @@ const PartnerContainer: React.FC<Props> = ({
                 />
               </View>
 
-              <View style={{ marginTop: '1%' }}>
-                <Text style={textStyles}>{partner.address}</Text>
+              <View style={{ marginTop: '2%' }}>
+                <Text accessibilityStates style={textStyles}>
+                  {partner.description}
+                </Text>
+              </View>
+
+              <View style={{ marginTop: '2%' }}>
+                <Headline style={boldTextStyles}>Endereço</Headline>
               </View>
 
               <View>
-                <Text style={textStyles}>{partner.locality}</Text>
-              </View>
-
-              <View>
-                <Text style={textStyles}>
+                <Text accessibilityStates style={textStyles}>
+                  {partner.address}
+                </Text>
+                <Text accessibilityStates style={textStyles}>
+                  {partner.locality}
+                </Text>
+                <Text accessibilityStates style={textStyles}>
                   {`Telefone: ${partner.phoneNumber}`}
                 </Text>
               </View>
             </View>
 
-            <View>
-              <View style={{ marginTop: '2%' }}>
-                <Headline style={boldTextStyles}>Descrição</Headline>
-              </View>
-              <Text style={textStyles}>{partner.description}</Text>
-            </View>
             <View style={{ marginTop: '2%' }}>
               <Headline style={boldTextStyles}>
                 Horário de Funcionamento
@@ -146,7 +148,10 @@ const PartnerContainer: React.FC<Props> = ({
                       width: 85,
                     }}
                   >
-                    <Text style={textStyles}>{`${wp.day}:`}</Text>
+                    <Text
+                      accessibilityStates
+                      style={textStyles}
+                    >{`${wp.day}:`}</Text>
                   </View>
                   {renderChip(wp.id, wp.openingTime)}
                   {renderChip(wp.id, wp.closingTime)}

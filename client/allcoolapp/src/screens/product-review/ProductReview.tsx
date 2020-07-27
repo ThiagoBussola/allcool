@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { ReviewDTO, ProductFlavorDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';

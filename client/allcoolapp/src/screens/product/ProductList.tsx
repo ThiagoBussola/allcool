@@ -1,20 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
-import {
-  Divider,
-  Title,
-  Subheading,
-  Searchbar,
-  ActivityIndicator,
-} from 'react-native-paper';
+import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import { listImageStyle, rowStyle, mainStyles } from '../../styles';
 import {
   ProductsListRouteProp,
