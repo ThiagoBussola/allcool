@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import {
   PartnerContainerNavigationProp,
   PartnerContainerRouteProp,
@@ -9,7 +9,12 @@ import { boldTextStyles, textStyles, mainStyles } from '../../styles';
 import { Headline, Chip } from 'react-native-paper';
 import { PartnerService } from '../../service';
 import { PartnerViewDTO } from '../../types/dto';
-import { SnackbarNotification, SnackbarState, Loading } from '../../components';
+import {
+  SnackbarNotification,
+  SnackbarState,
+  Loading,
+  ImageComponent,
+} from '../../components';
 import { Rating } from 'react-native-ratings';
 import { useLoading } from '../../hooks';
 
@@ -70,17 +75,13 @@ const PartnerContainer: React.FC<Props> = ({
       ) : (
         <ScrollView style={{ flex: 1 }}>
           <View>
-            {!!partner.fileDTO?.id && (
-              <View style={{ alignSelf: 'center' }}>
-                <Image
-                  style={{ width: 360, height: 240 }}
-                  source={{
-                    uri: partner.fileDTO?.url,
-                  }}
-                  resizeMode="stretch"
-                />
-              </View>
-            )}
+            <View style={{ alignSelf: 'center' }}>
+              <ImageComponent
+                imageStyle={{ width: 400, height: 240 }}
+                resizeMode="stretch"
+                url={partner.fileDTO?.url!}
+              />
+            </View>
           </View>
 
           <View style={mainStyles.container}>
@@ -96,20 +97,20 @@ const PartnerContainer: React.FC<Props> = ({
                   imageSize={20}
                 />
               </View>
-            </View>
 
-            <View>
-              <Text style={textStyles}>{partner.address}</Text>
-            </View>
+              <View style={{ marginTop: '1%' }}>
+                <Text style={textStyles}>{partner.address}</Text>
+              </View>
 
-            <View>
-              <Text style={textStyles}>{partner.locality}</Text>
-            </View>
+              <View>
+                <Text style={textStyles}>{partner.locality}</Text>
+              </View>
 
-            <View>
-              <Text style={textStyles}>
-                {`Telefone: ${partner.phoneNumber}`}
-              </Text>
+              <View>
+                <Text style={textStyles}>
+                  {`Telefone: ${partner.phoneNumber}`}
+                </Text>
+              </View>
             </View>
 
             <View>

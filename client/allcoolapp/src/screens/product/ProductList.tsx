@@ -25,6 +25,7 @@ import {
   EmptyListPlaceholder,
   SnackbarState,
   SnackbarNotification,
+  ImageComponent,
 } from '../../components';
 
 type Props = {
@@ -106,21 +107,10 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
                   <View style={{ alignItems: 'flex-start', marginTop: '2%' }}>
-                    {loading ? (
-                      <ActivityIndicator
-                        accessibilityStates
-                        color="#ffbf00"
-                        style={listImageStyle}
-                      />
-                    ) : (
-                      <Image
-                        style={listImageStyle}
-                        source={{
-                          uri: item.imageUrl,
-                        }}
-                        resizeMode="contain"
-                      />
-                    )}
+                    <ImageComponent
+                      imageStyle={listImageStyle}
+                      url={item.imageUrl!}
+                    />
                   </View>
                   <View style={{ marginTop: '6.5%' }}>
                     <View style={{ alignItems: 'flex-start' }}>

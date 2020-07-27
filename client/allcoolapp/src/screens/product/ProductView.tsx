@@ -21,7 +21,12 @@ import {
   ProductViewRouteProp,
 } from '../../navigation';
 import { Rating } from 'react-native-ratings';
-import { SnackbarNotification, SnackbarState, Loading } from '../../components';
+import {
+  SnackbarNotification,
+  SnackbarState,
+  Loading,
+  ImageComponent,
+} from '../../components';
 import { useLoading } from '../../hooks';
 
 type Props = {
@@ -106,12 +111,10 @@ const ProductView: React.FC<Props> = ({
               </View>
               {!!productFile.id && (
                 <View style={{ height: 40, alignSelf: 'center' }}>
-                  <Image
-                    style={{ width: 190, height: 205 }}
-                    source={{
-                      uri: productFile.url,
-                    }}
+                  <ImageComponent
+                    imageStyle={{ width: 190, height: 205 }}
                     resizeMode="cover"
+                    url={productFile.url}
                   />
                 </View>
               )}
