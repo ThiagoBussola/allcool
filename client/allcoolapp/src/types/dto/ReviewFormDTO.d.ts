@@ -6,5 +6,5 @@ export type ReviewFormDTO = {
   productId?: string;
   description?: string;
   rating?: number;
-  productFlavors?: ProductFlavorDTO[];
+  flavors?: ProductFlavorDTO[];
 };

@@ -1,10 +1,8 @@
-import { ProductFlavorDTO } from './ProductFlavorDTO';
-
 export type ReviewDTO = {
   id?: string;
-  userClientId?: string;
-  productId?: string;
+  userName?: string;
+  productName?: string;
+  avatarUrl?: string;
   description?: string;
   rating?: number;
-  flavors: ProductFlavorDTO[];
 };
