@@ -96,11 +96,11 @@
 
             insert into file (id, url, filetype, filename, filedate)
             values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic1.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/partners/azeitona.png', 'png',
             'partnerpic1', '2020-07-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-partnerpic2.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/partners/agua-doce-cachacaria.png', 'png',
             'partnerpic2', '2020-08-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
@@ -315,8 +315,8 @@
         <sql>
             insert into achievement (id, product_id, file_id, title, description, achievementtype)
             values ('ce583254-d732-4fe7-85fb-a11585399766', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
-            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores
-            cervejeiros do Allcool!', 'PRODUCT');
+            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores ' ||
+            'cervejeiros do Allcool!', 'PRODUCT');
 
             insert into achievement (id, file_id, title, description, achievementtype)
             values ('fdb671cc-9b08-11ea-bb37-0242ac130002', '98c8e4da-b444-44bb-90f8-f074b8162758', 'Lord of the Lager',
@@ -343,11 +343,11 @@
 
         <sql>
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
-            values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87060-026', 'Rua Luiza Zequim', 'Jardim Santa Rosa',
-            'Maringa', 'PR');
+            values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87050-720', 'Av. Sen. Petrônio Portela 282',
+            'Jardim Aclimacao', 'Maringá', 'PR');
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
-            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87060-023', 'Rua Teste Update','Bairro Teste', 
-            'Cidade Teste', 'RR');
+            values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87015-001', 'Av. Dr. Luiz Teixeira Mendes 1550', 'Zona 05',
+            'Maringá', 'PR');
         </sql>
     </changeSet>
 
@@ -359,12 +359,13 @@
         <sql>
             insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
             values('68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'c610a5c3-9746-43be-a1e4-5435411b0328',
-            '6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80', 'Azeitona', 'Lugar com ambiente agradavel', '992448023',
-            4.00);
+            '6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80', 'Bar do Azeitona', 'Espetinhos, pastéis e caldos, mais cervejas,' ||
+            ' em ponto de encontro simples e descontraído com mesas de sinuca.', '(44) 3026-2015', 5.00);
             insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
-            values('d0c4238f-a9c9-452b-9c09-315e19d46506',
-            '28fd5d3c-97b2-11ea-bb37-0242ac130002','ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Cachaçaria', 'Local
-            agradavel teste', '995448027', 5.00);
+            values('d0c4238f-a9c9-452b-9c09-315e19d46506', '28fd5d3c-97b2-11ea-bb37-0242ac130002',
+            'ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Água Doce Cachaçaria',
+            'Lugar charmoso e aconchegante, com porções variadas e deliciosas, segundo nossos clientes, temos o ' ||
+            'melhor escondidinho do Paraná.', '(44) 3225-2918', 5.00);
         </sql>
     </changeSet>
 
@@ -393,6 +394,21 @@
             values('2436a578-a5da-4557-b9e7-0adf4ac687a4', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Segunda-feira',
             '17:00:00', '23:00:00');
             insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('ce02bb76-dbc6-4ac3-8e15-467780f0dc1d', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Terça-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('fd27c718-dfdb-4085-9432-46457a711e36', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Quarta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('d7364ff3-8239-4e95-a935-14b3ce3e813a', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Quinta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('87897e78-a7d3-4bab-94f4-a1b070956299', '68a0e950-37b8-4f01-9f40-f33fdfbc8720',  'Sexta-feira',
+            '17:00:00', '23:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
+            values('c0ea0ac1-859e-4c60-88ae-6cf980e30d95', '68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'Sábado',
+            '17:00:00', '03:00:00');
+            insert into workingperiod(id, partner_id, weekday, openingtime, closingtime)
             values('a1bba17e-234f-4d0a-9051-86bd498b064a', 'd0c4238f-a9c9-452b-9c09-315e19d46506', 'Sábado', '17:30:00',
             '00:30:00');
         </sql>
@@ -404,6 +420,9 @@
         </preConditions>
 
         <sql>
+            insert into person (id, username, email, birthdate, userpassword)
+            values ('4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9', 'José da Silva', 'josesilva@gmail.com', '2020-06-20',
+            '$2a$10$QQIsEfEhaaeUa7.FWpeddeLPvAox7rCpznoL4SkiiGSwHTSCrkOL6');
             insert into person (id, username, email, birthdate, userpassword)
             values ('d74f3772-5097-44d0-995b-86330adac63c', 'Usuário Teste da Silva', 'allcool@gmail.com', '2020-06-20',
             '$2a$10$QQIsEfEhaaeUa7.FWpeddeLPvAox7rCpznoL4SkiiGSwHTSCrkOL6');
@@ -421,6 +440,9 @@
         </preConditions>
 
         <sql>
+            insert into userclient (id, person_id, bio)
+            values ('b6b2d26e-1281-4bbf-87f4-572899ccfbc9', '4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9',
+            'José, o maior cervejeiro do Brasil!');
             insert into userclient (id, person_id, bio)
             values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
             'Usuário criado para ambiente de Homologação');

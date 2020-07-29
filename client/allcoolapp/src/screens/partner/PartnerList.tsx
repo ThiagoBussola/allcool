@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PartnerService } from '../../service';
-import { listImageStyle, rowStyle, mainStyles } from '../../styles';
-import { PartnerDTO } from '../../types/dto/PartnerDTO';
+import { rowStyle, mainStyles } from '../../styles';
+import { PartnerDTO } from '../../types/dto';
 import {
   PartnerListNavigationProp,
   PartnersListRouteProp,
 } from '../../navigation';
+import {
+  EmptyListPlaceholder,
+  SnackbarState,
+  SnackbarNotification,
+} from '../../components';
+import { useLoading } from '../../hooks';
 
 type Props = {
   navigation: PartnerListNavigationProp;
@@ -33,12 +33,27 @@ const PartnerList: React.FC<Props> = ({
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
   const [filteredPartners, setFilteredPartners] = useState<PartnerDTO[]>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useLoading();
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
-    PartnerService.findAll().then(({ data }) => {
-      setPartners(data);
-      setFilteredPartners(data);
-    });
+    setLoading(
+      PartnerService.findAll()
+        .then(({ data }) => {
+          setPartners(data);
+          setFilteredPartners(data);
+        })
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
+    );
+    //eslint-disable-next-line
   }, []);
 
   const filter = () => {
@@ -84,8 +99,8 @@ const PartnerList: React.FC<Props> = ({
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{ marginLeft: '5%', marginTop: '2%' }}>
-                    <View style={{ alignItems: 'flex-start', marginTop: '1%' }}>
+                  <View style={{ marginLeft: '5%', marginTop: '6.5%' }}>
+                    <View style={{ alignItems: 'flex-start' }}>
                       <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View>
@@ -106,7 +121,7 @@ const PartnerList: React.FC<Props> = ({
                   <View
                     style={{
                       paddingLeft: '5%',
-                      marginTop: '7%',
+                      marginTop: '10%',
                       flex: 1,
                       flexDirection: 'row-reverse',
                     }}
@@ -118,7 +133,7 @@ const PartnerList: React.FC<Props> = ({
                     />
                   </View>
                 </View>
-                <View style={{ marginTop: '5%', backgroundColor: '#ffbf00' }}>
+                <View style={{ marginTop: '6.5%', backgroundColor: '#ffbf00' }}>
                   <Divider accessibilityStates />
                 </View>
               </TouchableOpacity>
@@ -126,21 +141,17 @@ const PartnerList: React.FC<Props> = ({
           )}
         />
       ) : (
-        <View style={{ flex: 1 }}>
-          <View style={{ alignItems: 'center', marginTop: '50%' }}>
-            <Image
-              style={listImageStyle}
-              source={require('../../img/AllcoolV1.1.png')}
-              resizeMode="contain"
-            />
-          </View>
-          <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading style={mainStyles.subHeading}>
-              Nenhum parceiro encontrado
-            </Subheading>
-          </View>
-        </View>
+        <EmptyListPlaceholder loading={loading} />
       )}
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
     </>
   );
 };

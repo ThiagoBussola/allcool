@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
-import { ProductFlavorDTO, ReviewFormDTO } from '../../types/dto';
+import { View, SafeAreaView } from 'react-native';
+import { ReviewFormDTO, ProductFlavorDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
 import {
@@ -68,6 +68,7 @@ const ProductReview: React.FC<Props> = ({
           })
         );
     }
+    //eslint-disable-next-line
   }, [product.id]);
 
   useEffect(() => {

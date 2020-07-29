@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { ProductDTO } from '../../types/dto';
 import { ProductService } from '../../service';
 import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
@@ -14,6 +8,13 @@ import {
   ProductsListRouteProp,
   ProductsListNavigationProp,
 } from '../../navigation';
+import { useLoading } from '../../hooks';
+import {
+  EmptyListPlaceholder,
+  SnackbarState,
+  SnackbarNotification,
+  ImageComponent,
+} from '../../components';
 
 type Props = {
   route: ProductsListRouteProp;
@@ -27,12 +28,27 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useLoading();
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
-    ProductService.findAll().then(({ data }) => {
-      setProducts(data);
-      setFilteredProducts(data);
-    });
+    setLoading(
+      ProductService.findAll()
+        .then(({ data }) => {
+          setProducts(data);
+          setFilteredProducts(data);
+        })
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
+    );
+    //eslint-disable-next-line
   }, []);
 
   const filter = () => {
@@ -78,17 +94,14 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
             <>
               <TouchableOpacity onPress={() => view(item)}>
                 <View style={rowStyle}>
-                  <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
-                    <Image
-                      style={listImageStyle}
-                      source={{
-                        uri: item.imageUrl,
-                      }}
-                      resizeMode="contain"
+                  <View style={{ alignItems: 'flex-start', marginTop: '2%' }}>
+                    <ImageComponent
+                      imageStyle={listImageStyle}
+                      url={item.imageUrl!}
                     />
                   </View>
-                  <View style={{ marginTop: '2%' }}>
-                    <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+                  <View style={{ marginTop: '6.5%' }}>
+                    <View style={{ alignItems: 'flex-start' }}>
                       <Title style={mainStyles.title}>{item.name}</Title>
                     </View>
                     <View style={{ alignItems: 'flex-start' }}>
@@ -103,7 +116,7 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
                     </View>
                   </View>
                 </View>
-                <View style={{ marginTop: 10, backgroundColor: '#ffbf00' }}>
+                <View style={{ marginTop: '2%', backgroundColor: '#ffbf00' }}>
                   <Divider accessibilityStates />
                 </View>
               </TouchableOpacity>
@@ -111,21 +124,17 @@ const ProductList: React.FC<Props> = ({ navigation }) => {
           )}
         />
       ) : (
-        <View style={{ flex: 1 }}>
-          <View style={{ alignItems: 'center', marginTop: '50%' }}>
-            <Image
-              style={listImageStyle}
-              source={require('../../img/AllcoolV1.1.png')}
-              resizeMode="contain"
-            />
-          </View>
-          <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading style={mainStyles.subHeading}>
-              Nenhum produto encontrado
-            </Subheading>
-          </View>
-        </View>
+        <EmptyListPlaceholder loading={loading} />
       )}
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
     </>
   );
 };

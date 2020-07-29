@@ -3,6 +3,7 @@ package br.com.allcool.config.security;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class AuthenticationServiceTest {
 	
 	
 	@Test
-	public void loadUserByUsername() throws Exception {
+	public void loadUserByUsername() throws IOException {
 		
 		Person person = new Person();
 		person.setId(UUID.fromString("affb9869-61b3-4100-bafd-df7cf46ef341"));
@@ -53,7 +54,7 @@ public class AuthenticationServiceTest {
 	}
 	
 	@Test
-	public void loadUserByUsernameNotFound() throws Exception {
+	public void loadUserByUsernameNotFound() throws IOException {
 		
 		expectedException.expectMessage("Dados inválidos");
 		

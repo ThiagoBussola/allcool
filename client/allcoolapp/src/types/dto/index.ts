@@ -6,3 +6,6 @@ export * from './ProductFileDTO';
 export * from './ProductFlavorDTO';
 export * from './ReviewFormDTO';
 export * from './PartnerDTO';
+export * from './PartnerViewDTO';
+export * from './FileDTO';
+export * from './WorkingPeriodDTO';

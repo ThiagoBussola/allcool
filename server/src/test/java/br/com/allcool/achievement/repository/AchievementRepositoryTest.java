@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RepositoryTest
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"/sql/producttype/producttype.sql", "/sql/file/file.sql", "/sql/brand/brand.sql",
-        "/sql/product/product.sql",  "/sql/achievement/achievement.sql"})
+        "/sql/product/product.sql", "/sql/achievement/achievement.sql"})
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class AchievementRepositoryTest {
 
@@ -35,11 +35,19 @@ public class AchievementRepositoryTest {
 
         assertThat(achievementList).hasSize(2);
 
-        assertThat(achievementList).extracting(achievement -> achievement.getProduct().getId()).containsExactly(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"), UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
-        assertThat(achievementList).extracting(achievement -> achievement.getFile().getId()).containsExactly(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"), UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
-        assertThat(achievementList).extracting(Achievement::getTitle).containsExactly("Mestre Cervejeiro", "Lord of the Lager");
-        assertThat(achievementList).extracting(Achievement::getDescription).containsExactly("Você alcançou está entre os maiores cervejeiros do allcool!", "Você realmente aprecia uma boa Lager!");
-        assertThat(achievementList).extracting(Achievement::getType).containsExactly(AchievementTypeEnum.PRODUCT, AchievementTypeEnum.PRODUCT_TYPE);
+        assertThat(achievementList).extracting(achievement -> achievement.getProduct().getId())
+                .containsExactly(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"),
+                        UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
+        assertThat(achievementList).extracting(achievement -> achievement.getFile().getId())
+                .containsExactly(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"),
+                        UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
+        assertThat(achievementList).extracting(Achievement::getTitle)
+                .containsExactly("Mestre Cervejeiro", "Lord of the Lager");
+        assertThat(achievementList).extracting(Achievement::getDescription)
+                .containsExactly("Você alcançou está entre os maiores cervejeiros do allcool!",
+                        "Você realmente aprecia uma boa Lager!");
+        assertThat(achievementList).extracting(Achievement::getType)
+                .containsExactly(AchievementTypeEnum.PRODUCT, AchievementTypeEnum.PRODUCT_TYPE);
     }
 
     @Test
@@ -95,10 +103,13 @@ public class AchievementRepositoryTest {
         Achievement achievementBeforeUpdate = this.repository.findById(ACHIEVEMENT_ID).get();
 
         assertThat(achievementBeforeUpdate.getId()).isEqualTo(ACHIEVEMENT_ID);
-        assertThat(achievementBeforeUpdate.getProduct().getId()).isEqualTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
-        assertThat(achievementBeforeUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
+        assertThat(achievementBeforeUpdate.getProduct().getId())
+                .isEqualTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+        assertThat(achievementBeforeUpdate.getFile().getId())
+                .isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(achievementBeforeUpdate.getTitle()).isEqualTo("Mestre Cervejeiro");
-        assertThat(achievementBeforeUpdate.getDescription()).isEqualTo("Você alcançou está entre os maiores cervejeiros do allcool!");
+        assertThat(achievementBeforeUpdate.getDescription())
+                .isEqualTo("Você alcançou está entre os maiores cervejeiros do allcool!");
         assertThat(achievementBeforeUpdate.getType()).isEqualTo(AchievementTypeEnum.PRODUCT);
 
         achievementBeforeUpdate.setTitle("O Mestre Cervejeiro");
@@ -108,10 +119,13 @@ public class AchievementRepositoryTest {
         Achievement achievementAfterUpdate = this.repository.saveAndFlush(achievementBeforeUpdate);
 
         assertThat(achievementAfterUpdate.getId()).isEqualTo(ACHIEVEMENT_ID);
-        assertThat(achievementAfterUpdate.getProduct().getId()).isEqualTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
-        assertThat(achievementAfterUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
+        assertThat(achievementAfterUpdate.getProduct().getId())
+                .isEqualTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+        assertThat(achievementAfterUpdate.getFile().getId())
+                .isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(achievementAfterUpdate.getTitle()).isEqualTo("O Mestre Cervejeiro");
-        assertThat(achievementAfterUpdate.getDescription()).isEqualTo("Você alcançou está entre os maiores cervejeiros do allcool! Parabéns!");
+        assertThat(achievementAfterUpdate.getDescription())
+                .isEqualTo("Você alcançou está entre os maiores cervejeiros do allcool! Parabéns!");
         assertThat(achievementAfterUpdate.getType()).isEqualTo(AchievementTypeEnum.PRODUCT_TYPE);
 
     }
