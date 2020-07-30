@@ -8,8 +8,7 @@ type TabsStackParamList = {
   Tabs: { userId: string };
   Products: { userId: string };
   Partners: { userId: string };
-  Feed: { userId: string };
-  Feed2: undefined;
+  Publications: { userId: string };
 };
 
 type TabsRouteProp = RouteProp<TabsStackParamList, 'Tabs'>;
@@ -60,7 +59,7 @@ const TabsStack: React.FC<Props> = ({
         }}
       />
       <Tab.Screen
-        name="Feed"
+        name="Publications"
         initialParams={{ userId }}
         component={PublicationStack}
         options={{
