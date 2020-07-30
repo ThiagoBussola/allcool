@@ -89,11 +89,6 @@ const ProductView: React.FC<Props> = ({
     //eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    updateComponent();
-    //eslint-disable-next-line
-  }, [productId, userId]);
-
   const onReview = () => {
     if (userId && !productReviewed) {
       navigation.navigate('ProductReview', {
