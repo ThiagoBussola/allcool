@@ -56,27 +56,41 @@ const ProductView: React.FC<Props> = ({
     initialProductFile
   );
 
+  const updateComponent = () => {
+    if (productId && userId) {
+      setLoading(
+        ProductService.findById(productId)
+          .then(({ data }) => setProduct(data))
+          .then(() =>
+            ReviewService.isProductReviewed(
+              productId,
+              userId
+            ).then(({ data }) => setProductReviewed(data))
+          )
+          .then(() =>
+            ProductFileService.findAllByProductId(productId).then(
+              ({ data }) => data && setProductFile(data[0])
+            )
+          )
+          .catch(({ response }) =>
+            setSnackbarState({
+              message: response.data?.message || response.data,
+              visible: true,
+            })
+          )
+      );
+    }
+  };
+
   useEffect(() => {
-    setLoading(
-      ProductService.findById(productId)
-        .then(({ data }) => setProduct(data))
-        .then(() =>
-          ReviewService.isProductReviewed(productId, userId).then(({ data }) =>
-            setProductReviewed(data)
-          )
-        )
-        .then(() =>
-          ProductFileService.findAllByProductId(productId).then(
-            ({ data }) => data && setProductFile(data[0])
-          )
-        )
-        .catch(({ response }) =>
-          setSnackbarState({
-            message: response.data?.message || response.data,
-            visible: true,
-          })
-        )
-    );
+    navigation.addListener('focus', (payload) => {
+      updateComponent();
+    });
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    updateComponent();
     //eslint-disable-next-line
   }, [productId, userId]);
 
