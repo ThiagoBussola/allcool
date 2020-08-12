@@ -3,6 +3,7 @@ package br.com.allcool.review.service;
 import br.com.allcool.converter.ReviewFormDTOConverter;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.exception.CreationNotPermittedException;
+import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,11 @@ public class ReviewService {
     public Boolean isProductReviewed(UUID userId, UUID productId) {
 
         return this.repository.existsByUserIdAndProductId(userId, productId);
+    }
+
+    @Transactional(readOnly = true)
+    public Review findByID(UUID id) {
+
+       return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 }

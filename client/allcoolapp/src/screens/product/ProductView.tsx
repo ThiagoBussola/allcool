@@ -22,6 +22,8 @@ import {
 } from '../../navigation';
 import { Rating } from 'react-native-ratings';
 import { SnackbarNotification, SnackbarState } from '../../components';
+import { ProductReview } from '../product-review';
+import { ProductReviewList } from '../product-review/ProductReviewList';
 
 type Props = {
   navigation: ProductViewNavigationProp;
@@ -188,6 +190,7 @@ const ProductView: React.FC<Props> = ({
               {` ${product.ibu}`}
             </Text>
           </View>
+          <ProductReviewList></ProductReviewList>
         </SafeAreaView>
       </ScrollView>
       <SnackbarNotification

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, Text } from 'react-native';
-import { ReviewDTO, ProductFlavorDTO } from '../../types/dto';
+import { ReviewDTO, ProductFlavorDTO, ReviewFormDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
 import {
@@ -29,7 +29,10 @@ type Props = {
   route: ProductReviewRouteProp;
 };
 
-const initialValue = (productId: string, userClientId: string): ReviewDTO => ({
+const initialValue = (
+  productId: string,
+  userClientId: string
+): ReviewFormDTO => ({
   id: '',
   userClientId,
   productId,
@@ -44,7 +47,7 @@ const ProductReview: React.FC<Props> = ({
     params: { product, userId },
   },
 }) => {
-  const [review, setReview] = useState<ReviewDTO>(
+  const [review, setReview] = useState<ReviewFormDTO>(
     initialValue(product.id!, userId)
   );
   const [productFlavors, setProductFlavors] = useState<ProductFlavorDTO[]>([]);

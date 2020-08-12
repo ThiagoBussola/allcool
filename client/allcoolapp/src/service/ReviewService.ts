@@ -1,6 +1,6 @@
 import requestExecutor from './AxiosService';
 import { AxiosPromise } from 'axios';
-import { ReviewFormDTO } from '../types/dto';
+import { ReviewFormDTO, ReviewDTO } from '../types/dto';
 
 const resource = '/api/reviews';
 
@@ -15,4 +15,10 @@ export const isProductReviewed = (
   return requestExecutor.get(
     `${resource}/products/${productId}/users/${userId}/verify-user-review`
   );
+};
+
+export const findAllByProductId = (
+  productId: string
+): AxiosPromise<ReviewDTO> => {
+  return requestExecutor.get(`${resource}/${productId}`);
 };

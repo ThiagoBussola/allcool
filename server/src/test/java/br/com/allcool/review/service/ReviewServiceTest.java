@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -153,4 +154,25 @@ public class ReviewServiceTest {
         verify(this.repository).existsByUserIdAndProductId(userId, productId);
         verifyNoMoreInteractions(this.repository);
     }
+
+    @Test
+    public void findById() {
+
+        UUID id = UUID.randomUUID();
+
+        when(this.repository.findById(id)).thenReturn(Optional.of(new Review()));
+
+        this.service.findByID(id);
+
+        verify(this.repository).findById(id);
+        verifyNoMoreInteractions(this.repository);
+    }
+
+//    @Test
+//    public void findByIdException() {
+//
+//
+//        Exception exception = assertThrows(CreationNotPermittedException.class, () -> this.service.saveReview(dto));
+//
+//    }
 }
