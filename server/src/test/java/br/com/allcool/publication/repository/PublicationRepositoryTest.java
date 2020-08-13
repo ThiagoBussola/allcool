@@ -1,6 +1,6 @@
 package br.com.allcool.publication.repository;
 
-import br.com.allcool.enums.PublicationTypeEnum;
+import br.com.allcool.news.domain.News;
 import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.test.RepositoryTest;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"/sql/person/person.sql", "/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/user/userclient.sql",
         "/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/product/productflavor.sql",
-        "/sql/review/review.sql", "/sql/publication/publications.sql"})
+        "/sql/review/review.sql", "/sql/publication/publications.sql", "/sql/address/address.sql", "/sql/news/news.sql"})
 public class PublicationRepositoryTest {
 
     @Autowired
@@ -49,23 +49,38 @@ public class PublicationRepositoryTest {
 
         List<Publication> publicationListAfterDelete = this.repository.findAll();
 
-        assertThat(publicationListAfterDelete).hasSize(0);
+        assertThat(publicationListAfterDelete).isEmpty();
     }
 
     @Test
-    public void save() {
+    public void saveReviewPublication() {
 
         Review review = new Review();
         review.setId(UUID.fromString("d8942a4c-183a-4261-83ff-6c466e5ced8f"));
 
-        Publication publication = new Publication();
-        publication.setReview(review);
-        publication.setType(PublicationTypeEnum.REVIEW);
+        Publication publication = new Publication(review);
 
         Publication savedPublication = this.repository.saveAndFlush(publication);
 
         assertThat(savedPublication.getId()).isNotNull();
         assertThat(savedPublication.getReview()).isEqualTo(review);
+        assertThat(savedPublication.getNews()).isNull();
+        assertThat(savedPublication.getType()).isEqualTo(publication.getType());
+    }
+
+    @Test
+    public void saveNewsPublication() {
+
+        News news = new News();
+        news.setId(UUID.fromString("33383cb0-07bd-4b49-beda-55f9682b8e70"));
+
+        Publication publication = new Publication(news);
+
+        Publication savedPublication = this.repository.saveAndFlush(publication);
+
+        assertThat(savedPublication.getId()).isNotNull();
+        assertThat(savedPublication.getNews()).isEqualTo(news);
+        assertThat(savedPublication.getReview()).isNull();
         assertThat(savedPublication.getType()).isEqualTo(publication.getType());
     }
 }

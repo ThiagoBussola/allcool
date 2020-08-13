@@ -5,6 +5,8 @@ import br.com.allcool.dto.ProductFlavorDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.enums.FlavorTypeEnum;
 import br.com.allcool.exception.CreationNotPermittedException;
+import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import org.junit.Test;
@@ -31,6 +33,9 @@ public class ReviewServiceTest {
     @Mock
     private ReviewRepository repository;
 
+    @Mock
+    private PublicationRepository publicationRepository;
+
     @InjectMocks
     private ReviewService service;
 
@@ -50,13 +55,17 @@ public class ReviewServiceTest {
 
         Review review = dtoConverter.from(dto);
 
+        Publication publication = new Publication(review);
+
         when(this.repository.existsByUserIdAndProductId(dto.getUserClientId(), dto.getProductId())).thenReturn(false);
-        when(this.repository.save(review)).thenReturn(review);
+        when(this.repository.saveAndFlush(review)).thenReturn(review);
+        when(this.publicationRepository.save(publication)).thenReturn(publication);
 
         this.service.saveReview(dto);
 
         verify(this.repository).existsByUserIdAndProductId(dto.getUserClientId(), dto.getProductId());
-        verify(this.repository).save(review);
+        verify(this.repository).saveAndFlush(review);
+        verify(this.publicationRepository).save(publication);
         verifyNoMoreInteractions(this.repository);
     }
 

@@ -3,6 +3,8 @@ package br.com.allcool.review.service;
 import br.com.allcool.converter.ReviewFormDTOConverter;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.exception.CreationNotPermittedException;
+import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,11 @@ import static java.util.Objects.isNull;
 public class ReviewService {
 
     private final ReviewRepository repository;
+    private final PublicationRepository publicationRepository;
 
-    public ReviewService(ReviewRepository repository) {
+    public ReviewService(ReviewRepository repository, PublicationRepository publicationRepository) {
         this.repository = repository;
+        this.publicationRepository = publicationRepository;
     }
 
     private void verifyReviewFormDTOConsistency(ReviewFormDTO dto) {
@@ -45,7 +49,11 @@ public class ReviewService {
 
         this.verifyReviewFormDTOConsistency(dto);
 
-        return this.repository.save(new ReviewFormDTOConverter().from(dto));
+        Review review = this.repository.saveAndFlush(new ReviewFormDTOConverter().from(dto));
+
+        this.publicationRepository.save(new Publication(review));
+
+        return review;
     }
 
     @Transactional(readOnly = true)

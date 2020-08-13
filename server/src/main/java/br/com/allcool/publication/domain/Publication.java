@@ -42,4 +42,16 @@ public class Publication {
     @Enumerated(EnumType.STRING)
     @Column(name = "publicationtype")
     private PublicationTypeEnum type;
+
+    private Publication() { }
+
+    public Publication(Review review) {
+        this.setReview(review);
+        this.setType(PublicationTypeEnum.REVIEW);
+    }
+
+    public Publication(News news) {
+        this.setNews(news);
+        this.setType(PublicationTypeEnum.NEWS);
+    }
 }
