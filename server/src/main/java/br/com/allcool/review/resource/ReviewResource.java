@@ -2,7 +2,6 @@ package br.com.allcool.review.resource;
 
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
-import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.service.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,10 +46,10 @@ public class ReviewResource {
         return ResponseEntity.ok(service.isProductReviewed(userId, productId));
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<Review> findById(@PathVariable("id") UUID id) {
+    @GetMapping("/{id}/view")
+    public ResponseEntity<ReviewDTO> findById(@PathVariable("id") UUID id) {
 
-        return ResponseEntity.ok(this.service.findByID(id));
+        return ResponseEntity.ok(this.service.findById(id));
     }
 
 }

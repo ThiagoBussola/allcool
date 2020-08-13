@@ -68,8 +68,8 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public Review findByID(UUID id) {
+    public ReviewDTO findById(UUID id) {
 
-       return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+        return new ReviewDTOConverter().to(this.repository.findById(id).orElseThrow(DataNotFoundException::new));
     }
 }
