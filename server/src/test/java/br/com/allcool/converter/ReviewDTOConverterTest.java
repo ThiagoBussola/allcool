@@ -22,13 +22,16 @@ public class ReviewDTOConverterTest {
         File file = new File();
         file.setUrl("www.teste.com.br");
 
+        File userFile = new File();
+        file.setUrl("www.testeReview.com.br");
+
         Person person = new Person();
         person.setId(UUID.randomUUID());
         person.setName("Claudinho");
 
         UserClient userClient = new UserClient();
         userClient.setPerson(person);
-        userClient.setFile(file);
+        userClient.setFile(userFile);
 
         Product product = new Product();
         product.setName("Brahma Extra");
@@ -45,7 +48,8 @@ public class ReviewDTOConverterTest {
         assertThat(dto.getId()).isEqualTo(review.getId());
         assertThat(dto.getUserName()).isEqualTo(review.getUser().getPerson().getName());
         assertThat(dto.getProductName()).isEqualTo(review.getProduct().getName());
-        assertThat(dto.getAvatarUrl()).isEqualTo(review.getFile().getUrl());
+        assertThat(dto.getAvatarUrl()).isEqualTo(review.getUser().getFile().getUrl());
+        assertThat(dto.getPictureUrl()).isEqualTo(review.getFile().getUrl());
         assertThat(dto.getDescription()).isEqualTo(review.getDescription());
         assertThat(dto.getRating()).isEqualTo(review.getRating());
     }

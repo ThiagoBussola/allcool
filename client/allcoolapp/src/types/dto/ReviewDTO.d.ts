@@ -3,6 +3,7 @@ export type ReviewDTO = {
   userName?: string;
   productName?: string;
   avatarUrl?: string;
+  pictureUrl?: string;
   description?: string;
   rating?: number;
 };

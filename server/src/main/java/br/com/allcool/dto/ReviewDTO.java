@@ -18,4 +18,5 @@ public class ReviewDTO {
     private String avatarUrl;
     private String description;
     private BigDecimal rating;
+    private String pictureUrl;
 }

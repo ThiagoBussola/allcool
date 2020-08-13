@@ -4,6 +4,7 @@ import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.review.domain.Review;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class ReviewDTOConverter {
 
@@ -17,7 +18,15 @@ public class ReviewDTOConverter {
         dto.setId(review.getId());
         dto.setUserName(review.getUser().getPerson().getName());
         dto.setProductName(review.getProduct().getName());
-        dto.setAvatarUrl(review.getFile().getUrl());
+
+        if (nonNull(review.getUser().getFile())) {
+            dto.setAvatarUrl(review.getUser().getFile().getUrl());
+        }
+
+        if (nonNull(review.getFile())) {
+            dto.setPictureUrl(review.getFile().getUrl());
+        }
+
         dto.setDescription(review.getDescription());
         dto.setRating(review.getRating());
 

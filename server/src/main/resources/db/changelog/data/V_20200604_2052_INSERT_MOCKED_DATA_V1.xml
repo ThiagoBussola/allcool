@@ -89,12 +89,6 @@
             '2020-06-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
-            values ('ce396aea-963e-11ea-bb37-0242ac130002',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-userclientavatar.PNG', 'png',
-            'userclientavatar',
-            '2020-06-02 01:00:00');
-
-            insert into file (id, url, filetype, filename, filedate)
             values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
             'https://allcool.s3.fr-par.scw.cloud/partners/azeitona.png', 'png',
             'partnerpic1', '2020-07-02 01:00:00');
@@ -111,6 +105,24 @@
             values ('682842f8-4001-41a3-82b7-217f7c245375',
             'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic2.PNG', 'png',
             'reviewpic2', '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('1e29f7d8-e5a1-40f5-bd44-d673cd70643e',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic3.PNG', 'png',
+            'reviewpic3', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3cc6d0f5-0432-4798-bb08-8605a5b0ba4b',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic4.PNG', 'png',
+            'reviewpic4', '2020-07-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('d20955e4-625f-49ab-b6c4-deead0831843',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic5.PNG', 'png',
+            'reviewpic5', '2020-07-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('dac0f400-ef91-4fda-9b82-b92f946dbcf8',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'testedasilva',
+            '2020-08-02 01:00:00');
+
         </sql>
     </changeSet>
 
@@ -448,7 +460,7 @@
             'Usuário criado para ambiente de Homologação');
             insert into userclient (id, person_id, bio, file_id)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
-            'Biografia de Teste da Silva', 'ce396aea-963e-11ea-bb37-0242ac130002');
+            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8');
             insert into userclient (id, person_id, bio)
             values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
             'Biografia de Mike');
@@ -463,7 +475,28 @@
         <sql>
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d6353fa6-796e-4fca-aa11-d731633782dd', '3793d49a-01fa-47cc-b762-da24738b750c',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Review teste', 3.00);
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Gostei muito dessa ' ||
+            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
+            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 3.00);
+
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('1388758d-6a21-4494-a2bf-81f601c5936c', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '1e29f7d8-e5a1-40f5-bd44-d673cd70643e', 'Gostei muito dessa ' ||
+            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
+            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 4.00);
+
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('32d5ee80-131f-439b-b02c-92eb5c0e8f9a', 'b6b2d26e-1281-4bbf-87f4-572899ccfbc9',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '3cc6d0f5-0432-4798-bb08-8605a5b0ba4b', 'Gostei muito dessa ' ||
+            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
+            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 2.60);
+
+
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('71350ae5-c619-40a6-9324-680954ec0618', 'a59c0223-87e4-4b60-8bc1-21f22fbc746d',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'd20955e4-625f-49ab-b6c4-deead0831843', 'Gostei muito dessa ' ||
+            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
+            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 2.80);
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
