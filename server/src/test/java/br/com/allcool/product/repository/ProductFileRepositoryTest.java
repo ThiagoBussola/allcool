@@ -24,7 +24,7 @@ public class ProductFileRepositoryTest {
     @Autowired
     private ProductFileRepository repository;
 
-    private final UUID ADDRESS_ID = UUID.fromString("646cca9f-e90a-416a-a692-ae112968449e");
+    private final UUID PRODUCTFILE_ID = UUID.fromString("646cca9f-e90a-416a-a692-ae112968449e");
 
     @Test
     public void findAll() {
@@ -49,7 +49,7 @@ public class ProductFileRepositoryTest {
 
         assertThat(productFileListBeforeDelete).hasSize(3);
 
-        this.repository.deleteById(ADDRESS_ID);
+        this.repository.deleteById(PRODUCTFILE_ID);
 
         List<ProductFile> productFileListAfterDelete = this.repository.findAll();
 
@@ -88,9 +88,9 @@ public class ProductFileRepositoryTest {
         File file = new File();
         file.setId(UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
 
-        ProductFile productFileBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
+        ProductFile productFileBeforeUpdate = this.repository.findById(PRODUCTFILE_ID).get();
 
-        assertThat(productFileBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productFileBeforeUpdate.getId()).isEqualTo(PRODUCTFILE_ID);
         assertThat(productFileBeforeUpdate.getProduct().getId())
                 .isEqualByComparingTo(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
         assertThat(productFileBeforeUpdate.getFile().getId())
@@ -101,7 +101,7 @@ public class ProductFileRepositoryTest {
 
         ProductFile productContainerAfterUpdate = this.repository.saveAndFlush(productFileBeforeUpdate);
 
-        assertThat(productContainerAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productContainerAfterUpdate.getId()).isEqualTo(PRODUCTFILE_ID);
         assertThat(productContainerAfterUpdate.getProduct().getId())
                 .isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
         assertThat(productContainerAfterUpdate.getFile().getId())
