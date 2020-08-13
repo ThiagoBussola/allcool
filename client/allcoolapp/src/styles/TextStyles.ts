@@ -6,7 +6,7 @@ export const boldTextStyles: StyleProp<TextStyle> = {
 
 export const detailsTitleStyles: StyleProp<TextStyle> = {
   fontSize: 18,
-  fontFamily: 'Bebas Neue Pro Bold Italic',
+  fontFamily: 'Bebas Neue Pro Bold',
 };
 
 export const textStyles: StyleProp<TextStyle> = {

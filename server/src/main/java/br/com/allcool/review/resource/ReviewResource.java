@@ -1,5 +1,6 @@
 package br.com.allcool.review.resource;
 
+import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.service.ReviewService;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/reviews")
@@ -21,6 +24,12 @@ public class ReviewResource {
 
     public ReviewResource(ReviewService service) {
         this.service = service;
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<List<ReviewDTO>> findAllByProductId(@PathVariable("productId") UUID id) {
+
+        return ResponseEntity.ok(this.service.findAllByProductId(id));
     }
 
     @PostMapping

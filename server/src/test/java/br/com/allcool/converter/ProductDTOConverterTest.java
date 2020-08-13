@@ -2,16 +2,13 @@ package br.com.allcool.converter;
 
 import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.dto.ProductDTO;
-import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
-import br.com.allcool.product.domain.ProductFile;
 import br.com.allcool.producttype.domain.ProductType;
 import org.junit.Test;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 public class ProductDTOConverterTest {
 

@@ -19,6 +19,6 @@ export const isProductReviewed = (
 
 export const findAllByProductId = (
   productId: string
-): AxiosPromise<ReviewDTO> => {
+): AxiosPromise<ReviewDTO[]> => {
   return requestExecutor.get(`${resource}/${productId}`);
 };

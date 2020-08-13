@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
-import { ReviewDTO, ProductFlavorDTO, ReviewFormDTO } from '../../types/dto';
+import { View, SafeAreaView } from 'react-native';
+import { ReviewFormDTO, ProductFlavorDTO } from '../../types/dto';
 import { Rating } from 'react-native-ratings';
 import { mainStyles } from '../../styles';
 import {
@@ -71,6 +71,7 @@ const ProductReview: React.FC<Props> = ({
           })
         );
     }
+    //eslint-disable-next-line
   }, [product.id]);
 
   useEffect(() => {
@@ -112,7 +113,7 @@ const ProductReview: React.FC<Props> = ({
     }
 
     return setReview((prevState) => {
-      const flavorIndex = review.flavors.findIndex(
+      const flavorIndex = review.flavors!.findIndex(
         (r) => r.id === updatedFlavor.id
       );
 

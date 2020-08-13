@@ -28,29 +28,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(value = AllcoolProfilesUtils.DEV)
 public class AuthenticationResourceTest {
 
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Autowired
-	private ObjectMapper objectMapper;
-	
-	@MockBean
-	private PersonService personService;
-	
-	@MockBean
-	private AuthenticationService authenticationService;
-	
-	@MockBean
-	private TokenService tokenService;
-	
-	@MockBean
-	private AuthenticationManager authManager;
-	
-	@MockBean
-	private PersonRepository personRepository;	
-	
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockBean
+    private PersonService personService;
+
+    @MockBean
+    private AuthenticationService authenticationService;
+
+    @MockBean
+    private TokenService tokenService;
+
+    @MockBean
+    private AuthenticationManager authManager;
+
+    @MockBean
+    private PersonRepository personRepository;
+
 //	@Test
-//	public void login() throws Exception {
+//	public void login() throws IOException {
 //		
 //		LoginRequest login = new LoginRequest();
 //		login.setEmail("teste@hotmail.com");
@@ -68,27 +68,26 @@ public class AuthenticationResourceTest {
 //		assertThat(token.getToken()).isNotNull();
 //		assertThat(token.getTipoAuth()).isEqualTo("Bearer");
 //	}
-	
-	@Test
-	public void register() throws Exception {
-		
-		mockMvc.perform(post("/auth/register")
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(createPerson())))
-				.andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isCreated()).andReturn();
-				
-	}
-	
-	private Person createPerson() {
-		
-		Person person = new Person();
-		person.setName("Testeando");
-		person.setEmail("testando@teste.com");
-		person.setPassword("teste");
-		person.setBirthDate(LocalDate.of(2020, 5, 21));
-		
-		return person;
-	}
+
+    @Test
+    public void register() throws Exception {
+
+        mockMvc.perform(post("/auth/register")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(createPerson())))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isCreated()).andReturn();
+    }
+
+    private Person createPerson() {
+
+        Person person = new Person();
+        person.setName("Testeando");
+        person.setEmail("testando@teste.com");
+        person.setPassword("teste");
+        person.setBirthDate(LocalDate.of(2020, 5, 21));
+
+        return person;
+    }
 }
