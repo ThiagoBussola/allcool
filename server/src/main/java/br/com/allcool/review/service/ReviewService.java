@@ -57,6 +57,7 @@ public class ReviewService {
         }
     }
 
+    @Transactional
     public Review saveReview(ReviewFormDTO dto) {
 
         this.verifyReviewFormDTOConsistency(dto);
@@ -68,7 +69,6 @@ public class ReviewService {
         return review;
     }
 
-    @Transactional(readOnly = true)
     public Boolean isProductReviewed(UUID userId, UUID productId) {
 
         return this.repository.existsByUserIdAndProductId(userId, productId);

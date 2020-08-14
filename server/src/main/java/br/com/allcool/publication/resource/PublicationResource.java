@@ -1,6 +1,6 @@
 package br.com.allcool.publication.resource;
 
-import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.dto.PublicationDTO;
 import br.com.allcool.publication.service.PublicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class PublicationResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Publication>> findAll() {
+    public ResponseEntity<List<PublicationDTO>> findAll() {
 
         return ResponseEntity.ok(this.service.findAll());
     }
