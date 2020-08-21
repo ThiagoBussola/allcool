@@ -7,4 +7,6 @@ export type PublicationDTO = {
   review?: ReviewDTO;
   news?: News;
   type?: PublicationTypeEnum;
+} & {
+  touched?: boolean;
 };

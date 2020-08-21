@@ -6,4 +6,6 @@ export type ReviewDTO = {
   pictureUrl?: string;
   description?: string;
   rating?: number;
+} & {
+  touched?: boolean;
 };

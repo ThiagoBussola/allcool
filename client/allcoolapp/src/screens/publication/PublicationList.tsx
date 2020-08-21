@@ -4,9 +4,8 @@ import {
   PublicationListNavigationProp,
 } from '../../navigation';
 import { View, Dimensions, RefreshControl } from 'react-native';
-import { mainStyles, rowStyle } from '../../styles';
-import { Title, Divider, Subheading } from 'react-native-paper';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { Card } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
 import {
   SnackbarState,
   EmptyListPlaceholder,
@@ -16,6 +15,9 @@ import {
 import { PublicationDTO } from '../../types/dto';
 import { useLoading } from '../../hooks';
 import { PublicationService } from '../../service';
+import { PublicationTypeEnum } from '../../types/enum';
+import { ReviewPublicationCardChildren } from './ReviewPublicationCardChildren';
+import { NewsPublicationCardChildren } from './NewsPublicationCardChildren';
 
 type Props = {
   route: PublicationListRouteProp;
@@ -55,9 +57,26 @@ const PublicationList: React.FC<Props> = ({
     //eslint-disable-next-line
   }, []);
 
+  const likedPublication = (index: number) =>
+    setPublications((prevState) => {
+      const alteredPublication: PublicationDTO = {
+        ...prevState[index],
+        touched: !prevState[index].touched,
+      };
+
+      return [
+        ...prevState.slice(0, index),
+        alteredPublication,
+        ...prevState.slice(index + 1),
+      ];
+    });
+
+  const isReviewPublication = (item: PublicationDTO) =>
+    item.type === PublicationTypeEnum.REVIEW;
+
   return (
     <>
-      {(publications && publications.length > 0) || !loading ? (
+      {!loading ? (
         <FlatList
           data={publications}
           style={{
@@ -69,9 +88,18 @@ const PublicationList: React.FC<Props> = ({
             <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
           keyExtractor={(item) => item.id!}
-          renderItem={({ item }) => (
-            <>
-              <TouchableOpacity
+          renderItem={({ item, index, separators }) => (
+            <View
+              style={{
+                width: '95%',
+                alignSelf: 'center',
+                marginTop: '3%',
+                marginBottom: '2%',
+              }}
+            >
+              <Card
+                accessibilityStates
+                style={{ backgroundColor: '#f7f7f7' }}
                 onPress={() =>
                   navigation.push('PublicationView', {
                     userId,
@@ -79,25 +107,18 @@ const PublicationList: React.FC<Props> = ({
                   })
                 }
               >
-                <View style={rowStyle}>
-                  <View style={{ marginTop: '5%', marginLeft: '5%' }}>
-                    <View style={{ alignItems: 'flex-start' }}>
-                      <Title style={mainStyles.title}>
-                        {item.review?.productName}
-                      </Title>
-                    </View>
-                    <View style={{ alignItems: 'flex-start' }}>
-                      <Subheading style={mainStyles.subHeading}>
-                        {item.review?.description}
-                      </Subheading>
-                    </View>
-                  </View>
-                </View>
-                <View style={{ marginTop: '3%', backgroundColor: '#ffbf00' }}>
-                  <Divider accessibilityStates />
-                </View>
-              </TouchableOpacity>
-            </>
+                {isReviewPublication(item) ? (
+                  <ReviewPublicationCardChildren
+                    review={item.review!}
+                    itemIndex={index}
+                    touched={item.touched!}
+                    onLikePublication={likedPublication}
+                  />
+                ) : (
+                  <NewsPublicationCardChildren news={item.news!} />
+                )}
+              </Card>
+            </View>
           )}
         />
       ) : (

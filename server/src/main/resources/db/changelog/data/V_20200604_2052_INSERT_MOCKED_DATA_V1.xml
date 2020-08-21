@@ -517,4 +517,17 @@
             values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Umami', 'UMAMI');
         </sql>
     </changeSet>
+
+    <changeSet id="insert-data-publication-review-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="publication"/>
+        </preConditions>
+
+        <sql>
+            insert into publication (id, review_id, publicationtype)
+            values('3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', '71350ae5-c619-40a6-9324-680954ec0618', 'REVIEW');
+            insert into publication (id, review_id, publicationtype)
+            values('2e775d81-a0f8-482a-979e-82807d724da5', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'REVIEW');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

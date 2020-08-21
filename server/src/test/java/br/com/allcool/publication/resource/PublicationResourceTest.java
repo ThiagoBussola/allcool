@@ -1,10 +1,15 @@
 package br.com.allcool.publication.resource;
 
+import br.com.allcool.converter.ReviewDTOConverter;
+import br.com.allcool.dto.PublicationDTO;
+import br.com.allcool.enums.PublicationTypeEnum;
 import br.com.allcool.news.domain.News;
-import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.person.domain.Person;
+import br.com.allcool.product.domain.Product;
 import br.com.allcool.publication.service.PublicationService;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.test.ResourceTest;
+import br.com.allcool.user.domain.UserClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,31 +42,44 @@ public class PublicationResourceTest {
     @Test
     public void findAll() throws Exception {
 
+        Person person = new Person();
+
+        UserClient userClient = new UserClient();
+        userClient.setPerson(person);
+
+        Product product = new Product();
+
         Review review = new Review();
         review.setId(UUID.randomUUID());
-
-        Publication publicationReview = new Publication(review);
-        publicationReview.setId(UUID.randomUUID());
+        review.setUser(userClient);
+        review.setProduct(product);
 
         News news = new News();
         news.setId(UUID.randomUUID());
 
-        Publication publicationNews = new Publication(news);
-        publicationNews.setId(UUID.randomUUID());
+        PublicationDTO publicationDTO1 = new PublicationDTO();
+        publicationDTO1.setId(UUID.randomUUID());
+        publicationDTO1.setReview(new ReviewDTOConverter().to(review));
+        publicationDTO1.setType(PublicationTypeEnum.REVIEW);
 
-        when(this.service.findAll()).thenReturn(Arrays.asList(publicationReview, publicationNews));
+        PublicationDTO publicationDTO2 = new PublicationDTO();
+        publicationDTO2.setId(UUID.randomUUID());
+        publicationDTO2.setNews(news);
+        publicationDTO2.setType(PublicationTypeEnum.NEWS);
+
+        when(this.service.findAll()).thenReturn(Arrays.asList(publicationDTO1, publicationDTO2));
 
         this.mockMvc.perform(get("/api/publications"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[*].id",
-                        hasItems(publicationReview.getId().toString(), publicationNews.getId().toString())))
+                        hasItems(publicationDTO1.getId().toString(), publicationDTO2.getId().toString())))
                 .andExpect(jsonPath("$.[*].type",
-                        hasItems(publicationReview.getType().toString(), publicationNews.getType().toString())))
+                        hasItems(publicationDTO1.getType().toString(), publicationDTO2.getType().toString())))
                 .andExpect(jsonPath("$.[*].review.id",
-                        hasItems(publicationReview.getReview().getId().toString())))
+                        hasItems(publicationDTO1.getReview().getId().toString())))
                 .andExpect(jsonPath("$.[*].news.id",
-                        hasItems(publicationNews.getNews().getId().toString())));
+                        hasItems(publicationDTO2.getNews().getId().toString())));
 
         verify(this.service).findAll();
         verifyNoMoreInteractions(this.service);

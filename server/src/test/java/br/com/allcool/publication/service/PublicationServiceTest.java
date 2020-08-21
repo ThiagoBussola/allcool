@@ -1,8 +1,11 @@
 package br.com.allcool.publication.service;
 
+import br.com.allcool.person.domain.Person;
+import br.com.allcool.product.domain.Product;
 import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
+import br.com.allcool.user.domain.UserClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
+import java.util.UUID;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -27,7 +31,19 @@ public class PublicationServiceTest {
     @Test
     public void findAll() {
 
-        Publication publication = new Publication(new Review());
+        Person person = new Person();
+
+        UserClient userClient = new UserClient();
+        userClient.setPerson(person);
+
+        Product product = new Product();
+
+        Review review = new Review();
+        review.setId(UUID.randomUUID());
+        review.setUser(userClient);
+        review.setProduct(product);
+
+        Publication publication = new Publication(review);
 
         when(this.repository.findAll()).thenReturn(Collections.singletonList(publication));
 
