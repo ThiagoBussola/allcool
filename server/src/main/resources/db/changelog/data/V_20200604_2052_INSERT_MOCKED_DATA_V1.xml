@@ -99,28 +99,32 @@
 
             insert into file (id, url, filetype, filename, filedate)
             values ('50853f04-4d88-4a31-9883-448fe0aebbd0',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic1.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png', 'png',
             'reviewpic1', '2020-07-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('682842f8-4001-41a3-82b7-217f7c245375',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic2.PNG', 'png',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic.PNG', 'png',
             'reviewpic2', '2020-08-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
-            values ('1e29f7d8-e5a1-40f5-bd44-d673cd70643e',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic3.PNG', 'png',
-            'reviewpic3', '2020-07-02 01:00:00');
-            insert into file (id, url, filetype, filename, filedate)
             values ('3cc6d0f5-0432-4798-bb08-8605a5b0ba4b',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic4.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png', 'png',
             'reviewpic4', '2020-07-02 01:00:00');
-            insert into file (id, url, filetype, filename, filedate)
-            values ('d20955e4-625f-49ab-b6c4-deead0831843',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic5.PNG', 'png',
-            'reviewpic5', '2020-07-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
             values ('dac0f400-ef91-4fda-9b82-b92f946dbcf8',
             'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'testedasilva',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3ef6313a-fa68-4f81-87da-f7984553f90d',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'josedasilva',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('9f87d393-1169-4270-b071-4c88ca35f12a',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'usuarioteste',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('6ba8a088-b83f-46dc-8c0b-c66df295cb86',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'mike',
             '2020-08-02 01:00:00');
 
         </sql>
@@ -452,18 +456,18 @@
         </preConditions>
 
         <sql>
-            insert into userclient (id, person_id, bio)
+            insert into userclient (id, person_id, bio, file_id)
             values ('b6b2d26e-1281-4bbf-87f4-572899ccfbc9', '4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9',
-            'José, o maior cervejeiro do Brasil!');
-            insert into userclient (id, person_id, bio)
+            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d');
+            insert into userclient (id, person_id, bio, file_id)
             values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
-            'Usuário criado para ambiente de Homologação');
+            'Usuário criado para ambiente de Homologação', '9f87d393-1169-4270-b071-4c88ca35f12a');
             insert into userclient (id, person_id, bio, file_id)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
             'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8');
-            insert into userclient (id, person_id, bio)
+            insert into userclient (id, person_id, bio, file_id)
             values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
-            'Biografia de Mike');
+            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86');
         </sql>
     </changeSet>
 
@@ -475,28 +479,26 @@
         <sql>
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d6353fa6-796e-4fca-aa11-d731633782dd', '3793d49a-01fa-47cc-b762-da24738b750c',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Gostei muito dessa ' ||
-            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
-            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 3.00);
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'É uma cerveja com ' ||
+            'um sabor forte, meu paladar não é tão acostumado com esse tipo, mas gostei mesmo assim da mesma!! ' ||
+            'Recomendo-a às pessoas com um paladar mais acostumado com cervejas fortes', 3.00);
 
-            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            insert into review (id, userclient_id, product_id, description, rating)
             values('1388758d-6a21-4494-a2bf-81f601c5936c', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '1e29f7d8-e5a1-40f5-bd44-d673cd70643e', 'Gostei muito dessa ' ||
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'Gostei muito dessa ' ||
             'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
             '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 4.00);
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('32d5ee80-131f-439b-b02c-92eb5c0e8f9a', 'b6b2d26e-1281-4bbf-87f4-572899ccfbc9',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '3cc6d0f5-0432-4798-bb08-8605a5b0ba4b', 'Gostei muito dessa ' ||
-            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
-            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 2.60);
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '3cc6d0f5-0432-4798-bb08-8605a5b0ba4b', 'Não sou muito fã ' ||
+            'dessa cerveja, mas por recomendações de amigos meus, acabei tomando... Apesar de não gostar tanto ' ||
+            'a experiência de apreciá-la com um queijo brie foi boa ', 2.60);
 
-
-            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            insert into review (id, userclient_id, product_id, description, rating)
             values('71350ae5-c619-40a6-9324-680954ec0618', 'a59c0223-87e4-4b60-8bc1-21f22fbc746d',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'd20955e4-625f-49ab-b6c4-deead0831843', 'Gostei muito dessa ' ||
-            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
-            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 2.80);
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'Só recomendo essa cerveja, pra quem gosta de comer um bom ' ||
+            'Camembert! A não ser com esse queijo, não recomendo. Mas apesar disso, é uma boa cerveja. ', 2.80);
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',

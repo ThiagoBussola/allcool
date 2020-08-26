@@ -6,14 +6,20 @@ import { Loading } from './Loading';
 
 type Props = {
   loading: boolean;
+  marginTop?: string;
 };
 
-const EmptyListPlaceholder: React.FC<Props> = ({ loading }) => {
+const EmptyListPlaceholder: React.FC<Props> = ({
+  loading,
+  marginTop = '50',
+}) => {
   return (
     <View style={{ flex: 1 }}>
       {!loading ? (
         <>
-          <View style={{ alignItems: 'center', marginTop: '50%' }}>
+          <View
+            style={{ alignItems: 'center', marginTop: marginTop.concat('%') }}
+          >
             <Image
               style={listImageStyle}
               source={require('../img/AllcoolV1.1.png')}
