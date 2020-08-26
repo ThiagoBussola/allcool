@@ -2,12 +2,13 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
-import { PartnerStack, ProductStack } from './';
+import { PartnerStack, ProductStack, PublicationStack } from './';
 
 type TabsStackParamList = {
   Tabs: { userId: string };
   Products: { userId: string };
   Partners: { userId: string };
+  Publications: { userId: string };
 };
 
 type TabsRouteProp = RouteProp<TabsStackParamList, 'Tabs'>;
@@ -54,6 +55,17 @@ const TabsStack: React.FC<Props> = ({
               color={color}
               size={26}
             />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Publications"
+        initialParams={{ userId }}
+        component={PublicationStack}
+        options={{
+          tabBarLabel: 'Publicações',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="view-list" color={color} size={26} />
           ),
         }}
       />
