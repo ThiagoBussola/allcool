@@ -134,4 +134,23 @@ public class ReviewRepositoryTest {
         assertThat(this.repository.existsByUserIdAndProductId(UUID.randomUUID(),
                 UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"))).isFalse();
     }
+
+    @Test
+    public void findAllByProductId() {
+
+        Product product = new Product();
+        product.setId(UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa"));
+
+        List<Review> listReview = this.repository
+                .findAllByProductId(product.getId());
+
+        assertThat(listReview).hasSize(1);
+        assertThat(listReview).extracting(Review::getId)
+                .containsExactly(UUID.fromString("d6353fa6-796e-4fca-aa11-d731633782dd"));
+        assertThat(listReview).extracting(Review::getDescription)
+                .containsExactly("Review teste");
+        assertThat(listReview).extracting(Review::getRating).toString()
+                .equals(BigDecimal.valueOf(3));
+
+    }
 }
