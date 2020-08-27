@@ -33,7 +33,7 @@ const NewsPublicationCardChildren: React.FC<Props> = ({
       right={() => <ReadOnlyStarRating rating={news.rating || 0} />}
     />
     <Card.Content style={{ marginTop: '2%' }}>
-      <Paragraph>
+      <Paragraph style={{ fontSize: 16 }}>
         {news.description && news.description.length > 200
           ? news.description?.slice(0, 500)
           : news.description}
