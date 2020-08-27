@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import { View, FlatList, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import { Dimensions, StyleSheet } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 import { PartnerService } from '../../service';
-import { rowStyle, mainStyles } from '../../styles';
 import { PartnerDTO } from '../../types/dto';
 import {
   PartnerListNavigationProp,
@@ -16,21 +14,31 @@ import {
   SnackbarNotification,
 } from '../../components';
 import { useLoading } from '../../hooks';
-import { Text } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 
 type Props = {
   navigation: PartnerListNavigationProp;
   route: PartnersListRouteProp;
 };
 
-const dimensions = Dimensions.get('window');
-const screenWidth = dimensions.width;
+type LatLgn = {
+  latitude: number,
+  longitude: number,
+};
 
-const styles = StyleSheet.create({
-  map: {
-    ...StyleSheet.absoluteFillObject,
+const arrLat = [
+  {
+    latitude: -23.4116408,
+    longitude: -51.9433306,
+  },
+  {
+    latitude: -23.4109165,
+    longitude: -51.943674,
+  },
+  {
+    latitude: -23.4112353,
+    longitude: -51.9434983,
   }
-})
+]
 
 const PartnerList: React.FC<Props> = ({
   navigation,
@@ -96,82 +104,35 @@ const PartnerList: React.FC<Props> = ({
         value={search}
       />
       {filteredPartners && filteredPartners.length > 0 ? (
+        <MapView 
+          region={{
+            latitude: -23.4121735,
+            longitude: -51.9440588,
+            latitudeDelta: 0.0045, // zoom
+            longitudeDelta: 0.0045,
+          }}
+          customMapStyle={dark}
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          showsCompass={false}
+          showsTraffic={false}
+          showsIndoors={false}
+          showsPointsOfInterest={true}
+          showsBuildings={false}
+        >
+          {arrLat.map((local, index) => (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: local.latitude,
+                    longitude: local.longitude,
+                  }}
+                  image={require('../../img/icon.png')}
+                />           
+          ))}
+          
 
-        <View style={{ flex: 1, width: screenWidth}}>
-
-          <View style={{width: 400, height: 300, margin: 6}}>
-            <MapView 
-              region={{
-                latitude: -23.444792,
-                longitude: -51.918083,
-                latitudeDelta: 0.0050, // zoom
-                longitudeDelta: 0.0050,
-              }}
-              customMapStyle={dark}
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              showsPointsOfInterest={false}
-              showsBuildings={false}
-              showsCompass={false}
-              showsIndoors={false}
-              
-            >
-            </MapView>
-          </View>
-
-
-            <FlatList
-                data={filteredPartners}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                <>
-                  <TouchableOpacity onPress={() => view(item)}>
-                    <View style={rowStyle}>
-                      <View style={{ marginLeft: '5%', marginTop: '6.5%' }}>
-                        <View style={{ alignItems: 'flex-start' }}>
-                          <Title style={mainStyles.title}>{item.name}</Title>
-                        </View>
-                        <View>
-                          <Subheading style={mainStyles.subHeading}>
-                            {`${
-                              item.address.length > 40
-                                ? item.address.slice(0, 40).concat('...')
-                                : item.address
-                            }`}
-                          </Subheading>
-                        </View>
-                        <View>
-                          <Subheading style={mainStyles.subHeading}>
-                            {`${item.locality}`} - {`${item.phoneNumber}`}
-                          </Subheading>
-                        </View>
-                      </View>
-                      <View
-                        style={{
-                          paddingLeft: '5%',
-                          marginTop: '10%',
-                          flex: 1,
-                          flexDirection: 'row-reverse',
-                        }}
-                      >
-                        <MaterialCommunityIcons
-                          name="map-search-outline"
-                          color={'#ffbf00'}
-                          size={50}
-                        />
-                      </View>
-                    </View>
-                    <View style={{ marginTop: '6.5%', backgroundColor: '#ffbf00' }}>
-                      <Divider accessibilityStates />
-                    </View>
-                  </TouchableOpacity>
-              </>
-              )}
-            />
-
-  
-        </View>
-      
+        </MapView>
       ) : (
         <EmptyListPlaceholder loading={loading} />
       )}
@@ -188,14 +149,22 @@ const PartnerList: React.FC<Props> = ({
   );
 };
 
+const { height, width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  }
+});
+
 export { PartnerList };
 
-const dark = [
+const dark =[
   {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#242f3e"
+        "color": "#ebe3cd"
       }
     ]
   },
@@ -203,7 +172,7 @@ const dark = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#746855"
+        "color": "#523735"
       }
     ]
   },
@@ -211,16 +180,69 @@ const dark = [
     "elementType": "labels.text.stroke",
     "stylers": [
       {
-        "color": "#242f3e"
+        "color": "#f5f1e6"
       }
     ]
   },
   {
-    "featureType": "administrative.locality",
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#c9b2a6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#dcd2be"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#d59563"
+        "color": "#ae9e90"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
       }
     ]
   },
@@ -229,16 +251,16 @@ const dark = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#d59563"
+        "color": "#93817c"
       }
     ]
   },
   {
     "featureType": "poi.park",
-    "elementType": "geometry",
+    "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#263c3f"
+        "color": "#a5b076"
       }
     ]
   },
@@ -247,7 +269,7 @@ const dark = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#6b9a76"
+        "color": "#447530"
       }
     ]
   },
@@ -256,25 +278,25 @@ const dark = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#38414e"
+        "color": "#f5f1e6"
       }
     ]
   },
   {
     "featureType": "road",
-    "elementType": "geometry.stroke",
+    "elementType": "labels.icon",
     "stylers": [
       {
-        "color": "#212a37"
+        "visibility": "off"
       }
     ]
   },
   {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
+    "featureType": "road.arterial",
+    "elementType": "geometry",
     "stylers": [
       {
-        "color": "#9ca5b3"
+        "color": "#fdfcf8"
       }
     ]
   },
@@ -283,7 +305,7 @@ const dark = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#746855"
+        "color": "#f8c967"
       }
     ]
   },
@@ -292,43 +314,87 @@ const dark = [
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#1f2835"
+        "color": "#e9bc62"
       }
     ]
   },
   {
-    "featureType": "road.highway",
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e98d58"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#db8555"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#f3d19c"
+        "color": "#806b63"
       }
     ]
   },
   {
     "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#2f3948"
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8f7d77"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
       }
     ]
   },
   {
     "featureType": "transit.station",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#d59563"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#17263c"
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#b9d3c2"
       }
     ]
   },
@@ -337,16 +403,7 @@ const dark = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#515c6d"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#17263c"
+        "color": "#92998d"
       }
     ]
   }
