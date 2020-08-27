@@ -8,6 +8,7 @@ import static java.util.Objects.nonNull;
 public class PublicationDTOConverter {
 
     private final ReviewDTOConverter reviewDTOConverter = new ReviewDTOConverter();
+    private final NewsDTOConverter newsDTOConverter = new NewsDTOConverter();
 
     public PublicationDTO to(Publication publication) {
         PublicationDTO dto = new PublicationDTO();
@@ -24,7 +25,7 @@ public class PublicationDTOConverter {
         }
 
         if (nonNull(publication.getNews())) {
-            dto.setNews(publication.getNews());
+            dto.setNews(newsDTOConverter.to(publication.getNews()));
         }
 
         return dto;

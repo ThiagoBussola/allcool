@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,7 +39,7 @@ public class NewsRepositoryTest {
         assertThat(newsList).extracting(news -> news.getAddress().getId()).containsExactly(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"), UUID.fromString("28fd5d3c-97b2-11ea-bb37-0242ac130002"));
         assertThat(newsList).extracting(news -> news.getFile().getId()).containsExactly(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"), UUID.fromString("d33686e0-963e-11ea-bb37-0242ac130002"));
         assertThat(newsList).extracting(News::getDescription).containsExactly("Noticia Teste 1", "Noticia Teste 2");
-        assertThat(newsList).extracting(News::getRating).containsExactly(5L, 1L);
+        assertThat(newsList).extracting(news -> news.getRating().toString()).containsExactly("5.0000", "1.0000");
         assertThat(newsList).extracting(News::getCreationDate).containsExactly(LocalDate.of(2020,5,14), LocalDate.of(2020,5,18));
         assertThat(newsList).extracting(News::getEventDate).containsExactly(LocalDateTime.of(2020,6,15,1,0,0), LocalDateTime.of(2020,7,12,2,0,0));
         assertThat(newsList).extracting(News::getType).containsExactly(NewsTypeEnum.PRODUCT_LAUNCH, NewsTypeEnum.PRODUCT_LAUNCH);
@@ -71,7 +72,7 @@ public class NewsRepositoryTest {
         news.setAddress(address);
         news.setFile(file);
         news.setDescription("Uma notícia Teste");
-        news.setRating(5L);
+        news.setRating(BigDecimal.ONE);
         news.setCreationDate(LocalDate.of(2020,1,1));
         news.setEventDate(LocalDateTime.of(2020,2,5,20,30));
         news.setType(NewsTypeEnum.EVENT);
@@ -103,13 +104,13 @@ public class NewsRepositoryTest {
         assertThat(newsBeforeUpdate.getAddress().getId()).isEqualTo(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
         assertThat(newsBeforeUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(newsBeforeUpdate.getDescription()).isEqualTo("Noticia Teste 1");
-        assertThat(newsBeforeUpdate.getRating()).isEqualTo(5L);
+        assertThat(newsBeforeUpdate.getRating()).hasToString("5.0000");
         assertThat(newsBeforeUpdate.getCreationDate()).isEqualTo(LocalDate.of(2020,5, 14));
         assertThat(newsBeforeUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2020, 6, 15, 1,00,00));
         assertThat(newsBeforeUpdate.getType()).isEqualTo(NewsTypeEnum.PRODUCT_LAUNCH);
 
         newsBeforeUpdate.setDescription("Noticia Teste 1 Atualizada");
-        newsBeforeUpdate.setRating(1L);
+        newsBeforeUpdate.setRating(BigDecimal.ONE);
         newsBeforeUpdate.setCreationDate(LocalDate.of(2021,5,14));
         newsBeforeUpdate.setEventDate(LocalDateTime.of(2022,6,15,1,1,2));
         newsBeforeUpdate.setType(NewsTypeEnum.FEATURE);
@@ -120,11 +121,9 @@ public class NewsRepositoryTest {
         assertThat(newsAfterUpdate.getAddress().getId()).isEqualTo(UUID.fromString("c610a5c3-9746-43be-a1e4-5435411b0328"));
         assertThat(newsAfterUpdate.getFile().getId()).isEqualTo(UUID.fromString("ce396aea-963e-11ea-bb37-0242ac130002"));
         assertThat(newsAfterUpdate.getDescription()).isEqualTo("Noticia Teste 1 Atualizada");
-        assertThat(newsAfterUpdate.getRating()).isEqualTo(1L);
+        assertThat(newsAfterUpdate.getRating()).hasToString("1");
         assertThat(newsAfterUpdate.getCreationDate()).isEqualTo(LocalDate.of(2021,5,14));
         assertThat(newsAfterUpdate.getEventDate()).isEqualTo(LocalDateTime.of(2022,6,15,1,1,2));
         assertThat(newsAfterUpdate.getType()).isEqualTo(NewsTypeEnum.FEATURE);
-
-
     }
 }

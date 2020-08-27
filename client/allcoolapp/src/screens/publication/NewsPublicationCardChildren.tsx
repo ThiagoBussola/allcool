@@ -1,31 +1,54 @@
 import React from 'react';
-import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
-import { News } from '../../types';
+import { Card, Paragraph, IconButton } from 'react-native-paper';
+import { ReadOnlyStarRating } from '../../components';
+import { NewsDTO } from '../../types/dto';
 
 type Props = {
-  news: News;
+  news: NewsDTO;
+  itemIndex: number;
+  touched: boolean;
+  onLikePublication: (index: number) => void;
 };
 
-const NewsPublicationCardChildren: React.FC<Props> = ({ news }) => (
+const NewsPublicationCardChildren: React.FC<Props> = ({
+  news,
+  itemIndex,
+  touched,
+  onLikePublication,
+}) => (
   <>
-    {!!news.file?.url && (
-      <Card.Cover accessibilityStates source={{ uri: news.file?.url }} />
+    {!!news.pictureUrl && (
+      <Card.Cover accessibilityStates source={{ uri: news.pictureUrl }} />
     )}
     <Card.Title
       accessibilityStates
-      title={news.eventDate}
-      left={() => (
-        <Avatar.Image
-          accessibilityStates
-          size={40}
-          source={require('../../img/AllcoolV1.1.png')}
-        />
-      )}
+      title={news.title}
+      subtitle={`${
+        news.address?.id &&
+        `Endereço: ${news.address.publicPlace}, ${news.address.locality}, ${news.address.federatedUnit}\n`
+      }Data: ${news.eventDate}`}
+      subtitleNumberOfLines={2}
+      subtitleStyle={{ fontSize: 14 }}
+      titleStyle={{ fontSize: 22, marginTop: '4%' }}
+      right={() => <ReadOnlyStarRating rating={news.rating || 0} />}
     />
-    <Card.Content>
-      <Title>{news.rating}</Title>
-      <Paragraph>{news.description}</Paragraph>
+    <Card.Content style={{ marginTop: '2%' }}>
+      <Paragraph>
+        {news.description && news.description.length > 200
+          ? news.description?.slice(0, 500)
+          : news.description}
+      </Paragraph>
     </Card.Content>
+    <Card.Actions style={{ justifyContent: 'flex-end', margin: '-4%' }}>
+      <IconButton
+        accessibilityStates
+        icon={touched ? 'beer' : 'beer-outline'}
+        color="#ffbf00"
+        animated
+        size={36}
+        onPress={() => onLikePublication(itemIndex)}
+      />
+    </Card.Actions>
   </>
 );
 

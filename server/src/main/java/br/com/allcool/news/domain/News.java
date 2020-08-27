@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -46,8 +47,11 @@ public class News {
     @Length(max = 1000)
     private String description;
 
+    @Length(max = 50)
+    private String title;
+
     @NotNull
-    private Long rating;
+    private BigDecimal rating = BigDecimal.ZERO;
 
     @NotNull
     @Column(name = "creationdate")
@@ -59,5 +63,6 @@ public class News {
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "newstype")
     private NewsTypeEnum type;
 }

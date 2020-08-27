@@ -1,9 +1,7 @@
 import React from 'react';
-import { Card, Title, Paragraph, Avatar, IconButton } from 'react-native-paper';
+import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
 import { ReviewDTO } from '../../types/dto';
-import { AirbnbRating } from 'react-native-ratings';
-import { View } from 'react-native';
-import { rowStyle } from '../../styles';
+import { ReadOnlyStarRating } from '../../components';
 
 type Props = {
   review: ReviewDTO;
@@ -16,24 +14,8 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
   review,
   itemIndex,
   touched,
-  onLikePublication: onTouchIcon,
+  onLikePublication,
 }) => {
-  const renderRating = () => (
-    <View style={[rowStyle, { marginRight: '2%' }]}>
-      <Title style={{ color: '#ffbf00' }}>{review.rating}</Title>
-      <View style={{ justifyContent: 'center' }}>
-        <AirbnbRating
-          defaultRating={1}
-          isDisabled
-          size={16}
-          showRating={false}
-          starStyle={{ tintColor: '#ffbf00' }}
-          count={1}
-        />
-      </View>
-    </View>
-  );
-
   return (
     <>
       {!!review.pictureUrl && (
@@ -45,7 +27,7 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         subtitle={review.productName}
         subtitleStyle={{ fontSize: 14 }}
         titleStyle={{ fontSize: 22 }}
-        right={renderRating}
+        right={() => <ReadOnlyStarRating rating={review.rating || 0} />}
         left={() => (
           <Avatar.Image
             accessibilityStates
@@ -65,7 +47,7 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
           color="#ffbf00"
           animated
           size={36}
-          onPress={() => onTouchIcon(itemIndex)}
+          onPress={() => onLikePublication(itemIndex)}
         />
       </Card.Actions>
     </>

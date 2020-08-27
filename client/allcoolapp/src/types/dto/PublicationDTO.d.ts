@@ -1,11 +1,11 @@
 import { ReviewDTO } from './';
 import { PublicationTypeEnum } from '../enum';
-import { News } from '../News';
+import { NewsDTO } from './NewsDTO';
 
 export type PublicationDTO = {
   id?: string;
   review?: ReviewDTO;
-  news?: News;
+  news?: NewsDTO;
   type?: PublicationTypeEnum;
 } & {
   touched?: boolean;

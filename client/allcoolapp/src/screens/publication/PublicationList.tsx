@@ -57,7 +57,7 @@ const PublicationList: React.FC<Props> = ({
     //eslint-disable-next-line
   }, []);
 
-  const likedPublication = (index: number) =>
+  const likePublication = (index: number) =>
     setPublications((prevState) => {
       const alteredPublication: PublicationDTO = {
         ...prevState[index],
@@ -88,7 +88,7 @@ const PublicationList: React.FC<Props> = ({
             <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
           keyExtractor={(item) => item.id!}
-          renderItem={({ item, index, separators }) => (
+          renderItem={({ item, index }) => (
             <View
               style={{
                 width: '95%',
@@ -112,10 +112,15 @@ const PublicationList: React.FC<Props> = ({
                     review={item.review!}
                     itemIndex={index}
                     touched={item.touched!}
-                    onLikePublication={likedPublication}
+                    onLikePublication={likePublication}
                   />
                 ) : (
-                  <NewsPublicationCardChildren news={item.news!} />
+                  <NewsPublicationCardChildren
+                    news={item.news!}
+                    itemIndex={index}
+                    touched={item.touched!}
+                    onLikePublication={likePublication}
+                  />
                 )}
               </Card>
             </View>

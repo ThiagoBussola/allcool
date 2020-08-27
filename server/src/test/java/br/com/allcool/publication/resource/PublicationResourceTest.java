@@ -1,6 +1,8 @@
 package br.com.allcool.publication.resource;
 
+import br.com.allcool.converter.NewsDTOConverter;
 import br.com.allcool.converter.ReviewDTOConverter;
+import br.com.allcool.dto.NewsDTO;
 import br.com.allcool.dto.PublicationDTO;
 import br.com.allcool.enums.PublicationTypeEnum;
 import br.com.allcool.news.domain.News;
@@ -64,7 +66,7 @@ public class PublicationResourceTest {
 
         PublicationDTO publicationDTO2 = new PublicationDTO();
         publicationDTO2.setId(UUID.randomUUID());
-        publicationDTO2.setNews(news);
+        publicationDTO2.setNews(new NewsDTOConverter().to(news));
         publicationDTO2.setType(PublicationTypeEnum.NEWS);
 
         when(this.service.findAll()).thenReturn(Arrays.asList(publicationDTO1, publicationDTO2));
