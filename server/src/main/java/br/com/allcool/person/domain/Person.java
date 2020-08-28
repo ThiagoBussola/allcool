@@ -54,9 +54,9 @@ public class Person implements UserDetails {
     @Column(name = "birthdate")
     private LocalDate birthDate;
    
-    @Length(max=150)
     @NotBlank
-    @Column(name = "userpassword")
+	@Length(max = 150)
+	@Column(name = "userpassword")
     private String password;
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
