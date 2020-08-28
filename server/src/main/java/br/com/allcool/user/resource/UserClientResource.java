@@ -22,8 +22,8 @@ public class UserClientResource {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserClientDTO> findUserClientDTOByPersonId(@PathVariable("userId") UUID id) {
+    public ResponseEntity<UserClientDTO> findById(@PathVariable("userId") UUID id) {
 
-        return ResponseEntity.ok(this.service.findUserClientDTOByPersonId(id));
+        return ResponseEntity.ok(this.service.findById(id));
     }
 }

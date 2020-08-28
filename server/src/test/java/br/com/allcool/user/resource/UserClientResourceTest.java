@@ -33,19 +33,19 @@ public class UserClientResourceTest {
     private UserClientService service;
 
     @Test
-    public void findUserClientDTOByPersonId() throws Exception {
+    public void findById() throws Exception {
 
-        UUID personId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
         UserClientDTO userClientDTO = new UserClientDTO();
-        userClientDTO.setId(UUID.randomUUID());
+        userClientDTO.setId(userId);
         userClientDTO.setUserPicture(new FileDTO(UUID.randomUUID(), "www.teste.com"));
         userClientDTO.setName("Zé");
         userClientDTO.setBio("Um Mestre Cervejeiro");
 
-        when(this.service.findUserClientDTOByPersonId(personId)).thenReturn(userClientDTO);
+        when(this.service.findById(userId)).thenReturn(userClientDTO);
 
-        this.mockMvc.perform(get("/api/users/{personId}", personId))
+        this.mockMvc.perform(get("/api/users/{userId}", userId))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(userClientDTO.getId().toString())))
@@ -55,7 +55,7 @@ public class UserClientResourceTest {
                 .andExpect(jsonPath("$.name", equalTo(userClientDTO.getName())))
                 .andExpect(jsonPath("$.bio", equalTo(userClientDTO.getBio())));
 
-        verify(this.service).findUserClientDTOByPersonId(personId);
+        verify(this.service).findById(userId);
         verifyNoMoreInteractions(this.service);
     }
 }

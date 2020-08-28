@@ -4,6 +4,7 @@ import { TabsStack } from './TabsStack';
 import { PartnerStack } from './PartnerStack';
 import { ProductStack } from './ProductStack';
 import { PublicationStack } from './PublicationStack';
+import { ProfileStack } from './ProfileStack';
 
 export {
   LoginStack,
@@ -12,4 +13,5 @@ export {
   PartnerStack,
   ProductStack,
   PublicationStack,
+  ProfileStack,
 };

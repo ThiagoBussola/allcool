@@ -20,9 +20,9 @@ public class UserClientService {
         this.repository = repository;
     }
 
-    public UserClientDTO findUserClientDTOByPersonId(UUID id) {
+    public UserClientDTO findById(UUID id) {
 
-        return new UserClientDTOConverter().to(this.repository.findByPersonId(id)
+        return new UserClientDTOConverter().to(this.repository.findById(id)
                 .orElseThrow(UserNotFoundException::new));
     }
 }

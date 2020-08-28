@@ -32,29 +32,30 @@ public class UserClientServiceTest {
     @Test
     public void findUserClientDTOByPersonId() {
 
-        UUID personId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
         UserClient userClient = new UserClient();
+        userClient.setId(userId);
         userClient.setPerson(new Person());
         userClient.setFile(new File());
 
-        when(this.repository.findByPersonId(personId)).thenReturn(Optional.of(userClient));
+        when(this.repository.findByPersonId(userId)).thenReturn(Optional.of(userClient));
 
-        this.service.findUserClientDTOByPersonId(personId);
+        this.service.findById(userId);
 
-        verify(this.repository).findByPersonId(personId);
+        verify(this.repository).findByPersonId(userId);
         verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     public void findUserClientDTOByPersonNotFoundException() {
 
-        UUID personId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
-        when(this.repository.findByPersonId(personId)).thenReturn(Optional.empty());
+        when(this.repository.findByPersonId(userId)).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(UserNotFoundException.class,
-                () -> this.service.findUserClientDTOByPersonId(personId));
+                () -> this.service.findById(userId));
 
         assertThat(exception.getMessage())
                 .isEqualTo("O usuário não foi encontrado.");

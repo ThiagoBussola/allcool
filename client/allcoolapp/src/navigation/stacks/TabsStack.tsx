@@ -2,13 +2,15 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
-import { PartnerStack, ProductStack, PublicationStack } from './';
+import { PartnerStack, ProductStack, PublicationStack, ProfileStack } from './';
+import { UserClientDTO } from 'src/types/dto';
 
 type TabsStackParamList = {
-  Tabs: { userId: string };
+  Tabs: { loggedUser: UserClientDTO };
   Products: { userId: string };
   Partners: { userId: string };
   Publications: { userId: string };
+  Profile: { userId: string };
 };
 
 type TabsRouteProp = RouteProp<TabsStackParamList, 'Tabs'>;
@@ -21,7 +23,7 @@ const Tab = createMaterialBottomTabNavigator<TabsStackParamList>();
 
 const TabsStack: React.FC<Props> = ({
   route: {
-    params: { userId },
+    params: { loggedUser },
   },
 }) => {
   return (
@@ -34,7 +36,7 @@ const TabsStack: React.FC<Props> = ({
     >
       <Tab.Screen
         name="Products"
-        initialParams={{ userId }}
+        initialParams={{ userId: loggedUser.id }}
         component={ProductStack}
         options={{
           tabBarLabel: 'Produtos',
@@ -45,7 +47,7 @@ const TabsStack: React.FC<Props> = ({
       />
       <Tab.Screen
         name="Partners"
-        initialParams={{ userId }}
+        initialParams={{ userId: loggedUser.id }}
         component={PartnerStack}
         options={{
           tabBarLabel: 'Parceiros',
@@ -60,12 +62,27 @@ const TabsStack: React.FC<Props> = ({
       />
       <Tab.Screen
         name="Publications"
-        initialParams={{ userId }}
+        initialParams={{ userId: loggedUser.id }}
         component={PublicationStack}
         options={{
           tabBarLabel: 'Publicações',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="view-list" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        initialParams={{ userId: loggedUser.id }}
+        component={ProfileStack}
+        options={{
+          tabBarLabel: 'Perfil',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-circle"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
