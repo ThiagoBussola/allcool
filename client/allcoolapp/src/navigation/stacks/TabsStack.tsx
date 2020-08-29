@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
 import { PartnerStack, ProductStack, PublicationStack, ProfileStack } from './';
-import { UserClientDTO } from 'src/types/dto';
+import { UserClientDTO } from '../../types/dto';
 
 type TabsStackParamList = {
-  Tabs: { loggedUser: UserClientDTO };
+  Tabs: { userId: string };
   Products: { userId: string };
   Partners: { userId: string };
   Publications: { userId: string };
@@ -23,7 +23,7 @@ const Tab = createMaterialBottomTabNavigator<TabsStackParamList>();
 
 const TabsStack: React.FC<Props> = ({
   route: {
-    params: { loggedUser },
+    params: { userId },
   },
 }) => {
   return (
@@ -36,7 +36,7 @@ const TabsStack: React.FC<Props> = ({
     >
       <Tab.Screen
         name="Products"
-        initialParams={{ userId: loggedUser.id }}
+        initialParams={{ userId }}
         component={ProductStack}
         options={{
           tabBarLabel: 'Produtos',
@@ -47,7 +47,7 @@ const TabsStack: React.FC<Props> = ({
       />
       <Tab.Screen
         name="Partners"
-        initialParams={{ userId: loggedUser.id }}
+        initialParams={{ userId }}
         component={PartnerStack}
         options={{
           tabBarLabel: 'Parceiros',
@@ -62,7 +62,7 @@ const TabsStack: React.FC<Props> = ({
       />
       <Tab.Screen
         name="Publications"
-        initialParams={{ userId: loggedUser.id }}
+        initialParams={{ userId }}
         component={PublicationStack}
         options={{
           tabBarLabel: 'Publicações',
@@ -73,7 +73,7 @@ const TabsStack: React.FC<Props> = ({
       />
       <Tab.Screen
         name="Profile"
-        initialParams={{ userId: loggedUser.id }}
+        initialParams={{ userId }}
         component={ProfileStack}
         options={{
           tabBarLabel: 'Perfil',

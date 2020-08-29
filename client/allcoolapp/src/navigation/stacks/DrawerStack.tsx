@@ -17,7 +17,7 @@ import { UserClientService } from '../../service';
 type DrawerStackParamList = {
   Drawer: { userId: string };
   Login: undefined;
-  Tabs: { loggedUser: UserClientDTO };
+  Tabs: { userId: string };
 };
 
 type DrawerListNavigationProp = StackNavigationProp<
@@ -111,7 +111,7 @@ const DrawerStack: React.FC<Props> = ({
       <Drawer.Screen
         name="Tabs"
         component={TabsStack}
-        initialParams={{ loggedUser }}
+        initialParams={{ userId }}
       />
     </Drawer.Navigator>
   );

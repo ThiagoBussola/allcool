@@ -5,4 +5,6 @@ export type UserClientDTO = {
   name?: string;
   userPicture?: FileDTO;
   bio?: string;
+  location?: string;
+  birthDate?: string;
 };

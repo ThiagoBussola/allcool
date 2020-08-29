@@ -18,7 +18,9 @@ public class UserClientDTOConverter {
 
         dto.setId(entity.getId());
         dto.setBio(entity.getBio());
+        dto.setLocation(entity.getLocation());
         dto.setName(entity.getPerson().getName());
+        dto.setBirthDate(entity.getPerson().getBirthDate());
         dto.setUserPicture(new FileDTO(entity.getFile().getId(), entity.getFile().getUrl()));
 
         return dto;

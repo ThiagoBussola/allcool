@@ -38,7 +38,7 @@ const ProfileStack: React.FC<Props> = ({
     <>
       <RootStack.Navigator
         initialRouteName="ProfileView"
-        screenOptions={rootStackOptions('Publicações')}
+        screenOptions={rootStackOptions('Perfil')}
       >
         <RootStack.Screen
           name="ProfileView"

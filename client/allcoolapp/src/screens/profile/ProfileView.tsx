@@ -1,8 +1,110 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { RefreshControl, View, Dimensions } from 'react-native';
+import {
+  ProfileViewRouteProp,
+  ProfileViewNavigationProp,
+} from '../../navigation';
+import { Card } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
+import {
+  EmptyListPlaceholder,
+  SnackbarNotification,
+  Loading,
+  SnackbarState,
+} from '../../components';
+import { ReviewPublicationCardChildren } from '../publication/ReviewPublicationCardChildren';
+import { useLoading } from '../../hooks';
+import { PublicationDTO, UserClientDTO } from '../../types/dto';
+import { UserClientService } from '../../service';
+import { ProfileViewHeader } from './ProfileViewHeader';
 
-const ProfileView: React.FC = () => {
-  return <Text>PERFIL</Text>;
+type Props = {
+  route: ProfileViewRouteProp;
+  navigation: ProfileViewNavigationProp;
+};
+
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
+
+const ProfileView: React.FC<Props> = ({
+  route: {
+    params: { userId },
+  },
+  navigation,
+}) => {
+  const [loading, setLoading] = useLoading();
+  const [loggedUser, setLoggedUser] = useState<UserClientDTO>({
+    id: userId,
+    bio: '',
+    name: '',
+    userPicture: undefined,
+  });
+  const [publications, setPublications] = useState<PublicationDTO[]>([]);
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+    message: '',
+    visible: false,
+  });
+
+  useEffect(() => {
+    UserClientService.findById(userId).then(({ data }) => setLoggedUser(data));
+    //eslint-disable-next-line
+  }, [userId]);
+
+  return (
+    <>
+      {!loading ? (
+        <FlatList
+          data={publications}
+          style={{
+            flex: 1,
+            width: screenWidth,
+          }}
+          ListHeaderComponent={<ProfileViewHeader loggedUser={loggedUser} />}
+          ListEmptyComponent={
+            <EmptyListPlaceholder
+              message="Nenhuma publicação encontrada"
+              marginTop="30"
+            />
+          }
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              //  onRefresh={onRefresh}
+            />
+          }
+          keyExtractor={(item) => item.id!}
+          renderItem={({ item, index }) => (
+            <View
+              style={{
+                width: '95%',
+                alignSelf: 'center',
+                marginTop: '3%',
+                marginBottom: '2%',
+              }}
+            >
+              <Card accessibilityStates style={{ backgroundColor: '#f7f7f7' }}>
+                <ReviewPublicationCardChildren
+                  review={item.review!}
+                  itemIndex={index}
+                />
+              </Card>
+            </View>
+          )}
+        />
+      ) : (
+        <Loading />
+      )}
+      <SnackbarNotification
+        snackbarState={snackbarState}
+        dismissSnackbar={() =>
+          setSnackbarState({
+            message: '',
+            visible: false,
+          })
+        }
+      />
+    </>
+  );
 };
 
 export { ProfileView };
