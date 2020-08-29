@@ -347,6 +347,15 @@
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
             values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87015-001', 'Av. Dr. Luiz Teixeira Mendes 1550', 'Zona 05',
             'Maringá', 'PR');
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('138e7fee-704c-45a6-8516-ac8b10d1e1b5', '87020-190', 'Rua Paranaguá, 78', 'Zona 07',
+            'Maringá', 'PR', -23.4116025, -51.9454643);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('c2b93999-c7a0-4563-a808-d52985e0cd48', '87020-190', 'Rua Paranaguá, 173', 'Zona 07',
+            'Maringá', 'PR', -23.4109913, -51.9439829);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('20eb20f8-44a8-4073-a268-bab5dbb82441', '87020-190', 'Rua Paranaguá, 124', 'Zona 07',
+            'Maringá', 'PR', -23.4113064, -51.9435349);
         </sql>
     </changeSet>
 

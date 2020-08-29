@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -46,4 +49,12 @@ public class Address {
     @Length(max = 2)
     @Column(name = "federatedunit")
     private String federatedUnit;
+       
+    // notNull? -> ver depois 
+    @Digits(integer = 2, fraction = 7)
+    private BigDecimal latitude = BigDecimal.ZERO;
+    
+    @Digits(integer = 2, fraction = 7)
+    private BigDecimal longitude = BigDecimal.ZERO;
+ 
 }
