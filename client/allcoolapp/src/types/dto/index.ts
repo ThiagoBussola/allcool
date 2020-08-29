@@ -9,3 +9,5 @@ export * from './PartnerDTO';
 export * from './PartnerViewDTO';
 export * from './FileDTO';
 export * from './WorkingPeriodDTO';
+export * from './PublicationDTO';
+export * from './NewsDTO';

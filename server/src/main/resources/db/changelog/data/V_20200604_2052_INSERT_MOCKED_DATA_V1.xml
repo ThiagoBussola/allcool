@@ -4,6 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
+    <!-- Changesets feitos para rodar em uma base sem registros -->
     <changeSet id="insert-data-file-v1" author="marcelo.filho" dbms="postgresql">
         <preConditions onFail="MARK_RAN">
             <rowCount expectedRows="0" tableName="file"/>
@@ -88,12 +89,6 @@
             '2020-06-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
-            values ('ce396aea-963e-11ea-bb37-0242ac130002',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-userclientavatar.PNG', 'png',
-            'userclientavatar',
-            '2020-06-02 01:00:00');
-
-            insert into file (id, url, filetype, filename, filedate)
             values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
             'https://allcool.s3.fr-par.scw.cloud/partners/azeitona.png', 'png',
             'partnerpic1', '2020-07-02 01:00:00');
@@ -101,15 +96,54 @@
             values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
             'https://allcool.s3.fr-par.scw.cloud/partners/agua-doce-cachacaria.png', 'png',
             'partnerpic2', '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('5ed4aa50-3856-4f8a-94c9-923cc0384a36',
+            'https://allcool.s3.fr-par.scw.cloud/partners/democratico-rock-bar.jpg', 'jpg',
+            'partnerpic3', '2020-08-29 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('29390b84-3ab8-41f2-b00f-f2f37290a5e7',
+            'https://allcool.s3.fr-par.scw.cloud/partners/coronel.jpg', 'jpg',
+            'partnerpic4', '2020-08-29 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('eb76e3ee-c776-4a1e-8d44-48590e527a70',
+            'https://allcool.s3.fr-par.scw.cloud/partners/afonso.JPG', 'jpg',
+            'partnerpic5', '2020-08-29 01:00:00');
+                      
 
             insert into file (id, url, filetype, filename, filedate)
             values ('50853f04-4d88-4a31-9883-448fe0aebbd0',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic1.PNG', 'png',
+            'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png', 'png',
             'reviewpic1', '2020-07-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('682842f8-4001-41a3-82b7-217f7c245375',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic2.PNG', 'png',
+            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic.PNG', 'png',
             'reviewpic2', '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3cc6d0f5-0432-4798-bb08-8605a5b0ba4b',
+            'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png', 'png',
+            'reviewpic4', '2020-07-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('dac0f400-ef91-4fda-9b82-b92f946dbcf8',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'testedasilva',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3ef6313a-fa68-4f81-87da-f7984553f90d',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'josedasilva',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('9f87d393-1169-4270-b071-4c88ca35f12a',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'usuarioteste',
+            '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('6ba8a088-b83f-46dc-8c0b-c66df295cb86',
+            'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png', 'png', 'mike',
+            '2020-08-02 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3a7ffaa5-00e6-426b-968a-4739f31fa114',
+            'https://allcool.s3.fr-par.scw.cloud/news/foto-festa-news1.jpg', 'jpg', 'foto-festa-news1',
+            '2020-08-02 01:00:00');
         </sql>
     </changeSet>
 
@@ -348,6 +382,9 @@
             values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87015-001', 'Av. Dr. Luiz Teixeira Mendes 1550', 'Zona 05',
             'Maringá', 'PR');
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('27d20235-837b-48ca-bf67-f0b9f06379b9', '87070-170', 'Av. Virgílio Manilia, 21784',
+            'Jardim Ouro Cola', 'Maringá', 'PR', -23.4129652,-51.9906073);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
             values ('138e7fee-704c-45a6-8516-ac8b10d1e1b5', '87020-190', 'Rua Paranaguá, 78', 'Zona 07',
             'Maringá', 'PR', -23.4116025, -51.9454643);
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
@@ -356,6 +393,7 @@
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
             values ('20eb20f8-44a8-4073-a268-bab5dbb82441', '87020-190', 'Rua Paranaguá, 124', 'Zona 07',
             'Maringá', 'PR', -23.4113064, -51.9435349);
+
         </sql>
     </changeSet>
 
@@ -374,6 +412,18 @@
             'ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Água Doce Cachaçaria',
             'Lugar charmoso e aconchegante, com porções variadas e deliciosas, segundo nossos clientes, temos o ' ||
             'melhor escondidinho do Paraná.', '(44) 3225-2918', 5.00);
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('9b6e9734-e22c-44da-b6b5-6adb4b3c070e', '138e7fee-704c-45a6-8516-ac8b10d1e1b5',
+            '5ed4aa50-3856-4f8a-94c9-923cc0384a36','Democrático Bar', 'Ótimo bar, boas comidas, diversidade de cardápio, inúmeras opções de bebidas', 
+            '(44) 3346-6511', 5.00);        
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('312d0e29-be4c-401f-a999-01fe5c8386df', 'c2b93999-c7a0-4563-a808-d52985e0cd48',
+            '29390b84-3ab8-41f2-b00f-f2f37290a5e7','Coronel Zacarias', 'Excelente bar com deliciosas porções e ótimos preços!', 
+            '(44) 3030-1551', 5.00);        
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            values('831af7fa-ded9-4037-bf86-cad7eb851578', '20eb20f8-44a8-4073-a268-bab5dbb82441',
+            'eb76e3ee-c776-4a1e-8d44-48590e527a70','Afonso's Bar', 'Excelente bar com deliciosas porções e ótimos preços!', 
+            '(44) 3262-8570', 5.00);
         </sql>
     </changeSet>
 
@@ -448,18 +498,18 @@
         </preConditions>
 
         <sql>
-            insert into userclient (id, person_id, bio)
+            insert into userclient (id, person_id, bio, file_id)
             values ('b6b2d26e-1281-4bbf-87f4-572899ccfbc9', '4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9',
-            'José, o maior cervejeiro do Brasil!');
-            insert into userclient (id, person_id, bio)
+            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d');
+            insert into userclient (id, person_id, bio, file_id)
             values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
-            'Usuário criado para ambiente de Homologação');
+            'Usuário criado para ambiente de Homologação', '9f87d393-1169-4270-b071-4c88ca35f12a');
             insert into userclient (id, person_id, bio, file_id)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
-            'Biografia de Teste da Silva', 'ce396aea-963e-11ea-bb37-0242ac130002');
-            insert into userclient (id, person_id, bio)
+            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8');
+            insert into userclient (id, person_id, bio, file_id)
             values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
-            'Biografia de Mike');
+            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86');
         </sql>
     </changeSet>
 
@@ -471,7 +521,26 @@
         <sql>
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d6353fa6-796e-4fca-aa11-d731633782dd', '3793d49a-01fa-47cc-b762-da24738b750c',
-            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'Review teste', 3.00);
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '50853f04-4d88-4a31-9883-448fe0aebbd0', 'É uma cerveja com ' ||
+            'um sabor forte, meu paladar não é tão acostumado com esse tipo, mas gostei mesmo assim da mesma!! ' ||
+            'Recomendo-a às pessoas com um paladar mais acostumado com cervejas fortes', 3.00);
+
+            insert into review (id, userclient_id, product_id, description, rating)
+            values('1388758d-6a21-4494-a2bf-81f601c5936c', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'Gostei muito dessa ' ||
+            'cerveja, recomendo ela a todos os meus amigos e acredito que essa seja a mais saborosa que já tomei' ||
+            '!! Gosto de apreciá-la com uma tábua de queijos finos, principalmente o Parmesão!!', 4.00);
+
+            insert into review (id, userclient_id, product_id, file_id, description, rating)
+            values('32d5ee80-131f-439b-b02c-92eb5c0e8f9a', 'b6b2d26e-1281-4bbf-87f4-572899ccfbc9',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', '3cc6d0f5-0432-4798-bb08-8605a5b0ba4b', 'Não sou muito fã ' ||
+            'dessa cerveja, mas por recomendações de amigos meus, acabei tomando... Apesar de não gostar tanto ' ||
+            'a experiência de apreciá-la com um queijo brie foi boa ', 2.60);
+
+            insert into review (id, userclient_id, product_id, description, rating)
+            values('71350ae5-c619-40a6-9324-680954ec0618', 'a59c0223-87e4-4b60-8bc1-21f22fbc746d',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73', 'Só recomendo essa cerveja, pra quem gosta de comer um bom ' ||
+            'Camembert! A não ser com esse queijo, não recomendo. Mas apesar disso, é uma boa cerveja. ', 2.80);
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
@@ -491,6 +560,37 @@
             'SWEET');
             insert into reviewproductflavor (id, review_id, description, flavortype)
             values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Umami', 'UMAMI');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-news-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="news"/>
+        </preConditions>
+
+        <sql>
+            insert into news (id, address_id, file_id, description, rating, creationDate, eventDate, newstype, title)
+            values('3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', '27d20235-837b-48ca-bf67-f0b9f06379b9',
+            '3a7ffaa5-00e6-426b-968a-4739f31fa114', 'O festival da cerveja artesanal tem como objetivo celebrar a ' ||
+            'cerveja artesanal paranaense em Maringá. O público teve a oportunidade de degustar rótulos de mais de 40 '
+            'cervejarias do estado. Nesta edição esteve presente com uma estrutura para atender e '
+            'mostrar ao publico do evento mais de 200 rótulos de cervejas artesanais.', 4, '2020-08-02',
+            '2020-08-30 19:00:00', 'EVENT', 'Festival da Cerveja Artesanal');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-publication-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="publication"/>
+        </preConditions>
+
+        <sql>
+            insert into publication (id, review_id, publicationtype)
+            values('3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', '71350ae5-c619-40a6-9324-680954ec0618', 'REVIEW');
+            insert into publication (id, review_id, publicationtype)
+            values('2e775d81-a0f8-482a-979e-82807d724da5', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'REVIEW');
+            insert into publication (id, news_id, publicationtype)
+            values('2d16a93c-f0e0-49f7-be69-5af8f1f0659e', '3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', 'NEWS');
         </sql>
     </changeSet>
 </databaseChangeLog>

@@ -22,7 +22,7 @@ public class ProductTypeRepositoryTest {
     @Autowired
     private ProductTypeRepository repository;
 
-    private final UUID ADDRESS_ID = UUID.fromString("256b6606-97b6-11ea-bb37-0242ac130002");
+    private final UUID PRODUCTTYPE_ID = UUID.fromString("256b6606-97b6-11ea-bb37-0242ac130002");
 
     @Test
     public void findAll() {
@@ -41,7 +41,7 @@ public class ProductTypeRepositoryTest {
 
         assertThat(productTypeListBeforeDelete).hasSize(2);
 
-        this.repository.deleteById(ADDRESS_ID);
+        this.repository.deleteById(PRODUCTTYPE_ID);
 
         List<ProductType> productTypeListAfterDelete = this.repository.findAll();
 
@@ -67,9 +67,9 @@ public class ProductTypeRepositoryTest {
     @Test
     public void update() {
 
-        ProductType productTypeBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
+        ProductType productTypeBeforeUpdate = this.repository.findById(PRODUCTTYPE_ID).get();
 
-        assertThat(productTypeBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productTypeBeforeUpdate.getId()).isEqualTo(PRODUCTTYPE_ID);
         assertThat(productTypeBeforeUpdate.getCode()).isEqualTo(8784245L);
         assertThat(productTypeBeforeUpdate.getDescription()).isEqualTo("Água");
 
@@ -80,9 +80,8 @@ public class ProductTypeRepositoryTest {
 
         ProductType productTypeAfterUpdate = this.repository.saveAndFlush(productTypeBeforeUpdate);
 
-        assertThat(productTypeAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productTypeAfterUpdate.getId()).isEqualTo(PRODUCTTYPE_ID);
         assertThat(productTypeAfterUpdate.getCode()).isEqualTo(123456L);
         assertThat(productTypeAfterUpdate.getDescription()).isEqualTo("Cerveja TOP");
-
     }
 }

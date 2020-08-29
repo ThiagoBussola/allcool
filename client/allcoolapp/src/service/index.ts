@@ -6,6 +6,7 @@ import * as PartnerService from './PartnerService';
 import * as ProductFileService from './ProductFileService';
 import * as ProductFlavorService from './ProductFlavorService';
 import * as ReviewService from './ReviewService';
+import * as PublicationService from './PublicationService';
 
 export {
   LoginService,
@@ -14,4 +15,5 @@ export {
   PartnerService,
   ProductFlavorService,
   ReviewService,
+  PublicationService,
 };

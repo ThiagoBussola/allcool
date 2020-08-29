@@ -9,3 +9,5 @@ export * from './ProductFile';
 export * from './Person';
 export * from './File';
 export * from './LoginRequest';
+export * from './News';
+export * from './Address';
