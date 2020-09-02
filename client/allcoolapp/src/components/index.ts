@@ -4,3 +4,4 @@ export * from './SnackbarNotification';
 export * from './EmptyListPlaceholder';
 export * from './Loading';
 export * from './ImageComponent';
+export * from './ReadOnlyStarRating';

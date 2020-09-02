@@ -10,6 +10,8 @@ import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
+import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import br.com.allcool.user.domain.UserClient;
@@ -18,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.core.parameters.P;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -42,6 +43,9 @@ public class ReviewServiceTest {
 
     @Mock
     private ReviewRepository repository;
+
+    @Mock
+    private PublicationRepository publicationRepository;
 
     @Test
     public void findAllByProductId() {
@@ -99,13 +103,17 @@ public class ReviewServiceTest {
 
         Review review = dtoConverter.from(dto);
 
+        Publication publication = new Publication(review);
+
         when(this.repository.existsByUserIdAndProductId(dto.getUserClientId(), dto.getProductId())).thenReturn(false);
-        when(this.repository.save(review)).thenReturn(review);
+        when(this.repository.saveAndFlush(review)).thenReturn(review);
+        when(this.publicationRepository.save(publication)).thenReturn(publication);
 
         this.service.saveReview(dto);
 
         verify(this.repository).existsByUserIdAndProductId(dto.getUserClientId(), dto.getProductId());
-        verify(this.repository).save(review);
+        verify(this.repository).saveAndFlush(review);
+        verify(this.publicationRepository).save(publication);
         verifyNoMoreInteractions(this.repository);
     }
 

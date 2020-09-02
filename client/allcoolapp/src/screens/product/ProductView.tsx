@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Product } from '../../types';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, Headline } from 'react-native-paper';
+import { Text, Headline, Button } from 'react-native-paper';
 import {
   detailsStyle,
   boldTextStyles,
@@ -28,6 +28,7 @@ import {
   ImageComponent,
 } from '../../components';
 import { useLoading } from '../../hooks';
+import { ProductReviewList } from '../product-review';
 
 type Props = {
   navigation: ProductViewNavigationProp;
@@ -55,30 +56,40 @@ const ProductView: React.FC<Props> = ({
   const [productFile, setProductFile] = useState<ProductFileDTO>(
     initialProductFile
   );
+  const [showReview, setShowReview] = useState(false);
+
+  const updateComponent = () => {
+    if (productId && userId) {
+      setLoading(
+        ProductService.findById(productId)
+          .then(({ data }) => setProduct(data))
+          .then(() =>
+            ReviewService.isProductReviewed(
+              productId,
+              userId
+            ).then(({ data }) => setProductReviewed(data))
+          )
+          .then(() =>
+            ProductFileService.findAllByProductId(productId).then(
+              ({ data }) => data && setProductFile(data[0])
+            )
+          )
+          .catch(({ response }) =>
+            setSnackbarState({
+              message: response.data?.message || response.data,
+              visible: true,
+            })
+          )
+      );
+    }
+  };
 
   useEffect(() => {
-    setLoading(
-      ProductService.findById(productId)
-        .then(({ data }) => setProduct(data))
-        .then(() =>
-          ReviewService.isProductReviewed(productId, userId).then(({ data }) =>
-            setProductReviewed(data)
-          )
-        )
-        .then(() =>
-          ProductFileService.findAllByProductId(productId).then(
-            ({ data }) => data && setProductFile(data[0])
-          )
-        )
-        .catch(({ response }) =>
-          setSnackbarState({
-            message: response.data?.message || response.data,
-            visible: true,
-          })
-        )
-    );
+    navigation.addListener('focus', (payload) => {
+      updateComponent();
+    });
     //eslint-disable-next-line
-  }, [productId, userId]);
+  }, []);
 
   const onReview = () => {
     if (userId && !productReviewed) {
@@ -94,8 +105,8 @@ const ProductView: React.FC<Props> = ({
       {loading ? (
         <Loading />
       ) : (
-        <ScrollView style={{ flex: 1 }}>
-          <View style={mainStyles.container}>
+        <>
+          <ScrollView style={[mainStyles.container, { flex: 1 }]}>
             <View style={{ marginTop: '3%' }}>
               <View>
                 <Headline
@@ -182,7 +193,6 @@ const ProductView: React.FC<Props> = ({
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-around',
-                marginBottom: '10%',
                 marginTop: '2%',
               }}
             >
@@ -199,8 +209,40 @@ const ProductView: React.FC<Props> = ({
                 {` ${product.ibu}`}
               </Text>
             </View>
-          </View>
-        </ScrollView>
+
+            <View style={{ marginTop: '4%' }}>
+              {!showReview ? (
+                <Button
+                  accessibilityStates
+                  color="#FFFFFF"
+                  onPress={() => setShowReview(true)}
+                  mode="text"
+                  labelStyle={{ color: '#ffbf00' }}
+                >
+                  Avaliações relacionadas...
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    accessibilityStates
+                    color="#FFFFFF"
+                    onPress={() => setShowReview(false)}
+                    mode="text"
+                    labelStyle={{ color: '#ffbf00' }}
+                  >
+                    Ocultar avaliações...
+                  </Button>
+                </>
+              )}
+            </View>
+            {showReview && (
+              <ProductReviewList
+                setSnackbarState={setSnackbarState}
+                productId={product.id ?? ''}
+              />
+            )}
+          </ScrollView>
+        </>
       )}
       <SnackbarNotification
         snackbarState={snackbarState}

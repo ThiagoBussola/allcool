@@ -47,7 +47,7 @@ export const mainStyles = StyleSheet.create({
     fontFamily: 'Bebas Neue Pro Regular',
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Bebas Neue Pro Regular',
   },
 });
