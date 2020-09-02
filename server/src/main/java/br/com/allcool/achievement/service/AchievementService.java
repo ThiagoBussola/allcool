@@ -1,10 +1,8 @@
 package br.com.allcool.achievement.service;
 
-import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.achievement.repository.AchievementRepository;
 import br.com.allcool.converter.AchievementDTOConverter;
 import br.com.allcool.dto.AchievementDTO;
-import br.com.allcool.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +16,15 @@ public class AchievementService {
 
     private final AchievementRepository repository;
 
-    public AchievementService(AchievementRepository repository) {
-        this.repository = repository;
+    public AchievementService(AchievementRepository achievementRepository) {
+        this.repository = achievementRepository;
     }
 
-    public List<AchievementDTO> findAllByProductId(UUID productId) {
+    public List<AchievementDTO> findAllAchievementByProductId(UUID productId) {
 
         AchievementDTOConverter converter = new AchievementDTOConverter();
 
-        return this.repository.findAllByProductId(productId).stream()
+        return this.repository.findAllAchievementByProductId(productId).stream()
                 .map(converter::to).collect(Collectors.toList());
     }
 }

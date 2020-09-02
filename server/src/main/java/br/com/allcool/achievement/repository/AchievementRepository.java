@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface AchievementRepository extends JpaRepository<Achievement, UUID> {
 
-    List<Achievement> findAllByProductId(UUID productId);
+    List<Achievement> findAllAchievementByProductId(UUID productId);
 }

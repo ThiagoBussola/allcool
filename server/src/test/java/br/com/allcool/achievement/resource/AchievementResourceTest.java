@@ -1,5 +1,6 @@
 package br.com.allcool.achievement.resource;
 
+import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.achievement.service.AchievementService;
 import br.com.allcool.dto.AchievementDTO;
 import br.com.allcool.enums.AchievementTypeEnum;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@ResourceTest(ReviewResource.class)
+@ResourceTest(AchievementResource.class)
 public class AchievementResourceTest {
 
     @Autowired
@@ -36,7 +37,7 @@ public class AchievementResourceTest {
     private AchievementService service;
 
     @Test
-    public void findAllByProductId() throws Exception {
+    public void findAllAchievementByProductId() throws Exception {
 
         AchievementDTO achievement1DTO = new AchievementDTO();
 
@@ -45,7 +46,6 @@ public class AchievementResourceTest {
         achievement1DTO.setBadgeUrl("10_cervejas_Ambev");
         achievement1DTO.setAchievementName("5 Bottles");
         achievement1DTO.setDescription("Parabéns! Você já experimentou 5 cervejas Ambev");
-        achievement1DTO.setType(AchievementTypeEnum.PRODUCT);
 
         AchievementDTO achievement2DTO = new AchievementDTO();
 
@@ -54,7 +54,6 @@ public class AchievementResourceTest {
         achievement2DTO.setBadgeUrl("Rei_da_IPA");
         achievement2DTO.setAchievementName("Rei da IPA");
         achievement2DTO.setDescription("Você é um grande apreciador de IPAs!");
-        achievement2DTO.setType(AchievementTypeEnum.PRODUCT_TYPE);
 
         List<AchievementDTO> achievementDTOList = new ArrayList<>();
         achievementDTOList.add(achievement1DTO);
@@ -62,7 +61,7 @@ public class AchievementResourceTest {
 
         UUID productId = UUID.randomUUID();
 
-        when(this.service.findAllByProductId(productId)).thenReturn(achievementDTOList);
+        when(this.service.findAllAchievementByProductId(productId)).thenReturn(achievementDTOList);
 
         this.mockMvc.perform(get("/api/achievements/{productId}", productId))
                 .andDo(MockMvcResultHandlers.print())
@@ -80,7 +79,7 @@ public class AchievementResourceTest {
                 .andExpect(jsonPath("$.[*].type", hasItems(achievement1DTO.getType(),
                         achievement2DTO.getType())));
 
-        verify(this.service).findAllByProductId(productId);
+        verify(this.service).findAllAchievementByProductId(productId);
         verifyNoMoreInteractions(this.service);
 
     }

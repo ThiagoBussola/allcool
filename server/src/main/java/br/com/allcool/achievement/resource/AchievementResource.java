@@ -21,9 +21,9 @@ public class AchievementResource {
     public AchievementResource(AchievementService service) { this.service = service; }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<List<AchievementDTO>> findAllByProductId(@PathVariable("productId") UUID id) {
+    public ResponseEntity<List<AchievementDTO>> findAllAchievementByProductId(@PathVariable("productId") UUID id) {
 
-        return ResponseEntity.ok(this.service.findAllByProductId(id));
+        return ResponseEntity.ok(this.service.findAllAchievementByProductId(id));
     }
 
 }
