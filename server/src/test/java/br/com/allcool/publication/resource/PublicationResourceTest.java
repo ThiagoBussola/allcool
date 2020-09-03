@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -84,6 +85,22 @@ public class PublicationResourceTest {
                         hasItems(publicationDTO2.getNews().getId().toString())));
 
         verify(this.service).findAll();
+        verifyNoMoreInteractions(this.service);
+    }
+
+    @Test
+    public void findAllReviewPublicationsByUserId() throws Exception {
+
+        UUID userId = UUID.randomUUID();
+
+        when(this.service.findAllReviewPublicationsByUserId(userId))
+                .thenReturn(new ArrayList<>());
+
+        this.mockMvc.perform(get("/api/publications/{id}", userId))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk());
+
+        verify(this.service).findAllReviewPublicationsByUserId(userId);
         verifyNoMoreInteractions(this.service);
     }
 }

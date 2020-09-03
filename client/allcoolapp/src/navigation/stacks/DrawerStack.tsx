@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -11,6 +11,8 @@ import { TabsStack } from './';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, Title } from 'react-native-paper';
 import { mainStyles } from '../../styles';
+import { UserClientDTO } from '../../types/dto';
+import { UserClientService } from '../../service';
 
 type DrawerStackParamList = {
   Drawer: { userId: string };
@@ -38,13 +40,29 @@ const DrawerStack: React.FC<Props> = ({
     params: { userId },
   },
 }) => {
+  const [loggedUser, setLoggedUser] = useState<UserClientDTO>({
+    id: userId,
+    bio: '',
+    name: '',
+    userPicture: undefined,
+  });
+
+  useEffect(() => {
+    UserClientService.findById(userId).then(({ data }) => setLoggedUser(data));
+    //eslint-disable-next-line
+  }, [userId]);
+
   const customDrawerContent = (props) => {
     return (
       <>
         <Avatar.Image
           accessibilityStates
           size={50}
-          source={require('../../img/AllcoolV1.1.png')}
+          source={
+            loggedUser.userPicture?.url
+              ? { uri: loggedUser.userPicture.url }
+              : require('../../img/AllcoolV1.1.png')
+          }
           style={{
             backgroundColor: 'white',
             marginLeft: '3%',
@@ -59,7 +77,7 @@ const DrawerStack: React.FC<Props> = ({
             },
           ]}
         >
-          José da Silva
+          {loggedUser.name}
         </Title>
 
         <DrawerContentScrollView {...props}>

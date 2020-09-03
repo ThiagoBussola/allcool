@@ -6,8 +6,8 @@ import { ReadOnlyStarRating } from '../../components';
 type Props = {
   review: ReviewDTO;
   itemIndex: number;
-  touched: boolean;
-  onLikePublication: (index: number) => void;
+  touched?: boolean;
+  onLikePublication?: (index: number) => void;
 };
 
 const ReviewPublicationCardChildren: React.FC<Props> = ({
@@ -25,7 +25,7 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         accessibilityStates
         title={review.userName}
         subtitle={review.productName}
-        subtitleStyle={{ fontSize: 14 }}
+        subtitleStyle={{ fontSize: 16 }}
         titleStyle={{ fontSize: 22 }}
         right={() => <ReadOnlyStarRating rating={review.rating || 0} />}
         left={() => (
@@ -38,18 +38,27 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         )}
       />
       <Card.Content>
-        <Paragraph style={{ fontSize: 16 }}>{review.description}</Paragraph>
+        <Paragraph
+          style={{
+            fontSize: 16,
+            marginBottom: !onLikePublication ? '5%' : '0%',
+          }}
+        >
+          {review.description}
+        </Paragraph>
       </Card.Content>
-      <Card.Actions style={{ justifyContent: 'flex-end', margin: '-4%' }}>
-        <IconButton
-          accessibilityStates
-          icon={touched ? 'beer' : 'beer-outline'}
-          color="#ffbf00"
-          animated
-          size={36}
-          onPress={() => onLikePublication(itemIndex)}
-        />
-      </Card.Actions>
+      {onLikePublication && (
+        <Card.Actions style={{ justifyContent: 'flex-end', margin: '-4%' }}>
+          <IconButton
+            accessibilityStates
+            icon={touched ? 'beer' : 'beer-outline'}
+            color="#ffbf00"
+            animated
+            size={36}
+            onPress={() => onLikePublication(itemIndex)}
+          />
+        </Card.Actions>
+      )}
     </>
   );
 };

@@ -20,12 +20,12 @@ import {
   ProductViewNavigationProp,
   ProductViewRouteProp,
 } from '../../navigation';
-import { Rating } from 'react-native-ratings';
 import {
   SnackbarNotification,
   SnackbarState,
   Loading,
   ImageComponent,
+  ReadOnlyStarRating,
 } from '../../components';
 import { useLoading } from '../../hooks';
 import { ProductReviewList } from '../product-review';
@@ -129,14 +129,9 @@ const ProductView: React.FC<Props> = ({
                   />
                 </View>
               )}
-              <View style={{ marginTop: '50%' }}>
+              <View style={{ marginTop: '50%', alignItems: 'center' }}>
                 <TouchableOpacity onPress={onReview} disabled={productReviewed}>
-                  <Rating
-                    type="custom"
-                    startingValue={product.rating}
-                    readonly
-                    imageSize={20}
-                  />
+                  <ReadOnlyStarRating rating={product.rating || 0} />
                 </TouchableOpacity>
               </View>
             </View>

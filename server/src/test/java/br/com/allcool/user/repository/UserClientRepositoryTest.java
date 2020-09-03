@@ -87,7 +87,7 @@ public class UserClientRepositoryTest {
     @Test
     public void findByPersonId() {
 
-        UserClient user = this.repository.findByPersonId(UUID.fromString("affb9869-61b3-4100-bafd-df7cf46ef341"));
+        UserClient user = this.repository.findByPersonId(UUID.fromString("affb9869-61b3-4100-bafd-df7cf46ef341")).get();
 
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo(USER_ID);

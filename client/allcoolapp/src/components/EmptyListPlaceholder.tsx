@@ -5,13 +5,15 @@ import { Subheading } from 'react-native-paper';
 import { Loading } from './Loading';
 
 type Props = {
-  loading: boolean;
+  loading?: boolean;
   marginTop?: string;
+  message?: string;
 };
 
 const EmptyListPlaceholder: React.FC<Props> = ({
-  loading,
+  loading = false,
   marginTop = '50',
+  message = 'Nenhum registro encontrado',
 }) => {
   return (
     <View style={{ flex: 1 }}>
@@ -27,9 +29,7 @@ const EmptyListPlaceholder: React.FC<Props> = ({
             />
           </View>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Subheading style={mainStyles.subHeading}>
-              Nenhum registro encontrado
-            </Subheading>
+            <Subheading style={mainStyles.subHeading}>{message}</Subheading>
           </View>
         </>
       ) : (
