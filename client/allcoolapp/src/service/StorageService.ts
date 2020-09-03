@@ -29,9 +29,7 @@ const StorageService = {
     try {
       await AsyncStorage.setItem('userId', userId);
     } catch (e) {
-      console.log(
-        'Ocorreu um erro ao salvar a chave do usuário: ' + userId
-      );
+      console.log('Ocorreu um erro ao salvar a chave do usuário: ' + userId);
     }
   },
   clear: async () => {

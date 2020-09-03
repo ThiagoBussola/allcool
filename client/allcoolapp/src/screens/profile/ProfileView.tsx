@@ -46,14 +46,18 @@ const ProfileView: React.FC<Props> = ({
   });
 
   const refreshPublications = () =>
-    PublicationService.findAllReviewPublicationsByUserId(
-      loggedUser.id!
-    ).then(({ data }) => setPublications(data));
+    setLoading(
+      PublicationService.findAllReviewPublicationsByUserId(
+        loggedUser.id!
+      ).then(({ data }) => setPublications(data))
+    );
 
   useEffect(() => {
-    UserClientService.findById(userId)
-      .then(({ data }) => setLoggedUser(data))
-      .then(() => refreshPublications());
+    setLoading(
+      UserClientService.findById(userId)
+        .then(({ data }) => setLoggedUser(data))
+        .then(() => refreshPublications())
+    );
     //eslint-disable-next-line
   }, [userId]);
 
