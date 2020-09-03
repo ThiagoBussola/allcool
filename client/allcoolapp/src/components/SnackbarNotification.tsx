@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Snackbar } from 'react-native-paper';
 import { Text } from 'react-native';
 
