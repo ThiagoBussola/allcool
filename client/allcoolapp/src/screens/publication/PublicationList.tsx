@@ -100,12 +100,18 @@ const PublicationList: React.FC<Props> = ({
               <Card
                 accessibilityStates
                 style={{ backgroundColor: '#f7f7f7' }}
-                onPress={() =>
-                  navigation.push('PublicationView', {
+                onPress={() => {
+                  if (isReviewPublication(item)) {
+                    return navigation.navigate('PublicationReviewView', {
+                      reviewId: item.review?.id!,
+                    });
+                  }
+
+                  navigation.navigate('PublicationView', {
                     userId,
                     publicationId: '1',
-                  })
-                }
+                  });
+                }}
               >
                 {isReviewPublication(item) ? (
                   <ReviewPublicationCardChildren

@@ -1,6 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { PublicationList, PublicationView } from '../../screens';
+import {
+  PublicationList,
+  PublicationView,
+  PublicationReviewView,
+} from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
 import { MenuActionButton } from '../../components';
@@ -10,6 +14,7 @@ type PublicationRootStackParamList = {
   PublicationStack: { userId: string };
   Publications: { userId: string };
   PublicationView: { userId: string };
+  PublicationReviewView: undefined;
 };
 
 const RootStack = createStackNavigator<PublicationRootStackParamList>();
@@ -57,6 +62,11 @@ const PublicationStack: React.FC<Props> = ({
           options={screenStackOptions('Publicação')}
           component={PublicationView}
           initialParams={{ userId }}
+        />
+        <RootStack.Screen
+          name="PublicationReviewView"
+          options={screenStackOptions('Avaliação')}
+          component={PublicationReviewView}
         />
       </RootStack.Navigator>
     </>
