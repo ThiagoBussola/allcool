@@ -43,7 +43,7 @@ public class AchievementResourceTest {
 
         achievement1DTO.setId(UUID.randomUUID());
         achievement1DTO.setBrand("Becks");
-        achievement1DTO.setBadgeUrl("10_cervejas_Ambev");
+        achievement1DTO.setBadgeUrl("5_cervejas_Ambev");
         achievement1DTO.setAchievementName("5 Bottles");
         achievement1DTO.setDescription("Parabéns! Você já experimentou 5 cervejas Ambev");
 
