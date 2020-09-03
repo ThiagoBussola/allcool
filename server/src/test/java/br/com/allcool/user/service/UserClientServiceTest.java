@@ -39,11 +39,11 @@ public class UserClientServiceTest {
         userClient.setPerson(new Person());
         userClient.setFile(new File());
 
-        when(this.repository.findByPersonId(userId)).thenReturn(Optional.of(userClient));
+        when(this.repository.findById(userId)).thenReturn(Optional.of(userClient));
 
         this.service.findById(userId);
 
-        verify(this.repository).findByPersonId(userId);
+        verify(this.repository).findById(userId);
         verifyNoMoreInteractions(this.repository);
     }
 
@@ -52,7 +52,7 @@ public class UserClientServiceTest {
 
         UUID userId = UUID.randomUUID();
 
-        when(this.repository.findByPersonId(userId)).thenReturn(Optional.empty());
+        when(this.repository.findById(userId)).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(UserNotFoundException.class,
                 () -> this.service.findById(userId));
