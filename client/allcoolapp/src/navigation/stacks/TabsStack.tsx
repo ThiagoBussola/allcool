@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
 import { PartnerStack, ProductStack, PublicationStack, ProfileStack } from './';
-import { UserClientDTO } from '../../types/dto';
 
 type TabsStackParamList = {
   Tabs: { userId: string };

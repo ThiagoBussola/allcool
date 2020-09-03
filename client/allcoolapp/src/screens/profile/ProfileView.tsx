@@ -15,7 +15,7 @@ import {
 import { ReviewPublicationCardChildren } from '../publication/ReviewPublicationCardChildren';
 import { useLoading } from '../../hooks';
 import { PublicationDTO, UserClientDTO } from '../../types/dto';
-import { UserClientService } from '../../service';
+import { UserClientService, PublicationService } from '../../service';
 import { ProfileViewHeader } from './ProfileViewHeader';
 
 type Props = {
@@ -45,8 +45,15 @@ const ProfileView: React.FC<Props> = ({
     visible: false,
   });
 
+  const refreshPublications = () =>
+    PublicationService.findAllReviewPublicationsByUserId(
+      loggedUser.id!
+    ).then(({ data }) => setPublications(data));
+
   useEffect(() => {
-    UserClientService.findById(userId).then(({ data }) => setLoggedUser(data));
+    UserClientService.findById(userId)
+      .then(({ data }) => setLoggedUser(data))
+      .then(() => refreshPublications());
     //eslint-disable-next-line
   }, [userId]);
 
@@ -69,7 +76,7 @@ const ProfileView: React.FC<Props> = ({
           refreshControl={
             <RefreshControl
               refreshing={loading}
-              //  onRefresh={onRefresh}
+              onRefresh={refreshPublications}
             />
           }
           keyExtractor={(item) => item.id!}

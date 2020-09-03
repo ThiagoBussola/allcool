@@ -25,7 +25,7 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         accessibilityStates
         title={review.userName}
         subtitle={review.productName}
-        subtitleStyle={{ fontSize: 14 }}
+        subtitleStyle={{ fontSize: 16 }}
         titleStyle={{ fontSize: 22 }}
         right={() => <ReadOnlyStarRating rating={review.rating || 0} />}
         left={() => (
@@ -38,7 +38,14 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         )}
       />
       <Card.Content>
-        <Paragraph style={{ fontSize: 16 }}>{review.description}</Paragraph>
+        <Paragraph
+          style={{
+            fontSize: 16,
+            marginBottom: !onLikePublication ? '5%' : '0%',
+          }}
+        >
+          {review.description}
+        </Paragraph>
       </Card.Content>
       {onLikePublication && (
         <Card.Actions style={{ justifyContent: 'flex-end', margin: '-4%' }}>

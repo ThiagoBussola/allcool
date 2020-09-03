@@ -102,7 +102,8 @@ const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
                   },
                 ]}
               >
-                {`42 `}
+                {/* TODO - AJUSTAR ASSIM QUE AS CONEXÕES FOREM IMPLEMENTADAS */}
+                {`15 `}
               </Paragraph>
               <Paragraph
                 style={[
@@ -134,7 +135,7 @@ const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
         </View>
       </View>
       <View style={{ marginTop: '3%', backgroundColor: '#ffbf00' }}>
-        <Divider accessibilityStates />
+        <Divider accessibilityStates style={{ height: 1 }} />
       </View>
     </>
   );
