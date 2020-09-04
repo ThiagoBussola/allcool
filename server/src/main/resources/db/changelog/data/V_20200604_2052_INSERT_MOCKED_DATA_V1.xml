@@ -494,18 +494,18 @@
         </preConditions>
 
         <sql>
-            insert into userclient (id, person_id, bio, file_id)
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('b6b2d26e-1281-4bbf-87f4-572899ccfbc9', '4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9',
-            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d');
+            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d', 'Maringá, Brasil');
             insert into userclient (id, person_id, bio, file_id)
             values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
             'Usuário criado para ambiente de Homologação', '9f87d393-1169-4270-b071-4c88ca35f12a');
-            insert into userclient (id, person_id, bio, file_id)
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
-            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8');
-            insert into userclient (id, person_id, bio, file_id)
+            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8', 'Maringá');
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
-            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86');
+            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86', 'Wonderland');
         </sql>
     </changeSet>
 

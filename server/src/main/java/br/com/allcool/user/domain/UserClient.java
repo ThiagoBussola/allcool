@@ -38,4 +38,7 @@ public class UserClient {
 
     @Length(max = 200)
     private String bio;
+
+    @Length(max = 50)
+    private String location;
 }

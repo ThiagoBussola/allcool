@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -50,6 +51,19 @@ public class PublicationServiceTest {
         this.service.findAll();
 
         verify(this.repository).findAll();
+        verifyNoMoreInteractions(this.repository);
+    }
+
+    @Test
+    public void findAllReviewPublicationsByUserId() {
+
+        UUID userId = UUID.randomUUID();
+
+        when(this.repository.findAllByReviewUserId(userId)).thenReturn(new ArrayList<>());
+
+        this.service.findAllReviewPublicationsByUserId(userId);
+
+        verify(this.repository).findAllByReviewUserId(userId);
         verifyNoMoreInteractions(this.repository);
     }
 }

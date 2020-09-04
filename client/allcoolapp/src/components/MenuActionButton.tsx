@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = {
-  onPress: (event) => void;
+  onPress: (clickEvent) => void;
 };
 
 const MenuActionButton: React.FC<Props> = ({ onPress }) => {

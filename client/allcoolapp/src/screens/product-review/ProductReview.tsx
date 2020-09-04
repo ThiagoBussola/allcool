@@ -29,7 +29,10 @@ type Props = {
   route: ProductReviewRouteProp;
 };
 
-const initialValue = (productId: string, userClientId: string): ReviewFormDTO => ({
+const initialValue = (
+  productId: string,
+  userClientId: string
+): ReviewFormDTO => ({
   id: '',
   userClientId,
   productId,

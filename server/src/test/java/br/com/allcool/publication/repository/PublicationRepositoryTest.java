@@ -1,5 +1,6 @@
 package br.com.allcool.publication.repository;
 
+import br.com.allcool.enums.PublicationTypeEnum;
 import br.com.allcool.news.domain.News;
 import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.review.domain.Review;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"/sql/person/person.sql", "/sql/file/file.sql", "/sql/brand/brand.sql", "/sql/user/userclient.sql",
         "/sql/producttype/producttype.sql", "/sql/product/product.sql", "/sql/product/productflavor.sql",
-        "/sql/review/review.sql", "/sql/publication/publications.sql", "/sql/address/address.sql", "/sql/news/news.sql"})
+        "/sql/review/review.sql", "/sql/address/address.sql", "/sql/news/news.sql", "/sql/publication/publications.sql"})
 public class PublicationRepositoryTest {
 
     @Autowired
@@ -82,5 +83,16 @@ public class PublicationRepositoryTest {
         assertThat(savedPublication.getNews()).isEqualTo(news);
         assertThat(savedPublication.getReview()).isNull();
         assertThat(savedPublication.getType()).isEqualTo(publication.getType());
+    }
+
+    @Test
+    public void findAllByReviewUserId() {
+
+        List<Publication> publications = this.repository.
+                findAllByReviewUserId(UUID.fromString("3793d49a-01fa-47cc-b762-da24738b750c"));
+
+        assertThat(publications).extracting(Publication::getId)
+                .containsExactly(UUID.fromString("8dbea354-d66c-483e-b34f-2d3df117c933"));
+        assertThat(publications).extracting(Publication::getType).containsOnly(PublicationTypeEnum.REVIEW);
     }
 }

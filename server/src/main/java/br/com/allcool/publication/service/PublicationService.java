@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,5 +25,11 @@ public class PublicationService {
     public List<PublicationDTO> findAll() {
 
         return this.repository.findAll().stream().map(dtoConverter::to).collect(Collectors.toList());
+    }
+
+    public List<PublicationDTO> findAllReviewPublicationsByUserId(UUID userId) {
+
+        return this.repository.findAllByReviewUserId(userId)
+                .stream().map(dtoConverter::to).collect(Collectors.toList());
     }
 }

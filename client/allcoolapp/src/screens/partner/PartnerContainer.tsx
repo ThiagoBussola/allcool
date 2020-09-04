@@ -47,6 +47,7 @@ const PartnerContainer: React.FC<Props> = ({
           })
         )
     );
+    //eslint-disable-next-line
   }, [partnerId, userId]);
 
   const renderChip = (key, value) => {

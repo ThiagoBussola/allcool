@@ -2,13 +2,14 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp } from '@react-navigation/native';
-import { PartnerStack, ProductStack, PublicationStack } from './';
+import { PartnerStack, ProductStack, PublicationStack, ProfileStack } from './';
 
 type TabsStackParamList = {
   Tabs: { userId: string };
   Products: { userId: string };
   Partners: { userId: string };
   Publications: { userId: string };
+  Profile: { userId: string };
 };
 
 type TabsRouteProp = RouteProp<TabsStackParamList, 'Tabs'>;
@@ -66,6 +67,21 @@ const TabsStack: React.FC<Props> = ({
           tabBarLabel: 'Publicações',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="view-list" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        initialParams={{ userId }}
+        component={ProfileStack}
+        options={{
+          tabBarLabel: 'Perfil',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-circle"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
