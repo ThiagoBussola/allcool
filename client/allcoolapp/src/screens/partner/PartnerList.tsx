@@ -14,13 +14,14 @@ import {
   SnackbarNotification,
 } from '../../components';
 import { useLoading } from '../../hooks';
+import Geolocation from '@react-native-community/geolocation';
 
 type Props = {
   navigation: PartnerListNavigationProp;
   route: PartnersListRouteProp;
 };
 
-type LatLgn = {
+type usera = {
   latitude: number,
   longitude: number,
 };
@@ -49,6 +50,7 @@ const PartnerList: React.FC<Props> = ({
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
   const [filteredPartners, setFilteredPartners] = useState<PartnerDTO[]>([]);
   const [search, setSearch] = useState('');
+  const [usera, setUsera] = useState<usera>();
   const [loading, setLoading] = useLoading();
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
@@ -69,8 +71,22 @@ const PartnerList: React.FC<Props> = ({
           })
         )
     );
+    getPosition();
+    
     //eslint-disable-next-line
   }, []);
+
+  const getPosition = () => {
+    Geolocation.getCurrentPosition(
+      pos => {
+        setUsera({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude
+        });
+      },
+      e => console.log(e.message)
+    );
+  }
 
   const filter = () => {
     const filteredArray = partners.filter((p) =>
@@ -103,7 +119,7 @@ const PartnerList: React.FC<Props> = ({
         onBlur={filter}
         value={search}
       />
-      {filteredPartners && filteredPartners.length > 0 ? (
+      {usera && filteredPartners && filteredPartners.length > 0 ? (
         <MapView 
           region={{
             latitude: -23.4121735,
@@ -131,7 +147,14 @@ const PartnerList: React.FC<Props> = ({
                 />           
           ))}
           
-
+          <Marker
+            title={"SUPER XANDÃO"}
+            description={"PEITO DE AÇO"}
+            coordinate={{
+              latitude: usera.latitude,
+              longitude: usera.longitude,
+            }}
+          />   
         </MapView>
       ) : (
         <EmptyListPlaceholder loading={loading} />

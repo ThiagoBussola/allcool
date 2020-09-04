@@ -50,7 +50,6 @@ public class Address {
     @Column(name = "federatedunit")
     private String federatedUnit;
        
-    // notNull? -> ver depois 
     @Digits(integer = 2, fraction = 7)
     private BigDecimal latitude = BigDecimal.ZERO;
     

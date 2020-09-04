@@ -29,16 +29,9 @@
             </column>
             <column name="federatedunit" type="varchar(2)">
                 <constraints nullable="false"/>
-            </column>
-            
-            <column name="latitude" type="numeric(2,7)">
-                <constraints nullable="false"/>
-            </column>
-                     
-            <column name="longitude" type="numeric(2,7)">
-                <constraints nullable="false"/>
-            </column>
-
+            </column>            
+            <column name="latitude" type="float"/>                  
+            <column name="longitude" type="float"/>
         </createTable>
 
         <addPrimaryKey tableName="address" columnNames="id" constraintName="address_pk"/>
