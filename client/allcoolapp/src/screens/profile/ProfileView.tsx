@@ -47,9 +47,14 @@ const ProfileView: React.FC<Props> = ({
 
   const refreshPublications = () =>
     setLoading(
-      PublicationService.findAllReviewPublicationsByUserId(
-        loggedUser.id!
-      ).then(({ data }) => setPublications(data))
+      PublicationService.findAllReviewPublicationsByUserId(loggedUser.id!)
+        .then(({ data }) => setPublications(data))
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
     );
 
   useEffect(() => {
@@ -57,6 +62,12 @@ const ProfileView: React.FC<Props> = ({
       UserClientService.findById(userId)
         .then(({ data }) => setLoggedUser(data))
         .then(() => refreshPublications())
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
     );
     //eslint-disable-next-line
   }, [userId]);
