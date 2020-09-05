@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Card, Avatar, Button } from 'react-native-paper';
 import { mainStyles } from '../../styles';
+import { CameraComponent } from '../../components';
 
 type Props = {
   showPic: boolean;
@@ -14,6 +15,8 @@ const CameraIcon = (props) => (
 
 const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
   const [hasPic] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
+
   const renderViewPicButton = () => (
     <Button
       accessibilityStates
@@ -38,7 +41,7 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
           marginTop: '3%',
         }}
       >
-        <Card accessibilityStates onPress={() => {}}>
+        <Card accessibilityStates onPress={() => setShowCamera(true)}>
           <Card.Title
             accessibilityStates
             title="Foto"
@@ -68,6 +71,9 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
               )}
             </>
           )}
+          <Card.Actions>
+            {showCamera && <CameraComponent setShowCamera={setShowCamera} />}
+          </Card.Actions>
         </Card>
       </View>
     </>
