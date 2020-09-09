@@ -103,8 +103,8 @@
             'reviewpic1', '2020-07-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('682842f8-4001-41a3-82b7-217f7c245375',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic.PNG', 'png',
-            'reviewpic2', '2020-08-02 01:00:00');
+            'https://allcool.s3.fr-par.scw.cloud/reviews/patagonia-amber-lager-review1.jpg', 'jpg',
+            'patagonia-amber-lager-review1', '2020-08-02 01:00:00');
             insert into file (id, url, filetype, filename, filedate)
             values ('3cc6d0f5-0432-4798-bb08-8605a5b0ba4b',
             'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png', 'png',
@@ -509,7 +509,7 @@
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
-            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Review teste allcool',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Cerveja muito boa!',
             5.00);
         </sql>
     </changeSet>

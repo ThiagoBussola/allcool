@@ -19,11 +19,10 @@ import {
   Platform,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { ReviewDTO } from '../../../types/dto';
 import { ReviewService } from '../../../service';
-import { Title } from 'react-native-paper';
-import { mainStyles } from '../../../styles';
+import { Title, Avatar, Subheading } from 'react-native-paper';
+import { mainStyles, rowStyle } from '../../../styles';
 
 type Props = {
   route: PublicationReviewViewRouteProp;
@@ -64,22 +63,42 @@ const PublicationReviewView: React.FC<Props> = ({
         <SafeAreaView style={mainStyles.container}>
           {review.pictureUrl && (
             <View>
-              <View style={{ alignSelf: 'center' }}>
+              <View style={{ alignSelf: 'center', marginTop: '3%' }}>
                 <ImageComponent
                   imageStyle={{ width: 400, height: 240 }}
-                  resizeMode="stretch"
+                  resizeMode="contain"
                   url={review.pictureUrl!}
                 />
               </View>
             </View>
           )}
           <View style={{ marginTop: '3%' }}>
-            <Title>{review.productName}</Title>
-            <Text style={{ marginTop: '3%', marginBottom: '3%' }}>
-              {' '}
-              {review.userName}
-            </Text>
-            <ReadOnlyStarRating rating={review.rating!} />
+            <View style={rowStyle}>
+              <View>
+                <Avatar.Image
+                  accessibilityStates
+                  size={40}
+                  style={{ backgroundColor: '#ffbf00' }}
+                  source={{ uri: review.avatarUrl }}
+                />
+              </View>
+              <View>
+                <View style={{ justifyContent: 'flex-start' }}>
+                  <Title style={{ marginLeft: '5%' }}>{review.userName}</Title>
+                  <Subheading style={{ marginLeft: '5%' }}>
+                    {review.productName}
+                  </Subheading>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    marginLeft: '85%',
+                  }}
+                >
+                  <ReadOnlyStarRating rating={review.rating!} />
+                </View>
+              </View>
+            </View>
             <Text style={{ marginTop: '3%' }}>{review.description}</Text>
           </View>
         </SafeAreaView>
