@@ -21,7 +21,7 @@ import {
 
 import { ReviewDTO } from '../../../types/dto';
 import { ReviewService } from '../../../service';
-import { Title, Avatar, Subheading } from 'react-native-paper';
+import { Title, Avatar, Subheading, Paragraph } from 'react-native-paper';
 import { mainStyles, rowStyle } from '../../../styles';
 
 type Props = {
@@ -60,7 +60,7 @@ const PublicationReviewView: React.FC<Props> = ({
   return (
     <>
       <ScrollView style={{ flex: 1 }}>
-        <SafeAreaView style={mainStyles.container}>
+        <View style={{ marginTop: '3%' }}>
           {review.pictureUrl && (
             <View>
               <View style={{ alignSelf: 'center', marginTop: '3%' }}>
@@ -72,36 +72,68 @@ const PublicationReviewView: React.FC<Props> = ({
               </View>
             </View>
           )}
-          <View style={{ marginTop: '3%' }}>
-            <View style={rowStyle}>
-              <View>
-                <Avatar.Image
-                  accessibilityStates
-                  size={40}
-                  style={{ backgroundColor: '#ffbf00' }}
-                  source={{ uri: review.avatarUrl }}
-                />
+          <View style={rowStyle}>
+            <View>
+              <Avatar.Image
+                accessibilityStates
+                size={50}
+                source={{ uri: review.avatarUrl }}
+                style={{
+                  backgroundColor: 'white',
+                  marginLeft: '5%',
+                  marginTop: '3%',
+                }}
+              />
+              <Title
+                style={[
+                  mainStyles.title,
+                  {
+                    marginLeft: '5%',
+                    fontSize: 20,
+                  },
+                ]}
+              >
+                {review.userName}
+              </Title>
+              <Paragraph
+                style={[
+                  {
+                    fontSize: 18,
+                    marginLeft: '5%',
+                    marginBottom: '5%',
+                  },
+                ]}
+              >
+                {review.productName}
+              </Paragraph>
+
+              <View style={{ marginTop: '3%', marginLeft: '4%' }}>
+                <Subheading style={{ fontSize: 20 }}>O que achou: </Subheading>
               </View>
               <View>
-                <View style={{ justifyContent: 'flex-start' }}>
-                  <Title style={{ marginLeft: '5%' }}>{review.userName}</Title>
-                  <Subheading style={{ marginLeft: '5%' }}>
-                    {review.productName}
-                  </Subheading>
-                </View>
-                <View
+                <Text
                   style={{
-                    flexDirection: 'column',
-                    marginLeft: '85%',
+                    color: 'black',
+                    fontSize: 16,
+                    paddingTop: '1%',
+                    paddingLeft: '5%',
                   }}
                 >
-                  <ReadOnlyStarRating rating={review.rating!} />
-                </View>
+                  {review.description}
+                </Text>
               </View>
             </View>
-            <Text style={{ marginTop: '3%' }}>{review.description}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row-reverse',
+                alignItems: 'center',
+              }}
+            >
+              <ReadOnlyStarRating rating={review.rating!} />
+            </View>
           </View>
-        </SafeAreaView>
+        </View>
       </ScrollView>
       <SnackbarNotification
         snackbarState={snackbarState}
