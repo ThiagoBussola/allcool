@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Card, Avatar, Button } from 'react-native-paper';
+import { Card, Avatar, Button, IconButton } from 'react-native-paper';
 import { mainStyles } from '../../styles';
 import { CameraComponent } from '../../components';
 
@@ -14,8 +14,20 @@ const CameraIcon = (props) => (
 );
 
 const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
-  const [hasPic] = useState(false);
+  const [hasPicture, setHasPicture] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
+  const [picture, setPicture] = useState(null);
+
+  const onChangePicture = (newPictureUri) => {
+    setPicture(newPictureUri);
+    setShowCamera(false);
+    setHasPicture(true);
+  };
+
+  const onResetPicture = () => {
+    setPicture(null);
+    setHasPicture(false);
+  };
 
   const renderViewPicButton = () => (
     <Button
@@ -49,17 +61,27 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
             subtitle="Capture ou escolha uma foto do produto"
             subtitleStyle={mainStyles.subHeading}
             left={CameraIcon}
+            right={() => (
+              <>
+                {hasPicture && (
+                  <IconButton
+                    accessibilityStates
+                    icon="close-circle"
+                    animated
+                    size={32}
+                    onPress={onResetPicture}
+                  />
+                )}
+              </>
+            )}
           />
-          {hasPic && (
+          {hasPicture && (
             <>
               {showPic ? (
                 <>
                   <Card.Cover
                     accessibilityStates
-                    source={{
-                      uri:
-                        'https://p2.piqsels.com/preview/443/865/234/beer-corona-extra-beach-lake-thumbnail.jpg',
-                    }}
+                    source={{ uri: picture || '' }}
                     resizeMethod="auto"
                     resizeMode="contain"
                     style={{ height: 200, width: 367 }}
@@ -71,9 +93,14 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
               )}
             </>
           )}
-          <Card.Actions>
-            {showCamera && <CameraComponent setShowCamera={setShowCamera} />}
-          </Card.Actions>
+          {showCamera && (
+            <Card.Actions>
+              <CameraComponent
+                onChangePicture={onChangePicture}
+                setShowCamera={setShowCamera}
+              />
+            </Card.Actions>
+          )}
         </Card>
       </View>
     </>
