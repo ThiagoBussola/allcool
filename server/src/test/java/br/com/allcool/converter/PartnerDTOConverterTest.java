@@ -37,6 +37,5 @@ public class PartnerDTOConverterTest {
         assertThat(dto.getPhoneNumber()).isEqualTo(partner.getPhoneNumber());
         assertThat(dto.getLocality()).isEqualTo("Maringa - PR");
         assertThat(dto.getAddress()).isEqualTo("Av. Paranagua, 138 - Zona 7");
-
     }
 }

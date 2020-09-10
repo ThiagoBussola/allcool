@@ -24,7 +24,7 @@ public class ProductFlavorRepositoryTest {
     @Autowired
     private ProductFlavorRepository repository;
 
-    private final UUID ADDRESS_ID = UUID.fromString("f329cccf-c105-48f6-95c2-78a4ce11cf7f");
+    private final UUID PRODUCTFLAVOR_ID = UUID.fromString("f329cccf-c105-48f6-95c2-78a4ce11cf7f");
 
     @Test
     public void findAll() {
@@ -49,7 +49,7 @@ public class ProductFlavorRepositoryTest {
 
         assertThat(productFlavorList).hasSize(2);
 
-        this.repository.deleteById(ADDRESS_ID);
+        this.repository.deleteById(PRODUCTFLAVOR_ID);
 
         List<ProductFlavor> productFlavorListAfterDelete = this.repository.findAll();
 
@@ -82,9 +82,9 @@ public class ProductFlavorRepositoryTest {
         Product product = new Product();
         product.setId(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));
 
-        ProductFlavor productFlavorBeforeUpdate = this.repository.findById(ADDRESS_ID).get();
+        ProductFlavor productFlavorBeforeUpdate = this.repository.findById(PRODUCTFLAVOR_ID).get();
 
-        assertThat(productFlavorBeforeUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productFlavorBeforeUpdate.getId()).isEqualTo(PRODUCTFLAVOR_ID);
         assertThat(productFlavorBeforeUpdate.getDescription())
                 .isEqualTo("Adocicado");
         assertThat(productFlavorBeforeUpdate.getProduct().getId())
@@ -97,7 +97,7 @@ public class ProductFlavorRepositoryTest {
 
         ProductFlavor productFileAfterUpdate = this.repository.saveAndFlush(productFlavorBeforeUpdate);
 
-        assertThat(productFileAfterUpdate.getId()).isEqualTo(ADDRESS_ID);
+        assertThat(productFileAfterUpdate.getId()).isEqualTo(PRODUCTFLAVOR_ID);
         assertThat(productFileAfterUpdate.getDescription()).isEqualTo("Teste Update");
         assertThat(productFileAfterUpdate.getProduct().getId())
                 .isEqualByComparingTo(UUID.fromString("8f50022f-4058-4f8e-8062-fc0ef9bc327e"));

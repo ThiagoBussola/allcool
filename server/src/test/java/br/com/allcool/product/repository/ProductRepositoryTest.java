@@ -3,7 +3,6 @@ package br.com.allcool.product.repository;
 import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.container.domain.Container;
 import br.com.allcool.enums.FlavorTypeEnum;
-import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.product.domain.ProductContainer;
 import br.com.allcool.product.domain.ProductFlavor;
@@ -30,8 +29,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductRepositoryTest {
 
     private final UUID PRODUCT_ID = UUID.fromString("14d304d3-c965-4875-8f53-86d20bb7d0aa");
+
     @Autowired
     private ProductRepository repository;
+
     @Autowired
     private ProductContainerRepository productContainerRepository;
 

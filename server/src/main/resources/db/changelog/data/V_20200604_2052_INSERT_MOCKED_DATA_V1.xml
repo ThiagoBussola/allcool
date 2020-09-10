@@ -218,6 +218,10 @@
             'https://allcool.s3.fr-par.scw.cloud/userclient/testedasilva.png',
             'png', 'mike', '2020-08-02 01:00:00');
 
+            insert into file (id, url, filetype, filename, filedate)
+            values ('3a7ffaa5-00e6-426b-968a-4739f31fa114',
+            'https://allcool.s3.fr-par.scw.cloud/news/foto-festa-news1.jpg', 'jpg', 'foto-festa-news1',
+            '2020-08-02 01:00:00');
         </sql>
     </changeSet>
 
@@ -756,6 +760,9 @@
             insert into address (id, zipcode, publicplace, district, locality, federatedunit)
             values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87015-001', 'Av. Dr. Luiz Teixeira Mendes 1550', 'Zona 05',
             'Maringá', 'PR');
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            values ('27d20235-837b-48ca-bf67-f0b9f06379b9', '87070-170', 'Av. Virgílio Manilia, 21784',
+            ' Jardim Ouro Cola', 'Maringá', 'PR');
         </sql>
     </changeSet>
 
@@ -848,18 +855,18 @@
         </preConditions>
 
         <sql>
-            insert into userclient (id, person_id, bio, file_id)
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('b6b2d26e-1281-4bbf-87f4-572899ccfbc9', '4ed2ed34-a369-4983-88a5-dc9fc9ad1ed9',
-            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d');
+            'José, o maior cervejeiro do Brasil!', '3ef6313a-fa68-4f81-87da-f7984553f90d', 'Maringá, Brasil');
             insert into userclient (id, person_id, bio, file_id)
             values ('a59c0223-87e4-4b60-8bc1-21f22fbc746d', 'd74f3772-5097-44d0-995b-86330adac63c',
             'Usuário criado para ambiente de Homologação', '9f87d393-1169-4270-b071-4c88ca35f12a');
-            insert into userclient (id, person_id, bio, file_id)
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('3793d49a-01fa-47cc-b762-da24738b750c', 'affb9869-61b3-4100-bafd-df7cf46ef341',
-            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8');
-            insert into userclient (id, person_id, bio, file_id)
+            'Biografia de Teste da Silva', 'dac0f400-ef91-4fda-9b82-b92f946dbcf8', 'Maringá');
+            insert into userclient (id, person_id, bio, file_id, location)
             values ('7db7d491-8f37-4bd6-a061-e865f9df4b6a', 'e3889817-9be4-4d45-960e-e537bfd01fab',
-            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86');
+            'Biografia de Mike', '6ba8a088-b83f-46dc-8c0b-c66df295cb86', 'Wonderland');
         </sql>
     </changeSet>
 
@@ -910,6 +917,37 @@
             'SWEET');
             insert into reviewproductflavor (id, review_id, description, flavortype)
             values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Umami', 'UMAMI');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-news-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="news"/>
+        </preConditions>
+
+        <sql>
+            insert into news (id, address_id, file_id, description, rating, creationDate, eventDate, newstype, title)
+            values('3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', '27d20235-837b-48ca-bf67-f0b9f06379b9',
+            '3a7ffaa5-00e6-426b-968a-4739f31fa114', 'O festival da cerveja artesanal tem como objetivo celebrar a ' ||
+            'cerveja artesanal paranaense em Maringá. O público teve a oportunidade de degustar rótulos de mais de 40 '
+            'cervejarias do estado. Nesta edição esteve presente com uma estrutura para atender e '
+            'mostrar ao publico do evento mais de 200 rótulos de cervejas artesanais.', 4, '2020-08-02',
+            '2020-08-30 19:00:00', 'EVENT', 'Festival da Cerveja Artesanal');
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-data-publication-v1" author="marcelo.filho" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <rowCount expectedRows="0" tableName="publication"/>
+        </preConditions>
+
+        <sql>
+            insert into publication (id, review_id, publicationtype)
+            values('3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', '71350ae5-c619-40a6-9324-680954ec0618', 'REVIEW');
+            insert into publication (id, review_id, publicationtype)
+            values('2e775d81-a0f8-482a-979e-82807d724da5', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'REVIEW');
+            insert into publication (id, news_id, publicationtype)
+            values('2d16a93c-f0e0-49f7-be69-5af8f1f0659e', '3f38c4ad-e953-40bb-b9bb-e1cab7ef37aa', 'NEWS');
         </sql>
     </changeSet>
 </databaseChangeLog>
