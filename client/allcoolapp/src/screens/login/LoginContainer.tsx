@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Alert } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { mainStyles } from '../../styles';
@@ -86,7 +86,7 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
         );
       })
       .catch((error) => {
-        if (error.response != undefined && error.response.status === 400) {
+        if (error.response !== undefined && error.response.status === 400) {
           wrongUsernameOrPasssord();
         } else {
           connectionWithProblems(error);

@@ -19,19 +19,19 @@ type PublicationRootStackParamList = {
 
 const RootStack = createStackNavigator<PublicationRootStackParamList>();
 
-type PartnerStackRouteProp = RouteProp<
+type PublicationStackRouteProp = RouteProp<
   PublicationRootStackParamList,
   'PublicationStack'
 >;
 
-type PartnerDrawerNavigationProp = DrawerNavigationProp<
+type PublicationDrawerNavigationProp = DrawerNavigationProp<
   PublicationRootStackParamList,
   'PublicationStack'
 >;
 
 type Props = {
-  navigation: PartnerDrawerNavigationProp;
-  route: PartnerStackRouteProp;
+  navigation: PublicationDrawerNavigationProp;
+  route: PublicationStackRouteProp;
 };
 
 const PublicationStack: React.FC<Props> = ({

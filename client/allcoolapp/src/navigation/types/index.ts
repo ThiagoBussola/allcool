@@ -4,3 +4,4 @@ export * from './ProductNavigationTypes';
 export * from './ReviewNavigationTypes';
 export * from './PublicationNavigationTypes';
 export * from './PublicationReviewNavigationTypes';
+export * from './ProfileNavigationTypes';

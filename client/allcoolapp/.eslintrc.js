@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['prettier', 'react-app'],
   plugins: ['prettier', 'import', 'react-hooks'],
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   env: {
     jest: true,
   },
@@ -9,11 +9,13 @@ module.exports = {
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'no-restricted-globals': 'off',
+    'import/first': 'off',
   },
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', 'ts', 'tsx'],
       },
     },
   },
