@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import { Dimensions, StyleSheet } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  Divider,
+  Title,
+  Subheading,
+  Searchbar,
+  IconButton,
+} from 'react-native-paper';
 import { PartnerService } from '../../service';
+import { rowStyle, mainStyles } from '../../styles';
 import { PartnerDTO } from '../../types/dto';
 import {
   PartnerListNavigationProp,
@@ -14,32 +20,14 @@ import {
   SnackbarNotification,
 } from '../../components';
 import { useLoading } from '../../hooks';
-import Geolocation from '@react-native-community/geolocation';
 
 type Props = {
   navigation: PartnerListNavigationProp;
   route: PartnersListRouteProp;
 };
 
-type usera = {
-  latitude: number,
-  longitude: number,
-};
-
-const arrLat = [
-  {
-    latitude: -23.4116408,
-    longitude: -51.9433306,
-  },
-  {
-    latitude: -23.4109165,
-    longitude: -51.943674,
-  },
-  {
-    latitude: -23.4112353,
-    longitude: -51.9434983,
-  }
-]
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
 
 const PartnerList: React.FC<Props> = ({
   navigation,
@@ -50,7 +38,6 @@ const PartnerList: React.FC<Props> = ({
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
   const [filteredPartners, setFilteredPartners] = useState<PartnerDTO[]>([]);
   const [search, setSearch] = useState('');
-  const [usera, setUsera] = useState<usera>();
   const [loading, setLoading] = useLoading();
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
@@ -71,22 +58,8 @@ const PartnerList: React.FC<Props> = ({
           })
         )
     );
-    getPosition();
-    
     //eslint-disable-next-line
   }, []);
-
-  const getPosition = () => {
-    Geolocation.getCurrentPosition(
-      pos => {
-        setUsera({
-          latitude: pos.coords.latitude,
-          longitude: pos.coords.longitude
-        });
-      },
-      e => console.log(e.message)
-    );
-  }
 
   const filter = () => {
     const filteredArray = partners.filter((p) =>
@@ -99,6 +72,11 @@ const PartnerList: React.FC<Props> = ({
   const view = (partner: PartnerDTO) =>
     navigation.navigate(`PartnerContainer`, {
       partnerId: partner.id,
+    });
+
+  const showPartnerLocalization = (partner: PartnerDTO) =>
+    navigation.navigate(`PartnerMap`, {
+      partner: partner,
     });
 
   const handleChange = (text: string) => {
@@ -119,43 +97,61 @@ const PartnerList: React.FC<Props> = ({
         onBlur={filter}
         value={search}
       />
-      {usera && filteredPartners && filteredPartners.length > 0 ? (
-        <MapView 
-          region={{
-            latitude: -23.4121735,
-            longitude: -51.9440588,
-            latitudeDelta: 0.0045, // zoom
-            longitudeDelta: 0.0045,
+      {filteredPartners && filteredPartners.length > 0 ? (
+        <FlatList
+          data={filteredPartners}
+          style={{
+            flex: 1,
+            width: screenWidth,
           }}
-          customMapStyle={dark}
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          showsCompass={false}
-          showsTraffic={false}
-          showsIndoors={false}
-          showsPointsOfInterest={true}
-          showsBuildings={false}
-        >
-          {arrLat.map((local, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: local.latitude,
-                    longitude: local.longitude,
-                  }}
-                  image={require('../../img/icon.png')}
-                />           
-          ))}
-          
-          <Marker
-            title={"SUPER XANDÃO"}
-            description={"PEITO DE AÇO"}
-            coordinate={{
-              latitude: usera.latitude,
-              longitude: usera.longitude,
-            }}
-          />   
-        </MapView>
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <>
+              <TouchableOpacity onPress={() => view(item)}>
+                <View style={rowStyle}>
+                  <View style={{ marginLeft: '5%', marginTop: '6.5%' }}>
+                    <View style={{ alignItems: 'flex-start' }}>
+                      <Title style={mainStyles.title}>{item.name}</Title>
+                    </View>
+                    <View>
+                      <Subheading style={mainStyles.subHeading}>
+                        {`${
+                          item.address.length > 40
+                            ? item.address.slice(0, 40).concat('...')
+                            : item.address
+                        }`}
+                      </Subheading>
+                    </View>
+                    <View>
+                      <Subheading style={mainStyles.subHeading}>
+                        {`${item.locality}`} - {`${item.phoneNumber}`}
+                      </Subheading>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      paddingLeft: '5%',
+                      marginTop: '10%',
+                      flex: 1,
+                      flexDirection: 'row-reverse',
+                    }}
+                  >
+                    <IconButton
+                      accessibilityStates
+                      icon="map-search-outline"
+                      color={'#ffbf00'}
+                      size={40}
+                      onPress={() => showPartnerLocalization(item)}
+                    />
+                  </View>
+                </View>
+                <View style={{ marginTop: '6.5%', backgroundColor: '#ffbf00' }}>
+                  <Divider accessibilityStates />
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        />
       ) : (
         <EmptyListPlaceholder loading={loading} />
       )}
@@ -172,262 +168,4 @@ const PartnerList: React.FC<Props> = ({
   );
 };
 
-const { height, width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  }
-});
-
 export { PartnerList };
-
-const dark =[
-  {
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#ebe3cd"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#523735"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#f5f1e6"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#c9b2a6"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#dcd2be"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#ae9e90"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape.natural",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#93817c"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "color": "#a5b076"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#447530"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#f5f1e6"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.arterial",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#fdfcf8"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#f8c967"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#e9bc62"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway.controlled_access",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#e98d58"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway.controlled_access",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#db8555"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#806b63"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#8f7d77"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#ebe3cd"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "color": "#b9d3c2"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#92998d"
-      }
-    ]
-  }
-]

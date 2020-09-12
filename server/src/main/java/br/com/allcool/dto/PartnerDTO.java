@@ -1,5 +1,6 @@
 package br.com.allcool.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.Data;
@@ -12,4 +13,6 @@ public class PartnerDTO {
 	 private String phoneNumber;
 	 private String address;
 	 private String locality;
+	 private BigDecimal latitude;
+	 private BigDecimal longitude;
 }

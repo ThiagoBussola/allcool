@@ -4,4 +4,6 @@ export type PartnerDTO = {
   locality: string;
   address: string;
   phoneNumber: string;
+  latitude: number;
+  longitude: number;
 };

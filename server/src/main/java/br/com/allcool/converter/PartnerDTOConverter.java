@@ -1,5 +1,7 @@
 package br.com.allcool.converter;
 
+import java.util.Objects;
+
 import br.com.allcool.address.domain.Address;
 import br.com.allcool.dto.PartnerDTO;
 import br.com.allcool.partner.domain.Partner;
@@ -10,13 +12,15 @@ public class PartnerDTOConverter {
         
 		PartnerDTO dto = new PartnerDTO();
 
-        if (partner == null) {
+        if (Objects.isNull(partner)) {
             return dto;
         }
 
         dto.setId(partner.getId());
         dto.setName(partner.getName());
         dto.setPhoneNumber(partner.getPhoneNumber());
+        dto.setLongitude(partner.getAddress().getLongitude());
+        dto.setLatitude(partner.getAddress().getLatitude());
         dto.setAddress(buildStringAddress(partner.getAddress()));
         dto.setLocality(buildStringLocality(partner.getAddress()));
 
