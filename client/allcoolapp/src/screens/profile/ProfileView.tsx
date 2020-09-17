@@ -12,7 +12,7 @@ import {
   Loading,
   SnackbarState,
 } from '../../components';
-import { ReviewPublicationCardChildren } from '../publication/ReviewPublicationCardChildren';
+import { ReviewPublicationCardChildren } from '../publication/review/ReviewPublicationCardChildren';
 import { useLoading } from '../../hooks';
 import { PublicationDTO, UserClientDTO } from '../../types/dto';
 import { UserClientService, PublicationService } from '../../service';

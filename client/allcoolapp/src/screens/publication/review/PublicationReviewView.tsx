@@ -8,21 +8,15 @@ import {
   SnackbarState,
   SnackbarNotification,
   ReadOnlyStarRating,
+  Loading,
 } from '../../../components';
-import {
-  Text,
-  ScrollView,
-  SafeAreaView,
-  View,
-  Image,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { ReviewDTO } from '../../../types/dto';
 import { ReviewService } from '../../../service';
-import { Title, Avatar, Subheading, Paragraph } from 'react-native-paper';
-import { mainStyles, rowStyle } from '../../../styles';
+import { Title, Avatar, Paragraph } from 'react-native-paper';
+import { mainStyles } from '../../../styles';
+import { useLoading } from '../../../hooks';
 
 type Props = {
   route: PublicationReviewViewRouteProp;
@@ -35,6 +29,7 @@ const PublicationReviewView: React.FC<Props> = ({
     params: { reviewId },
   },
 }) => {
+  const [loading, setLoading] = useLoading();
   const [review, setReview] = useState<ReviewDTO>({
     id: '',
   });
@@ -44,23 +39,25 @@ const PublicationReviewView: React.FC<Props> = ({
   });
 
   useEffect(() => {
-    ReviewService.findById(reviewId)
-      .then(({ data }) => {
-        setReview(data);
-        console.log(data);
-      })
-      .catch(({ response }) =>
-        setSnackbarState({
-          message: response.data?.message || response.data,
-          visible: true,
-        })
-      );
+    setLoading(
+      ReviewService.findById(reviewId)
+        .then(({ data }) => setReview(data))
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
+    );
+    //eslint-disable-next-line
   }, [reviewId]);
 
   return (
     <>
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{ marginTop: '3%' }}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView style={mainStyles.container}>
           {review.pictureUrl && (
             <View>
               <View style={{ alignSelf: 'center', marginTop: '3%' }}>
@@ -72,69 +69,46 @@ const PublicationReviewView: React.FC<Props> = ({
               </View>
             </View>
           )}
-          <View style={rowStyle}>
-            <View>
-              <Avatar.Image
-                accessibilityStates
-                size={50}
-                source={{ uri: review.avatarUrl }}
-                style={{
-                  backgroundColor: 'white',
-                  marginLeft: '5%',
-                  marginTop: '3%',
-                }}
-              />
-              <Title
-                style={[
-                  mainStyles.title,
-                  {
-                    marginLeft: '5%',
-                    fontSize: 20,
-                  },
-                ]}
-              >
-                {review.userName}
-              </Title>
-              <Paragraph
-                style={[
-                  {
-                    fontSize: 18,
-                    marginLeft: '5%',
-                    marginBottom: '5%',
-                  },
-                ]}
-              >
-                {review.productName}
-              </Paragraph>
-
-              <View style={{ marginTop: '3%', marginLeft: '4%' }}>
-                <Subheading style={{ fontSize: 20 }}>O que achou: </Subheading>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 16,
-                    paddingTop: '1%',
-                    paddingLeft: '5%',
-                  }}
-                >
-                  {review.description}
-                </Text>
-              </View>
-            </View>
-            <View
+          <View style={{ marginTop: '1%' }}>
+            <Avatar.Image
+              accessibilityStates
+              size={50}
+              source={
+                review.avatarUrl
+                  ? { uri: review.avatarUrl }
+                  : require('../../../img/AllcoolV1.1.png')
+              }
               style={{
-                flex: 1,
-                flexDirection: 'row-reverse',
-                alignItems: 'center',
+                backgroundColor: 'white',
+                marginTop: '3%',
               }}
-            >
-              <ReadOnlyStarRating rating={review.rating!} />
-            </View>
+            />
           </View>
-        </View>
-      </ScrollView>
+
+          <Title style={mainStyles.title}>{review.userName}</Title>
+          <Paragraph
+            style={[
+              {
+                fontSize: 18,
+                marginBottom: '2%',
+              },
+            ]}
+          >
+            {review.productName}
+          </Paragraph>
+          <ReadOnlyStarRating rating={review.rating!} showAllStars />
+          <Title>O que achou</Title>
+          <Paragraph
+            style={[
+              {
+                fontSize: 18,
+              },
+            ]}
+          >
+            {review.description}
+          </Paragraph>
+        </ScrollView>
+      )}
       <SnackbarNotification
         snackbarState={snackbarState}
         dismissSnackbar={() =>

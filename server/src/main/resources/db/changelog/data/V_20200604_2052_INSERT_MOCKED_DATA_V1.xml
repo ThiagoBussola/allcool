@@ -414,7 +414,7 @@
 
             insert into product (id, code, productname, description, harmonization, active, producttype_id, brand_id,
             ibu, minimumtemperature, maximumtemperature, alcoholcontent) values
-            ('7cd98967-c210-427f-b520-fdb59cfbb42c', 14, 'Beck`s', 'Beck’s é uma legítima German Lager Puro Malte, q' ||
+            ('7cd98967-c210-427f-b520-fdb59cfbb42c', 14, 'Beck’s', 'Beck’s é uma legítima German Lager Puro Malte, q' ||
             'ue segue à risca a lei da pureza da cerveja alemã desde 1873. Seu IBU é 20. O resultado é uma cerveja d' ||
             'e amargor intenso, sabor marcante e excepcional pureza. Ela é provocante, cheia de personalidade e com ' ||
             'um sabor característico e único. A cerveja alemã mais vendida no mundo.', 'Por ser uma cerveja tradicio' ||

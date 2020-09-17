@@ -16,7 +16,7 @@ import { PublicationDTO } from '../../types/dto';
 import { useLoading } from '../../hooks';
 import { PublicationService } from '../../service';
 import { PublicationTypeEnum } from '../../types/enum';
-import { ReviewPublicationCardChildren } from './ReviewPublicationCardChildren';
+import { ReviewPublicationCardChildren } from './review/ReviewPublicationCardChildren';
 import { NewsPublicationCardChildren } from './NewsPublicationCardChildren';
 
 type Props = {
