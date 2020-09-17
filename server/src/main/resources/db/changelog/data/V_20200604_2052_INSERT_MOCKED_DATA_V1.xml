@@ -289,7 +289,7 @@
             insert into brand (id, brandname, file_id)
             values ('264d3f83-b2c5-4e5a-b633-805dc0a75f7c', 'Löwenbräu', 'a983fbc7-2d73-45ea-a8d7-db934d6f1bbc');
             insert into brand (id, brandname, file_id)
-            values ('76136a62-0fe2-4fed-b6b4-35f45c64b25d', 'Beck`s', 'ab0494a0-c38f-4c10-b969-60e7f9acc91b');
+            values ('76136a62-0fe2-4fed-b6b4-35f45c64b25d', 'Beck’s', 'ab0494a0-c38f-4c10-b969-60e7f9acc91b');
             insert into brand (id, brandname, file_id)
             values ('30e13720-f416-4902-8ca2-c2f650434914', 'Wäls', 'cc187346-fa37-4f7b-ba9d-06f3fb143bd4');
         </sql>
