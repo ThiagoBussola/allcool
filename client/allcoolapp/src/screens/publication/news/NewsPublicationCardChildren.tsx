@@ -30,7 +30,7 @@ const NewsPublicationCardChildren: React.FC<Props> = ({
       subtitleNumberOfLines={2}
       subtitleStyle={{ fontSize: 14 }}
       titleStyle={{ fontSize: 22, marginTop: '4%' }}
-      right={() => <ReadOnlyStarRating rating={news.rating || 0} />}
+      right={() => <ReadOnlyStarRating rating={news.rating || 0} onFlexEnd />}
     />
     <Card.Content style={{ marginTop: '2%' }}>
       <Paragraph style={{ fontSize: 16 }}>
