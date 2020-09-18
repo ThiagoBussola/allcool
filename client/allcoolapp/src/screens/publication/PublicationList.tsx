@@ -16,8 +16,8 @@ import { PublicationDTO } from '../../types/dto';
 import { useLoading } from '../../hooks';
 import { PublicationService } from '../../service';
 import { PublicationTypeEnum } from '../../types/enum';
-import { ReviewPublicationCardChildren } from './review/ReviewPublicationCardChildren';
-import { NewsPublicationCardChildren } from './NewsPublicationCardChildren';
+import { ReviewPublicationCardChildren } from './review';
+import { NewsPublicationCardChildren } from './news';
 
 type Props = {
   route: PublicationListRouteProp;

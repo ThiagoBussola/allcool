@@ -17,65 +17,53 @@ type Props = {
 
 const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={[rowStyle, { marginTop: '1%' }]}>
-        <Avatar.Image
-          accessibilityStates
-          size={50}
-          source={
-            loggedUser.userPicture?.url
-              ? { uri: loggedUser.userPicture.url }
-              : require('../../img/AllcoolV1.1.png')
-          }
-          style={{
-            backgroundColor: 'white',
-            marginLeft: '5%',
-            marginTop: '3%',
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row-reverse',
-          }}
-        >
-          <IconButton
+    <>
+      <View style={mainStyles.container}>
+        <View style={[rowStyle, { marginTop: '1%' }]}>
+          <Avatar.Image
             accessibilityStates
-            icon="account-cog"
-            color="#ffbf00"
-            animated
-            size={32}
-            onPress={() => {}}
+            size={50}
+            source={
+              loggedUser.userPicture?.url
+                ? { uri: loggedUser.userPicture.url }
+                : require('../../img/AllcoolV1.1.png')
+            }
+            style={{
+              backgroundColor: 'white',
+              marginTop: '2%',
+            }}
           />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row-reverse',
+            }}
+          >
+            <IconButton
+              accessibilityStates
+              icon="account-cog"
+              color="#ffbf00"
+              animated
+              size={32}
+            />
+          </View>
         </View>
-      </View>
-      <View>
-        <Title
-          style={[
-            mainStyles.title,
-            {
-              marginLeft: '5%',
-            },
-          ]}
-        >
-          {loggedUser.name}
-        </Title>
-      </View>
-      <View>
-        <Paragraph
-          style={[
-            {
-              fontSize: 18,
-              marginLeft: '5%',
-              marginBottom: '5%',
-            },
-          ]}
-        >
-          {loggedUser.bio}
-        </Paragraph>
-      </View>
-      {loggedUser.location && (
-        <View style={{ marginLeft: '4%' }}>
+        <View>
+          <Title style={[mainStyles.title]}>{loggedUser.name}</Title>
+        </View>
+        <View>
+          <Paragraph
+            style={[
+              {
+                fontSize: 18,
+                marginBottom: '5%',
+              },
+            ]}
+          >
+            {loggedUser.bio}
+          </Paragraph>
+        </View>
+        {loggedUser.location && (
           <View style={rowStyle}>
             <MaterialCommunityIcons name="map-marker" color="grey" size={20} />
             <Paragraph
@@ -90,25 +78,23 @@ const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
               {loggedUser.location}
             </Paragraph>
           </View>
+        )}
+        <View style={{ marginBottom: '3%' }}>
+          <View style={rowStyle}>
+            <MaterialCommunityIcons name="calendar" color="grey" size={20} />
+            <Paragraph
+              style={[
+                {
+                  color: 'grey',
+                  marginLeft: '1%',
+                  fontSize: 18,
+                },
+              ]}
+            >
+              Nascido em {loggedUser.birthDate}
+            </Paragraph>
+          </View>
         </View>
-      )}
-      <View style={{ marginLeft: '4%', marginBottom: '3%' }}>
-        <View style={rowStyle}>
-          <MaterialCommunityIcons name="calendar" color="grey" size={20} />
-          <Paragraph
-            style={[
-              {
-                color: 'grey',
-                marginLeft: '1%',
-                fontSize: 18,
-              },
-            ]}
-          >
-            Nascido em {loggedUser.birthDate}
-          </Paragraph>
-        </View>
-      </View>
-      <View style={{ marginLeft: '5%' }}>
         <View style={rowStyle}>
           <Paragraph
             style={[
@@ -135,7 +121,7 @@ const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
       <View style={{ marginTop: '3%', backgroundColor: '#ffbf00' }}>
         <Divider accessibilityStates style={{ height: 1 }} />
       </View>
-    </View>
+    </>
   );
 };
 

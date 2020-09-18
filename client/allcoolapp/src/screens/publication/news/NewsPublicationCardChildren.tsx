@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Paragraph, IconButton } from 'react-native-paper';
-import { ReadOnlyStarRating } from '../../components';
-import { NewsDTO } from '../../types/dto';
+import { ReadOnlyStarRating } from '../../../components';
+import { NewsDTO } from '../../../types/dto';
 
 type Props = {
   news: NewsDTO;

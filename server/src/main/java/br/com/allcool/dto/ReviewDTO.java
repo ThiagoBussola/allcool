@@ -1,10 +1,13 @@
 package br.com.allcool.dto;
 
+import br.com.allcool.review.domain.ReviewProductFlavor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -19,4 +22,5 @@ public class ReviewDTO {
     private String description;
     private BigDecimal rating;
     private String pictureUrl;
+    private List<ReviewProductFlavorDTO> flavors = new ArrayList<>();
 }

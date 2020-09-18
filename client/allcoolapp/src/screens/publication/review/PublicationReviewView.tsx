@@ -14,7 +14,7 @@ import { ScrollView, View } from 'react-native';
 
 import { ReviewDTO } from '../../../types/dto';
 import { ReviewService } from '../../../service';
-import { Title, Avatar, Paragraph } from 'react-native-paper';
+import { Title, Avatar, Paragraph, Chip } from 'react-native-paper';
 import { mainStyles } from '../../../styles';
 import { useLoading } from '../../../hooks';
 
@@ -80,7 +80,7 @@ const PublicationReviewView: React.FC<Props> = ({
               }
               style={{
                 backgroundColor: 'white',
-                marginTop: '3%',
+                marginTop: '2%',
               }}
             />
           </View>
@@ -90,13 +90,43 @@ const PublicationReviewView: React.FC<Props> = ({
             style={[
               {
                 fontSize: 18,
-                marginBottom: '2%',
               },
             ]}
           >
             {review.productName}
           </Paragraph>
-          <ReadOnlyStarRating rating={review.rating!} showAllStars />
+          <ReadOnlyStarRating rating={review.rating!} />
+          <Title style={{ marginTop: '-1%' }}>Sabores</Title>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}
+          >
+            {review.flavors?.map((flavor, index) => (
+              <View
+                key={index}
+                style={{
+                  marginTop: '1%',
+                  marginRight: '1%',
+                  marginLeft: index === 0 ? '0%' : '1%',
+                }}
+              >
+                <Chip
+                  accessibilityStates
+                  key={flavor.id}
+                  mode="outlined"
+                  textStyle={{ color: 'black', fontSize: 14 }}
+                  style={{
+                    backgroundColor: '#ffbf00',
+                  }}
+                >
+                  {flavor.description}
+                </Chip>
+              </View>
+            ))}
+          </View>
           <Title>O que achou</Title>
           <Paragraph
             style={[

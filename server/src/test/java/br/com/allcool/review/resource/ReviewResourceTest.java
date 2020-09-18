@@ -2,7 +2,9 @@ package br.com.allcool.review.resource;
 
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
+import br.com.allcool.dto.ReviewProductFlavorDTO;
 import br.com.allcool.review.domain.Review;
+import br.com.allcool.review.domain.ReviewProductFlavor;
 import br.com.allcool.review.service.ReviewService;
 import br.com.allcool.test.ResourceTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -139,6 +142,7 @@ public class ReviewResourceTest {
         review.setPictureUrl("www.foto.com.br");
         review.setProductName("Skoll");
         review.setRating(BigDecimal.valueOf(4.5));
+        review.setFlavors(Collections.singletonList(new ReviewProductFlavorDTO()));
 
         when(this.service.findById(review.getId())).thenReturn(review);
 
@@ -151,7 +155,8 @@ public class ReviewResourceTest {
                 .andExpect(jsonPath("$.description", equalTo(review.getDescription())))
                 .andExpect(jsonPath("$.pictureUrl", equalTo(review.getPictureUrl())))
                 .andExpect(jsonPath("$.productName", equalTo(review.getProductName())))
-                .andExpect(jsonPath("$.rating", equalTo(4.5)));
+                .andExpect(jsonPath("$.rating", equalTo(4.5)))
+                .andExpect(jsonPath("$.flavors.size()", equalTo(1)));
 
         verify(this.service).findById(review.getId());
         verifyNoMoreInteractions(this.service);

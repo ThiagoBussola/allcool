@@ -51,5 +51,4 @@ public class ReviewResource {
 
         return ResponseEntity.ok(this.service.findById(id));
     }
-
 }
