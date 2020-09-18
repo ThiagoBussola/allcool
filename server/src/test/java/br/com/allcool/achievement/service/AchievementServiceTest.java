@@ -41,11 +41,11 @@ public class AchievementServiceTest {
         brand.setName("Patagonia");
 
         Product product = new Product();
-        product.setBrand(brand);
         product.setName("Patagonia Amber Lager");
 
         Achievement achievement = new Achievement();
         achievement.setId(UUID.randomUUID());
+        achievement.setBrand(brand);
         achievement.setTitle("Novato");
         achievement.setDescription("Parabéns pela sua primeira conquista!");
         achievement.setProduct(product);
