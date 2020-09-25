@@ -27,8 +27,7 @@
             <column name="achievementtype" type="varchar(30)">
                 <constraints nullable="false"/>
             </column>
-            <column name="brand_id" type="uuid">
-            </column>
+            <column name="brand_id" type="uuid"/>
         </createTable>
 
         <addPrimaryKey tableName="achievement" columnNames="id" constraintName="achievement_pk"/>
@@ -66,5 +65,4 @@
                                  referencedTableName="brand"
                                  referencedColumnNames="id"/>
     </changeSet>
-
 </databaseChangeLog>
