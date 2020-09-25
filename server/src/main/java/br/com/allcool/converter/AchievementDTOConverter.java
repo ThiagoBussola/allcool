@@ -17,7 +17,7 @@ public class AchievementDTOConverter {
         }
 
         dto.setId(achievement.getId());
-        dto.setBrand(achievement.getProduct().getBrand().getName());
+        dto.setBrand(achievement.getBrand().getName());
         dto.setBadgeUrl(achievement.getFile().getUrl());
         dto.setAchievementName(achievement.getTitle());
         dto.setDescription(achievement.getDescription());

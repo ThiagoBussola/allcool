@@ -1,5 +1,6 @@
 package br.com.allcool.achievement.domain;
 
+import br.com.allcool.brand.domain.Brand;
 import br.com.allcool.enums.AchievementTypeEnum;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
@@ -57,6 +58,10 @@ public class Achievement {
     @Enumerated(EnumType.STRING)
     @Column(name = "achievementtype")
     private AchievementTypeEnum type;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @OneToMany(mappedBy = "achievement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AchievementProductType> productTypes = new ArrayList<>();
