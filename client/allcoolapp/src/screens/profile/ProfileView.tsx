@@ -81,7 +81,12 @@ const ProfileView: React.FC<Props> = ({
             flex: 1,
             width: screenWidth,
           }}
-          ListHeaderComponent={<ProfileViewHeader loggedUser={loggedUser} />}
+          ListHeaderComponent={
+            <ProfileViewHeader
+              loggedUser={loggedUser}
+              navigation={navigation}
+            />
+          }
           ListEmptyComponent={
             <EmptyListPlaceholder
               message="Nenhuma publicação encontrada"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProfileView } from '../../screens';
+import { AchievementList, AchievementView, ProfileView } from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
 import { MenuActionButton } from '../../components';
@@ -9,6 +9,8 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 type ProfileRootStackParamList = {
   ProfileStack: { userId: string };
   ProfileView: { userId: string };
+  AchievementList: { userId: string };
+  AchievementView: { userId: string };
 };
 
 const RootStack = createStackNavigator<ProfileRootStackParamList>();
@@ -50,6 +52,18 @@ const ProfileStack: React.FC<Props> = ({
               <MenuActionButton onPress={() => navigation.openDrawer()} />
             ),
           }}
+        />
+        <RootStack.Screen
+          name="AchievementList"
+          options={screenStackOptions('Conquistas')}
+          component={AchievementList}
+          initialParams={{ userId }}
+        />
+        <RootStack.Screen
+          name="AchievementView"
+          options={screenStackOptions('Conquista')}
+          component={AchievementView}
+          initialParams={{ userId }}
         />
       </RootStack.Navigator>
     </>

@@ -4,3 +4,4 @@ export * from './product';
 export * from './product-review';
 export * from './publication';
 export * from './profile';
+export * from './achievement';
