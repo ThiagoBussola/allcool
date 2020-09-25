@@ -6,11 +6,12 @@ import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.enums.FlavorTypeEnum;
 import br.com.allcool.exception.CreationNotPermittedException;
-import br.com.allcool.publication.domain.Publication;
-import br.com.allcool.publication.repository.PublicationRepository;
+import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
+import br.com.allcool.publication.domain.Publication;
+import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import br.com.allcool.user.domain.UserClient;
@@ -23,6 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -207,5 +209,51 @@ public class ReviewServiceTest {
 
         verify(this.repository).existsByUserIdAndProductId(userId, productId);
         verifyNoMoreInteractions(this.repository);
+    }
+
+    @Test
+    public void findById() {
+
+        UserClient userClient = new UserClient();
+
+        Person person = new Person();
+        person.setId(UUID.randomUUID());
+        person.setName("Thiago Bussola");
+
+        userClient.setId(UUID.randomUUID());
+        userClient.setPerson(person);
+
+        Product product = new Product();
+        product.setName("Skoll Test");
+
+        UUID id = UUID.randomUUID();
+
+        Review review = new Review();
+        review.setUser(userClient);
+        review.setProduct(product);
+
+        when(this.repository.findById(id)).thenReturn(Optional.of(review));
+
+        this.service.findById(id);
+
+        verify(this.repository).findById(id);
+        verifyNoMoreInteractions(this.repository);
+    }
+
+    @Test
+    public void findByIdException() {
+
+        UUID id = UUID.randomUUID();
+
+        when(this.repository.findById(id)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(DataNotFoundException.class, () -> this.service.findById(id));
+
+        assertThat(exception.getMessage())
+                .isEqualTo("O registro não foi encontrado.");
+
+        verify(this.repository).findById(id);
+        verifyNoMoreInteractions(this.repository);
+
     }
 }

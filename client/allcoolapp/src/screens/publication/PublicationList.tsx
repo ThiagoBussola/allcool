@@ -16,8 +16,8 @@ import { PublicationDTO } from '../../types/dto';
 import { useLoading } from '../../hooks';
 import { PublicationService } from '../../service';
 import { PublicationTypeEnum } from '../../types/enum';
-import { ReviewPublicationCardChildren } from './ReviewPublicationCardChildren';
-import { NewsPublicationCardChildren } from './NewsPublicationCardChildren';
+import { ReviewPublicationCardChildren } from './review';
+import { NewsPublicationCardChildren } from './news';
 
 type Props = {
   route: PublicationListRouteProp;
@@ -100,12 +100,18 @@ const PublicationList: React.FC<Props> = ({
               <Card
                 accessibilityStates
                 style={{ backgroundColor: '#f7f7f7' }}
-                onPress={() =>
-                  navigation.push('PublicationView', {
+                onPress={() => {
+                  if (isReviewPublication(item)) {
+                    return navigation.navigate('PublicationReviewView', {
+                      reviewId: item.review?.id!,
+                    });
+                  }
+
+                  navigation.navigate('PublicationView', {
                     userId,
                     publicationId: '1',
-                  })
-                }
+                  });
+                }}
               >
                 {isReviewPublication(item) ? (
                   <ReviewPublicationCardChildren

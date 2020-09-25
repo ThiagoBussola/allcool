@@ -12,7 +12,7 @@ import {
   Loading,
   SnackbarState,
 } from '../../components';
-import { ReviewPublicationCardChildren } from '../publication/ReviewPublicationCardChildren';
+import { ReviewPublicationCardChildren } from '../publication/review';
 import { useLoading } from '../../hooks';
 import { PublicationDTO, UserClientDTO } from '../../types/dto';
 import { UserClientService, PublicationService } from '../../service';
@@ -81,7 +81,12 @@ const ProfileView: React.FC<Props> = ({
             flex: 1,
             width: screenWidth,
           }}
-          ListHeaderComponent={<ProfileViewHeader loggedUser={loggedUser} />}
+          ListHeaderComponent={
+            <ProfileViewHeader
+              loggedUser={loggedUser}
+              navigation={navigation}
+            />
+          }
           ListEmptyComponent={
             <EmptyListPlaceholder
               message="Nenhuma publicação encontrada"

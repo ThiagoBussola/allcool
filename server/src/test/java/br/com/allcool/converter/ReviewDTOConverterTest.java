@@ -1,10 +1,12 @@
 package br.com.allcool.converter;
 
 import br.com.allcool.dto.ReviewDTO;
+import br.com.allcool.dto.ReviewProductFlavorDTO;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.review.domain.Review;
+import br.com.allcool.review.domain.ReviewProductFlavor;
 import br.com.allcool.user.domain.UserClient;
 import org.junit.Test;
 
@@ -36,12 +38,16 @@ public class ReviewDTOConverterTest {
         Product product = new Product();
         product.setName("Brahma Extra");
 
+        ReviewProductFlavor reviewProductFlavor = new ReviewProductFlavor();
+        reviewProductFlavor.setId(UUID.randomUUID());
+
         Review review = new Review();
         review.setId(UUID.randomUUID());
         review.setDescription("Uma cerveja muito boa!");
         review.setUser(userClient);
         review.setProduct(product);
         review.setFile(file);
+        review.getFlavors().add(reviewProductFlavor);
 
         ReviewDTO dto = this.dtoConverter.to(review);
 
@@ -52,5 +58,7 @@ public class ReviewDTOConverterTest {
         assertThat(dto.getPictureUrl()).isEqualTo(review.getFile().getUrl());
         assertThat(dto.getDescription()).isEqualTo(review.getDescription());
         assertThat(dto.getRating()).isEqualTo(review.getRating());
+        assertThat(dto.getFlavors()).extracting(ReviewProductFlavorDTO::getId)
+                .containsExactly(reviewProductFlavor.getId());
     }
 }

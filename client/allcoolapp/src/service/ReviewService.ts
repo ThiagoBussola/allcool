@@ -22,3 +22,7 @@ export const findAllByProductId = (
 ): AxiosPromise<ReviewDTO[]> => {
   return requestExecutor.get(`${resource}/${productId}`);
 };
+
+export const findById = (id: string): AxiosPromise<ReviewDTO> => {
+  return requestExecutor.get(`${resource}/${id}/view`);
+};

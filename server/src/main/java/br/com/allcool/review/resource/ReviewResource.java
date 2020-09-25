@@ -45,4 +45,10 @@ public class ReviewResource {
 
         return ResponseEntity.ok(service.isProductReviewed(userId, productId));
     }
+
+    @GetMapping("/{id}/view")
+    public ResponseEntity<ReviewDTO> findById(@PathVariable("id") UUID id) {
+
+        return ResponseEntity.ok(this.service.findById(id));
+    }
 }
