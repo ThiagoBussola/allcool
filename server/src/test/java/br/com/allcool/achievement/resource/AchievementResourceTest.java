@@ -2,22 +2,27 @@ package br.com.allcool.achievement.resource;
 
 import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.achievement.service.AchievementService;
+import br.com.allcool.converter.AchievementViewDTOConverter;
 import br.com.allcool.dto.AchievementDTO;
+import br.com.allcool.dto.AchievementViewDTO;
 import br.com.allcool.enums.AchievementTypeEnum;
 import br.com.allcool.review.resource.ReviewResource;
 import br.com.allcool.test.ResourceTest;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -83,4 +88,30 @@ public class AchievementResourceTest {
         verifyNoMoreInteractions(this.service);
 
     }
+
+    @Test
+    public void findbyid() throws Exception {
+
+        AchievementViewDTO achievementViewDTO = new AchievementViewDTO();
+        achievementViewDTO.setId(UUID.randomUUID());
+        achievementViewDTO.setTitle("Mestre Cervejeiro");
+        achievementViewDTO.setDescription("Dominação total da cerveja, não somos dignos. São mais de 200 cervejas diferentes!");
+        achievementViewDTO.setAchievemantFileUrl("www.teste.com");
+
+        when(this.service.findById(achievementViewDTO.getId())).thenReturn(achievementViewDTO);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/achievements/{id}/view", achievementViewDTO.getId()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(achievementViewDTO.getId().toString())))
+                .andExpect(jsonPath("$.title", equalTo(achievementViewDTO.getTitle())))
+                .andExpect(jsonPath("$.description", equalTo(achievementViewDTO.getDescription())))
+                .andExpect(jsonPath("$.achievemantFileUrl", equalTo(achievementViewDTO.getAchievemantFileUrl())));
+
+        verify(this.service).findById(achievementViewDTO.getId());
+        verifyNoMoreInteractions(this.service);
+
+    }
+
+
 }

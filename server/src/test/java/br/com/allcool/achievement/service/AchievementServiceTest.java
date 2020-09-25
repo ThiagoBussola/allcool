@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,5 +67,35 @@ public class AchievementServiceTest {
 
         verify(this.repository).findAllAchievementByProductId(achievement.getId());
         verifyNoMoreInteractions(this.repository);
+    }
+
+    @Test
+    public void findById() {
+
+        File file = new File();
+        file.setUrl("www.testefile.com");
+
+        Brand brand = new Brand();
+        brand.setName("Patagonia");
+
+        Product product = new Product();
+        product.setBrand(brand);
+        product.setName("Patagonia Amber Lager");
+
+        Achievement achievement = new Achievement();
+        achievement.setId(UUID.randomUUID());
+        achievement.setTitle("Novato");
+        achievement.setDescription("Parabéns pela sua primeira conquista!");
+        achievement.setProduct(product);
+        achievement.setType(AchievementTypeEnum.PRODUCT);
+        achievement.setFile(file);
+
+        when(this.repository.findById(achievement.getId())).thenReturn(Optional.of(achievement));
+
+        this.service.findById(achievement.getId());
+
+        verify(this.repository).findById(achievement.getId());
+        verifyNoMoreInteractions(this.repository);
+
     }
 }

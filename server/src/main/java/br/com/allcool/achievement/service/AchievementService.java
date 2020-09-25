@@ -2,9 +2,13 @@ package br.com.allcool.achievement.service;
 
 import br.com.allcool.achievement.repository.AchievementRepository;
 import br.com.allcool.converter.AchievementDTOConverter;
+import br.com.allcool.converter.AchievementViewDTOConverter;
 import br.com.allcool.dto.AchievementDTO;
+import br.com.allcool.dto.AchievementViewDTO;
+import br.com.allcool.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -26,5 +30,13 @@ public class AchievementService {
 
         return this.repository.findAllAchievementByProductId(productId).stream()
                 .map(converter::to).collect(Collectors.toList());
+
     }
+
+    public AchievementViewDTO findById(UUID id) {
+
+        return new AchievementViewDTOConverter().to(this.repository.findById(id).orElseThrow(DataNotFoundException::new));
+
+    }
+
 }
