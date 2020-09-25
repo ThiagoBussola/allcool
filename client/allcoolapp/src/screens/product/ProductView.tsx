@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Product } from '../../types';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, Headline, Button } from 'react-native-paper';
+import { Text, Headline, Button, Divider } from 'react-native-paper';
 import {
   detailsStyle,
   boldTextStyles,
   textStyles,
   mainStyles,
   detailsTitleStyles,
+  rowStyle,
 } from '../../styles';
 import {
   ProductService,
@@ -92,10 +93,16 @@ const ProductView: React.FC<Props> = ({
   }, []);
 
   const onReview = () => {
-    if (userId && !productReviewed) {
+    if (productReviewed) {
+      return setSnackbarState({
+        message: 'Opa, o produto já foi avaliado!',
+        visible: true,
+      });
+    }
+
+    if (userId) {
       navigation.navigate('ProductReview', {
         product: { id: productId, name: product.name },
-        userId,
       });
     }
   };
@@ -108,37 +115,71 @@ const ProductView: React.FC<Props> = ({
         <>
           <ScrollView style={[mainStyles.container, { flex: 1 }]}>
             <View style={{ marginTop: '3%' }}>
-              <View>
-                <Headline
-                  style={[
-                    boldTextStyles,
-                    {
-                      alignSelf: 'center',
-                    },
-                  ]}
-                >
-                  {product.name}
-                </Headline>
-              </View>
               {!!productFile.id && (
                 <View style={{ height: 40, alignSelf: 'center' }}>
                   <ImageComponent
-                    imageStyle={{ width: 190, height: 205 }}
+                    imageStyle={{ width: 185, height: 205 }}
                     resizeMode="cover"
                     url={productFile.url}
                   />
                 </View>
               )}
-              <View style={{ marginTop: '50%', alignItems: 'center' }}>
-                <TouchableOpacity onPress={onReview} disabled={productReviewed}>
-                  <ReadOnlyStarRating rating={product.rating || 0} />
-                </TouchableOpacity>
-              </View>
             </View>
-
-            <View>
-              <View style={{ alignItems: 'flex-start' }}>
-                <View style={{ marginTop: '3%' }}>
+            <View style={{ marginTop: '50%' }}>
+              <View style={{ marginTop: '1%' }}>
+                <Divider accessibilityStates style={{ height: 0.5 }} />
+              </View>
+              <View>
+                <View style={[rowStyle, { marginTop: '1%' }]}>
+                  <View style={{ right: '35%' }}>
+                    <Button
+                      onPress={onReview}
+                      accessibilityStates
+                      color="#FFFFFF"
+                      mode="text"
+                      labelStyle={{ color: '#ffbf00', fontSize: 20 }}
+                    >
+                      Avalie o produto
+                    </Button>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: '1%',
+                      flex: 1,
+                      flexDirection: 'row-reverse',
+                    }}
+                  >
+                    <ReadOnlyStarRating rating={product.rating || 0} />
+                  </View>
+                </View>
+                <View style={{ marginTop: '1%' }}>
+                  <Divider accessibilityStates />
+                </View>
+                <View
+                  style={{
+                    marginTop: '1%',
+                    alignItems: 'flex-start',
+                    right: '4%',
+                  }}
+                >
+                  <Button
+                    accessibilityStates
+                    color="#FFFFFF"
+                    onPress={() =>
+                      navigation.navigate('AchievementList', {
+                        productId: product.id!,
+                      })
+                    }
+                    mode="text"
+                    labelStyle={{ color: '#ffbf00', fontSize: 20 }}
+                  >
+                    Conquistas
+                  </Button>
+                </View>
+                <View style={{ marginTop: '1%' }}>
+                  <Divider accessibilityStates />
+                </View>
+                <View style={{ marginTop: '1%' }}>
                   <Headline
                     style={boldTextStyles}
                   >{`Sobre ${product.name}`}</Headline>

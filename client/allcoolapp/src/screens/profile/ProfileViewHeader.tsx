@@ -10,12 +10,14 @@ import {
 import { mainStyles, rowStyle } from '../../styles';
 import { View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ProfileViewNavigationProp } from 'src/navigation';
 
 type Props = {
   loggedUser: UserClientDTO;
+  navigation: ProfileViewNavigationProp;
 };
 
-const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
+const ProfileViewHeader: React.FC<Props> = ({ loggedUser, navigation }) => {
   return (
     <>
       <View style={mainStyles.container}>
@@ -115,6 +117,27 @@ const ProfileViewHeader: React.FC<Props> = ({ loggedUser }) => {
             ]}
           >
             Conexões
+          </Paragraph>
+          <Paragraph
+            style={[
+              {
+                marginLeft: '5%',
+                fontSize: 18,
+              },
+            ]}
+          >
+            {`25 `}
+          </Paragraph>
+          <Paragraph
+            onPress={() => navigation.navigate('AchievementList')}
+            style={[
+              {
+                color: 'grey',
+                fontSize: 18,
+              },
+            ]}
+          >
+            Conquistas
           </Paragraph>
         </View>
       </View>
