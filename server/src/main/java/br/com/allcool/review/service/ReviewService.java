@@ -5,6 +5,7 @@ import br.com.allcool.converter.ReviewFormDTOConverter;
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.exception.CreationNotPermittedException;
+import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
@@ -72,5 +73,11 @@ public class ReviewService {
     public Boolean isProductReviewed(UUID userId, UUID productId) {
 
         return this.repository.existsByUserIdAndProductId(userId, productId);
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewDTO findById(UUID id) {
+
+        return new ReviewDTOConverter().to(this.repository.findById(id).orElseThrow(DataNotFoundException::new));
     }
 }

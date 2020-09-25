@@ -189,9 +189,9 @@
 
             insert into file (id, url, filetype, filename, filedate)
             values ('682842f8-4001-41a3-82b7-217f7c245375',
-            'https://allcoolapp-files.s3.amazonaws.com/17315s12433ds21asde51cf9bf5d6e-reviewpic.PNG',
-            'png', 'reviewpic2', '2020-08-02 01:00:00');
-
+            'https://allcool.s3.fr-par.scw.cloud/reviews/patagonia-amber-lager-review1.jpg', 'jpg',
+            'patagonia-amber-lager-review1', '2020-08-02 01:00:00');
+            
             insert into file (id, url, filetype, filename, filedate)
             values ('3cc6d0f5-0432-4798-bb08-8605a5b0ba4b',
             'https://allcool.s3.fr-par.scw.cloud/beers/brahma_extra_red-lager_355ml.png',
@@ -414,7 +414,7 @@
 
             insert into product (id, code, productname, description, harmonization, active, producttype_id, brand_id,
             ibu, minimumtemperature, maximumtemperature, alcoholcontent) values
-            ('7cd98967-c210-427f-b520-fdb59cfbb42c', 14, 'Beck`s', 'Beck’s é uma legítima German Lager Puro Malte, q' ||
+            ('7cd98967-c210-427f-b520-fdb59cfbb42c', 14, 'Beck’s', 'Beck’s é uma legítima German Lager Puro Malte, q' ||
             'ue segue à risca a lei da pureza da cerveja alemã desde 1873. Seu IBU é 20. O resultado é uma cerveja d' ||
             'e amargor intenso, sabor marcante e excepcional pureza. Ela é provocante, cheia de personalidade e com ' ||
             'um sabor característico e único. A cerveja alemã mais vendida no mundo.', 'Por ser uma cerveja tradicio' ||
@@ -901,7 +901,7 @@
 
             insert into review (id, userclient_id, product_id, file_id, description, rating)
             values('d8942a4c-183a-4261-83ff-6c466e5ced8f', '7db7d491-8f37-4bd6-a061-e865f9df4b6a',
-            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Review teste allcool',
+            '8f50022f-4058-4f8e-8062-fc0ef9bc327e', '682842f8-4001-41a3-82b7-217f7c245375', 'Cerveja muito boa!',
             5.00);
         </sql>
     </changeSet>
@@ -913,7 +913,7 @@
 
         <sql>
             insert into reviewproductflavor (id, review_id, description, flavortype)
-            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', 'd6353fa6-796e-4fca-aa11-d731633782dd', 'Adocicado',
+            values('c45db5f6-a6ee-4b8e-b470-048f1c7becd1', '71350ae5-c619-40a6-9324-680954ec0618', 'Adocicado',
             'SWEET');
             insert into reviewproductflavor (id, review_id, description, flavortype)
             values('96c8889a-8d57-4ddf-b673-c705d806642c', 'd8942a4c-183a-4261-83ff-6c466e5ced8f', 'Umami', 'UMAMI');
