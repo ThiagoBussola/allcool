@@ -1,6 +1,5 @@
 package br.com.allcool.achievement.resource;
 
-import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.achievement.service.AchievementService;
 import br.com.allcool.dto.AchievementDTO;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,9 @@ public class AchievementResource {
 
     private final AchievementService service;
 
-    public AchievementResource(AchievementService service) { this.service = service; }
+    public AchievementResource(AchievementService service) {
+        this.service = service;
+    }
 
     @GetMapping("/{productId}")
     public ResponseEntity<List<AchievementDTO>> findAllAchievementByProductId(@PathVariable("productId") UUID id) {
@@ -27,7 +28,14 @@ public class AchievementResource {
     }
 
     @GetMapping("/{countProductId}")
-    public long countByProductId (UUID productId) {
+    public long countByProductId(UUID productId) {
+
         return service.countByProductId(productId);
+    }
+
+    @GetMapping("/{countByUserId}")
+    public long countByUserId(UUID userId) {
+
+        return service.countByUserId(userId);
     }
 }
