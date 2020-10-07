@@ -26,4 +26,8 @@ public class AchievementResource {
         return ResponseEntity.ok(this.service.findAllAchievementByProductId(id));
     }
 
+    @GetMapping("/{countProductId}")
+    public long countByProductId (UUID productId) {
+        return service.countByProductId(productId);
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.allcool.achievement.service;
 
+import br.com.allcool.achievement.domain.Achievement;
 import br.com.allcool.achievement.repository.AchievementRepository;
 import br.com.allcool.converter.AchievementDTOConverter;
 import br.com.allcool.dto.AchievementDTO;
@@ -27,4 +28,11 @@ public class AchievementService {
         return this.repository.findAllAchievementByProductId(productId).stream()
                 .map(converter::to).collect(Collectors.toList());
     }
+
+    public Long countByProductId(UUID productId) {
+        
+        return repository.countByProductId(productId);
+
+    }
+
 }
