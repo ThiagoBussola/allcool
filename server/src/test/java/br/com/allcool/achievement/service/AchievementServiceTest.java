@@ -7,6 +7,7 @@ import br.com.allcool.dto.AchievementDTO;
 import br.com.allcool.enums.AchievementTypeEnum;
 import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
+import br.com.allcool.user.repository.UserClientAchievementRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +32,9 @@ public class AchievementServiceTest {
 
     @Mock
     private AchievementRepository repository;
+
+    @Mock
+    private UserClientAchievementRepository userClientAchievementRepository;
 
     @Test
     public void findAllAchievementByProductId() {
@@ -67,4 +72,30 @@ public class AchievementServiceTest {
         verify(this.repository).findAllAchievementByProductId(achievement.getId());
         verifyNoMoreInteractions(this.repository);
     }
+
+//    @Test
+//    public void countByProductId() {
+//
+//        UUID productId = UUID.randomUUID();
+//
+//        when(this.repository.countByProductId(productId)).thenReturn()
+//
+//        this.service.countByProductId(productId);
+//
+//        verify(this.repository).countByProductId(productId);
+//        verifyNoMoreInteractions(this.repository);
+//    }
+//
+//    @Test
+//    public void countByUserId() {
+//
+//        UUID userId = UUID.randomUUID();
+//
+//        when(this.userClientAchievementRepository.countByUserId(userId));
+//
+//        this.service.countByUserId(userId);
+//
+//        verify(this.userClientAchievementRepository).countByUserId(userId);
+//        verifyNoMoreInteractions(this.userClientAchievementRepository);
+//    }
 }

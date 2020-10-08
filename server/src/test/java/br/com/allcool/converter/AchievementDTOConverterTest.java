@@ -31,6 +31,7 @@ public class AchievementDTOConverterTest {
 
         Achievement achievement = new Achievement();
         achievement.setId(UUID.randomUUID());
+        achievement.setBrand(brand);
         achievement.setTitle("Novato");
         achievement.setDescription("Parabéns pela sua primeira conquista!");
         achievement.setProduct(product);
@@ -40,7 +41,7 @@ public class AchievementDTOConverterTest {
         AchievementDTO dto = this.achievementDTOConverter.to(achievement);
 
         assertThat(dto.getId()).isEqualTo(achievement.getId());
-        assertThat(dto.getBrand()).isEqualTo(brand.getName());
+        assertThat(dto.getBrand()).isEqualTo(achievement.getBrand().getName());
         assertThat(dto.getAchievementName()).isEqualTo(achievement.getTitle());
         assertThat(dto.getDescription()).isEqualTo(achievement.getDescription());
         assertThat(dto.getBadgeUrl()).isEqualTo(achievement.getFile().getUrl());
