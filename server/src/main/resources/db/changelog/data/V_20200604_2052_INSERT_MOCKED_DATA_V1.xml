@@ -161,7 +161,7 @@
             <!-- ACHIEVEMENT FILE -->
             insert into file (id, url, filetype, filename, filedate)
             values ('bf431a6f-bbf2-4932-85c4-ea0cd1a81b74',
-            'https://allcoolapp-files.s3.amazonaws.com/a22432s12433ds210134f51cf9bf5d6e-achievement1.PNG',
+            'https://allcool.s3.fr-par.scw.cloud/achievement/badge-1.png',
             'png', 'achievement1', '2020-06-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
