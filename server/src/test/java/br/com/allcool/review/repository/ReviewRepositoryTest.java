@@ -88,7 +88,7 @@ public class ReviewRepositoryTest {
 
         ReviewProductFlavor reviewProductFlavor = new ReviewProductFlavor();
         reviewProductFlavor.setReview(review);
-        reviewProductFlavor.setDescription("Teste descriÃ§Ã£o");
+        reviewProductFlavor.setDescription("Teste descrição");
         reviewProductFlavor.setType(FlavorTypeEnum.SWEET);
 
         review.getFlavors().add(reviewProductFlavor);

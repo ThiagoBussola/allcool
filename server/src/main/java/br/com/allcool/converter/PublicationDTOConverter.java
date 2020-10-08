@@ -5,6 +5,8 @@ import br.com.allcool.publication.domain.Publication;
 
 import static java.util.Objects.nonNull;
 
+import java.util.Objects;
+
 public class PublicationDTOConverter {
 
     private final ReviewDTOConverter reviewDTOConverter = new ReviewDTOConverter();
@@ -13,7 +15,7 @@ public class PublicationDTOConverter {
     public PublicationDTO to(Publication publication) {
         PublicationDTO dto = new PublicationDTO();
 
-        if (publication == null) {
+        if (Objects.isNull(publication)) {
             return dto;
         }
 

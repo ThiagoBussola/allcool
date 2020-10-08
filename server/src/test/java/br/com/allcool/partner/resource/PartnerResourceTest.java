@@ -1,5 +1,6 @@
 package br.com.allcool.partner.resource;
 
+import br.com.allcool.address.domain.Address;
 import br.com.allcool.dto.FileDTO;
 import br.com.allcool.dto.PartnerDTO;
 import br.com.allcool.dto.PartnerViewDTO;
@@ -87,35 +88,29 @@ public class PartnerResourceTest {
     @Test
     public void findAll() throws Exception {
 
+    	Address address = new Address();
+    	address.setId(UUID.randomUUID());
+    	address.setPublicPlace("Rua Luiza Zequim");
+    	address.setLocality("Maringa");
+    	address.setFederatedUnit("PR");
+    	
         PartnerDTO partner = new PartnerDTO();
         partner.setId(UUID.randomUUID());
         partner.setName("MPB Bar");
-        partner.setLocality("Maringa - PR");
-        partner.setAddress("Rua teste, 111 - teste");
         partner.setPhoneNumber("992448023");
-
-        PartnerDTO partner2 = new PartnerDTO();
-        partner2.setId(UUID.randomUUID());
-        partner2.setName("Atari Bar");
-        partner2.setLocality("Sarandi - PR");
-        partner2.setAddress("Rua teste, 222 - teste");
-        partner2.setPhoneNumber("99446556");
-
-        when(this.service.findAll()).thenReturn(Arrays.asList(partner, partner2));
+        partner.setAddress(address);
+        
+        when(this.service.findAll()).thenReturn(Arrays.asList(partner));
 
         this.mockMvc.perform(get("/api/partners"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[*].id", hasItems(partner.getId().toString(),
-                        partner2.getId().toString())))
-                .andExpect(jsonPath("$.[*].name", hasItems(partner.getName(),
-                        partner2.getName())))
-                .andExpect(jsonPath("$.[*].locality", hasItems(partner.getLocality(),
-                        partner2.getLocality())))
-                .andExpect(jsonPath("$.[*].address", hasItems(partner.getAddress(),
-                        partner2.getAddress())))
-                .andExpect(jsonPath("$.[*].phoneNumber", hasItems(partner.getPhoneNumber(),
-                        partner2.getPhoneNumber())));
+                .andExpect(jsonPath("$.[*].id", hasItems(partner.getId().toString())))
+                .andExpect(jsonPath("$.[*].name", hasItems(partner.getName())))
+                .andExpect(jsonPath("$.[*].address.locality", hasItems(partner.getAddress().getLocality())))
+                .andExpect(jsonPath("$.[*].address.publicPlace", hasItems(partner.getAddress().getPublicPlace())))
+                .andExpect(jsonPath("$.[*].address.federatedUnit", hasItems(partner.getAddress().getFederatedUnit())))
+                .andExpect(jsonPath("$.[*].phoneNumber", hasItems(partner.getPhoneNumber())));
 
         verify(this.service).findAll();
         verifyNoMoreInteractions(this.service);

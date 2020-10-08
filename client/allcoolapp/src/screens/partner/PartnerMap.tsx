@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-  Dimensions,
-} from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import Carousel from 'react-native-snap-carousel';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { PartnerService } from '../../service';
 import { PartnerDTO } from '../../types/dto';
 import {
@@ -23,13 +16,15 @@ import {
 import { useLoading } from '../../hooks';
 import Geolocation from '@react-native-community/geolocation';
 import { mapStyle } from '../../styles/mapStyle';
+import { mainStyles } from '../../styles';
+import { Button, Subheading, Title } from 'react-native-paper';
 
 type Props = {
   navigation: PartnerMapNavigationProp;
   route: PartnersMapRouteProp;
 };
 
-type userLocation = {
+type UserLocation = {
   latitude: number;
   longitude: number;
 };
@@ -37,10 +32,15 @@ type userLocation = {
 const ZOOM_LATITUDADE = 0.01;
 const ZOOM_LONGITUDE = 0.01;
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
-const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
+
+const SLIDER_WIDTH = Dimensions.get('window').width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+
+const mapRef = React.createRef<MapView>();
 
 const PartnerMap: React.FC<Props> = ({
   navigation,
@@ -49,15 +49,13 @@ const PartnerMap: React.FC<Props> = ({
   },
 }) => {
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
-  const [userLocation, setUserLocation] = useState<userLocation>();
+  const [userLocation, setUserLocation] = useState<UserLocation>();
   const [loading, setLoading] = useLoading();
+  const [firstItem, setFirstItem] = useState<number | undefined>();
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
     visible: false,
   });
-
-  let mapAnimation = new Animated.Value(0);
-  const _scrollView = React.useRef(null);
 
   useEffect(() => {
     getUserPosition();
@@ -66,6 +64,14 @@ const PartnerMap: React.FC<Props> = ({
       PartnerService.findAll()
         .then(({ data }) => {
           setPartners(data);
+
+          const firstIndex = data.findIndex((p) => p.id === partner?.id);
+
+          if (firstIndex) {
+            setFirstItem(firstIndex);
+          } else {
+            setFirstItem(0);
+          }
         })
         .catch(({ response }) =>
           setSnackbarState({
@@ -74,7 +80,8 @@ const PartnerMap: React.FC<Props> = ({
           })
         )
     );
-  }, []);
+    //eslint-disable-next-line
+  }, [partner.id]);
 
   const deniedAcessUserLocation = () => {
     setSnackbarState({
@@ -102,14 +109,62 @@ const PartnerMap: React.FC<Props> = ({
       partnerId: partner.id,
     });
 
+  const centerMapOnMarker = (markerIndex: number) => {
+    if (mapRef && mapRef.current && markerIndex >= 0) {
+      const partner: PartnerDTO = { ...partners[markerIndex] };
+
+      mapRef.current.animateToRegion({
+        latitude: partner.address.latitude,
+        longitude: partner.address.longitude,
+        latitudeDelta: ZOOM_LATITUDADE,
+        longitudeDelta: ZOOM_LONGITUDE,
+      });
+    }
+  };
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.card} key={index}>
+        <View style={{ alignItems: 'flex-start' }}>
+          <Title style={mainStyles.title}>{item.name}</Title>
+          <Subheading style={mainStyles.subHeading}>
+            {`Cidade: ${item.address.locality} - ${item.address.federatedUnit}`}
+          </Subheading>
+          <Subheading style={mainStyles.subHeading}>
+            {`Bairro: ${item.address.district}`}
+          </Subheading>
+          <Subheading style={mainStyles.subHeading}>
+            {`Endereço: ${item.address.publicPlace}`}
+          </Subheading>
+          <Subheading style={mainStyles.subHeading}>
+            {`Telefone: ${item.phoneNumber}`}
+          </Subheading>
+        </View>
+
+        <View style={{ marginTop: '5%' }}>
+          <Button
+            accessibilityStates
+            color="#FFFFFF"
+            onPress={() => showPartnerDetails(item)}
+            mode="text"
+            labelStyle={{ color: '#ffbf00' }}
+          >
+            Ver Mais Detalhes
+          </Button>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <>
       {userLocation && partners && partners.length > 0 ? (
         <View style={{ flex: 1 }}>
           <MapView
+            ref={mapRef}
             region={{
-              latitude: partner.latitude,
-              longitude: partner.longitude,
+              latitude: partner.address.latitude,
+              longitude: partner.address.longitude,
               latitudeDelta: ZOOM_LATITUDADE,
               longitudeDelta: ZOOM_LONGITUDE,
             }}
@@ -127,19 +182,11 @@ const PartnerMap: React.FC<Props> = ({
                 key={index}
                 title={value.name}
                 coordinate={{
-                  latitude: value.latitude,
-                  longitude: value.longitude,
+                  latitude: value.address.latitude,
+                  longitude: value.address.longitude,
                 }}
                 image={require('../../img/icon.png')}
-              >
-                <Callout tooltip>
-                  <View style={styles.bubble}>
-                    <Text style={styles.tex}>{value.name}</Text>
-                  </View>
-                  <View style={styles.arrowBorder} />
-                  <View style={styles.arrow} />
-                </Callout>
-              </Marker>
+              />
             ))}
 
             <Marker
@@ -152,73 +199,21 @@ const PartnerMap: React.FC<Props> = ({
             />
           </MapView>
 
-          <Animated.ScrollView
-            ref={_scrollView}
-            horizontal
-            pagingEnabled
-            scrollEventThrottle={1}
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={CARD_WIDTH + 20}
-            snapToAlignment="center"
-            style={styles.scrollView}
-            contentInset={{
-              top: 0,
-              left: SPACING_FOR_CARD_INSET,
-              bottom: 0,
-              right: SPACING_FOR_CARD_INSET,
-            }}
-            contentContainerStyle={{
-              paddingHorizontal: SPACING_FOR_CARD_INSET,
-            }}
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: {
-                    contentOffset: {
-                      x: mapAnimation,
-                    },
-                  },
-                },
-              ],
-              { useNativeDriver: true }
+          <View style={styles.scrollView}>
+            {firstItem && firstItem >= 0 && (
+              <Carousel
+                firstItem={firstItem}
+                onSnapToItem={(index) => centerMapOnMarker(index)}
+                data={partners}
+                renderItem={renderItem}
+                sliderWidth={SLIDER_WIDTH}
+                itemWidth={ITEM_WIDTH}
+                layout={'default'}
+                inactiveSlideOpacity={0.5}
+                activeAnimationType={'spring'}
+              />
             )}
-          >
-            {partners.map((marker, index) => (
-              <View style={styles.card} key={index}>
-                <View style={styles.textContent}>
-                  <Text numberOfLines={1} style={styles.cardtitle}>
-                    {marker.name}
-                  </Text>
-                  <Text numberOfLines={1} style={styles.cardDescription}>
-                    {marker.locality}
-                  </Text>
-                  <View style={styles.button}>
-                    <TouchableOpacity
-                      onPress={() => {}}
-                      style={[
-                        styles.signIn,
-                        {
-                          borderColor: '#ffbf00',
-                          borderWidth: 1,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={[
-                          styles.textSign,
-                          {
-                            color: '#ffbf00',
-                          },
-                        ]}
-                      >
-                        Ver Detalhes
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </Animated.ScrollView>
+          </View>
         </View>
       ) : (
         <EmptyListPlaceholder
@@ -242,49 +237,9 @@ const PartnerMap: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  bubble: {
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-    backgroundColor: '#fff',
-    borderRadius: 6,
-    borderColor: '#ccc',
-    borderWidth: 0.5,
-    padding: 15,
-  },
   tex: {
     fontSize: 15,
     marginBottom: 10,
-  },
-  arrow: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#fff',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -32,
-  },
-  arrowBorder: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#007a87',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -0.5,
-    // marginBottom: -15
-  },
-  searchBox: {
-    position: 'absolute',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
   },
   scrollView: {
     position: 'absolute',
@@ -293,11 +248,8 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
   },
-  endPadding: {
-    paddingRight: width - CARD_WIDTH,
-  },
   card: {
-    // padding: 10,
+    padding: 10,
     elevation: 2,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 5,
@@ -316,15 +268,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignSelf: 'center',
-  },
-  textContent: {
-    flex: 2,
-    padding: 10,
-  },
-  cardtitle: {
-    fontSize: 12,
-    // marginTop: 5,
-    fontWeight: 'bold',
   },
   cardDescription: {
     fontSize: 12,
@@ -350,10 +293,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
+    borderColor: '#ffbf00',
+    borderWidth: 1,
   },
   textSign: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: '#ffbf00',
   },
 });
 

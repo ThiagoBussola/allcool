@@ -2,7 +2,6 @@ package br.com.allcool.publication.resource;
 
 import br.com.allcool.converter.NewsDTOConverter;
 import br.com.allcool.converter.ReviewDTOConverter;
-import br.com.allcool.dto.NewsDTO;
 import br.com.allcool.dto.PublicationDTO;
 import br.com.allcool.enums.PublicationTypeEnum;
 import br.com.allcool.news.domain.News;
