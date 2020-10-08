@@ -8,6 +8,7 @@ import * as ProductFlavorService from './ProductFlavorService';
 import * as ReviewService from './ReviewService';
 import * as PublicationService from './PublicationService';
 import * as UserClientService from './UserClientService';
+import * as AchievementService from './AchievementService';
 
 export {
   LoginService,
@@ -18,4 +19,5 @@ export {
   ReviewService,
   PublicationService,
   UserClientService,
+  AchievementService,
 };
