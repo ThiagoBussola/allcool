@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Loading, SnackbarState, EmptyListPlaceholder } from '../../components';
+import {
+  Loading,
+  SnackbarState,
+  EmptyListPlaceholder,
+  ReadOnlyStarRating,
+} from '../../components';
 import { useLoading } from '../../hooks';
 import { ReviewService } from '../../service';
 import { ReviewDTO } from '../../types/dto';
 import { View } from 'react-native';
-import { Title, Card, Paragraph, Avatar } from 'react-native-paper';
-import { AirbnbRating } from 'react-native-ratings';
-import { rowStyle } from '../../styles';
+import { Card, Paragraph, Avatar } from 'react-native-paper';
 
 type Props = {
   productId: string;
@@ -33,22 +36,6 @@ const ProductReviewList: React.FC<Props> = ({
     );
     //eslint-disable-next-line
   }, [productId]);
-
-  const renderRating = (reviewDTO: ReviewDTO) => (
-    <View style={[rowStyle, { marginRight: '2%' }]}>
-      <Title style={{ color: '#ffbf00' }}>{reviewDTO.rating}</Title>
-      <View style={{ justifyContent: 'center' }}>
-        <AirbnbRating
-          defaultRating={1}
-          isDisabled
-          size={16}
-          showRating={false}
-          starStyle={{ tintColor: '#ffbf00' }}
-          count={1}
-        />
-      </View>
-    </View>
-  );
 
   return (
     <>
@@ -93,7 +80,12 @@ const ProductReviewList: React.FC<Props> = ({
                         source={{ uri: reviewDTO.avatarUrl }}
                       />
                     )}
-                    right={() => renderRating(reviewDTO)}
+                    right={() => (
+                      <ReadOnlyStarRating
+                        rating={reviewDTO.rating!}
+                        onFlexEnd
+                      />
+                    )}
                   />
                   <Card.Content>
                     <Paragraph style={{ fontSize: 16 }}>

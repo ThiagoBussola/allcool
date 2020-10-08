@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
-import { ReviewDTO } from '../../types/dto';
-import { ReadOnlyStarRating } from '../../components';
+import { ReviewDTO } from '../../../types/dto';
+import { ReadOnlyStarRating } from '../../../components';
 
 type Props = {
   review: ReviewDTO;
@@ -27,7 +27,9 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
         subtitle={review.productName}
         subtitleStyle={{ fontSize: 16 }}
         titleStyle={{ fontSize: 22 }}
-        right={() => <ReadOnlyStarRating rating={review.rating || 0} />}
+        right={() => (
+          <ReadOnlyStarRating rating={review.rating || 0} onFlexEnd />
+        )}
         left={() => (
           <Avatar.Image
             accessibilityStates

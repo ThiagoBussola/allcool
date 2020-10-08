@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 type PublicationListStackParamList = {
   Publications: { userId: string };
   PublicationView: { userId: string; publicationId: string };
+  PublicationReviewView: { reviewId: string };
 };
 
 export type PublicationListNavigationProp = StackNavigationProp<

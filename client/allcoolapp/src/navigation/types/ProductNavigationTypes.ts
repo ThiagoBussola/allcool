@@ -19,7 +19,8 @@ export type ProductsListRouteProp = RouteProp<
 
 type ProductViewStackParamList = {
   ProductView: { productId: string; userId: string };
-  ProductReview: { product: ProductReviewDTO; userId: string };
+  ProductReview: { product: ProductReviewDTO };
+  AchievementList: { productId: string };
 };
 
 export type ProductViewNavigationProp = StackNavigationProp<

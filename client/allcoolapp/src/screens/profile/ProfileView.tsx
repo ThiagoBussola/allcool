@@ -12,7 +12,7 @@ import {
   Loading,
   SnackbarState,
 } from '../../components';
-import { ReviewPublicationCardChildren } from '../publication/ReviewPublicationCardChildren';
+import { ReviewPublicationCardChildren } from '../publication/review';
 import { useLoading } from '../../hooks';
 import { PublicationDTO, UserClientDTO } from '../../types/dto';
 import { UserClientService, PublicationService } from '../../service';
@@ -47,9 +47,14 @@ const ProfileView: React.FC<Props> = ({
 
   const refreshPublications = () =>
     setLoading(
-      PublicationService.findAllReviewPublicationsByUserId(
-        loggedUser.id!
-      ).then(({ data }) => setPublications(data))
+      PublicationService.findAllReviewPublicationsByUserId(loggedUser.id!)
+        .then(({ data }) => setPublications(data))
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
     );
 
   useEffect(() => {
@@ -57,6 +62,12 @@ const ProfileView: React.FC<Props> = ({
       UserClientService.findById(userId)
         .then(({ data }) => setLoggedUser(data))
         .then(() => refreshPublications())
+        .catch(({ response }) =>
+          setSnackbarState({
+            message: response.data?.message || response.data,
+            visible: true,
+          })
+        )
     );
     //eslint-disable-next-line
   }, [userId]);
@@ -70,7 +81,12 @@ const ProfileView: React.FC<Props> = ({
             flex: 1,
             width: screenWidth,
           }}
-          ListHeaderComponent={<ProfileViewHeader loggedUser={loggedUser} />}
+          ListHeaderComponent={
+            <ProfileViewHeader
+              loggedUser={loggedUser}
+              navigation={navigation}
+            />
+          }
           ListEmptyComponent={
             <EmptyListPlaceholder
               message="Nenhuma publicação encontrada"

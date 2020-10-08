@@ -148,7 +148,7 @@ const PartnerList: React.FC<Props> = ({
                   </View>
                 </View>
                 <View style={{ marginTop: '6.5%', backgroundColor: '#ffbf00' }}>
-                  <Divider accessibilityStates />
+                  <Divider accessibilityStates style={{ height: 0.5 }} />
                 </View>
               </TouchableOpacity>
             </>
