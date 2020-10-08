@@ -6,9 +6,9 @@ import br.com.allcool.converter.AchievementViewDTOConverter;
 import br.com.allcool.dto.AchievementDTO;
 import br.com.allcool.dto.AchievementViewDTO;
 import br.com.allcool.exception.DataNotFoundException;
+import br.com.allcool.user.repository.UserClientAchievementRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +20,11 @@ public class AchievementService {
 
     private final AchievementRepository repository;
 
-    public AchievementService(AchievementRepository achievementRepository) {
+    private final UserClientAchievementRepository userClientAchievementRepository;
+
+    public AchievementService(AchievementRepository achievementRepository, UserClientAchievementRepository userClientAchievementRepository) {
         this.repository = achievementRepository;
+        this.userClientAchievementRepository = userClientAchievementRepository;
     }
 
     public List<AchievementDTO> findAllAchievementByProductId(UUID productId) {
@@ -37,6 +40,17 @@ public class AchievementService {
 
         return new AchievementViewDTOConverter().to(this.repository.findById(id).orElseThrow(DataNotFoundException::new));
 
+    }
+
+    public Long countByProductId(UUID productId) {
+
+        return repository.countByProductId(productId);
+
+    }
+
+    public Long countByUserId(UUID userId) {
+
+        return userClientAchievementRepository.countByUserId(userId);
     }
 
 }

@@ -18,7 +18,9 @@ public class AchievementResource {
 
     private final AchievementService service;
 
-    public AchievementResource(AchievementService service) { this.service = service; }
+    public AchievementResource(AchievementService service) {
+        this.service = service;
+    }
 
     @GetMapping("/{productId}")
     public ResponseEntity<List<AchievementDTO>> findAllAchievementByProductId(@PathVariable("productId") UUID id) {
@@ -32,4 +34,15 @@ public class AchievementResource {
         return ResponseEntity.ok(this.service.findById(id));
     }
 
+    @GetMapping("/{countProductId}/productId")
+    public Long countByProductId(UUID productId) {
+
+        return service.countByProductId(productId);
+    }
+
+    @GetMapping("/{countByUserId}/userId")
+    public Long countByUserId(UUID userId) {
+
+        return service.countByUserId(userId);
+    }
 }
