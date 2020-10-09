@@ -12,11 +12,12 @@ import {
   EmptyListPlaceholder,
   SnackbarState,
   SnackbarNotification,
+  ImageComponent,
 } from '../../components';
 import { useLoading } from '../../hooks';
 import Geolocation from '@react-native-community/geolocation';
 import { mapStyle } from '../../styles/mapStyle';
-import { mainStyles } from '../../styles';
+import { listImageStyle, mainStyles, rowStyle } from '../../styles';
 import { Button, Subheading, Title } from 'react-native-paper';
 
 type Props = {
@@ -125,20 +126,35 @@ const PartnerMap: React.FC<Props> = ({
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.card} key={index}>
-        <View style={{ alignItems: 'flex-start' }}>
-          <Title style={mainStyles.title}>{item.name}</Title>
-          <Subheading style={mainStyles.subHeading}>
-            {`Cidade: ${item.address.locality} - ${item.address.federatedUnit}`}
-          </Subheading>
-          <Subheading style={mainStyles.subHeading}>
-            {`Bairro: ${item.address.district}`}
-          </Subheading>
-          <Subheading style={mainStyles.subHeading}>
-            {`Endereço: ${item.address.publicPlace}`}
-          </Subheading>
-          <Subheading style={mainStyles.subHeading}>
-            {`Telefone: ${item.phoneNumber}`}
-          </Subheading>
+        <View style={rowStyle} key={index}>
+          <View style={{ alignItems: 'flex-start', marginTop: '6%' }}>
+            <ImageComponent imageStyle={listImageStyle} url={item?.avatarUrl} />
+          </View>
+          <View style={{ marginTop: '6.5%' }}>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Title style={mainStyles.title}>{item.name}</Title>
+            </View>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Subheading style={mainStyles.subHeading}>
+                {`Cidade: ${item.address.locality} - ${item.address.federatedUnit}`}
+              </Subheading>
+            </View>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Subheading style={mainStyles.subHeading}>
+                {`Bairro: ${item.address.district}`}
+              </Subheading>
+            </View>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Subheading style={mainStyles.subHeading}>
+                {`Endereço: ${item.address.publicPlace}`}
+              </Subheading>
+            </View>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Subheading style={mainStyles.subHeading}>
+                {`Telefone: ${item.phoneNumber}`}
+              </Subheading>
+            </View>
+          </View>
         </View>
 
         <View style={{ marginTop: '5%' }}>

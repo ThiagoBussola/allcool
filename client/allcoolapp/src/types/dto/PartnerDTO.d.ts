@@ -5,4 +5,5 @@ export type PartnerDTO = {
   name: string;
   address: Address;
   phoneNumber: string;
+  avatarUrl: string;
 };

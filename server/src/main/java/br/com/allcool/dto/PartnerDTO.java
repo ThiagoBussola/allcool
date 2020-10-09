@@ -12,4 +12,5 @@ public class PartnerDTO {
 	 private String name;
 	 private String phoneNumber;
 	 private Address address;
+	 private String avatarUrl;
 }
