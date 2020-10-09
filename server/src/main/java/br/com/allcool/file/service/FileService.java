@@ -1,5 +1,6 @@
 package br.com.allcool.file.service;
 
+import br.com.allcool.file.domain.File;
 import br.com.allcool.file.repository.FileRepository;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -13,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,16 +31,13 @@ import java.util.regex.Pattern;
 @Service
 public class FileService {
 
-    private final AmazonS3 s3Bucket;
-    private final FileRepository repository;
-    private final Path rootLocation = Paths.get("tmp-folder");
-
     private static final String JPG = ".jpg";
     private static final String PNG = ".png";
     private static final String JPEG = ".jpeg";
-
     private static final String FILE_FORMAT_REGEX = "\\.[^.]{1,10}$";
-
+    private final AmazonS3 s3Bucket;
+    private final FileRepository repository;
+    private final Path rootLocation = Paths.get("tmp-folder");
     private final List<String> allowedExtensions = Arrays.asList(JPG, JPEG, PNG);
 
     @Value("${s3.baseUrl}")
@@ -57,7 +54,7 @@ public class FileService {
         Files.createDirectories(rootLocation);
     }
 
-    public void createImage(MultipartFile file) throws IOException {
+    public File createImage(MultipartFile file, String folderName, UUID entityId) throws IOException {
 
         if (file.isEmpty() || Objects.isNull(file.getOriginalFilename())) {
             throw new RuntimeException("Failed to store empty file ");
@@ -76,20 +73,19 @@ public class FileService {
             throw new RuntimeException("São permitidos apenas arquivos com a extensão jpg, jpeg ou png");
         }
 
-        File createdFile = File.createTempFile("tmp", "", this.rootLocation.toFile());
+        java.io.File createdFile = java.io.File.createTempFile("tmp", "", this.rootLocation.toFile());
 
         try (FileOutputStream output = new FileOutputStream(createdFile)) {
             IOUtils.copy(file.getInputStream(), output);
         }
 
-        // Alterar para ID da entidade quando aprofundar
-        String newFileName = UUID.randomUUID().toString()
-                .concat(file.getName()).concat("/") + file.getOriginalFilename();
+        String s3PathName = folderName.concat("/").concat(entityId.toString())
+                .concat("/").concat(file.getOriginalFilename());
 
-        String url = baseUrl + newFileName;
+        String url = baseUrl + s3PathName;
 
         PutObjectRequest putObjectRequest = new PutObjectRequest
-                ("allcool", newFileName, createdFile)
+                ("allcool", s3PathName, createdFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead);
 
         s3Bucket.putObject(putObjectRequest);
@@ -110,10 +106,10 @@ public class FileService {
         newFile.setType(prefix);
         newFile.setUrl(url);
 
-        this.repository.save(newFile);
-
         if (!createdFile.delete()) {
             log.error("Ocorreu um erro ao remover o arquivo {}, path: {}", createdFile.getName(), createdFile.getPath());
         }
+
+        return this.repository.save(newFile);
     }
 }

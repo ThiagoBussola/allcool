@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Card, Avatar, Button, IconButton } from 'react-native-paper';
 import { mainStyles } from '../../styles';
 import { CameraComponent } from '../../components';
+import { TakePictureResponse } from 'react-native-camera';
 
 type Props = {
   showPic: boolean;
@@ -13,19 +14,30 @@ const CameraIcon = (props) => (
   <Avatar.Icon {...props} icon="camera" style={{ backgroundColor: 'black' }} />
 );
 
+const pictureInitialStatus: TakePictureResponse = {
+  uri: '',
+  deviceOrientation: 1,
+  height: 0,
+  pictureOrientation: 1,
+  width: 0,
+};
+
 const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
   const [hasPicture, setHasPicture] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
-  const [picture, setPicture] = useState(null);
+  const [picture, setPicture] = useState<TakePictureResponse>(
+    pictureInitialStatus
+  );
 
-  const onChangePicture = (newPictureUri) => {
-    setPicture(newPictureUri);
+  const onTakePicture = (newPicture) => {
+    console.log(newPicture);
+    setPicture(newPicture);
     setShowCamera(false);
     setHasPicture(true);
   };
 
   const onResetPicture = () => {
-    setPicture(null);
+    setPicture(pictureInitialStatus);
     setHasPicture(false);
   };
 
@@ -81,10 +93,9 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
                 <>
                   <Card.Cover
                     accessibilityStates
-                    source={{ uri: picture || '' }}
+                    source={{ uri: picture.uri }}
                     resizeMethod="auto"
-                    resizeMode="contain"
-                    style={{ height: 200, width: 367 }}
+                    resizeMode="cover"
                   />
                   {renderViewPicButton()}
                 </>
@@ -96,7 +107,7 @@ const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
           {showCamera && (
             <Card.Actions>
               <CameraComponent
-                onChangePicture={onChangePicture}
+                onTakePicture={onTakePicture}
                 setShowCamera={setShowCamera}
               />
             </Card.Actions>
