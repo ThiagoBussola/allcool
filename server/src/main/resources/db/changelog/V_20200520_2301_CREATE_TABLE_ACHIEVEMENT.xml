@@ -27,6 +27,7 @@
             <column name="achievementtype" type="varchar(30)">
                 <constraints nullable="false"/>
             </column>
+            <column name="brand_id" type="uuid"/>
         </createTable>
 
         <addPrimaryKey tableName="achievement" columnNames="id" constraintName="achievement_pk"/>
@@ -54,5 +55,14 @@
                                  constraintName="ac_fileid_fk" referencedTableName="file"
                                  referencedColumnNames="id"/>
     </changeSet>
-
+    <changeSet id="add-ac_brandid_fk" author="pedro.lobato">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="ac_brandid_fk" foreignKeyTableName="achievement"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="achievement" baseColumnNames="brand_id" constraintName="ac_brandid_fk"
+                                 referencedTableName="brand"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>

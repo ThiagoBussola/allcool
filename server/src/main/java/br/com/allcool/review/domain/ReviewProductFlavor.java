@@ -4,6 +4,7 @@ import br.com.allcool.enums.FlavorTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -25,7 +26,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "reviewproductflavor")
 @ToString(exclude = "review")
-@EqualsAndHashCode(of = {"id", "review"})
+@EqualsAndHashCode(of = "id")
 public class ReviewProductFlavor {
 
     @Id

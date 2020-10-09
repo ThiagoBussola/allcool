@@ -11,3 +11,5 @@ export * from './FileDTO';
 export * from './WorkingPeriodDTO';
 export * from './PublicationDTO';
 export * from './NewsDTO';
+export * from './AchievementViewDTO';
+export * from './ReviewProductFlavorDTO';

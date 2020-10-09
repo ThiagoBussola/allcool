@@ -1,6 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProductView, ProductList, ProductReview } from '../../screens';
+import {
+  ProductView,
+  ProductList,
+  ProductReview,
+  AchievementList,
+  AchievementView,
+} from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -11,6 +17,8 @@ type ProductRootStackParamList = {
   Products: { userId: string };
   ProductView: { userId: string };
   ProductReview: { userId: string };
+  AchievementList: { userId: string };
+  AchievementView: { userId: string };
 };
 
 const RootStack = createStackNavigator<ProductRootStackParamList>();
@@ -63,6 +71,18 @@ const ProductStack: React.FC<Props> = ({
           name="ProductReview"
           options={screenStackOptions('Avaliação')}
           component={ProductReview}
+          initialParams={{ userId }}
+        />
+        <RootStack.Screen
+          name="AchievementList"
+          options={screenStackOptions('Conquistas')}
+          component={AchievementList}
+          initialParams={{ userId }}
+        />
+        <RootStack.Screen
+          name="AchievementView"
+          options={screenStackOptions('Conquista')}
+          component={AchievementView}
           initialParams={{ userId }}
         />
       </RootStack.Navigator>
