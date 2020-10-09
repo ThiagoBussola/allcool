@@ -6,17 +6,14 @@ import { IconButton } from 'react-native-paper';
 
 type Props = {
   setShowCamera: (value: boolean) => void;
-  onChangePicture: (uri) => void;
+  onTakePicture: (uri) => void;
 };
 
 const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 
-const CameraComponent: React.FC<Props> = ({
-  setShowCamera,
-  onChangePicture,
-}) => {
-  const takePicture = async (camera) => {
+const CameraComponent: React.FC<Props> = ({ setShowCamera, onTakePicture }) => {
+  const takePicture = async (camera: RNCamera) => {
     if (camera) {
       try {
         const options = {
@@ -26,11 +23,12 @@ const CameraComponent: React.FC<Props> = ({
           fixOrientation: true,
           skipProcessing: true,
         };
-        camera
-          .takePictureAsync(options)
-          .then(({ uri }) => onChangePicture(uri));
+
+        camera.takePictureAsync(options).then((response) => {
+          onTakePicture(response);
+        });
       } catch (error) {
-        Alert.alert('Erro', 'Houve um erro ao tirar a foto.');
+        Alert.alert('Erro', 'Houve um erro ao capturar a foto.');
       }
     }
   };
