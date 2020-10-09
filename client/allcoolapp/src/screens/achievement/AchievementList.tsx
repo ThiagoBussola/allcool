@@ -17,7 +17,7 @@ const AchievementList: React.FC<Props> = ({
     params: { userId, productId },
   },
 }) => {
-  const achievementIdMock = 'ce583254-d732-4fe7-85fb-a11585399766';
+  const achievementIdMock = '1';
 
   return (
     <View style={{ marginTop: '50%' }}>
