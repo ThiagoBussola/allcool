@@ -1,12 +1,20 @@
 import React from 'react';
 import { View, Alert, Dimensions, Modal, StyleSheet } from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import { RNCamera, TakePictureResponse } from 'react-native-camera';
 import { Loading } from './Loading';
 import { IconButton } from 'react-native-paper';
 
 type Props = {
   setShowCamera: (value: boolean) => void;
-  onTakePicture: (uri) => void;
+  onTakePicture: (picture) => void;
+};
+
+export const pictureInitialStatus: TakePictureResponse = {
+  uri: '',
+  deviceOrientation: 1,
+  height: 0,
+  pictureOrientation: 1,
+  width: 0,
 };
 
 const dimensions = Dimensions.get('window');

@@ -2,35 +2,30 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Card, Avatar, Button, IconButton } from 'react-native-paper';
 import { mainStyles } from '../../styles';
-import { CameraComponent } from '../../components';
+import { CameraComponent, pictureInitialStatus } from '../../components';
 import { TakePictureResponse } from 'react-native-camera';
 
 type Props = {
   showPic: boolean;
   setShowPic: (value: boolean) => void;
+  picture: TakePictureResponse;
+  setPicture: (picture: TakePictureResponse) => void;
 };
 
 const CameraIcon = (props) => (
   <Avatar.Icon {...props} icon="camera" style={{ backgroundColor: 'black' }} />
 );
 
-const pictureInitialStatus: TakePictureResponse = {
-  uri: '',
-  deviceOrientation: 1,
-  height: 0,
-  pictureOrientation: 1,
-  width: 0,
-};
-
-const ProductReviewCard: React.FC<Props> = ({ showPic, setShowPic }) => {
+const ProductReviewCard: React.FC<Props> = ({
+  showPic,
+  setShowPic,
+  setPicture,
+  picture,
+}) => {
   const [hasPicture, setHasPicture] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
-  const [picture, setPicture] = useState<TakePictureResponse>(
-    pictureInitialStatus
-  );
 
-  const onTakePicture = (newPicture) => {
-    console.log(newPicture);
+  const onTakePicture = (newPicture: TakePictureResponse) => {
     setPicture(newPicture);
     setShowCamera(false);
     setHasPicture(true);

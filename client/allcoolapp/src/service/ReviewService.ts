@@ -4,7 +4,7 @@ import { ReviewFormDTO, ReviewDTO } from '../types/dto';
 
 const resource = '/api/reviews';
 
-export const saveReview = (review: ReviewFormDTO): AxiosPromise<void> => {
+export const saveReview = (review: ReviewFormDTO): AxiosPromise<ReviewDTO> => {
   return requestExecutor.post(resource, review);
 };
 
@@ -25,4 +25,11 @@ export const findAllByProductId = (
 
 export const findById = (id: string): AxiosPromise<ReviewDTO> => {
   return requestExecutor.get(`${resource}/${id}/view`);
+};
+
+export const saveReviewImage = (formData: FormData, reviewId: string) => {
+  return requestExecutor.post(
+    `${resource}/${reviewId}/upload-picture`,
+    formData
+  );
 };

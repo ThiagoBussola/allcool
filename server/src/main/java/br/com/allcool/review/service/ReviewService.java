@@ -6,13 +6,17 @@ import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
 import br.com.allcool.exception.CreationNotPermittedException;
 import br.com.allcool.exception.DataNotFoundException;
+import br.com.allcool.file.domain.File;
+import br.com.allcool.file.service.FileService;
 import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.publication.repository.PublicationRepository;
 import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,10 +29,12 @@ public class ReviewService {
 
     private final ReviewRepository repository;
     private final PublicationRepository publicationRepository;
+    private final FileService fileService;
 
-    public ReviewService(ReviewRepository repository, PublicationRepository publicationRepository) {
+    public ReviewService(ReviewRepository repository, PublicationRepository publicationRepository, FileService fileService) {
         this.repository = repository;
         this.publicationRepository = publicationRepository;
+        this.fileService = fileService;
     }
 
     public List<ReviewDTO> findAllByProductId(UUID productId) {
@@ -79,5 +85,17 @@ public class ReviewService {
     public ReviewDTO findById(UUID id) {
 
         return new ReviewDTOConverter().to(this.repository.findById(id).orElseThrow(DataNotFoundException::new));
+    }
+
+    @Transactional
+    public void saveReviewPicture(MultipartFile file, UUID reviewId) throws IOException {
+
+        Review review = this.repository.findById(reviewId).orElseThrow(DataNotFoundException::new);
+
+        final File image = fileService.createImage(file, "reviews", review.getId());
+
+        review.setFile(image);
+
+        this.repository.save(review);
     }
 }

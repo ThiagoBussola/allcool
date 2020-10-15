@@ -19,10 +19,12 @@ import {
   ProductReviewRouteProp,
 } from '../../navigation';
 import {
+  pictureInitialStatus,
   RequiredFieldMarker,
   SnackbarNotification,
   SnackbarState,
 } from '../../components';
+import { TakePictureResponse } from 'react-native-camera';
 
 type Props = {
   navigation: ProductReviewNavigationProp;
@@ -52,6 +54,9 @@ const ProductReview: React.FC<Props> = ({
   );
   const [productFlavors, setProductFlavors] = useState<ProductFlavorDTO[]>([]);
   const [showPic, setShowPic] = useState(false);
+  const [picture, setPicture] = useState<TakePictureResponse>(
+    pictureInitialStatus
+  );
   const [isValid, setIsValid] = useState(false);
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
@@ -86,6 +91,22 @@ const ProductReview: React.FC<Props> = ({
 
   const submitReview = () =>
     ReviewService.saveReview(review)
+      .then(({ data }) => {
+        const formData = new FormData();
+        formData.append('image', {
+          uri: picture.uri,
+          type: 'image/jpeg',
+          name: `${data.userName}_review_picture_${data.productName}.jpg`,
+        });
+
+        return ReviewService.saveReviewImage(formData, data.id!).catch(
+          ({ response }) =>
+            setSnackbarState({
+              message: response.data?.message || response.data,
+              visible: true,
+            })
+        );
+      })
       .then(() => navigation.goBack())
       .catch(({ response }) =>
         setSnackbarState({
@@ -155,7 +176,12 @@ const ProductReview: React.FC<Props> = ({
             </Subheading>
           </View>
 
-          <ProductReviewCard showPic={showPic} setShowPic={setShowPic} />
+          <ProductReviewCard
+            showPic={showPic}
+            setShowPic={setShowPic}
+            picture={picture}
+            setPicture={setPicture}
+          />
 
           <View>
             <View>
