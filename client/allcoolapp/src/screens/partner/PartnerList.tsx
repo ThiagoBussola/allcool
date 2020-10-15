@@ -126,7 +126,12 @@ const PartnerList: React.FC<Props> = ({
                     </View>
                     <View>
                       <Subheading style={mainStyles.subHeading}>
-                        {`${item.address.locality}`} - {`${item.phoneNumber}`}
+                        {`${
+                          item.address.locality.length > 40
+                            ? item.address.locality.slice(0, 40).concat('...')
+                            : item.address.locality
+                        }`}
+                        - {`${item.phoneNumber}`}
                       </Subheading>
                     </View>
                   </View>

@@ -6,6 +6,7 @@ import br.com.allcool.file.domain.File;
 import br.com.allcool.product.domain.Product;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 

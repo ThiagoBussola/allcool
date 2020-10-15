@@ -3,7 +3,7 @@ export type Address = {
   zipCode?: string;
   publicPlace: string;
   district?: string;
-  locality?: string;
+  locality: string;
   federatedUnit?: string;
   latitude: number;
   longitude: number;

@@ -51,7 +51,10 @@ const PartnerMap: React.FC<Props> = ({
 }) => {
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
   const [partner, setPartner] = useState<PartnerDTO>();
-  const [userLocation, setUserLocation] = useState<UserLocation>();
+  const [userLocation, setUserLocation] = useState<UserLocation>({
+    latitude: 0,
+    longitude: 0,
+  });
   const [loading, setLoading] = useLoading();
   const [firstItem, setFirstItem] = useState<number | undefined>();
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
@@ -131,7 +134,7 @@ const PartnerMap: React.FC<Props> = ({
       <View style={mapChildrenStyle.card} key={index}>
         <View style={rowStyle} key={index}>
           <View style={{ alignItems: 'flex-start', marginTop: '6%' }}>
-            <ImageComponent imageStyle={listImageStyle} url={item?.avatarUrl} />
+            <ImageComponent imageStyle={listImageStyle} url={item.avatarUrl} />
           </View>
           <View style={{ marginTop: '6.5%' }}>
             <View style={{ alignItems: 'flex-start' }}>
@@ -207,12 +210,12 @@ const PartnerMap: React.FC<Props> = ({
                   latitude: value.address.latitude,
                   longitude: value.address.longitude,
                 }}
-                image={require('../../img/icon.png')}
+                image={require('../../img/allcoolIcon.png')}
               />
             ))}
 
             <Marker
-              title={'Você está  aqui!'}
+              title={'Você está aqui!'}
               coordinate={{
                 latitude: userLocation!.latitude,
                 longitude: userLocation!.longitude,
