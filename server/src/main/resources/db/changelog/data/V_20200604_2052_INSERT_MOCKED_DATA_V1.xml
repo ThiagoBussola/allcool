@@ -161,13 +161,28 @@
             <!-- ACHIEVEMENT FILE -->
             insert into file (id, url, filetype, filename, filedate)
             values ('bf431a6f-bbf2-4932-85c4-ea0cd1a81b74',
-            'https://allcool.s3.fr-par.scw.cloud/achievement/badge-1.png',
-            'png', 'achievement1', '2020-06-02 01:00:00');
+            'https://allcool.s3.fr-par.scw.cloud/achievement/primeiro-review.png',
+            'png', 'primeiro-review', '2020-06-02 01:00:00');
 
             insert into file (id, url, filetype, filename, filedate)
-            values ('98c8e4da-b444-44bb-90f8-f074b8162758',
-            'https://allcoolapp-files.s3.amazonaws.com/54315s12433ds210134f51cf9bf5d6e-achievement2.PNG',
-            'png', 'achievement2', '2020-06-02 01:00:00');
+            values ('25da705d-3862-4d11-87b0-de399cf3a571',
+            'https://allcool.s3.fr-par.scw.cloud/achievement/badge-rei-da-ipa-sem-coroa.png',
+            'png', 'rei-da-ipa', '2020-10-14 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('fbcdde1c-7f46-4001-a4f2-273be0684999',
+            'https://allcool.s3.fr-par.scw.cloud/achievement/brahma-badge.png',
+            'png', 'brahma-badge', '2020-10-14 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('533bd2d4-ed91-436f-b9a2-a0415fa7d4f6',
+            'https://allcool.s3.fr-par.scw.cloud/achievement/colorado-badge-top.png',
+            'png', 'colorado', '2020-10-14 01:00:00');
+
+            insert into file (id, url, filetype, filename, filedate)
+            values ('830e3750-0ca4-4791-a325-6d4f45dffdf3',
+            'https://allcool.s3.fr-par.scw.cloud/achievement/another-badge-design.png',
+            'png', 'lager-master', '2020-10-14 01:00:00');
 
             <!-- PARTNER FILE -->
             insert into file (id, url, filetype, filename, filedate)
@@ -725,14 +740,27 @@
         </preConditions>
 
         <sql>
-            insert into achievement (id, product_id, file_id, title, description, achievementtype)
-            values ('ce583254-d732-4fe7-85fb-a11585399766', 'f0e11a71-8ff7-4e61-80b4-de0082665b73',
-            'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74', 'Mestre Cervejeiro', 'Você alcançou está entre os maiores ' ||
-            'cervejeiros do Allcool!', 'PRODUCT');
+            insert into achievement (id, file_id, title, description, achievementtype)
+            values ('ce583254-d732-4fe7-85fb-a11585399766', 'bf431a6f-bbf2-4932-85c4-ea0cd1a81b74',
+            'Primeiro Review', 'Bem vindo ao Allcool! Cervejeiros do Allcool!', 'PRODUCT_TYPE');
 
             insert into achievement (id, file_id, title, description, achievementtype)
-            values ('fdb671cc-9b08-11ea-bb37-0242ac130002', '98c8e4da-b444-44bb-90f8-f074b8162758', 'Lord of the Lager',
-            'Você realmente aprecia uma boa Lager!', 'PRODUCT_TYPE');
+            values ('b0d057af-5205-41b9-b214-1a7ae8873c18', '830e3750-0ca4-4791-a325-6d4f45dffdf3',
+            'Lager Master', 'Você realmente gosta de uma lager!', 'PRODUCT_TYPE');
+
+            insert into achievement (id, file_id, title, description, achievementtype)
+            values ('973fa838-b92f-4a38-ab7f-56a129b8c4d3', '533bd2d4-ed91-436f-b9a2-a0415fa7d4f6',
+            'Bem vindo a colorado', 'A primeira colorado a gente nunca esquece', 'PRODUCT_TYPE');
+
+            insert into achievement (id, file_id, product_id, title, description, achievementtype)
+            values ('9a150cbe-ba28-46a9-9f6b-5db747ddee8c', 'fbcdde1c-7f46-4001-a4f2-273be0684999',
+            'f0e11a71-8ff7-4e61-80b4-de0082665b73','Vai uma Brahma?', 'Vai uma brahminha ai?', 'PRODUCT_TYPE');
+
+            insert into achievement (id, file_id, title, description, achievementtype)
+            values ('42f4aaf4-ec8a-4071-9a37-9bbeb2c14e40', '25da705d-3862-4d11-87b0-de399cf3a571',
+            'Rei da IPA', 'Sua paixão pela IPA foi recompensada!', 'PRODUCT_TYPE');
+
+
         </sql>
     </changeSet>
 
@@ -743,8 +771,8 @@
 
         <sql>
             insert into achievementproducttype (id, achievement_id, producttype_id)
-            values ('81fe3846-9b10-11ea-bb37-0242ac130002', 'fdb671cc-9b08-11ea-bb37-0242ac130002',
-            '256b6606-97b6-11ea-bb37-0242ac130002');
+            values ('81fe3846-9b10-11ea-bb37-0242ac130002', '973fa838-b92f-4a38-ab7f-56a129b8c4d3',
+            'd6a0ed3a-82b7-4c10-9190-27a737faf454');
         </sql>
     </changeSet>
 
