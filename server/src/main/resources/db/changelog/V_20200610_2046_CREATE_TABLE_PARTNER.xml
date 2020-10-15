@@ -62,5 +62,32 @@
                                  referencedColumnNames="id"/>
 
     </changeSet>
+    
+     <changeSet id="add_avatar_partner" author="gabriel.hempel">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="avatar_id" tableName="partner"/>
+            </not>
+        </preConditions>
+
+		<addColumn tableName="partner">
+			<column name="avatar_id" type="uuid"></column>
+		</addColumn>
+
+    </changeSet>
+    
+    <changeSet id="add-ptr_avatarid_fk" author="gabriel_hempel">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="ptr_avatarid_fk" foreignKeyTableName="partner"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="partner" baseColumnNames="avatar_id"
+                                 constraintName="ptr_avatarid_fk" referencedTableName="file"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+    
 
 </databaseChangeLog>

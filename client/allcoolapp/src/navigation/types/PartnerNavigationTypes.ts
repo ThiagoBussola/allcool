@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 type PartnerContainerStackParamList = {
   PartnerContainer: { partnerId: string; userId: string };
   Products: { userId: string } | undefined;
+  PartnerMap: { partnerId: string };
 };
 
 export type PartnerContainerNavigationProp = StackNavigationProp<
@@ -19,6 +20,7 @@ export type PartnerContainerRouteProp = RouteProp<
 type PartnerListStackParamList = {
   Partners: { userId: string };
   PartnerContainer: { partnerId: string };
+  PartnerMap: { partnerId: string };
 };
 
 export type PartnerListNavigationProp = StackNavigationProp<
@@ -29,4 +31,20 @@ export type PartnerListNavigationProp = StackNavigationProp<
 export type PartnersListRouteProp = RouteProp<
   PartnerListStackParamList,
   'Partners'
+>;
+
+type PartnerMapStackParamList = {
+  Partners: { userId: string };
+  PartnerContainer: { partnerId: string };
+  PartnerMap: { partnerId: string };
+};
+
+export type PartnerMapNavigationProp = StackNavigationProp<
+  PartnerMapStackParamList,
+  'PartnerMap'
+>;
+
+export type PartnersMapRouteProp = RouteProp<
+  PartnerMapStackParamList,
+  'PartnerMap'
 >;

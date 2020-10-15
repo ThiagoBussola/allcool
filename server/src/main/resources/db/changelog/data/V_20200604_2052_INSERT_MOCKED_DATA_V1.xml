@@ -174,12 +174,37 @@
             values ('6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80',
             'https://allcool.s3.fr-par.scw.cloud/partners/azeitona.png',
             'png', 'partnerpic1', '2020-07-02 01:00:00');
-
             insert into file (id, url, filetype, filename, filedate)
             values ('ec4fca28-a92f-45f2-ba1b-bbe057c85fb4',
-            'https://allcool.s3.fr-par.scw.cloud/partners/agua-doce-cachacaria.png',
-            'png', 'partnerpic2', '2020-08-02 01:00:00');
-
+            'https://allcool.s3.fr-par.scw.cloud/partners/agua-doce-cachacaria.png', 'png',
+            'partnerpic2', '2020-08-02 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('5ed4aa50-3856-4f8a-94c9-923cc0384a36',
+            'https://allcool.s3.fr-par.scw.cloud/partners/democratico-rock-bar.jpg', 'jpg',
+            'partnerpic3', '2020-08-29 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('29390b84-3ab8-41f2-b00f-f2f37290a5e7',
+            'https://allcool.s3.fr-par.scw.cloud/partners/coronel.jpg', 'jpg',
+            'partnerpic4', '2020-08-29 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('eb76e3ee-c776-4a1e-8d44-48590e527a70',
+            'https://allcool.s3.fr-par.scw.cloud/partners/afonso.JPG', 'jpg',
+            'partnerpic5', '2020-08-29 01:00:00');
+            
+             <!-- PARTNER AVATAR FILE -->
+            insert into file (id, url, filetype, filename, filedate)
+            values ('2ca9ea86-a770-49d7-b8e9-8d7c46bb576c',
+            'https://allcool.s3.fr-par.scw.cloud/partners/avatar/agua-doce-logo.png',
+            'png', 'partnerpic1', '2020-10-08 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('b4c9dac1-71e7-45de-a147-d4659f6af600',
+            'https://allcool.s3.fr-par.scw.cloud/partners/avatar/coronel-logo.png', 'png',
+            'partnerpic2', '2020-10-08 01:00:00');
+            insert into file (id, url, filetype, filename, filedate)
+            values ('906215b4-009d-4a8e-97cf-62cbbb6744e4',
+            'https://allcool.s3.fr-par.scw.cloud/partners/avatar/democrativos-logo.png', 'png',
+            'partnerpic3', '2020-10-08 01:00:00');
+            
 
             <!-- REVIEW FILE -->
             insert into file (id, url, filetype, filename, filedate)
@@ -754,15 +779,25 @@
         </preConditions>
 
         <sql>
-            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
             values ('c610a5c3-9746-43be-a1e4-5435411b0328', '87050-720', 'Av. Sen. Petrônio Portela 282',
-            'Jardim Aclimacao', 'Maringá', 'PR');
-            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            'Jardim Aclimacao', 'Maringá', 'PR', -23.4449098, -51.9202928);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
             values ('28fd5d3c-97b2-11ea-bb37-0242ac130002', '87015-001', 'Av. Dr. Luiz Teixeira Mendes 1550', 'Zona 05',
-            'Maringá', 'PR');
-            insert into address (id, zipcode, publicplace, district, locality, federatedunit)
+            'Maringá', 'PR', -23.4353793, -51.9595255);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
             values ('27d20235-837b-48ca-bf67-f0b9f06379b9', '87070-170', 'Av. Virgílio Manilia, 21784',
-            ' Jardim Ouro Cola', 'Maringá', 'PR');
+            'Jardim Ouro Cola', 'Maringá', 'PR', -23.4129652,-51.9906073);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
+            values ('138e7fee-704c-45a6-8516-ac8b10d1e1b5', '87020-190', 'Rua Paranaguá, 78', 'Zona 07',
+            'Maringá', 'PR', -23.4116025, -51.9454643);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
+            values ('c2b93999-c7a0-4563-a808-d52985e0cd48', '87020-190', 'Rua Paranaguá, 173', 'Zona 07',
+            'Maringá', 'PR', -23.4109913, -51.9439829);
+            insert into address (id, zipcode, publicplace, district, locality, federatedunit, latitude, longitude)
+            values ('20eb20f8-44a8-4073-a268-bab5dbb82441', '87020-190', 'Rua Paranaguá, 124', 'Zona 07',
+            'Maringá', 'PR', -23.4113064, -51.9435349);
+
         </sql>
     </changeSet>
 
@@ -776,11 +811,19 @@
             values('68a0e950-37b8-4f01-9f40-f33fdfbc8720', 'c610a5c3-9746-43be-a1e4-5435411b0328',
             '6bc0f907-9dc3-4b2a-a0aa-1798e5f37e80', 'Bar do Azeitona', 'Espetinhos, pastéis e caldos, mais cervejas,' ||
             ' em ponto de encontro simples e descontraído com mesas de sinuca.', '(44) 3026-2015', 5.00);
-            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating)
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating, avatar_id)
             values('d0c4238f-a9c9-452b-9c09-315e19d46506', '28fd5d3c-97b2-11ea-bb37-0242ac130002',
             'ec4fca28-a92f-45f2-ba1b-bbe057c85fb4','Água Doce Cachaçaria',
             'Lugar charmoso e aconchegante, com porções variadas e deliciosas, segundo nossos clientes, temos o ' ||
-            'melhor escondidinho do Paraná.', '(44) 3225-2918', 5.00);
+            'melhor escondidinho do Paraná.', '(44) 3225-2918', 5.00, '2ca9ea86-a770-49d7-b8e9-8d7c46bb576c');  
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating, avatar_id)
+            values('9b6e9734-e22c-44da-b6b5-6adb4b3c070e', '138e7fee-704c-45a6-8516-ac8b10d1e1b5',
+            '5ed4aa50-3856-4f8a-94c9-923cc0384a36','Democrático Bar', 'Ótimo bar com inúmeras opções de bebidas.', 
+            '(44) 3346-6511', 5.00, '906215b4-009d-4a8e-97cf-62cbbb6744e4');            
+            insert into partner(id, address_id, file_id, partnername, description, phonenumber, rating, avatar_id)
+            values('312d0e29-be4c-401f-a999-01fe5c8386df', 'c2b93999-c7a0-4563-a808-d52985e0cd48',
+            '29390b84-3ab8-41f2-b00f-f2f37290a5e7','Coronel Zacarias', 'Excelente bar com deliciosas porções e ótimos preços!', 
+            '(44) 3030-1551', 5.00, 'b4c9dac1-71e7-45de-a147-d4659f6af600');
         </sql>
     </changeSet>
 

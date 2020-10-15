@@ -79,8 +79,7 @@ public class PartnerServiceTest {
         assertThat(result).extracting(PartnerDTO::getId).containsExactly(partner.getId());
         assertThat(result).extracting(PartnerDTO::getPhoneNumber).containsExactly(partner.getPhoneNumber());
         assertThat(result).extracting(PartnerDTO::getName).containsExactly(partner.getName());
-        assertThat(result).extracting(PartnerDTO::getLocality).containsExactly("Maringa - PR");
-        assertThat(result).extracting(PartnerDTO::getAddress).containsExactly("Av. Paranagua, 138 - Zona 7");
+        assertThat(result).extracting(PartnerDTO::getAddress).containsExactly(partner.getAddress());
 
         verify(this.repository).findAll();
         verifyNoMoreInteractions(this.repository);

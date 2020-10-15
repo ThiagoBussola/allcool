@@ -18,7 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.allcool.config.security.TokenService;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
-import br.com.allcool.user.domain.UserClient;
 import br.com.allcool.user.repository.UserClientRepository;
 
 @RunWith(SpringRunner.class)
