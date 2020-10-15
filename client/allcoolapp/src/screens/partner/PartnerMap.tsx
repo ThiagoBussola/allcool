@@ -46,10 +46,11 @@ const mapRef = React.createRef<MapView>();
 const PartnerMap: React.FC<Props> = ({
   navigation,
   route: {
-    params: { partner },
+    params: { partnerId },
   },
 }) => {
   const [partners, setPartners] = useState<PartnerDTO[]>([]);
+  const [partner, setPartner] = useState<PartnerDTO>();
   const [userLocation, setUserLocation] = useState<UserLocation>();
   const [loading, setLoading] = useLoading();
   const [firstItem, setFirstItem] = useState<number | undefined>();
@@ -66,11 +67,13 @@ const PartnerMap: React.FC<Props> = ({
         .then(({ data }) => {
           setPartners(data);
 
-          const firstIndex = data.findIndex((p) => p.id === partner?.id);
+          const firstIndex = data.findIndex((p) => p.id === partnerId);
 
           if (firstIndex) {
+            setPartner(data[firstIndex]);
             setFirstItem(firstIndex);
           } else {
+            setPartner(data[0]);
             setFirstItem(0);
           }
         })
@@ -82,7 +85,7 @@ const PartnerMap: React.FC<Props> = ({
         )
     );
     //eslint-disable-next-line
-  }, [partner.id]);
+  }, []);
 
   const deniedAcessUserLocation = () => {
     setSnackbarState({
@@ -112,11 +115,11 @@ const PartnerMap: React.FC<Props> = ({
 
   const centerMapOnMarker = (markerIndex: number) => {
     if (mapRef && mapRef.current && markerIndex >= 0) {
-      const partner: PartnerDTO = { ...partners[markerIndex] };
+      const partnerSelected: PartnerDTO = { ...partners[markerIndex] };
 
       mapRef.current.animateToRegion({
-        latitude: partner.address.latitude,
-        longitude: partner.address.longitude,
+        latitude: partnerSelected.address.latitude,
+        longitude: partnerSelected.address.longitude,
         latitudeDelta: ZOOM_LATITUDADE,
         longitudeDelta: ZOOM_LONGITUDE,
       });
@@ -125,7 +128,7 @@ const PartnerMap: React.FC<Props> = ({
 
   const renderItem = ({ item, index }) => {
     return (
-      <View style={styles.card} key={index}>
+      <View style={mapChildrenStyle.card} key={index}>
         <View style={rowStyle} key={index}>
           <View style={{ alignItems: 'flex-start', marginTop: '6%' }}>
             <ImageComponent imageStyle={listImageStyle} url={item?.avatarUrl} />
@@ -172,15 +175,18 @@ const PartnerMap: React.FC<Props> = ({
     );
   };
 
+  const showMap =
+    userLocation && partner?.id && partners && partners.length > 0;
+
   return (
     <>
-      {userLocation && partners && partners.length > 0 ? (
+      {showMap ? (
         <View style={{ flex: 1 }}>
           <MapView
             ref={mapRef}
             region={{
-              latitude: partner.address.latitude,
-              longitude: partner.address.longitude,
+              latitude: partner!.address.latitude,
+              longitude: partner!.address.longitude,
               latitudeDelta: ZOOM_LATITUDADE,
               longitudeDelta: ZOOM_LONGITUDE,
             }}
@@ -206,16 +212,15 @@ const PartnerMap: React.FC<Props> = ({
             ))}
 
             <Marker
-              title={'SUPER XANDÃO'}
-              description={'PEITO DE AÇO'}
+              title={'Você está  aqui!'}
               coordinate={{
-                latitude: userLocation.latitude,
-                longitude: userLocation.longitude,
+                latitude: userLocation!.latitude,
+                longitude: userLocation!.longitude,
               }}
             />
           </MapView>
 
-          <View style={styles.scrollView}>
+          <View style={mapChildrenStyle.scrollView}>
             {firstItem && firstItem >= 0 && (
               <Carousel
                 firstItem={firstItem}
@@ -252,11 +257,7 @@ const PartnerMap: React.FC<Props> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  tex: {
-    fontSize: 15,
-    marginBottom: 10,
-  },
+const mapChildrenStyle = StyleSheet.create({
   scrollView: {
     position: 'absolute',
     bottom: 0,
@@ -278,44 +279,6 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: 'hidden',
-  },
-  cardImage: {
-    flex: 3,
-    width: '100%',
-    height: '100%',
-    alignSelf: 'center',
-  },
-  cardDescription: {
-    fontSize: 12,
-    color: '#444',
-  },
-  markerWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 50,
-    height: 50,
-  },
-  marker: {
-    width: 30,
-    height: 30,
-  },
-  button: {
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  signIn: {
-    width: '100%',
-    padding: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 3,
-    borderColor: '#ffbf00',
-    borderWidth: 1,
-  },
-  textSign: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#ffbf00',
   },
 });
 

@@ -6,7 +6,7 @@ import {
 } from '../../navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import { boldTextStyles, textStyles, mainStyles } from '../../styles';
-import { Headline, Chip, Text } from 'react-native-paper';
+import { Headline, Chip, Text, FAB } from 'react-native-paper';
 import { PartnerService } from '../../service';
 import { PartnerViewDTO } from '../../types/dto';
 import {
@@ -162,6 +162,15 @@ const PartnerContainer: React.FC<Props> = ({
           </View>
         </ScrollView>
       )}
+      <FAB
+        accessibilityStates
+        style={mainStyles.fab}
+        icon="map-marker-radius"
+        onPress={() =>
+          navigation.navigate(`PartnerMap`, { partnerId: partner.id })
+        }
+      />
+
       <SnackbarNotification
         snackbarState={snackbarState}
         dismissSnackbar={() =>

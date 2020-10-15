@@ -76,7 +76,7 @@ const PartnerList: React.FC<Props> = ({
 
   const showPartnerLocalization = (partner: PartnerDTO) =>
     navigation.navigate(`PartnerMap`, {
-      partner: partner,
+      partnerId: partner.id,
     });
 
   const handleChange = (text: string) => {

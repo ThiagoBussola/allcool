@@ -1,10 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { PartnerDTO } from 'src/types/dto';
 
 type PartnerContainerStackParamList = {
   PartnerContainer: { partnerId: string; userId: string };
   Products: { userId: string } | undefined;
+  PartnerMap: { partnerId: string | undefined };
 };
 
 export type PartnerContainerNavigationProp = StackNavigationProp<
@@ -20,7 +20,7 @@ export type PartnerContainerRouteProp = RouteProp<
 type PartnerListStackParamList = {
   Partners: { userId: string };
   PartnerContainer: { partnerId: string };
-  PartnerMap: { partner: PartnerDTO };
+  PartnerMap: { partnerId: string };
 };
 
 export type PartnerListNavigationProp = StackNavigationProp<
@@ -36,7 +36,7 @@ export type PartnersListRouteProp = RouteProp<
 type PartnerMapStackParamList = {
   Partners: { userId: string };
   PartnerContainer: { partnerId: string };
-  PartnerMap: { partner: PartnerDTO };
+  PartnerMap: { partnerId: string };
 };
 
 export type PartnerMapNavigationProp = StackNavigationProp<
