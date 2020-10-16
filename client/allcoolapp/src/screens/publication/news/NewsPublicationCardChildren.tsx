@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card, Paragraph, IconButton } from 'react-native-paper';
-import { ReadOnlyStarRating } from '../../../components';
+import {
+  CardCoverImageComponent,
+  ReadOnlyStarRating,
+} from '../../../components';
 import { NewsDTO } from '../../../types/dto';
 
 type Props = {
@@ -17,9 +20,7 @@ const NewsPublicationCardChildren: React.FC<Props> = ({
   onLikePublication,
 }) => (
   <>
-    {!!news.pictureUrl && (
-      <Card.Cover accessibilityStates source={{ uri: news.pictureUrl }} />
-    )}
+    {!!news.pictureUrl && <CardCoverImageComponent url={news.pictureUrl} />}
     <Card.Title
       accessibilityStates
       title={news.title}
