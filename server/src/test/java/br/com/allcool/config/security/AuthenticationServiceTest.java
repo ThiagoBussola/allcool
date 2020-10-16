@@ -17,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.allcool.config.security.AuthenticationService;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.person.repository.PersonRepository;
 

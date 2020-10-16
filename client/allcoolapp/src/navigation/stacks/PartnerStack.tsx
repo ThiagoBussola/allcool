@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { PartnerContainer, PartnerList } from '../../screens';
+import { PartnerContainer, PartnerList, PartnerMap } from '../../screens';
 import { rootStackOptions, screenStackOptions } from '../../styles';
 import { RouteProp } from '@react-navigation/native';
 import { MenuActionButton } from '../../components';
@@ -10,6 +10,7 @@ type PartnerRootStackParamList = {
   PartnerStack: { userId: string };
   Partners: { userId: string };
   PartnerContainer: { userId: string };
+  PartnerMap: { userId: string };
 };
 
 const RootStack = createStackNavigator<PartnerRootStackParamList>();
@@ -56,6 +57,12 @@ const PartnerStack: React.FC<Props> = ({
           name="PartnerContainer"
           options={screenStackOptions('Parceiro')}
           component={PartnerContainer}
+          initialParams={{ userId }}
+        />
+        <RootStack.Screen
+          name="PartnerMap"
+          options={screenStackOptions('Mapa dos Parceiros')}
+          component={PartnerMap}
           initialParams={{ userId }}
         />
       </RootStack.Navigator>

@@ -1,7 +1,6 @@
 package br.com.allcool.publication.resource;
 
 import br.com.allcool.dto.PublicationDTO;
-import br.com.allcool.publication.domain.Publication;
 import br.com.allcool.publication.service.PublicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

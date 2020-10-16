@@ -1,5 +1,7 @@
 package br.com.allcool.converter;
 
+import java.util.Objects;
+
 import br.com.allcool.dto.WorkingPeriodDTO;
 import br.com.allcool.partner.domain.WorkingPeriod;
 
@@ -9,7 +11,7 @@ public class WorkingPeriodDTOConverter {
 
         WorkingPeriodDTO dto = new WorkingPeriodDTO();
 
-        if (workingPeriod == null) {
+        if (Objects.isNull(workingPeriod)) {
             return dto;
         }
 

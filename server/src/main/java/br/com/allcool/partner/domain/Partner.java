@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -43,6 +44,10 @@ public class Partner {
     @JoinColumn(name = "file_id")
     private File file;
 
+    @OneToOne
+    @JoinColumn(name = "avatar_id")
+    private File avatar;
+    
     @NotBlank
     @Length(max = 100)
     @Column(name = "partnername")

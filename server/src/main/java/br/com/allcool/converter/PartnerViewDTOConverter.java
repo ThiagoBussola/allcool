@@ -18,7 +18,7 @@ public class PartnerViewDTOConverter {
 
         WorkingPeriodDTOConverter workingPeriodDTOConverter = new WorkingPeriodDTOConverter();
 
-        if (partner == null) {
+        if (Objects.isNull(partner)) {
             return dto;
         }
 

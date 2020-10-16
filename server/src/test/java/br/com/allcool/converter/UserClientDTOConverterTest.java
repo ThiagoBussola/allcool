@@ -1,16 +1,12 @@
 package br.com.allcool.converter;
 
 import br.com.allcool.dto.UserClientDTO;
-import br.com.allcool.dto.WorkingPeriodDTO;
 import br.com.allcool.file.domain.File;
-import br.com.allcool.partner.domain.Partner;
-import br.com.allcool.partner.domain.WorkingPeriod;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.user.domain.UserClient;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;

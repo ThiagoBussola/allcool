@@ -1,5 +1,7 @@
 package br.com.allcool.converter;
 
+import java.util.Objects;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -23,7 +25,7 @@ public class BooleanToYesOrNo implements AttributeConverter<Boolean, String> {
     @Override
     public Boolean convertToEntityAttribute(String dbData) {
 
-        if (dbData == null) {
+        if (Objects.isNull(dbData)) {
             return null;
         }
 

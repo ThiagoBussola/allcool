@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
-import { Divider, Title, Subheading, Searchbar } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  Divider,
+  Title,
+  Subheading,
+  Searchbar,
+  IconButton,
+} from 'react-native-paper';
 import { PartnerService } from '../../service';
 import { rowStyle, mainStyles } from '../../styles';
 import { PartnerDTO } from '../../types/dto';
@@ -69,6 +74,11 @@ const PartnerList: React.FC<Props> = ({
       partnerId: partner.id,
     });
 
+  const showPartnerLocalization = (partner: PartnerDTO) =>
+    navigation.navigate(`PartnerMap`, {
+      partnerId: partner.id,
+    });
+
   const handleChange = (text: string) => {
     if (text) {
       return setSearch(text);
@@ -106,15 +116,22 @@ const PartnerList: React.FC<Props> = ({
                     <View>
                       <Subheading style={mainStyles.subHeading}>
                         {`${
-                          item.address.length > 40
-                            ? item.address.slice(0, 40).concat('...')
-                            : item.address
+                          item.address.publicPlace.length > 40
+                            ? item.address.publicPlace
+                                .slice(0, 40)
+                                .concat('...')
+                            : item.address.publicPlace
                         }`}
                       </Subheading>
                     </View>
                     <View>
                       <Subheading style={mainStyles.subHeading}>
-                        {`${item.locality}`} - {`${item.phoneNumber}`}
+                        {`${
+                          item.address.locality.length > 40
+                            ? item.address.locality.slice(0, 40).concat('...')
+                            : item.address.locality
+                        }`}
+                        - {`${item.phoneNumber}`}
                       </Subheading>
                     </View>
                   </View>
@@ -126,10 +143,12 @@ const PartnerList: React.FC<Props> = ({
                       flexDirection: 'row-reverse',
                     }}
                   >
-                    <MaterialCommunityIcons
-                      name="map-search-outline"
+                    <IconButton
+                      accessibilityStates
+                      icon="map-search-outline"
                       color={'#ffbf00'}
-                      size={50}
+                      size={40}
+                      onPress={() => showPartnerLocalization(item)}
                     />
                   </View>
                 </View>
