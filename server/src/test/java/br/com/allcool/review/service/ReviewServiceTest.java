@@ -8,6 +8,7 @@ import br.com.allcool.enums.FlavorTypeEnum;
 import br.com.allcool.exception.CreationNotPermittedException;
 import br.com.allcool.exception.DataNotFoundException;
 import br.com.allcool.file.domain.File;
+import br.com.allcool.file.service.FileService;
 import br.com.allcool.person.domain.Person;
 import br.com.allcool.product.domain.Product;
 import br.com.allcool.publication.domain.Publication;
@@ -20,7 +21,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +33,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -46,6 +51,9 @@ public class ReviewServiceTest {
 
     @Mock
     private PublicationRepository publicationRepository;
+
+    @Mock
+    private FileService fileService;
 
     @Test
     public void findAllByProductId() {
@@ -254,6 +262,32 @@ public class ReviewServiceTest {
 
         verify(this.repository).findById(id);
         verifyNoMoreInteractions(this.repository);
+    }
 
+    @Test
+    public void saveReviewPicture() throws IOException {
+
+        MockMultipartFile mockMultipartFile = new MockMultipartFile(
+                "fileData",
+                "teste.jpeg",
+                "text/plain",
+                "{\"key1\": \"value1\"}".getBytes());
+
+        UUID id = UUID.randomUUID();
+
+        Review review = new Review();
+        review.setId(id);
+
+        when(this.repository.findById(id)).thenReturn(Optional.of(review));
+        when(this.fileService.createImage(mockMultipartFile, "reviews", id))
+                .thenReturn(new File());
+        when(this.repository.save(review)).thenReturn(review);
+
+        this.service.saveReviewPicture(mockMultipartFile, id);
+
+        verify(this.repository).findById(id);
+        verify(this.fileService).createImage(mockMultipartFile, "reviews", id);
+        verify(this.repository).save(review);
+        verifyNoMoreInteractions(this.fileService, this.repository);
     }
 }
