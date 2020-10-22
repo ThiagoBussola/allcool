@@ -166,9 +166,7 @@ const PartnerContainer: React.FC<Props> = ({
         accessibilityStates
         style={mainStyles.fab}
         icon="map-marker-radius"
-        onPress={() =>
-          navigation.navigate(`PartnerMap`, { partnerId: partner.id })
-        }
+        onPress={() => navigation.navigate(`PartnerMap`, { partnerId })}
       />
 
       <SnackbarNotification

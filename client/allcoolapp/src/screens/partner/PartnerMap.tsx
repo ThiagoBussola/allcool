@@ -56,7 +56,7 @@ const PartnerMap: React.FC<Props> = ({
     longitude: 0,
   });
   const [loading, setLoading] = useLoading();
-  const [firstItem, setFirstItem] = useState<number | undefined>();
+  const [firstItem, setFirstItem] = useState<number | undefined>(undefined);
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
     visible: false,
@@ -72,12 +72,9 @@ const PartnerMap: React.FC<Props> = ({
 
           const firstIndex = data.findIndex((p) => p.id === partnerId);
 
-          if (firstIndex) {
+          if (firstIndex >= 0) {
             setPartner(data[firstIndex]);
             setFirstItem(firstIndex);
-          } else {
-            setPartner(data[0]);
-            setFirstItem(0);
           }
         })
         .catch(({ response }) =>
@@ -90,7 +87,7 @@ const PartnerMap: React.FC<Props> = ({
     //eslint-disable-next-line
   }, []);
 
-  const deniedAcessUserLocation = () => {
+  const deniedAccessUserLocation = () => {
     setSnackbarState({
       message: 'É necessário informar sua localização para abrir o mapa',
       visible: true,
@@ -107,7 +104,7 @@ const PartnerMap: React.FC<Props> = ({
           longitude: pos.coords.longitude,
         });
       },
-      () => deniedAcessUserLocation()
+      () => deniedAccessUserLocation()
     );
   };
 
@@ -129,13 +126,18 @@ const PartnerMap: React.FC<Props> = ({
     }
   };
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({ item }) => {
     return (
-      <View style={mapChildrenStyle.card} key={index}>
-        <View style={rowStyle} key={index}>
-          <View style={{ alignItems: 'flex-start', marginTop: '6%' }}>
-            <ImageComponent imageStyle={listImageStyle} url={item.avatarUrl} />
-          </View>
+      <View style={mapChildrenStyle.card}>
+        <View style={rowStyle}>
+          {item.avatarUrl && (
+            <View style={{ alignItems: 'flex-start', marginTop: '6%' }}>
+              <ImageComponent
+                imageStyle={listImageStyle}
+                url={item.avatarUrl}
+              />
+            </View>
+          )}
           <View style={{ marginTop: '6.5%' }}>
             <View style={{ alignItems: 'flex-start' }}>
               <Title style={mainStyles.title}>{item.name}</Title>
@@ -223,12 +225,12 @@ const PartnerMap: React.FC<Props> = ({
             />
           </MapView>
 
-          <View style={mapChildrenStyle.scrollView}>
-            {firstItem && firstItem >= 0 && (
+          {partner?.id && firstItem! >= 0 && (
+            <View style={mapChildrenStyle.scrollView}>
               <Carousel
                 firstItem={firstItem}
                 onSnapToItem={(index) => centerMapOnMarker(index)}
-                data={partners}
+                data={partners || []}
                 renderItem={renderItem}
                 sliderWidth={SLIDER_WIDTH}
                 itemWidth={ITEM_WIDTH}
@@ -236,8 +238,8 @@ const PartnerMap: React.FC<Props> = ({
                 inactiveSlideOpacity={0.5}
                 activeAnimationType={'spring'}
               />
-            )}
-          </View>
+            </View>
+          )}
         </View>
       ) : (
         <EmptyListPlaceholder
