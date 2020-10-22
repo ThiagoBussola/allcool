@@ -4,6 +4,7 @@ import {
   SnackbarState,
   EmptyListPlaceholder,
   ReadOnlyStarRating,
+  CardCoverImageComponent,
 } from '../../components';
 import { useLoading } from '../../hooks';
 import { ReviewService } from '../../service';
@@ -61,12 +62,9 @@ const ProductReviewList: React.FC<Props> = ({
                   }}
                 >
                   {reviewDTO.pictureUrl && (
-                    <Card.Cover
-                      accessibilityStates
-                      style={{
-                        height: 125,
-                      }}
-                      source={{ uri: reviewDTO.pictureUrl }}
+                    <CardCoverImageComponent
+                      url={reviewDTO.pictureUrl}
+                      cardHeight={125}
                     />
                   )}
                   <Card.Title

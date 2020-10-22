@@ -2,15 +2,20 @@ package br.com.allcool.review.resource;
 
 import br.com.allcool.dto.ReviewDTO;
 import br.com.allcool.dto.ReviewFormDTO;
+import br.com.allcool.review.domain.Review;
 import br.com.allcool.review.service.ReviewService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,11 +37,9 @@ public class ReviewResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveReview(@RequestBody ReviewFormDTO review) {
+    public ResponseEntity<Review> saveReview(@RequestBody ReviewFormDTO review) {
 
-        this.service.saveReview(review);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(this.service.saveReview(review));
     }
 
     @GetMapping("/products/{productId}/users/{userId}/verify-user-review")
@@ -50,5 +53,14 @@ public class ReviewResource {
     public ResponseEntity<ReviewDTO> findById(@PathVariable("id") UUID id) {
 
         return ResponseEntity.ok(this.service.findById(id));
+    }
+
+    @PostMapping("/{reviewId}/upload-picture")
+    public ResponseEntity<Void> saveReviewPicture(@PathVariable("reviewId") UUID reviewId,
+                                                  @RequestParam("image") MultipartFile file) throws IOException {
+
+        this.service.saveReviewPicture(file, reviewId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

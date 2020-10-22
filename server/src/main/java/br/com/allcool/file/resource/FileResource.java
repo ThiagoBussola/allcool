@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/files")
@@ -22,9 +23,9 @@ public class FileResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Void> createFile(@RequestParam("image") MultipartFile file) throws IOException {
 
-        this.service.createImage(file);
+        this.service.createImage(file, "files", UUID.randomUUID());
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

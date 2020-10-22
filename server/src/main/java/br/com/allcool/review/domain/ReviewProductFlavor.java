@@ -1,10 +1,10 @@
 package br.com.allcool.review.domain;
 
 import br.com.allcool.enums.FlavorTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -35,6 +35,7 @@ public class ReviewProductFlavor {
     private UUID id;
 
     @NotNull
+    @JsonIgnoreProperties("flavors")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;

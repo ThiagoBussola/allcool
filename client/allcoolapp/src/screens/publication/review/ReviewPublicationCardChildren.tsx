@@ -1,7 +1,10 @@
 import React from 'react';
 import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
 import { ReviewDTO } from '../../../types/dto';
-import { ReadOnlyStarRating } from '../../../components';
+import {
+  CardCoverImageComponent,
+  ReadOnlyStarRating,
+} from '../../../components';
 
 type Props = {
   review: ReviewDTO;
@@ -19,7 +22,7 @@ const ReviewPublicationCardChildren: React.FC<Props> = ({
   return (
     <>
       {!!review.pictureUrl && (
-        <Card.Cover accessibilityStates source={{ uri: review.pictureUrl }} />
+        <CardCoverImageComponent url={review.pictureUrl} />
       )}
       <Card.Title
         accessibilityStates
