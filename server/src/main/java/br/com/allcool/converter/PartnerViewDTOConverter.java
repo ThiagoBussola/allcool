@@ -26,7 +26,6 @@ public class PartnerViewDTOConverter {
         dto.setName(partner.getName());
         dto.setDescription(partner.getDescription());
         dto.setPhoneNumber(partner.getPhoneNumber());
-        dto.setRating(partner.getRating());
         dto.setAddress(buildStringAddress(partner.getAddress()));
         dto.setLocality(buildStringLocality(partner.getAddress()));
 

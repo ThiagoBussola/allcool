@@ -49,7 +49,6 @@ public class PartnerViewDTOConverterTest {
         partner.setName("MPB Bar");
         partner.setDescription("Bar de Emo, que o Gabriel gosta");
         partner.setPhoneNumber("992448023");
-        partner.setRating(BigDecimal.valueOf(3.5));
         partner.setFile(file);
         partner.setWorkingPeriods(workingPeriodList);
         partner.setAddress(address);
@@ -60,7 +59,6 @@ public class PartnerViewDTOConverterTest {
         assertThat(dto.getName()).isEqualTo(partner.getName());
         assertThat(dto.getDescription()).isEqualTo(partner.getDescription());
         assertThat(dto.getPhoneNumber()).isEqualTo(partner.getPhoneNumber());
-        assertThat(dto.getRating()).isEqualTo(partner.getRating());
         assertThat(dto.getFileDTO()).isEqualTo(new FileDTO(file.getId(), file.getUrl()));
         assertThat(dto.getWorkingPeriodDTOList()).containsExactlyInAnyOrder(this.workingPeriodDTOConverter.to(workingPeriod));
         assertThat(dto.getLocality()).isEqualTo("Maringa - PR");

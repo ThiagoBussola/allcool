@@ -61,9 +61,6 @@ public class Partner {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
-    @NotNull
-    private BigDecimal rating = BigDecimal.ZERO;
-
     @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkingPeriod> workingPeriods = new ArrayList<>();
 
