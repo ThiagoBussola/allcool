@@ -72,7 +72,7 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
 
   const executeLogin = () => {
     LoginService.login({
-      email: loginState.email,
+      email: loginState.email.trim(),
       password: loginState.password,
     })
       .then((response) => {

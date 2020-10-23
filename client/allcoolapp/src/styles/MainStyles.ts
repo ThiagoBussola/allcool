@@ -15,14 +15,14 @@ export const mainStyles = StyleSheet.create({
   },
   input: {
     marginTop: '3%',
-    width: 300,
+    width: 350,
     fontSize: 18,
     fontFamily: 'Bebas Neue Pro Regular',
     borderRadius: 3,
     backgroundColor: '#fff',
   },
   button: {
-    width: 300,
+    width: 350,
     height: 42,
     backgroundColor: '#ffbf00',
     marginTop: '4%',
