@@ -6,7 +6,7 @@ import { mainStyles } from '../../styles';
 import { LoginService } from '../../service';
 import StorageService from '../../service/StorageService';
 import { LoginNavigationProp } from '../../navigation';
-import { Loading, SnackbarNotification, SnackbarState } from '../../components';
+import { SnackbarNotification, SnackbarState } from '../../components';
 
 type Props = {
   navigation: LoginNavigationProp;
