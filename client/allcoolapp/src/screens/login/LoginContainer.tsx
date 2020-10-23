@@ -7,7 +7,6 @@ import { LoginService } from '../../service';
 import StorageService from '../../service/StorageService';
 import { LoginNavigationProp } from '../../navigation';
 import { Loading, SnackbarNotification, SnackbarState } from '../../components';
-import { useLoading } from '../../hooks';
 
 type Props = {
   navigation: LoginNavigationProp;
@@ -26,7 +25,6 @@ const initialState: LoginFormType = {
 };
 
 const LoginContainer: React.FC<Props> = ({ navigation }) => {
-  const [loading, setLoading] = useLoading();
   const [loginState, setLoginState] = useState<LoginFormType>(initialState);
   const [alreadyLogged, setAlreadyLogged] = useState(true);
   const [snackbarState, setSnackbarState] = useState<SnackbarState>({
@@ -73,89 +71,81 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
   };
 
   const executeLogin = () => {
-    setLoading(
-      LoginService.login({
-        email: loginState.email.trim(),
-        password: loginState.password,
-      })
-        .then((response) => {
-          StorageService.storeUserClient(response.data.userId);
-          StorageService.storeKey('JWT-Token', response.data.token).then(
-            async () => {
-              const id = await StorageService.getKey('userId');
+    LoginService.login({
+      email: loginState.email.trim(),
+      password: loginState.password,
+    })
+      .then((response) => {
+        StorageService.storeUserClient(response.data.userId);
+        StorageService.storeKey('JWT-Token', response.data.token).then(
+          async () => {
+            const id = await StorageService.getKey('userId');
 
-              return navigation.replace('Drawer', { userId: id || '' });
-            }
-          );
-        })
-        .catch((error) => {
-          if (error.response !== undefined && error.response.status === 400) {
-            wrongUsernameOrPasssord();
-          } else {
-            connectionWithProblems(error);
+            return navigation.replace('Drawer', { userId: id || '' });
           }
-        })
-    );
+        );
+      })
+      .catch((error) => {
+        if (error.response !== undefined && error.response.status === 400) {
+          wrongUsernameOrPasssord();
+        } else {
+          connectionWithProblems(error);
+        }
+      });
   };
 
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          {!alreadyLogged && (
-            <SafeAreaView
-              style={[
-                mainStyles.container,
-                { justifyContent: 'center', alignItems: 'center' },
-              ]}
+      {!alreadyLogged && (
+        <SafeAreaView
+          style={[
+            mainStyles.container,
+            { justifyContent: 'center', alignItems: 'center' },
+          ]}
+        >
+          <View>
+            <Image
+              style={{ width: 75, height: 75 }}
+              source={require('../../img/AllcoolV1.1.png')}
+            />
+          </View>
+          <View>
+            <TextInput
+              accessibilityStates
+              style={mainStyles.input}
+              label="E-mail"
+              placeholder="Digite seu e-mail"
+              mode="outlined"
+              theme={{ colors: { primary: '#ffbf00' } }}
+              onChangeText={(value) => handleChange('email', value)}
+            />
+            <TextInput
+              accessibilityStates
+              style={mainStyles.input}
+              label="Senha"
+              placeholder="Digite sua senha"
+              secureTextEntry={true}
+              mode="outlined"
+              theme={{ colors: { primary: '#ffbf00' } }}
+              onChangeText={(value) => handleChange('password', value)}
+            />
+            <Button
+              accessibilityStates
+              style={mainStyles.button}
+              onPress={executeLogin}
+              mode="contained"
+              labelStyle={mainStyles.buttonText}
             >
-              <View>
-                <Image
-                  style={{ width: 75, height: 75 }}
-                  source={require('../../img/AllcoolV1.1.png')}
-                />
-              </View>
-              <View>
-                <TextInput
-                  accessibilityStates
-                  style={mainStyles.input}
-                  label="E-mail"
-                  placeholder="Digite seu e-mail"
-                  mode="outlined"
-                  theme={{ colors: { primary: '#ffbf00' } }}
-                  onChangeText={(value) => handleChange('email', value)}
-                />
-                <TextInput
-                  accessibilityStates
-                  style={mainStyles.input}
-                  label="Senha"
-                  placeholder="Digite sua senha"
-                  secureTextEntry={true}
-                  mode="outlined"
-                  theme={{ colors: { primary: '#ffbf00' } }}
-                  onChangeText={(value) => handleChange('password', value)}
-                />
-                <Button
-                  accessibilityStates
-                  style={mainStyles.button}
-                  onPress={executeLogin}
-                  mode="contained"
-                  labelStyle={mainStyles.buttonText}
-                >
-                  Entrar
-                </Button>
-              </View>
-              <View style={{ position: 'relative', marginTop: '5%' }}>
-                <Text style={[mainStyles.subHeading]} onPress={() => {}}>
-                  Não tem uma conta?
-                  <Text style={{ color: '#ffbf00' }}> Cadastre-se.</Text>
-                </Text>
-              </View>
-            </SafeAreaView>
-          )}
-        </>
+              Entrar
+            </Button>
+          </View>
+          <View style={{ position: 'relative', marginTop: '5%' }}>
+            <Text style={[mainStyles.subHeading]} onPress={() => {}}>
+              Não tem uma conta?
+              <Text style={{ color: '#ffbf00' }}> Cadastre-se.</Text>
+            </Text>
+          </View>
+        </SafeAreaView>
       )}
       <SnackbarNotification
         snackbarState={snackbarState}
