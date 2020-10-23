@@ -50,8 +50,6 @@ public class PartnerRepositoryTest {
                 .containsExactly("Lugar com ambiente agradavel", "Local agradavel teste");
         assertThat(partnerList).extracting(Partner::getPhoneNumber)
                 .containsExactly("992448023", "995448027");
-        assertThat(partnerList).extracting(partner -> partner.getRating().toString())
-                .containsExactly("4.00", "5.00");
     }
 
     @Test
@@ -86,7 +84,6 @@ public class PartnerRepositoryTest {
         partner.setName("Teste parceiro");
         partner.setDescription("Lugar com ambiente agradavel");
         partner.setPhoneNumber("992448023");
-        partner.setRating(BigDecimal.valueOf(4));
 
         PartnerProduct partnerProduct = new PartnerProduct();
         partnerProduct.setPartner(partner);
@@ -110,7 +107,6 @@ public class PartnerRepositoryTest {
         assertThat(savedPartner.getName()).isEqualTo(partner.getName());
         assertThat(savedPartner.getDescription()).isEqualTo(partner.getDescription());
         assertThat(savedPartner.getPhoneNumber()).isEqualTo(partner.getPhoneNumber());
-        assertThat(savedPartner.getRating()).isEqualTo(partner.getRating());
     }
 
     @Test
@@ -120,15 +116,12 @@ public class PartnerRepositoryTest {
 
         assertThat(partnerBeforeUpdate.getId()).isEqualTo(PARTNER_ID);
         assertThat(partnerBeforeUpdate.getDescription()).isEqualTo("Lugar com ambiente agradavel");
-        assertThat(partnerBeforeUpdate.getRating().toString()).isEqualTo("4.00");
 
         partnerBeforeUpdate.setDescription("Lugar bacana");
-        partnerBeforeUpdate.setRating(BigDecimal.valueOf(5));
 
         Partner partnerAfterUpdate = this.repository.saveAndFlush(partnerBeforeUpdate);
 
         assertThat(partnerAfterUpdate.getId()).isEqualTo(PARTNER_ID);
         assertThat(partnerAfterUpdate.getDescription()).isEqualTo("Lugar bacana");
-        assertThat(partnerAfterUpdate.getRating()).isEqualTo(BigDecimal.valueOf(5));
     }
 }

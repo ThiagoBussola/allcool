@@ -15,7 +15,6 @@ import {
   Loading,
   ImageComponent,
 } from '../../components';
-import { Rating } from 'react-native-ratings';
 import { useLoading } from '../../hooks';
 
 type Props = {
@@ -90,15 +89,6 @@ const PartnerContainer: React.FC<Props> = ({
               <View style={{ marginTop: '3%' }}>
                 <Headline style={boldTextStyles}>{partner.name}</Headline>
               </View>
-              <View>
-                <Rating
-                  type="custom"
-                  startingValue={partner.rating}
-                  readonly
-                  imageSize={20}
-                />
-              </View>
-
               <View style={{ marginTop: '2%' }}>
                 <Text accessibilityStates style={textStyles}>
                   {partner.description}

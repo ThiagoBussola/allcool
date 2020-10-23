@@ -30,9 +30,6 @@
             <column name="phonenumber" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="rating" type="numeric(10,2)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
         <addPrimaryKey tableName="partner" columnNames="id" constraintName="partner_pk"/>
