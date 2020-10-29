@@ -24,7 +24,7 @@ const EmptyListPlaceholder: React.FC<Props> = ({
           >
             <Image
               style={listImageStyle}
-              source={require('../img/AllcoolV1.1.png')}
+              source={require('../img/AllcoolV2.png')}
               resizeMode="contain"
             />
           </View>

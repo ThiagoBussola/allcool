@@ -105,8 +105,8 @@ const LoginContainer: React.FC<Props> = ({ navigation }) => {
         >
           <View>
             <Image
-              style={{ width: 75, height: 75 }}
-              source={require('../../img/AllcoolV1.1.png')}
+              style={{ width: 125, height: 125 }}
+              source={require('../../img/AllcoolV2.png')}
             />
           </View>
           <View>
